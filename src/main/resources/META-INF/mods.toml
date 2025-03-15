@@ -33,7 +33,7 @@ description='''${mod_description}'''
     modId="botania"
     mandatory=true
     versionRange="${botania_version_range}"
-    ordering="NONE"
+    ordering="AFTER"
     side="BOTH"
 
 [[dependencies.${mod_id}]]
@@ -55,4 +55,25 @@ description='''${mod_description}'''
     mandatory=false
     versionRange="${jei_version_range}"
     ordering="NONE"
-    side="CLIENT"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="mantle"
+    mandatory=false
+    versionRange="${mantle_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="tconstruct"
+    mandatory=false
+    versionRange="${tinkers_version_range}"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="theoneprobe"
+    mandatory=false
+    versionRange="${top_version_range}"
+    ordering="NONE"
+    side="BOTH"

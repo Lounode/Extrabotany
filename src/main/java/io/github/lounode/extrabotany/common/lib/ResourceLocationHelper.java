@@ -1,4 +1,4 @@
-package io.github.lounode.extrabotany.common.item.lib;
+package io.github.lounode.extrabotany.common.lib;
 
 import io.github.lounode.extrabotany.ExtraBotany;
 import net.minecraft.client.resources.model.ModelResourceLocation;
