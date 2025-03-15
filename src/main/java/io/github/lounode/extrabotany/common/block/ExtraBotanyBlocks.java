@@ -6,6 +6,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -27,6 +28,6 @@ public final class ExtraBotanyBlocks {
     public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
         Item.Properties props = ExtraBotanyItems.defaultBuilder();
 
-        r.accept(new BlockItem(orichalcosBlock, props), BuiltInRegistries.BLOCK.getKey(orichalcosBlock));
+        r.accept(new BlockItem(orichalcosBlock, ExtraBotanyItems.defaultBuilder().rarity(Rarity.EPIC)), BuiltInRegistries.BLOCK.getKey(orichalcosBlock));
     }
 }

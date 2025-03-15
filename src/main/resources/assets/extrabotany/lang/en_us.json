@@ -1,5 +1,7 @@
 {
   "itemGroup.extrabotany": "Extra Botania",
   "item.extrabotany.zadkiel": "Zadkiel",
-  "message.item.zadkiel.use": "Zadkiel!"
+  "message.item.zadkiel.use": "Zadkiel!",
+  "extrabotany.category.name": "Extrabotany",
+  "extrabotany.category.desc": "extrabotany.category.desc"
 }

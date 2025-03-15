@@ -3,6 +3,7 @@ package io.github.lounode.extrabotany.common.item;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -14,7 +15,7 @@ public final class ExtraBotanyItems {
     private static final Map<ResourceLocation, Item> ALL = new LinkedHashMap<>();
 
     public static final Item zadkiel = make(prefix(LibItemNames.ZADKIEL), new ZadkielItem(defaultBuilder()));
-    public static final Item orichalcos = make(prefix(LibItemNames.ORICHALCOS), new Item(defaultBuilder()));
+    public static final Item orichalcos = make(prefix(LibItemNames.ORICHALCOS), new Item(defaultBuilder().rarity(Rarity.EPIC)));
 
     private static <T extends Item> T make(ResourceLocation id, T item) {
         var old = ALL.put(id, item);

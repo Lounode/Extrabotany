@@ -96,7 +96,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     //Botania
-    compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}:api")
+    compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}")
     runtimeOnly fg.deobf("vazkii.botania:Botania:${botania_version}")
 
     //Pachouli
@@ -113,10 +113,10 @@ dependencies {
     runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
 
     //Tinkers
-    compileOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
-    compileOnly fg.deobf("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tinkers_version}")
-    runtimeOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
-    runtimeOnly fg.deobf("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tinkers_version}")
+    //compileOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
+    //compileOnly fg.deobf("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tinkers_version}")
+    //runtimeOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
+    //runtimeOnly fg.deobf("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tinkers_version}")
 
     //TOP
     //compileOnly fg.deobf("mcjty.theoneprobe:theoneprobe:${minecraft_version}-${top_version}")
