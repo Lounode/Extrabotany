@@ -1,7 +1,24 @@
 {
   "itemGroup.extrabotany": "Extra Botania",
-  "item.extrabotany.zadkiel": "Zadkiel",
-  "message.item.zadkiel.use": "Zadkiel!",
   "extrabotany.category.name": "Extrabotany",
-  "extrabotany.category.desc": "extrabotany.category.desc"
+  "extrabotany.category.desc": "通过对植物魔法的深入了解，你发现了一个全新的魔法世界：$(br)这里有更多的$(thing)自然装置$()、$(thing)神秘工具$()和$(thing)饰品$()，以及最重要的：全新的$(thing)盖亚Boss$()。$(br2)享受你的$(thing)额外学$()之旅吧！",
+  
+  "block.extrabotany.aerialite_block": "Block of Aerialite",
+  "block.extrabotany.orichalcos_block": "Block of Orichalcos",
+  "block.extrabotany.photonium_block": "Block of Photonium",
+  "block.extrabotany.shadowium_block": "Block of Shadowium",
+  
+  "item.extrabotany.aerialite_ingot": "Aerialite Ingot",
+  "item.extrabotany.orichalcos_ingot": "Orichalcos Ingot",
+  "item.extrabotany.photonium_ingot": "Photonium Ingot",
+  "item.extrabotany.shadowium_ingot": "Shadowium Ingot",
+  "item.extrabotany.the_chaos": "The Chaos",
+  "item.extrabotany.the_origin": "The Origin",
+  "item.extrabotany.the_end": "The End",
+  "item.extrabotany.the_universe": "The Universe",
+  "item.extrabotany.zadkiel": "Zadkiel",
+  
+  "extrabotany.entry.zadkiel": "Zadkiel",
+  "extrabotany.page.zadkiel0": "通过$(thing)魔力$()将寒冷的冰雪与$(item)不死图腾$()融合，可以创造出一种能够调动寒冰的$(item)冰结傀儡$()。$(br2)持有它时，寒冷的气息将冻结周围的水源，并令你的敌人减速。$(br2)消耗一点点$(thing)魔力$()，它还可以调动为你而战的坚冰，刺向你的敌人。",
+  "extrabotany.page.zadkiel1": "不……不要摸我的头！"
 }

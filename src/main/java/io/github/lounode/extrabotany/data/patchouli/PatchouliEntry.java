@@ -2,8 +2,6 @@ package io.github.lounode.extrabotany.data.patchouli;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import io.github.lounode.datagenlib.patchouli.PatchouliBuilder;
-import io.github.lounode.datagenlib.patchouli.TextPage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 

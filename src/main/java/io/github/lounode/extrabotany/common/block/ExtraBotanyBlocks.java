@@ -20,14 +20,23 @@ import java.util.function.BiConsumer;
 public final class ExtraBotanyBlocks {
     public static final Block orichalcosBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.of().strength(3, 10).mapColor(MapColor.TERRACOTTA_PINK)
             .sound(SoundType.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops());
+    public static final Block photoniumBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(orichalcosBlock).mapColor(MapColor.TERRACOTTA_WHITE));
+    public static final Block shadowiumBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(orichalcosBlock).mapColor(MapColor.COLOR_BLACK));
+    public static final Block aerialiteBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(orichalcosBlock).mapColor(MapColor.LAPIS));
 
     public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {
         r.accept(orichalcosBlock, prefix(LibBlockNames.ORICHALCOS_BLOCK));
+        r.accept(photoniumBlock, prefix(LibBlockNames.PHOTONIUM_BLOCK));
+        r.accept(shadowiumBlock, prefix(LibBlockNames.SHADOWIUM_BLOCK));
+        r.accept(aerialiteBlock, prefix(LibBlockNames.AERIALITE_BLOCK));
     }
 
     public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
         Item.Properties props = ExtraBotanyItems.defaultBuilder();
 
         r.accept(new BlockItem(orichalcosBlock, ExtraBotanyItems.defaultBuilder().rarity(Rarity.EPIC)), BuiltInRegistries.BLOCK.getKey(orichalcosBlock));
+        r.accept(new BlockItem(photoniumBlock, props), BuiltInRegistries.BLOCK.getKey(photoniumBlock));
+        r.accept(new BlockItem(shadowiumBlock, props), BuiltInRegistries.BLOCK.getKey(shadowiumBlock));
+        r.accept(new BlockItem(aerialiteBlock, props), BuiltInRegistries.BLOCK.getKey(aerialiteBlock));
     }
 }
