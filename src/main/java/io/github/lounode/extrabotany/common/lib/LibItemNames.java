@@ -3,8 +3,6 @@ package io.github.lounode.extrabotany.common.lib;
 public final class LibItemNames {
     public static final String ZADKIEL = "zadkiel";
     public static final String ORICHALCOS = "orichalcos_ingot";
-    //public static final String Gilded_Potato;
-    //public static final String Gilded Mashed Potato;
     public static final String PHOTONIUM = "photonium_ingot";
     public static final String SHADOWIUM = "shadowium_ingot";
     public static final String AERIALITE_INGOT = "aerialite_ingot";
@@ -12,6 +10,23 @@ public final class LibItemNames {
     public static final String THE_ORIGIN = "the_origin";
     public static final String THE_END = "the_end";
     public static final String THE_UNIVERSE = "the_universe";
+    public static final String GILDED_POTATO = "gilded_potato";
+    public static final String GILDED_POTATO_MASHED = "gilded_potato_mashed";
+    public static final String DAS_RHEINGOLD = "das_rheingold";
+    public static final String HERO_MEDAL = "hero_medal";
+    public static final String MANA_READER = "mana_reader";
+    public static final String NATURE_ORB = "nature_orb";
+    public static final String NIGHTMARE_FUEL = "nightmare_fuel";
+    public static final String SPIRIT_FUEL = "spirit_fuel";
+    public static final String SPIRIT_FRAGMENT = "spirit_fragment";
+    public static final String CHALLENGE_TICKET = "challenge_ticket";
+    public static final String ORICHALCOS_NUGGET = "orichalcos_nugget";
+    public static final String PHOTONIUM_NUGGET = "photonium_nugget";
+    public static final String SHADOWIUM_NUGGET = "shadowium_nugget";
+    public static final String AERIALITE_NUGGET = "aerialite_nugget";
+
+
+
     //TODO
     /*
 

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "botania:life_essence"
+    },
+    "F": {
+      "item": "extrabotany:photonium_ingot"
+    },
+    "P": {
+      "item": "botania:gaia_ingot"
+    },
+    "S": {
+      "item": "extrabotany:shadowium_ingot"
+    }
+  },
+  "pattern": [
+    "ASA",
+    "FPF",
+    "ASA"
+  ],
+  "result": {
+    "item": "extrabotany:challenge_ticket"
+  },
+  "show_notification": true
+}

@@ -2,7 +2,6 @@ package io.github.lounode.extrabotany.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import io.github.lounode.extrabotany.common.helper.ItemNBTHelper;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -11,6 +10,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.item.BotaniaItems;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -45,6 +46,35 @@ public class RunicAltarProvider extends ExtraBotanyRecipeProvider{
                 Ingredient.of(Items.POWDER_SNOW_BUCKET),
                 Ingredient.of(Items.TOTEM_OF_UNDYING)
         ));
+        consumer.accept(new FinishedRecipe(idFor("orichalcos"), new ItemStack(ExtraBotanyItems.orichalcos), 150000,
+                Ingredient.of(ExtraBotanyItems.heroMedal),
+                Ingredient.of(ExtraBotanyItems.gildedPotatoMashed),
+                Ingredient.of(BotaniaItems.gaiaIngot),
+                Ingredient.of(BotaniaItems.gaiaIngot),
+                Ingredient.of(BotaniaItems.lifeEssence),
+                Ingredient.of(BotaniaItems.lifeEssence),
+                Ingredient.of(BotaniaItems.lifeEssence),
+                Ingredient.of(BotaniaItems.lifeEssence)
+        ));
+        consumer.accept(new FinishedRecipe(idFor("shadowium"), new ItemStack(ExtraBotanyItems.shadowium), 4200,
+                Ingredient.of(BotaniaItems.elementium),
+                Ingredient.of(ExtraBotanyItems.gildedPotatoMashed),
+                Ingredient.of(ExtraBotanyItems.nightmareFuel),
+                Ingredient.of(ExtraBotanyItems.nightmareFuel),
+                Ingredient.of(ExtraBotanyItems.nightmareFuel)
+        ));
+        consumer.accept(new FinishedRecipe(idFor("photonium"), new ItemStack(ExtraBotanyItems.photonium), 4200,
+                Ingredient.of(BotaniaItems.elementium),
+                Ingredient.of(ExtraBotanyItems.gildedPotatoMashed),
+                Ingredient.of(ExtraBotanyItems.spiritFragment),
+                Ingredient.of(ExtraBotanyItems.spiritFragment),
+                Ingredient.of(ExtraBotanyItems.spiritFragment)
+        ));
+        consumer.accept(new FinishedRecipe(idFor("gilded_potato"), new ItemStack(ExtraBotanyItems.gildedPotato), 800,
+                Ingredient.of(Items.POTATO),
+                Ingredient.of(Items.GOLD_NUGGET)
+        ));
+
     }
 
     private static ResourceLocation idFor(String s) {

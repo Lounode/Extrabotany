@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.common.item;
 
+import io.github.lounode.extrabotany.common.item.material.BossBattleItem;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -16,12 +17,27 @@ public final class ExtraBotanyItems {
 
     //Mana Item
     public static final Item zadkiel = make(prefix(LibItemNames.ZADKIEL), new ZadkielItem(unstackable()));
+    public static final Item manaReader = make(prefix(LibItemNames.MANA_READER), new Item(unstackable()));
+    public static final Item natureOrb = make(prefix(LibItemNames.NATURE_ORB), new Item(unstackable()));
 
     //Material
     public static final Item orichalcos = make(prefix(LibItemNames.ORICHALCOS), new Item(defaultBuilder().rarity(Rarity.EPIC)));
     public static final Item photonium = make(prefix(LibItemNames.PHOTONIUM), new Item(defaultBuilder()));//OT
     public static final Item shadowium = make(prefix(LibItemNames.SHADOWIUM), new Item(defaultBuilder()));//OT
     public static final Item aerialite = make(prefix(LibItemNames.AERIALITE_INGOT), new Item(defaultBuilder()));
+    public static final Item orichalcosNugget = make(prefix(LibItemNames.ORICHALCOS_NUGGET), new Item(defaultBuilder()));
+    public static final Item photoniumNugget = make(prefix(LibItemNames.PHOTONIUM_NUGGET), new Item(defaultBuilder()));
+    public static final Item shadowiumNugget = make(prefix(LibItemNames.SHADOWIUM_NUGGET), new Item(defaultBuilder()));
+    public static final Item aerialiteNugget = make(prefix(LibItemNames.AERIALITE_NUGGET), new Item(defaultBuilder()));
+
+    public static final Item dasRheingold = make(prefix(LibItemNames.DAS_RHEINGOLD), new Item(defaultBuilder()));//OT
+    public static final Item gildedPotato = make(prefix(LibItemNames.GILDED_POTATO), new Item(defaultBuilder()));//OT
+    public static final Item gildedPotatoMashed = make(prefix(LibItemNames.GILDED_POTATO_MASHED), new Item(defaultBuilder()));//OT
+    public static final Item heroMedal = make(prefix(LibItemNames.HERO_MEDAL), new Item(defaultBuilder().rarity(Rarity.UNCOMMON)));//OT
+    public static final Item challengeTicket = make(prefix(LibItemNames.CHALLENGE_TICKET), new BossBattleItem(defaultBuilder()));//OT
+    public static final Item nightmareFuel = make(prefix(LibItemNames.NIGHTMARE_FUEL), new Item(defaultBuilder()));
+    public static final Item spiritFuel = make(prefix(LibItemNames.SPIRIT_FUEL), new Item(defaultBuilder()));
+    public static final Item spiritFragment = make(prefix(LibItemNames.SPIRIT_FRAGMENT), new Item(defaultBuilder()));
 
     public static final Item theChaos = make(prefix(LibItemNames.THE_CHAOS), new Item(defaultBuilder()));
     public static final Item theOrigin = make(prefix(LibItemNames.THE_ORIGIN), new Item(defaultBuilder()));

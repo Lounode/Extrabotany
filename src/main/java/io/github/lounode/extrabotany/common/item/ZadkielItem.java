@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 
-
+//TODO完善功能
 public class ZadkielItem extends Item {
     public ZadkielItem(Properties properties) {
         super(properties);

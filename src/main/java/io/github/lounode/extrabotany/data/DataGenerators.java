@@ -1,13 +1,14 @@
 package io.github.lounode.extrabotany.data;
 
 import io.github.lounode.extrabotany.ExtraBotany;
-import io.github.lounode.extrabotany.data.recipes.RunicAltarProvider;
+import io.github.lounode.extrabotany.data.recipes.*;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Collections;
 
 @Mod.EventBusSubscriber(modid = ExtraBotany.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
@@ -15,26 +16,29 @@ public class DataGenerators {
     public static void gatherData(GatherDataEvent event) {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper efh = event.getExistingFileHelper();
+        var output = gen.getPackOutput();
+        var disabledHelper = new ExistingFileHelper(Collections.emptyList(), Collections.emptySet(), false, null, null);
+
         //Client
-        gen.addProvider(
-                event.includeClient(),
-                (DataProvider.Factory<ItemModelProvider>) output -> new ItemModelProvider(gen.getPackOutput())
-        );
-        gen.addProvider(
-                event.includeClient(),
-                (DataProvider.Factory<BlockstateProvider>) output -> new BlockstateProvider(gen.getPackOutput())
-        );
+        gen.addProvider(event.includeClient(), new ItemModelProvider(output));
+        gen.addProvider(event.includeClient(), new BlockstateProvider(output));
         //Server
-        gen.addProvider(
-                event.includeServer(),
-                (DataProvider.Factory<RunicAltarProvider>) output -> new RunicAltarProvider(gen.getPackOutput())
-        );
-        /*
-        gen.addProvider(
-                event.includeServer(),
-                (DataProvider.Factory<PatchouliProvider>) output -> new PatchouliProvider(gen.getPackOutput())
-        );
-         */
+
+        //Tag
+        var forgeBlockTagProvider = new ForgeBlockTagProvider(output, event.getLookupProvider(), disabledHelper);
+        gen.addProvider(event.includeServer(), forgeBlockTagProvider);
+        gen.addProvider(event.includeServer(), new ForgeItemTagProvider(output, event.getLookupProvider(),
+                forgeBlockTagProvider.contentsGetter(), disabledHelper));
+        var blockTagProvider = new BlockTagProvider(output, event.getLookupProvider());
+        gen.addProvider(event.includeServer(), blockTagProvider);
+        gen.addProvider(event.includeServer(), new ItemTagProvider(output, event.getLookupProvider(), blockTagProvider.contentsGetter()));
+
+        gen.addProvider(event.includeServer(), new RunicAltarProvider(output));
+        gen.addProvider(event.includeServer(), new ManaInfusionProvider(output));
+        gen.addProvider(event.includeServer(), new ElvenTradeProvider(output));
+        gen.addProvider(event.includeServer(), new TerrestrialAgglomerationProvider(output));
+        gen.addProvider(event.includeServer(), new CraftingRecipeProvider(output));
+
 
     }
 }
