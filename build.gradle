@@ -57,6 +57,8 @@ minecraft {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+//临时去除datagenlib
+sourceSets.main.java.exclude("io/github/lounode/datagenlib/**")
 
 repositories {
     //Botania, Pachouli

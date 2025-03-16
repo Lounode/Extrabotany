@@ -15,7 +15,7 @@ public class DataGenerators {
     public static void gatherData(GatherDataEvent event) {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper efh = event.getExistingFileHelper();
-
+        //Client
         gen.addProvider(
                 event.includeClient(),
                 (DataProvider.Factory<ItemModelProvider>) output -> new ItemModelProvider(gen.getPackOutput())
@@ -24,11 +24,17 @@ public class DataGenerators {
                 event.includeClient(),
                 (DataProvider.Factory<BlockstateProvider>) output -> new BlockstateProvider(gen.getPackOutput())
         );
-
+        //Server
         gen.addProvider(
                 event.includeServer(),
                 (DataProvider.Factory<RunicAltarProvider>) output -> new RunicAltarProvider(gen.getPackOutput())
         );
+        /*
+        gen.addProvider(
+                event.includeServer(),
+                (DataProvider.Factory<PatchouliProvider>) output -> new PatchouliProvider(gen.getPackOutput())
+        );
+         */
 
     }
 }
