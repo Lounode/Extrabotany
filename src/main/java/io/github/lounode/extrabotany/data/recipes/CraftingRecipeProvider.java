@@ -7,17 +7,17 @@ import io.github.lounode.extrabotany.common.lib.ResourceLocationHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.data.recipes.WrapperResult;
 
 import java.util.function.Consumer;
 
@@ -29,6 +29,7 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
     @Override
     public void buildRecipes(Consumer<FinishedRecipe> consumer) {
         registerMain(consumer);
+        registerTools(consumer);
         registerConversions(consumer);
     }
     private void registerMain(Consumer<FinishedRecipe> consumer) {
@@ -88,6 +89,30 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
                 .unlockedBy("has_item", conditionsFromItem(BotaniaItems.terrasteel))
                 .save(consumer);
 
+
+    }
+
+    private void registerTools(Consumer<FinishedRecipe> consumer) {
+        //ManaReader&WandExtend
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.manaReader)
+                .define('D', BotaniaItems.manaDiamond)
+                .define('P', BotaniaItems.manaPowder)
+                .define('S', BotaniaItems.livingwoodTwig)
+                .pattern(" PD")
+                .pattern(" SP")
+                .pattern("S  ")
+                .unlockedBy("has_item", conditionsFromItem(BotaniaItems.twigWand))
+                .save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.twigWand)
+                .requires(BotaniaItems.twigWand)
+                .requires(ExtraBotanyItems.manaReader)
+                .unlockedBy("has_item", conditionsFromItem(ExtraBotanyItems.manaReader))
+                .save(WrapperResult.ofType(WandOfTheForestExtendRecipe.SERIALIZER, consumer), prefix("twig_wand_extension"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.dreamwoodWand)
+                .requires(BotaniaItems.dreamwoodWand)
+                .requires(ExtraBotanyItems.manaReader)
+                .unlockedBy("has_item", conditionsFromItem(ExtraBotanyItems.manaReader))
+                .save(WrapperResult.ofType(WandOfTheForestExtendRecipe.SERIALIZER, consumer), prefix("dreamwood_wand_extension"));
     }
     private void registerConversions(Consumer<FinishedRecipe> consumer) {
         compression(ExtraBotanyItems.orichalcos, ExtraBotanyTags.Items.NUGGETS_ORICHALCOS)

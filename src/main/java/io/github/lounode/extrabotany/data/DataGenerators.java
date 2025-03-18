@@ -23,8 +23,6 @@ public class DataGenerators {
         gen.addProvider(event.includeClient(), new ItemModelProvider(output));
         gen.addProvider(event.includeClient(), new BlockstateProvider(output));
         //Server
-
-        //Tag
         var forgeBlockTagProvider = new ForgeBlockTagProvider(output, event.getLookupProvider(), disabledHelper);
         gen.addProvider(event.includeServer(), forgeBlockTagProvider);
         gen.addProvider(event.includeServer(), new ForgeItemTagProvider(output, event.getLookupProvider(),
@@ -39,6 +37,6 @@ public class DataGenerators {
         gen.addProvider(event.includeServer(), new TerrestrialAgglomerationProvider(output));
         gen.addProvider(event.includeServer(), new CraftingRecipeProvider(output));
 
-
+        gen.addProvider(event.includeServer(), AdvancementProvider.create(output, event.getLookupProvider()));
     }
 }

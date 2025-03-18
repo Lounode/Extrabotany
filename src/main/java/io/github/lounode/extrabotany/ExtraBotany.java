@@ -2,9 +2,12 @@ package io.github.lounode.extrabotany;
 
 import com.mojang.logging.LogUtils;
 import io.github.lounode.extrabotany.api.ExtraBotaniaRegistries;
+import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.item.CustomCreativeTabContents;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.network.PacketHandler;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
@@ -26,6 +29,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
+import io.github.lounode.extrabotany.xplat.ExForgeXplatImpl;
 import net.minecraftforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 
@@ -41,6 +45,12 @@ public class ExtraBotany
     private static final Logger LOGGER = LogUtils.getLogger();
     public ExtraBotany(FMLJavaModLoadingContext context)
     {
+        PacketHandler.init();
+        //test
+        //if (EXplatAbstractions.INSTANCE.gogLoaded()) {
+        //    LOGGER.info("OK");
+        //}
+
         IEventBus modEventBus = context.getModEventBus();
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
@@ -49,6 +59,11 @@ public class ExtraBotany
         bindForItems(modEventBus, ExtraBotanyBlocks::registerItemBlocks);
         //Items
         bindForItems(modEventBus, ExtraBotanyItems::registerItems);
+
+        bind(modEventBus, Registries.RECIPE_SERIALIZER, ExtraBotanyItems::registerRecipeSerializers);
+
+        //Advance
+        ExtrabotanyCriteriaTriggers.init();
 
         //Creative tab
         bind(modEventBus, Registries.CREATIVE_MODE_TAB, consumer -> {

@@ -2,9 +2,11 @@ package io.github.lounode.extrabotany.common.item;
 
 import io.github.lounode.extrabotany.common.item.material.BossBattleItem;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
+import io.github.lounode.extrabotany.data.recipes.WandOfTheForestExtendRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,7 +19,7 @@ public final class ExtraBotanyItems {
 
     //Mana Item
     public static final Item zadkiel = make(prefix(LibItemNames.ZADKIEL), new ZadkielItem(unstackable()));
-    public static final Item manaReader = make(prefix(LibItemNames.MANA_READER), new Item(unstackable()));
+    public static final Item manaReader = make(prefix(LibItemNames.MANA_READER), new ManaReaderItem(unstackable()));
     public static final Item natureOrb = make(prefix(LibItemNames.NATURE_ORB), new Item(unstackable()));
 
     //Material
@@ -64,6 +66,10 @@ public final class ExtraBotanyItems {
 
     private static Item.Properties unstackable() {
         return defaultBuilder().stacksTo(1);
+    }
+
+    public static void registerRecipeSerializers(BiConsumer<RecipeSerializer<?>, ResourceLocation> r) {
+        r.accept(WandOfTheForestExtendRecipe.SERIALIZER, prefix("wand_of_the_forest_extension"));
     }
 
     public static void registerItems(BiConsumer<Item, ResourceLocation> r) {

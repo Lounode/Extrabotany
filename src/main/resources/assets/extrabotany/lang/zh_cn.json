@@ -1,7 +1,11 @@
 {
   "itemGroup.extrabotany": "额外植物学",
+  "extrabotany.desc": "欢迎来到额外植物学",
   "extrabotany.category.name": "额外学",
   "extrabotany.category.desc": "通过对植物魔法的深入了解，你发现了一个全新的魔法世界：$(br)这里有更多的$(thing)自然装置$()、$(thing)神秘工具$()和$(thing)饰品$()，以及最重要的：全新的$(thing)盖亚Boss$()。$(br2)享受你的$(thing)额外学$()之旅吧！",
+  
+  "advancement.extrabotany:senbon_zakura": "千本桜",
+  "advancement.extrabotany:senbon_zakura.desc": "使用魔力读取器读取1000次魔力",
   
   "block.extrabotany.aerialite_block": "天空块",
   "block.extrabotany.orichalcos_block": "奥利哈钢块",
@@ -31,8 +35,14 @@
   "item.extrabotany.spirit_fuel": "精神燃料",
   "item.extrabotany.spirit_fragment": "精神碎片",
   "item.extrabotany.challenge_ticket": "挑战券",
+  "message.actionbar.mana_left": "魔力: %s",
   
   "extrabotany.entry.zadkiel": "冰结傀儡",
   "extrabotany.page.zadkiel0": "通过$(thing)魔力$()将寒冷的冰雪与$(item)不死图腾$()融合，可以创造出一种能够调动寒冰的$(item)冰结傀儡$()。$(br2)持有它时，寒冷的气息将冻结周围的水源，并令你的敌人减速。$(br2)消耗一点点$(thing)魔力$()，它还可以调动为你而战的坚冰，刺向你的敌人。",
-  "extrabotany.page.zadkiel1": "不……不要摸我的头！"
+  "extrabotany.page.zadkiel1": "不……不要摸我的头！",
+  "extrabotany.entry.mana_reader": "真·魔力定量统计",
+  "extrabotany.page.mana_reader0": "$(7)哎呀，看来你找到了被神烦狗丢弃的这一页。$()$(br2)计算$(item)魔力池$()中还剩下多少$(thing)魔力$()总是件令人头疼的事情，现在有了$(item)魔力读取器$()。$(br2)使用它右键$(item)魔力池$()、$(item)魔力发射器$()，甚至一些$(thing)产能花$()，都可以准确显示出里面蕴含的$(thing)魔力$()。",
+  "extrabotany.page.mana_reader1": "……可以！",
+  "extrabotany.page.mana_reader2": "$(item)魔力读取器$()可以和$(item)森林法杖$()、$(item)精灵森林法杖$()在$(thing)工作台$()中进行合成，以附加功能。$(br2)附加功能的$(item)森林法杖$()在对准$(item)魔力池$()等方块时，会在$(thing)魔力条$()的底部显示出方块的$(thing)当前魔力$()与$(thing)最大魔力$()。",
+  "extrabotany.page.mana_reader3": "与森林法杖合成附加功能"
 }
