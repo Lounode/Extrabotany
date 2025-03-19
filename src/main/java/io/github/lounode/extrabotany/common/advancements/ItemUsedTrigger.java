@@ -11,8 +11,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
+
 public class ItemUsedTrigger extends SimpleCriterionTrigger<ItemUsedTrigger.TriggerInstance> {
-    public static final ResourceLocation ID = ResourceLocation.parse("item_used");
+    public static final ResourceLocation ID = prefix("item_used");
     public static final ItemUsedTrigger INSTANCE = new ItemUsedTrigger();
 
     public ResourceLocation getId() {

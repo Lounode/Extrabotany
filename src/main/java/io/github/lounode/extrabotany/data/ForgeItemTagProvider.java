@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
+import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.*;
 
 public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvider {
     public ForgeItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider, ExistingFileHelper helper) {
@@ -46,11 +47,19 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
                 .addTag(forge("nuggets/shadowium"))
                 .addTag(forge("nuggets/aerialite"));
 
-// 块标签复制到forge命名空间
+
         this.copyToSameName(ForgeBlockTagProvider.ORICHALCOS);
         this.copyToSameName(ForgeBlockTagProvider.PHOTONIUM);
         this.copyToSameName(ForgeBlockTagProvider.SHADOWIUM);
         this.copyToSameName(ForgeBlockTagProvider.AERIALITE);
+
+        this.generateAccessoryTags();
+    }
+
+    private void generateAccessoryTags() {
+        tag(accessory("ring")).add(
+                manaRingMaster
+        );
     }
 
     private static TagKey<Item> accessory(String name) {

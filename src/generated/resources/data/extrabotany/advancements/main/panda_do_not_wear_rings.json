@@ -1,0 +1,38 @@
+{
+  "parent": "extrabotany:main/root",
+  "criteria": {
+    "craft_ring": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "extrabotany:mana_ring_master"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.extrabotany:panda_do_not_wear_rings.desc"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "extrabotany:mana_ring_master"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.extrabotany:panda_do_not_wear_rings"
+    }
+  },
+  "requirements": [
+    [
+      "craft_ring"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

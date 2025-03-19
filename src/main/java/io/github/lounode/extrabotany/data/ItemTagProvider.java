@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.concurrent.CompletableFuture;
 
+
 public class ItemTagProvider extends ItemTagsProvider {
     public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {
         super(packOutput, lookupProvider, blockTagProvider);
@@ -32,4 +33,5 @@ public class ItemTagProvider extends ItemTagsProvider {
         this.copy(ExtraBotanyTags.Blocks.BLOCKS_AERIALITE, ExtraBotanyTags.Items.BLOCKS_AERIALITE);
 
     }
+
 }

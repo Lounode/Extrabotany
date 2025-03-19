@@ -1,14 +1,14 @@
 {
   "criteria": {
-    "flower": {
+    "use_lexicon": {
       "conditions": {
-        "items": [
-          {
-            "tag": "botania:mystical_flowers"
-          }
-        ]
+        "item": {
+          "items": [
+            "botania:lexicon"
+          ]
+        }
       },
-      "trigger": "minecraft:inventory_changed"
+      "trigger": "botania:use_item_success"
     }
   },
   "display": {
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "flower"
+      "use_lexicon"
     ]
   ],
   "sends_telemetry_event": true

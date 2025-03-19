@@ -16,6 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.data.recipes.WrapperResult;
 
@@ -30,6 +31,7 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
     public void buildRecipes(Consumer<FinishedRecipe> consumer) {
         registerMain(consumer);
         registerTools(consumer);
+        registerTrinkets(consumer);
         registerConversions(consumer);
     }
     private void registerMain(Consumer<FinishedRecipe> consumer) {
@@ -91,7 +93,20 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
 
 
     }
-
+    private void registerTrinkets(Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.manaRingMaster)
+                .define('R', BotaniaItems.manaRingGreater)
+                .define('O', ExtraBotanyItems.orichalcos)
+                .define('H', ExtraBotanyItems.heroMedal)
+                .define('Y', ExtraBotanyItems.theOrigin)
+                .define('C', ExtraBotanyItems.theChaos)
+                .define('E', ExtraBotanyItems.theEnd)
+                .pattern("OHO")
+                .pattern("YRE")
+                .pattern("OCO")
+                .unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaRingGreater))
+                .save(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, consumer));
+    }
     private void registerTools(Consumer<FinishedRecipe> consumer) {
         //ManaReader&WandExtend
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.manaReader)

@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.common.item;
 
 import io.github.lounode.extrabotany.common.item.material.BossBattleItem;
+import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
 import io.github.lounode.extrabotany.data.recipes.WandOfTheForestExtendRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -46,6 +47,8 @@ public final class ExtraBotanyItems {
     public static final Item theEnd = make(prefix(LibItemNames.THE_END), new Item(defaultBuilder()));
     public static final Item theUniverse = make(prefix(LibItemNames.THE_UNIVERSE), new Item(defaultBuilder()));
 
+    //Relic
+    public static final Item manaRingMaster = make(prefix(LibItemNames.MANA_RING_MASTER), new MasterBandOfManaItem(unstackable().rarity(Rarity.UNCOMMON)));
 
 
     private static <T extends Item> T make(ResourceLocation id, T item) {

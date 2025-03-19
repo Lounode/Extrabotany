@@ -5,9 +5,11 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "WandOfTheForestItemMixin"
+    
   ],
   "client": [
-    "client.HUDHandlerMixin"
+    "client.HUDHandlerMixin",
+    "client.HUDHandlerInvoker"
   ],
   "injectors": {
     "defaultRequire": 1

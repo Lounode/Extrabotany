@@ -103,8 +103,10 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    //Mixin
+    annotationProcessor "org.spongepowered:mixin:0.8.5"
+    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+    implementation "org.spongepowered:mixin:0.8.5"
 
     //Botania
     compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}")
@@ -122,6 +124,9 @@ dependencies {
     compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
     compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
     runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
+
+    //implementation(fg.deobf("maven.modrinth:nbtedit:5.2.8+mc1.20.1"))
+    implementation fg.deobf("curse.maven:nbtedit-reborn-678133:5984630")
 
     //Tinkers
     //compileOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")

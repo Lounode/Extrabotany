@@ -12,7 +12,7 @@
           ]
         }
       },
-      "trigger": "minecraft:item_used"
+      "trigger": "extrabotany:item_used"
     }
   },
   "display": {

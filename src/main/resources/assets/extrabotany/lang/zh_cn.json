@@ -6,6 +6,13 @@
   
   "advancement.extrabotany:senbon_zakura": "千本桜",
   "advancement.extrabotany:senbon_zakura.desc": "使用魔力读取器读取1000次魔力",
+  "advancement.extrabotany:panda_do_not_wear_rings": "熊猫不戴戒指",
+  "advancement.extrabotany:panda_do_not_wear_rings.desc": "合成一个大师魔力之戒",
+  "advancement.extrabotany:overload": "大约3560万吨吧",
+  "advancement.extrabotany:overload.desc": "将大师魔力之戒充能至第二阶段",
+  "advancement.extrabotany:load_of_ring": "指环王",
+  "advancement.extrabotany:load_of_ring.desc": "将大师魔力之戒充满",
+  
   
   "block.extrabotany.aerialite_block": "天空块",
   "block.extrabotany.orichalcos_block": "奥利哈钢块",
@@ -35,6 +42,8 @@
   "item.extrabotany.spirit_fuel": "精神燃料",
   "item.extrabotany.spirit_fragment": "精神碎片",
   "item.extrabotany.challenge_ticket": "挑战券",
+  "item.extrabotany.mana_ring_master": "大师魔力之戒",
+  
   "message.actionbar.mana_left": "魔力: %s",
   
   "extrabotany.entry.zadkiel": "冰结傀儡",
@@ -44,5 +53,8 @@
   "extrabotany.page.mana_reader0": "$(7)哎呀，看来你找到了被神烦狗丢弃的这一页。$()$(br2)计算$(item)魔力池$()中还剩下多少$(thing)魔力$()总是件令人头疼的事情，现在有了$(item)魔力读取器$()。$(br2)使用它右键$(item)魔力池$()、$(item)魔力发射器$()，甚至一些$(thing)产能花$()，都可以准确显示出里面蕴含的$(thing)魔力$()。",
   "extrabotany.page.mana_reader1": "……可以！",
   "extrabotany.page.mana_reader2": "$(item)魔力读取器$()可以和$(item)森林法杖$()、$(item)精灵森林法杖$()在$(thing)工作台$()中进行合成，以附加功能。$(br2)附加功能的$(item)森林法杖$()在对准$(item)魔力池$()等方块时，会在$(thing)魔力条$()的底部显示出方块的$(thing)当前魔力$()与$(thing)最大魔力$()。",
-  "extrabotany.page.mana_reader3": "与森林法杖合成附加功能"
+  "extrabotany.page.mana_reader3": "与森林法杖合成附加功能",
+  "extrabotany.entry.mana_ring_master": "大师魔力之戒",
+  "extrabotany.page.mana_ring_master0": "感觉$(item)魔力之戒$()、$(item)高级魔力之戒$()所容纳的$(thing)魔力$()还是太少了？$(br2)这里有专门为魔力不足恐惧症者设计的$(item)大师魔力之戒$()，拥有$(t: Long.MAX_VALUE)近乎无限$() $(9)I$(a)n$(b)f$(9)i$(d)n$(c)i$(e)t$(6)y$() 的$(thing)魔力$()存储量。",
+  "extrabotany.page.mana_ring_master1": "$(7)尽量不要去想填满它……$()"
 }

@@ -24,7 +24,7 @@ public final class LibItemNames {
     public static final String PHOTONIUM_NUGGET = "photonium_nugget";
     public static final String SHADOWIUM_NUGGET = "shadowium_nugget";
     public static final String AERIALITE_NUGGET = "aerialite_nugget";
-
+    public static final String MANA_RING_MASTER = "mana_ring_master";
 
 
     //TODO
