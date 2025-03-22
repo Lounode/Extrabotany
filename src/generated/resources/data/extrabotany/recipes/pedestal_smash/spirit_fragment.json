@@ -1,0 +1,12 @@
+{
+  "type": "extrabotany:pedestal_smash",
+  "input": {
+    "item": "extrabotany:spirit_fuel"
+  },
+  "output": {
+    "item": "extrabotany:spirit_fragment"
+  },
+  "smash_tools": {
+    "item": "minecraft:stick"
+  }
+}

@@ -3,6 +3,7 @@
   "extrabotany.desc": "Welcome to Extrabotany",
   "extrabotany.category.name": "Extrabotany",
   "extrabotany.category.desc": "通过对植物魔法的深入了解，你发现了一个全新的魔法世界：$(br)这里有更多的$(thing)自然装置$()、$(thing)神秘工具$()和$(thing)饰品$()，以及最重要的：全新的$(thing)盖亚Boss$()。$(br2)享受你的$(thing)额外学$()之旅吧！",
+  "extrabotany.jei.pedestal": "Pedestal Smash",
   
   "advancement.extrabotany:senbon_zakura": "千本桜",
   "advancement.extrabotany:senbon_zakura.desc": "使用魔力读取器读取1000次魔力",
@@ -17,6 +18,7 @@
   "block.extrabotany.orichalcos_block": "Block of Orichalcos",
   "block.extrabotany.photonium_block": "Block of Photonium",
   "block.extrabotany.shadowium_block": "Block of Shadowium",
+  "block.extrabotany.pedestal_livingrock" : "Livingrock Pedestal",
   
   "item.extrabotany.aerialite_ingot": "Aerialite Ingot",
   "item.extrabotany.orichalcos_ingot": "Orichalcos Ingot",

@@ -5,6 +5,8 @@ import com.mojang.logging.LogUtils;
 import io.github.lounode.extrabotany.api.ExtraBotaniaRegistries;
 import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
+import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.item.CustomCreativeTabContents;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
@@ -53,22 +55,21 @@ public class ExtraBotany
     {
         IEventBus modEventBus = context.getModEventBus();
         PacketHandler.init();
-        //test
-        //if (EXplatAbstractions.INSTANCE.gogLoaded()) {
-        //    LOGGER.info("OK");
-        //}
         registerEvents();
 
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
+        //Block&ItemBlock&Items
         bind(modEventBus, Registries.BLOCK, ExtraBotanyBlocks::registerBlocks);
-        //ItemBlock
         bindForItems(modEventBus, ExtraBotanyBlocks::registerItemBlocks);
-        //Items
+        bind(modEventBus, Registries.BLOCK_ENTITY_TYPE, ExtraBotanyBlockEntities::registerTiles);
         bindForItems(modEventBus, ExtraBotanyItems::registerItems);
 
+        //GUI & Recipe
         bind(modEventBus, Registries.RECIPE_SERIALIZER, ExtraBotanyItems::registerRecipeSerializers);
+        bind(modEventBus, Registries.RECIPE_TYPE, ExtraBotanyRecipeTypes::submitRecipeTypes);
+        bind(modEventBus, Registries.RECIPE_SERIALIZER, ExtraBotanyRecipeTypes::submitRecipeSerializers);
 
         //Advance
         ExtrabotanyCriteriaTriggers.init();

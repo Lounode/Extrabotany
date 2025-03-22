@@ -1,0 +1,12 @@
+{
+  "type": "extrabotany:pedestal_smash",
+  "input": {
+    "item": "extrabotany:gilded_potato"
+  },
+  "output": {
+    "item": "extrabotany:gilded_potato_mashed"
+  },
+  "smash_tools": {
+    "item": "minecraft:stick"
+  }
+}

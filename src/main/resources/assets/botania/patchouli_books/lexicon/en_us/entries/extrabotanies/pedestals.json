@@ -1,0 +1,16 @@
+{
+  "name": "extrabotany.entry.pedestals",
+  "category": "botania:extrabotanies",
+  "icon": "extrabotany:pedestal_livingrock",
+  "pages": [
+    {
+      "type": "text",
+      "text": "extrabotany.page.pedestals0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "text": "extrabotany.page.pedestals1",
+      "recipe": "extrabotany:pedestal_livingrock"
+    }
+  ]
+}

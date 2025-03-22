@@ -3,6 +3,7 @@
   "extrabotany.desc": "欢迎来到额外植物学",
   "extrabotany.category.name": "额外学",
   "extrabotany.category.desc": "通过对植物魔法的深入了解，你发现了一个全新的魔法世界：$(br)这里有更多的$(thing)自然装置$()、$(thing)神秘工具$()和$(thing)饰品$()，以及最重要的：全新的$(thing)盖亚Boss$()。$(br2)享受你的$(thing)额外学$()之旅吧！",
+  "extrabotany.jei.pedestal": "祭坛锻造",
   
   "advancement.extrabotany:senbon_zakura": "千本桜",
   "advancement.extrabotany:senbon_zakura.desc": "使用魔力读取器读取1000次魔力",
@@ -18,6 +19,7 @@
   "block.extrabotany.orichalcos_block": "奥利哈钢块",
   "block.extrabotany.photonium_block": "光子块",
   "block.extrabotany.shadowium_block": "暗影块",
+  "block.extrabotany.pedestal_livingrock" : "活石祭坛",
   
   "item.extrabotany.aerialite_ingot": "天空锭",
   "item.extrabotany.orichalcos_ingot": "奥利哈钢",
@@ -56,5 +58,6 @@
   "extrabotany.page.mana_reader3": "与森林法杖合成附加功能",
   "extrabotany.entry.mana_ring_master": "大师魔力之戒",
   "extrabotany.page.mana_ring_master0": "感觉$(item)魔力之戒$()、$(item)高级魔力之戒$()所容纳的$(thing)魔力$()还是太少了？$(br2)这里有专门为魔力不足恐惧症者设计的$(item)大师魔力之戒$()，拥有$(t: Long.MAX_VALUE)近乎无限$() $(9)I$(a)n$(b)f$(9)i$(d)n$(c)i$(e)t$(6)y$() 的$(thing)魔力$()存储量。",
-  "extrabotany.page.mana_ring_master1": "$(7)尽量不要去想填满它……$()"
+  "extrabotany.page.mana_ring_master1": "$(7)尽量不要去想填满它……$()",
+  "extrabotany.entry.pedestals": "自然祭坛"
 }

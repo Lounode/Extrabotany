@@ -31,6 +31,7 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            jvmArg "-XX:+AllowEnhancedClassRedefinition"
 
             //Curios mixin
             property 'mixin.env.remapRefMap', 'true'

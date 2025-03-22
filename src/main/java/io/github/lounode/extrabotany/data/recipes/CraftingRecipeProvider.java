@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.data.recipes;
 
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.block.PedestalBlock;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.ResourceLocationHelper;
@@ -16,10 +17,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.data.recipes.WrapperResult;
 
+import java.util.Locale;
 import java.util.function.Consumer;
 
 public class CraftingRecipeProvider extends vazkii.botania.data.recipes.CraftingRecipeProvider {
@@ -30,6 +33,7 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
     @Override
     public void buildRecipes(Consumer<FinishedRecipe> consumer) {
         registerMain(consumer);
+        registerMisc(consumer);
         registerTools(consumer);
         registerTrinkets(consumer);
         registerConversions(consumer);
@@ -157,6 +161,23 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
         deconstruct(consumer, ExtraBotanyItems.shadowiumNugget, ExtraBotanyTags.Items.INGOTS_SHADOWIUM, "shadowium_to_nuggets");
         deconstruct(consumer, ExtraBotanyItems.aerialiteNugget, ExtraBotanyTags.Items.INGOTS_AERIALITE, "aerialite_to_nuggets");
 
+    }
+
+    private void registerMisc(Consumer<FinishedRecipe> consumer) {
+
+        //Pedestal
+        pedestal(BotaniaBlocks.livingrock, ExtraBotanyBlocks.livingrockPedestal)
+                .unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
+                .save(consumer);
+    }
+
+    protected ShapedRecipeBuilder pedestal(ItemLike block, ItemLike pedestal) {
+        return ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, pedestal)
+                .define('P', Items.GOLD_NUGGET)
+                .define('C', block)
+                .pattern("CPC")
+                .pattern(" C ")
+                .pattern("CCC");
     }
 
     private ShapedRecipeBuilder compression(ItemLike output, TagKey<Item> input) {

@@ -4,13 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vazkii.botania.api.ServiceUtil;
 
-public interface ExtraBotaniaAPI {
-    String MODID = "extrabotania";
+public interface ExtraBotanyAPI {
+    String MODID = "extrabotany";
     Logger LOGGER = LoggerFactory.getLogger(MODID);
 
-    ExtraBotaniaAPI INSTANCE = ServiceUtil.findService(ExtraBotaniaAPI.class, () -> new ExtraBotaniaAPI() {});
+    ExtraBotanyAPI INSTANCE = ServiceUtil.findService(ExtraBotanyAPI.class, () -> new ExtraBotanyAPI() {});
 
-    static ExtraBotaniaAPI instance() {
+    static ExtraBotanyAPI instance() {
         return INSTANCE;
     }
 }

@@ -31,11 +31,14 @@ public class DataGenerators {
         gen.addProvider(event.includeServer(), blockTagProvider);
         gen.addProvider(event.includeServer(), new ItemTagProvider(output, event.getLookupProvider(), blockTagProvider.contentsGetter()));
 
+        //Recipes
         gen.addProvider(event.includeServer(), new RunicAltarProvider(output));
         gen.addProvider(event.includeServer(), new ManaInfusionProvider(output));
         gen.addProvider(event.includeServer(), new ElvenTradeProvider(output));
         gen.addProvider(event.includeServer(), new TerrestrialAgglomerationProvider(output));
         gen.addProvider(event.includeServer(), new CraftingRecipeProvider(output));
+
+        gen.addProvider(event.includeServer(), new PedestalRecipeProvider(output));
 
         gen.addProvider(event.includeServer(), AdvancementProvider.create(output, event.getLookupProvider()));
     }
