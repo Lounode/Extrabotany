@@ -24,6 +24,8 @@ public class ExtraBotanyTags {
         public static final TagKey<Item> BLOCKS_SHADOWIUM = tag("shadowium_blocks");
         public static final TagKey<Item> BLOCKS_AERIALITE = tag("aerialite_blocks");
 
+        public static final TagKey<Item> HAMMERS = tag("hammers");
+
 
 
         private static TagKey<Item> tag(String name) {

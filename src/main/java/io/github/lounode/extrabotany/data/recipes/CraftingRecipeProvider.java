@@ -132,6 +132,15 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
                 .requires(ExtraBotanyItems.manaReader)
                 .unlockedBy("has_item", conditionsFromItem(ExtraBotanyItems.manaReader))
                 .save(WrapperResult.ofType(WandOfTheForestExtendRecipe.SERIALIZER, consumer), prefix("dreamwood_wand_extension"));
+        //Hammer
+        hammer(BotaniaItems.manaSteel, ExtraBotanyItems.manasteelHammer).save(consumer);
+        hammer(BotaniaItems.elementium, ExtraBotanyItems.elementiumHammer).save(consumer);
+        hammer(BotaniaItems.terrasteel, ExtraBotanyItems.terrasteelHammer).save(consumer);
+        hammer(BotaniaItems.gaiaIngot, ExtraBotanyItems.gaiaHammer).save(consumer);
+        hammer(ExtraBotanyItems.photonium, ExtraBotanyItems.photoniumHammer).save(consumer);
+        hammer(ExtraBotanyItems.shadowium, ExtraBotanyItems.shadowiumHammer).save(consumer);
+        hammer(ExtraBotanyItems.aerialiteHammer, ExtraBotanyItems.aerialiteHammer).save(consumer);
+        hammer(ExtraBotanyItems.orichalcos, ExtraBotanyItems.orichalcosHammer).save(consumer);
     }
     private void registerConversions(Consumer<FinishedRecipe> consumer) {
         compression(ExtraBotanyItems.orichalcos, ExtraBotanyTags.Items.NUGGETS_ORICHALCOS)
@@ -170,7 +179,15 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
                 .unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
                 .save(consumer);
     }
-
+    protected ShapedRecipeBuilder hammer(ItemLike item, ItemLike hammer) {
+        return ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, hammer)
+                .define('H', item)
+                .define('S', BotaniaItems.livingwoodTwig)
+                .pattern("HHH")
+                .pattern("HHH")
+                .pattern(" S ")
+                .unlockedBy("has_item", conditionsFromItem(item));
+    }
     protected ShapedRecipeBuilder pedestal(ItemLike block, ItemLike pedestal) {
         return ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, pedestal)
                 .define('P', Items.GOLD_NUGGET)

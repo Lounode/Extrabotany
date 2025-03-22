@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "H": {
+      "item": "botania:elementium_ingot"
+    },
+    "S": {
+      "item": "botania:livingwood_twig"
+    }
+  },
+  "pattern": [
+    "HHH",
+    "HHH",
+    " S "
+  ],
+  "result": {
+    "item": "extrabotany:elementium_hammer"
+  },
+  "show_notification": true
+}

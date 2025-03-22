@@ -23,5 +23,7 @@ public interface PedestalRecipe extends Recipe<Container> {
     Ingredient getSmashTools();
     Ingredient getInput();
     ItemStack getOutput();
+    int getStrike();
+    int getExp();
 
 }

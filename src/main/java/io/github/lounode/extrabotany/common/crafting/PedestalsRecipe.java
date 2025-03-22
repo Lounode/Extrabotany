@@ -21,12 +21,16 @@ public class PedestalsRecipe implements PedestalRecipe {
 
     private final Ingredient smashTools;
     private final Ingredient input;
+    private final int strike;
+    private final int exp;
 
-    public PedestalsRecipe(ResourceLocation id, ItemStack output, Ingredient smashTools, Ingredient input) {
+    public PedestalsRecipe(ResourceLocation id, ItemStack output, Ingredient smashTools, Ingredient input, int strike, int exp) {
         this.id = id;
         this.output = output;
         this.input = input;
         this.smashTools = smashTools;
+        this.strike = strike;
+        this.exp = exp;
     }
     @Override
     public boolean matches(Container container, Level world) {
@@ -74,6 +78,16 @@ public class PedestalsRecipe implements PedestalRecipe {
         return output;
     }
 
+    @Override
+    public int getStrike() {
+        return strike;
+    }
+
+    @Override
+    public int getExp() {
+        return exp;
+    }
+
     public static class Serializer implements RecipeSerializer<PedestalsRecipe> {
         @NotNull
         @Override
@@ -81,8 +95,10 @@ public class PedestalsRecipe implements PedestalRecipe {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
             Ingredient input = Ingredient.fromJson(json.get("input"));
             Ingredient smashTools = Ingredient.fromJson(json.get("smash_tools"));
+            int strike = json.get("strike").getAsInt();
+            int exp = json.get("exp").getAsInt();
 
-            return new PedestalsRecipe(id, output, smashTools, input);
+            return new PedestalsRecipe(id, output, smashTools, input, strike, exp);
         }
 
         @Override
@@ -90,7 +106,9 @@ public class PedestalsRecipe implements PedestalRecipe {
             Ingredient smashTools = Ingredient.fromNetwork(buf);
             Ingredient input = Ingredient.fromNetwork(buf);
             ItemStack output = buf.readItem();
-            return new PedestalsRecipe(id, output, smashTools, input);
+            int strike = buf.readInt();
+            int exp = buf.readInt();
+            return new PedestalsRecipe(id, output, smashTools, input, strike, exp);
         }
 
         @Override
@@ -98,6 +116,8 @@ public class PedestalsRecipe implements PedestalRecipe {
             recipe.smashTools.toNetwork(buf);
             recipe.input.toNetwork(buf);
             buf.writeItem(recipe.output);
+            buf.writeInt(recipe.strike);
+            buf.writeInt(recipe.exp);
         }
     }
 }

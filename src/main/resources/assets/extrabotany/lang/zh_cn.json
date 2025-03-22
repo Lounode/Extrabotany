@@ -4,6 +4,8 @@
   "extrabotany.category.name": "额外学",
   "extrabotany.category.desc": "通过对植物魔法的深入了解，你发现了一个全新的魔法世界：$(br)这里有更多的$(thing)自然装置$()、$(thing)神秘工具$()和$(thing)饰品$()，以及最重要的：全新的$(thing)盖亚Boss$()。$(br2)享受你的$(thing)额外学$()之旅吧！",
   "extrabotany.jei.pedestal": "祭坛锻造",
+  "extrabotany.jei.pedestal.tip_strikes": "%s 次敲击",
+  "extrabotany.jei.pedestal.tip_exp": "%s 点经验",
   
   "advancement.extrabotany:senbon_zakura": "千本桜",
   "advancement.extrabotany:senbon_zakura.desc": "使用魔力读取器读取1000次魔力",
@@ -45,6 +47,15 @@
   "item.extrabotany.spirit_fragment": "精神碎片",
   "item.extrabotany.challenge_ticket": "挑战券",
   "item.extrabotany.mana_ring_master": "大师魔力之戒",
+  "item.extrabotany.manasteel_hammer": "魔力钢锤",
+  "item.extrabotany.elementium_hammer": "源质钢锤",
+  "item.extrabotany.terrasteel_hammer": "泰拉碾压者",
+  "item.extrabotany.gaia_hammer": "盖亚魂钢锤",
+  "item.extrabotany.photonium_hammer": "光子锤",
+  "item.extrabotany.shadowium_hammer": "暗影锤",
+  "item.extrabotany.aerialite_hammer": "天空锤",
+  "item.extrabotany.orichalcos_hammer": "奥力哈钢锤",
+  "item.extrabotany.ultimate_hammer": "莱茵锤",
   
   "message.actionbar.mana_left": "魔力: %s",
   

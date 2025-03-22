@@ -3,8 +3,10 @@ package io.github.lounode.extrabotany.common.block.block_entity;
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -24,8 +26,10 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
 
 public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
+    private int strikes;
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ExtraBotanyBlockEntities.PEDESTAL, pos, state);
+        this.setStrikes(0);
     }
 
     @Override
@@ -37,7 +41,8 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
             }
         };
     }
-
+    //TODO feature:自动合成，活石祭坛上放展示框，展示框里放锤子，消耗耐久自动合成
+    //成就：转圈圈，活石祭坛四面都放上锤子
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
         if (world.isClientSide() && !isEmpty()) {
             return InteractionResult.SUCCESS;
@@ -68,11 +73,22 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
                     }
                     continue;
                 }
+                if (mainHandItem.isDamageableItem()) {
+                    mainHandItem.hurt(1, player.level().random, (ServerPlayer) player);
+                }
+
+                this.strikes++;
+                if (strikes < recipe.getStrike()) {
+                    level.playSound(null, pos, SoundEvents.STONE_HIT, SoundSource.PLAYERS, .8f,
+                            ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
+                    continue;
+                }
 
                 ItemStack output = recipe.getOutput();
                 this.setInsideItem(output);
-                level.playSound(null, pos, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1.0F, 1.0F);
-                createExperience((ServerLevel) level, player.position(), 5);
+                level.playSound(null, pos, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, .8F,
+                        ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
+                createExperience((ServerLevel) level, player.position(), recipe.getExp());
                 break;
             }
 
@@ -157,6 +173,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
         getItemHandler().setItem(0, itemStack);
         this.level.gameEvent(GameEvent.BLOCK_CHANGE, this.getBlockPos(), GameEvent.Context.of(this.getBlockState()));
         this.markUpdated();
+        this.setStrikes(0);
     }
 
     private void markUpdated() {
@@ -184,6 +201,27 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
     public static void clientTick(Level level, BlockPos worldPosition, BlockState state, PedestalBlockEntity self) {
 
     }
+
+    public int getStrikes() {
+        return strikes;
+    }
+
+    public void setStrikes(int strikes) {
+        this.strikes = strikes;
+    }
+
+    @Override
+    public void readPacketNBT(CompoundTag tag) {
+        super.readPacketNBT(tag);
+        this.setStrikes(tag.getInt("strikes"));
+    }
+
+    @Override
+    public void writePacketNBT(CompoundTag tag) {
+        super.writePacketNBT(tag);
+        tag.putInt("strikes", strikes);
+    }
+
     //TODO 活石祭坛HUD
     public static class HUD {
 

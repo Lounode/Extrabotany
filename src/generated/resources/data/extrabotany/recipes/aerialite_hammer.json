@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "H": {
+      "item": "extrabotany:aerialite_hammer"
+    },
+    "S": {
+      "item": "botania:livingwood_twig"
+    }
+  },
+  "pattern": [
+    "HHH",
+    "HHH",
+    " S "
+  ],
+  "result": {
+    "item": "extrabotany:aerialite_hammer"
+  },
+  "show_notification": true
+}

@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.common.item;
 
+import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.*;
 import io.github.lounode.extrabotany.common.item.material.BossBattleItem;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
@@ -8,12 +9,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import vazkii.botania.api.BotaniaAPI;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.common.item.BotaniaItems.unstackableCustomDamage;
 
 public final class ExtraBotanyItems {
     private static final Map<ResourceLocation, Item> ALL = new LinkedHashMap<>();
@@ -22,6 +25,31 @@ public final class ExtraBotanyItems {
     public static final Item zadkiel = make(prefix(LibItemNames.ZADKIEL), new ZadkielItem(unstackable()));
     public static final Item manaReader = make(prefix(LibItemNames.MANA_READER), new ManaReaderItem(unstackable()));
     public static final Item natureOrb = make(prefix(LibItemNames.NATURE_ORB), new Item(unstackable()));
+
+    //Hammer
+    public static final Item manasteelHammer = make(prefix(LibItemNames.MANASTEEL_HAMMER),
+            new ManasteelHammerItem(HammerTiers.MANASTEEL, 6, -3.1F, unstackableCustomDamage()));
+    public static final Item elementiumHammer = make(prefix(LibItemNames.ELEMENTIUM_HAMMER),
+            new ManasteelHammerItem(HammerTiers.ELEMENTIUM, 6, -3.1F ,unstackableCustomDamage()));
+    public static final Item terrasteelHammer = make(prefix(LibItemNames.TERRASTEEL_HAMMER),
+            new ManasteelHammerItem(HammerTiers.TERRASTEEL, 5, -3.0F, unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
+    public static final Item gaiaHammer = make(prefix(LibItemNames.GAIA_HAMMER),
+            new ManasteelHammerItem(HammerTiers.GAIA, 5, -3.0F, unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
+    public static final Item photoniumHammer = make(prefix(LibItemNames.PHOTONIUM_HAMMER),
+            new ManasteelHammerItem(HammerTiers.PHOTONIUM, 6, -3.1F, unstackableCustomDamage()));
+    public static final Item shadowiumHammer = make(prefix(LibItemNames.SHADOWIUM_HAMMER),
+            new ManasteelHammerItem(HammerTiers.SHADOWIUM, 6, -3.1F, unstackableCustomDamage()));
+    public static final Item aerialiteHammer = make(prefix(LibItemNames.AERIALITE_HAMMER),
+            new ManasteelHammerItem(HammerTiers.AERIALITE, 5, -3.0F, unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
+    public static final Item orichalcosHammer = make(prefix(LibItemNames.ORICHALCOS_HAMMER),
+            new ManasteelHammerItem(HammerTiers.ORICHALCOS, 5, -3.0F, unstackableCustomDamage().rarity(Rarity.EPIC)));
+    public static final Item ultimateHammer = make(prefix(LibItemNames.ULTIMATE_HAMMER),
+            new UltimateHammerItem(unstackableCustomDamage().rarity(Rarity.EPIC)));
+    public static final Item[] ALL_HAMMERS = {
+            manasteelHammer, elementiumHammer, terrasteelHammer, gaiaHammer,
+            photoniumHammer, shadowiumHammer, aerialiteHammer, orichalcosHammer,
+            ultimateHammer
+    };
 
     //Material
     public static final Item orichalcos = make(prefix(LibItemNames.ORICHALCOS), new Item(defaultBuilder().rarity(Rarity.EPIC)));

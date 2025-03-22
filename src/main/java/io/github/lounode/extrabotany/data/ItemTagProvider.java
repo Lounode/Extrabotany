@@ -6,7 +6,10 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -31,6 +34,14 @@ public class ItemTagProvider extends ItemTagsProvider {
         this.copy(ExtraBotanyTags.Blocks.BLOCKS_PHOTONIUM, ExtraBotanyTags.Items.BLOCKS_PHOTONIUM);
         this.copy(ExtraBotanyTags.Blocks.BLOCKS_SHADOWIUM, ExtraBotanyTags.Items.BLOCKS_SHADOWIUM);
         this.copy(ExtraBotanyTags.Blocks.BLOCKS_AERIALITE, ExtraBotanyTags.Items.BLOCKS_AERIALITE);
+
+        //Hammer
+        for (var hammer : ExtraBotanyItems.ALL_HAMMERS) {
+            this.tag(ExtraBotanyTags.Items.HAMMERS).add(hammer);
+            this.tag(ItemTags.PICKAXES).add(hammer);
+            this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(hammer);
+            this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(hammer);
+        }
 
     }
 

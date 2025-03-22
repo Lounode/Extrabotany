@@ -13,6 +13,8 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
@@ -66,8 +68,17 @@ public class PedestalRecipeCategory implements IRecipeCategory<PedestalRecipe> {
     @Override
     public void draw(PedestalRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY) {
         background.draw(gui, 0, 0);
-        RenderSystem.enableBlend();
+        final int strikes = recipe.getStrike();
+        final int exp = recipe.getExp();
+        Component strikesComp = Component.translatable("extrabotany.jei.pedestal.tip_strikes", strikes);
+        Component expComp = Component.translatable("extrabotany.jei.pedestal.tip_exp", exp);
 
+
+        Font font = Minecraft.getInstance().font;
+        gui.drawString(font, strikesComp, 90, 50,0x888888, false);
+        gui.drawString(font, expComp, 90, 3,0x888888, false);
+
+        RenderSystem.enableBlend();
 
         overlay.draw(gui, 40, 0);
 
