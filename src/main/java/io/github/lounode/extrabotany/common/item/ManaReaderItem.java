@@ -71,7 +71,6 @@ public class ManaReaderItem extends Item {
 
         return InteractionResult.PASS;
     }
-    //TODO 千本樱
 }
 
 

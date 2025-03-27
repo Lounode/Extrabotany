@@ -25,6 +25,7 @@ public class ExtraBotanyTags {
         public static final TagKey<Item> BLOCKS_AERIALITE = tag("aerialite_blocks");
 
         public static final TagKey<Item> HAMMERS = tag("hammers");
+        public static final TagKey<Item> PEDESTALS = tag("pedestals");
 
 
 
@@ -38,6 +39,7 @@ public class ExtraBotanyTags {
         public static final TagKey<Block> BLOCKS_PHOTONIUM = tag("photonium_blocks");
         public static final TagKey<Block> BLOCKS_SHADOWIUM = tag("shadowium_blocks");
         public static final TagKey<Block> BLOCKS_AERIALITE = tag("aerialite_blocks");
+        public static final TagKey<Block> PEDESTALS = tag("pedestals");
 
         private static TagKey<Block> tag(String name) {
             return TagKey.create(Registries.BLOCK, prefix(name));

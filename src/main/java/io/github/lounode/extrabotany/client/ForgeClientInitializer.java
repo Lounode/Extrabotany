@@ -2,9 +2,11 @@ package io.github.lounode.extrabotany.client;
 
 import io.github.lounode.extrabotany.ExtraBotany;
 import io.github.lounode.extrabotany.client.gui.MasterBandOfManaTooltipComponent;
+import io.github.lounode.extrabotany.client.renderer.ColorHandler;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -47,5 +49,15 @@ public class ForgeClientInitializer {
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers evt) {
         EntityRenderers.registerBlockEntityRenderers(evt::registerBlockEntityRenderer);
         //EntityRenderers.registerEntityRenderers(evt::registerEntityRenderer);
+    }
+
+    @SubscribeEvent
+    public static void registerBlockColors(RegisterColorHandlersEvent.Block evt) {
+        ColorHandler.submitBlocks(evt::register);
+    }
+
+    @SubscribeEvent
+    public static void registerItemColors(RegisterColorHandlersEvent.Item evt) {
+        ColorHandler.submitItems(evt::register);
     }
 }

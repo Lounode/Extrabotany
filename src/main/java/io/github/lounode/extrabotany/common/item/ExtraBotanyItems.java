@@ -6,10 +6,12 @@ import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
 import io.github.lounode.extrabotany.data.recipes.WandOfTheForestExtendRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import vazkii.botania.api.BotaniaAPI;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -43,12 +45,12 @@ public final class ExtraBotanyItems {
             new ManasteelHammerItem(HammerTiers.AERIALITE, 5, -3.0F, unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
     public static final Item orichalcosHammer = make(prefix(LibItemNames.ORICHALCOS_HAMMER),
             new ManasteelHammerItem(HammerTiers.ORICHALCOS, 5, -3.0F, unstackableCustomDamage().rarity(Rarity.EPIC)));
-    public static final Item ultimateHammer = make(prefix(LibItemNames.ULTIMATE_HAMMER),
-            new UltimateHammerItem(unstackableCustomDamage().rarity(Rarity.EPIC)));
+    public static final Item rheinHammer = make(prefix(LibItemNames.RHEIN_HAMMER),
+            new RheinHammerItem(unstackableCustomDamage().rarity(Rarity.EPIC)));
     public static final Item[] ALL_HAMMERS = {
             manasteelHammer, elementiumHammer, terrasteelHammer, gaiaHammer,
             photoniumHammer, shadowiumHammer, aerialiteHammer, orichalcosHammer,
-            ultimateHammer
+            rheinHammer
     };
 
     //Material
@@ -66,8 +68,26 @@ public final class ExtraBotanyItems {
     public static final Item gildedPotatoMashed = make(prefix(LibItemNames.GILDED_POTATO_MASHED), new Item(defaultBuilder()));//OT
     public static final Item heroMedal = make(prefix(LibItemNames.HERO_MEDAL), new Item(defaultBuilder().rarity(Rarity.UNCOMMON)));//OT
     public static final Item challengeTicket = make(prefix(LibItemNames.CHALLENGE_TICKET), new BossBattleItem(defaultBuilder()));//OT
-    public static final Item nightmareFuel = make(prefix(LibItemNames.NIGHTMARE_FUEL), new Item(defaultBuilder()));
-    public static final Item spiritFuel = make(prefix(LibItemNames.SPIRIT_FUEL), new Item(defaultBuilder()));
+    public static final Item nightmareFuel = make(prefix(LibItemNames.NIGHTMARE_FUEL), new NightmareFuelItem(defaultBuilder()
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0.3F).alwaysEat()
+                    .effect(() -> new MobEffectInstance(MobEffects.HARM, 1, 1), 1.0F)
+                    .effect(() -> new MobEffectInstance(MobEffects.BLINDNESS, 500, 1), 1.0F)
+                    .effect(() -> new MobEffectInstance(MobEffects.WEAKNESS, 500, 1), 1.0F)
+                    .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 500, 1), 1.0F)
+                    .effect(() -> new MobEffectInstance(MobEffects.UNLUCK, 500, 1), 1.0F)
+                    .build()
+            )
+    ));
+    public static final Item spiritFuel = make(prefix(LibItemNames.SPIRIT_FUEL), new Item(defaultBuilder()
+            .food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3F).alwaysEat()
+                    .effect(() -> new MobEffectInstance(MobEffects.HEAL, 1, 1), 1.0F)
+                    .effect(() -> new MobEffectInstance(MobEffects.NIGHT_VISION, 500, 1), 1.0F)
+                    .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 500, 1), 1.0F)
+                    .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 500, 1), 1.0F)
+                    .effect(() -> new MobEffectInstance(MobEffects.LUCK, 500, 1), 1.0F)
+                    .build()
+            )
+    ));
     public static final Item spiritFragment = make(prefix(LibItemNames.SPIRIT_FRAGMENT), new Item(defaultBuilder()));
 
     public static final Item theChaos = make(prefix(LibItemNames.THE_CHAOS), new Item(defaultBuilder()));

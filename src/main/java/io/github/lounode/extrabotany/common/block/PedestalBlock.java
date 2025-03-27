@@ -67,9 +67,6 @@ public class PedestalBlock extends ExtraBotanyBlock implements EntityBlock {
     }
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (world.isClientSide()) {
-            //return InteractionResult.SUCCESS;
-        }
         if (!(world.getBlockEntity(pos) instanceof PedestalBlockEntity pedestal)) {
             return InteractionResult.PASS;
         }

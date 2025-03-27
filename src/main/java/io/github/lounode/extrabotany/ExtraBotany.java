@@ -21,6 +21,7 @@ import net.minecraft.world.item.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -109,6 +110,18 @@ public class ExtraBotany
     private void registerEvents() {
         IEventBus bus = MinecraftForge.EVENT_BUS;
         bus.addGenericListener(ItemStack.class, this::attachItemCaps);
+
+        bus.addListener(this::registerFuels);
+    }
+
+    private void registerFuels(FurnaceFuelBurnTimeEvent e) {
+        //TODO 可配置燃烧时间
+        if (e.getItemStack().is(ExtraBotanyItems.nightmareFuel)) {
+            e.setBurnTime(3200);
+        }
+        if (e.getItemStack().is(ExtraBotanyItems.spiritFuel)) {
+            e.setBurnTime(12800);
+        }
     }
 
     private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {

@@ -1,0 +1,14 @@
+<root>
+    <item name='net.minecraft.network.chat.Component net.minecraft.network.chat.MutableComponent translatable(java.lang.String) 0'>
+        <annotation name='com.demonwav.mcdev.annotations.Translatable'/>
+    </item>
+    <item name='net.minecraft.network.chat.Component net.minecraft.network.chat.MutableComponent translatable(java.lang.String, java.lang.Object...) 0'>
+        <annotation name='com.demonwav.mcdev.annotations.Translatable'/>
+    </item>
+    <item name='net.minecraft.network.chat.Component net.minecraft.network.chat.MutableComponent translatableWithFallback(java.lang.String, java.lang.String) 0'>
+        <annotation name='com.demonwav.mcdev.annotations.Translatable'/>
+    </item>
+    <item name='net.minecraft.network.chat.Component net.minecraft.network.chat.MutableComponent translatableWithFallback(java.lang.String, java.lang.String, java.lang.Object...) 0'>
+        <annotation name='com.demonwav.mcdev.annotations.Translatable'/>
+    </item>
+</root>

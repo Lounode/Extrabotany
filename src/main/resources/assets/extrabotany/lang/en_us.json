@@ -4,6 +4,8 @@
   "extrabotany.category.name": "Extrabotany",
   "extrabotany.category.desc": "通过对植物魔法的深入了解，你发现了一个全新的魔法世界：$(br)这里有更多的$(thing)自然装置$()、$(thing)神秘工具$()和$(thing)饰品$()，以及最重要的：全新的$(thing)盖亚Boss$()。$(br2)享受你的$(thing)额外学$()之旅吧！",
   "extrabotany.jei.pedestal": "Pedestal Smash",
+  "extrabotany.jei.pedestal.tip_strikes": "%s 次敲击",
+  "extrabotany.jei.pedestal.tip_exp": "%s 点经验",
   
   "advancement.extrabotany:senbon_zakura": "千本桜",
   "advancement.extrabotany:senbon_zakura.desc": "使用魔力读取器读取1000次魔力",
@@ -13,6 +15,14 @@
   "advancement.extrabotany:overload.desc": "将大师魔力之戒充能至第二阶段",
   "advancement.extrabotany:load_of_ring": "Load of Ring",
   "advancement.extrabotany:load_of_ring.desc": "将大师魔力之戒充满",
+  "advancement.extrabotany:craft_pedestal": "advancement.extrabotany:craft_pedestal",
+  "advancement.extrabotany:craft_pedestal.desc": "Craft a type of Nature Pedestal",
+  "advancement.extrabotany:goodtek": "",
+  "advancement.extrabotany:goodtek.desc": "",
+  "advancement.extrabotany:kurukuru": "Time to twirl!",
+  "advancement.extrabotany:kurukuru.desc": "",
+  "advancement.extrabotany:deep_dark_fantasy": "Deep Dark Fantasy",
+  "advancement.extrabotany:deep_dark_fantasy.desc": "食用一个梦魇燃料",
   
   "block.extrabotany.aerialite_block": "Block of Aerialite",
   "block.extrabotany.orichalcos_block": "Block of Orichalcos",
@@ -44,18 +54,53 @@
   "item.extrabotany.spirit_fragment": "Spirit Fragment",
   "item.extrabotany.challenge_ticket": "Challenge Ticket",
   "item.extrabotany.mana_ring_master": "Master Band of Mana",
+  "item.extrabotany.manasteel_hammer": "魔力钢锤",
+  "item.extrabotany.elementium_hammer": "源质钢锤",
+  "item.extrabotany.terrasteel_hammer": "泰拉碾压者",
+  "item.extrabotany.gaia_hammer": "盖亚魂钢锤",
+  "item.extrabotany.photonium_hammer": "光子锤",
+  "item.extrabotany.shadowium_hammer": "暗影锤",
+  "item.extrabotany.aerialite_hammer": "天空锤",
+  "item.extrabotany.orichalcos_hammer": "奥力哈钢锤",
+  "item.extrabotany.rhein_hammer": "莱茵锤",
   
   "message.actionbar.mana_left": "Mana: %s",
+  
+  "extrabotany.patchouli.template.pedestal_smash.operate": "锻造",
+  "extrabotany.patchouli.template.pedestal_smash.tip": "提示:用锤子右键活石祭坛来锻造物品",
+  "extrabotany.patchouli.template.eat.operate": "Eat",
+  "extrabotany.patchouli.template.eat.tip": "Tip: Hand item in hand, then eat.",
   
   "extrabotany.entry.zadkiel": "Zadkiel",
   "extrabotany.page.zadkiel0": "通过$(thing)魔力$()将寒冷的冰雪与$(item)不死图腾$()融合，可以创造出一种能够调动寒冰的$(item)冰结傀儡$()。$(br2)持有它时，寒冷的气息将冻结周围的水源，并令你的敌人减速。$(br2)消耗一点点$(thing)魔力$()，它还可以调动为你而战的坚冰，刺向你的敌人。",
   "extrabotany.page.zadkiel1": "不……不要摸我的头！",
+  
   "extrabotany.entry.mana_reader": "真·魔力定量统计",
   "extrabotany.page.mana_reader0": "$()哎呀，看来你找到了被神烦狗丢弃的这一页。$()计算$(item)魔力池$()中还有多少余额总是件令人头疼的事情，好在有了这种$(item)魔力读取器$()后，用它右键$(item)魔力池$()以及$(item)魔力发射器$()，甚至一些$(thing)产能花$()，都可以准确显示出里面蕴含的$(thing)魔力$()数量。",
   "extrabotany.page.mana_reader1": "……可以！",
   "extrabotany.page.mana_reader2": "与森林法杖合成附加功能",
   "extrabotany.page.mana_reader3": "与精灵法杖合成附加功能",
+  
   "extrabotany.entry.mana_ring_master": "大师魔力之戒",
   "extrabotany.page.mana_ring_master0": "感觉魔力之戒、高级魔力之戒所容纳的魔力还是太少了？$(br2)这里有专门为魔力不足恐惧症者设计的大师魔力之戒，拥有近乎无限的魔力存储量。",
-  "extrabotany.page.mana_ring_master1": "Try not to fill about it……"
+  "extrabotany.page.mana_ring_master1": "Try not to fill about it……",
+  
+  "extrabotany.entry.pedestals": "自然祭坛",
+  "extrabotany.page.pedestals0": "$(item)活石$()的作用有很多，除了可以用它合成$(item)花药台$()外，你也可以用它来合成一个$(thing)自然祭坛$()。$(br2)对着它$(thing)$(k:use)$()可以将手持物品摆放在祭坛上。",
+  "extrabotany.page.pedestals1": "我可以摸摸你的奖杯吗？",
+  "extrabotany.page.pedestals2": "放在$(thing)自然祭坛$()上的一些物品可以使用$(thing)锻造锤$()$(k:use)来进行$(thing)锻造$()。$(br2)经过若干次的$(thing)锻造$()后，它最终将会变成另一种物品，并掉落少许经验。",
+  "extrabotany.page.pedestals3": "比肯德基的好吃",
+  "extrabotany.page.pedestals4": "需要一直锻造大量物品总是件令人烦人的事情。对于有这种需求的人，可以将一个$(item)物品展示框$()贴在它的$(thing)侧面$()，并放入$(thing)锻造锤$()。$(br2)祭坛便会使用展示框中的$(thing)锻造锤$()自动对物品进行$(thing)锻造$()。",
+  "extrabotany.page.pedestals5": "虽然身体变小，头脑依旧灵活",
+  
+  "extrabotany.entry.hammers": "锻造锤",
+  "extrabotany.page.hammers0": "用$(item)魔钢$()、$(item)源质钢$()，或者$(item)泰拉钢$()等魔力金属来合成一把$(thing)锻造锤$()吧！$(br2)它不仅能用于$(thing)自然祭坛$()锻造，更可以当做一把$(thing)镐子$()来使用。$(br2)同时还拥有$(thing)斧子$()的伤害。",
+  "extrabotany.page.hammers1": "锤子电波歌",
+  
+  "extrabotany.entry.fuels": "梦魇燃料",
+  "extrabotany.page.fuels0": "通过$(thing)魔力$()灌注$(item)煤炭$()获得的一种高级燃料，能在$(item)熔炉$()中支持燃烧数倍于$(item)煤炭$()的时长。",
+  "extrabotany.page.fuels1": "大脑在颤抖",
+  "extrabotany.page.fuels2": "食用$(item)梦魇燃料$()并不是个好主意，因为它会带给你一小会的$(thing)负面药水效果$()，并强制扣除一定的$(thing)生命值$()。$(br2)但是，通过在食用的过程中你的精神与$(item)梦魇燃料$()的融合，最终会化学反应出一种全新的燃料：$(item)精神燃料$()。",
+  "extrabotany.page.fuels3": "想象力可以改变一切",
+  "extrabotany.page.fuels4": "与$(item)梦魇燃料$()相反，食用$(item)精神燃料$()会带给你一段时间的$(thing)正面药水效果$()，并且在熔炉中支持的燃烧时长也数倍于$(item)梦魇燃料$()$(br2)$(item)精神燃料$()也可以通过将$(item)梦魇燃料$()放置在$(thing)自然祭坛$()中于阳光底下暴晒$(t:五分钟)一段时间$()后获得。"
 }

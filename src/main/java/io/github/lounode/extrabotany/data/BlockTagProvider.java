@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
@@ -40,13 +42,17 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
         tag(ExtraBotanyTags.Blocks.BLOCKS_PHOTONIUM).add(ExtraBotanyBlocks.photoniumBlock);
         tag(ExtraBotanyTags.Blocks.BLOCKS_SHADOWIUM).add(ExtraBotanyBlocks.shadowiumBlock);
 
+        tag(ExtraBotanyTags.Blocks.PEDESTALS).add(ALL_PEDESTALS);
+
         registerMiningTags();
     }
 
     private void registerMiningTags() {
-        var pickaxe = Set.of(
-            aerialiteBlock, orichalcosBlock, photoniumBlock, shadowiumBlock
-        );
+        Set pickaxe = new HashSet(Set.of(
+                aerialiteBlock, orichalcosBlock, photoniumBlock, shadowiumBlock
+        ));
+        pickaxe.add(ALL_PEDESTALS);
+
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 getModBlocks(block -> pickaxe.contains(block))
         );

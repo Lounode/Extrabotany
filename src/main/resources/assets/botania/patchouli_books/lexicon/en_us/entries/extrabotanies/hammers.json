@@ -1,0 +1,16 @@
+{
+  "name": "extrabotany.entry.hammers",
+  "category": "botania:extrabotanies",
+  "icon": "extrabotany:manasteel_hammer",
+  "pages": [
+    {
+      "type": "text",
+      "text": "extrabotany.page.hammers0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "text": "extrabotany.page.hammers1",
+      "recipe": "extrabotany:manasteel_hammer"
+    }
+  ]
+}

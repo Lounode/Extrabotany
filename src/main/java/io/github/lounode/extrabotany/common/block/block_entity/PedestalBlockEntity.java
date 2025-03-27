@@ -2,31 +2,39 @@ package io.github.lounode.extrabotany.common.block.block_entity;
 
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
+import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
+import vazkii.botania.common.helper.PlayerHelper;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
     private int strikes;
+    private Map<ItemStack, ItemFrame> automaticHammers = new HashMap<>();
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ExtraBotanyBlockEntities.PEDESTAL, pos, state);
         this.setStrikes(0);
@@ -41,22 +49,38 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
             }
         };
     }
-    //TODO feature:自动合成，活石祭坛上放展示框，展示框里放锤子，消耗耐久自动合成
-    //成就：转圈圈，活石祭坛四面都放上锤子
+
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
         if (world.isClientSide() && !isEmpty()) {
-            return InteractionResult.SUCCESS;
+            //return InteractionResult.SUCCESS;
         }
+
+        //TODO 锤子效率
+        var result = InteractionResult.PASS;
+        /*
+        result = handleSmash(state, world, pos, player, hand, hit);
+        if (!result.consumesAction() ||result == InteractionResult.CONSUME_PARTIAL) {
+            return result;
+        }
+
+         */
+        //Place&Get Item
+        result = handlePlaceItem(state, world, pos, player, hand, hit);
+        return result;
+    }
+
+
+    public InteractionResult handleSmash(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack mainHandItem = player.getMainHandItem();
         ItemStack offHandItem = player.getOffhandItem();
-
+        boolean useOffHand = false;
         if (!isEmpty()) {
             boolean denyInteraction = false;
             for (Recipe<?> r : ExtraBotanyRecipeTypes.getRecipes(level, ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE).values()) {
                 if (!(r instanceof PedestalRecipe recipe)) {
                     continue;
                 }
-                if (!recipe.getSmashTools().test(mainHandItem)) {
+                if (!recipe.getSmashTools().test(mainHandItem) && !recipe.getSmashTools().test(offHandItem)) {
                     continue;
                 } else {
                     denyInteraction = true;
@@ -73,11 +97,20 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
                     }
                     continue;
                 }
-                if (mainHandItem.isDamageableItem()) {
-                    mainHandItem.hurt(1, player.level().random, (ServerPlayer) player);
+
+                if (recipe.getSmashTools().test(mainHandItem)) {
+                    mainHandItem.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+                } else if (recipe.getSmashTools().test(offHandItem)) {
+                    offHandItem.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(InteractionHand.OFF_HAND));
+                    useOffHand = true;
                 }
 
+
                 this.strikes++;
+                if (!level.isClientSide()) {
+                    PlayerHelper.grantCriterion((ServerPlayer) player, prefix("main/" + LibAdvancementNames.GOODTEK), "code_triggered");
+                }
+
                 if (strikes < recipe.getStrike()) {
                     level.playSound(null, pos, SoundEvents.STONE_HIT, SoundSource.PLAYERS, .8f,
                             ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
@@ -88,16 +121,29 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
                 this.setInsideItem(output);
                 level.playSound(null, pos, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, .8F,
                         ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
-                createExperience((ServerLevel) level, player.position(), recipe.getExp());
+                if (!level.isClientSide()) {
+                    createExperience((ServerLevel) level, player.position(), recipe.getExp());
+                }
                 break;
             }
 
             if (denyInteraction) {
-                return InteractionResult.SUCCESS;
+                if (useOffHand) {
+                    player.swing(InteractionHand.OFF_HAND);
+                } else {
+                    player.swing(InteractionHand.MAIN_HAND);
+                }
+                return InteractionResult.CONSUME_PARTIAL;
+
             }
         }
+        return InteractionResult.CONSUME;
+    }
 
-        //Place&Get Item
+
+    public InteractionResult handlePlaceItem(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        ItemStack mainHandItem = player.getMainHandItem();
+        ItemStack offHandItem = player.getOffhandItem();
         if (isEmpty()) {
             boolean reversePriority = false;
             if(!mainHandItem.isEmpty()) {
@@ -190,16 +236,91 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
 
         return true;
     }
-
-    public void trySmash(ItemStack hammer) {
-
-    }
-
+    //TODO 精神燃料自动化
     public static void serverTick(Level level, BlockPos worldPosition, BlockState state, PedestalBlockEntity self) {
+        if (level.getGameTime() % 20 == 0) {
+            int lastHammers = self.automaticHammers.size();
+            self.updateAutomaticHammers();
+            if (lastHammers != self.automaticHammers.size() && self.automaticHammers.size() == 4) {
+                Player nearestPlayer = level.getNearestPlayer(
+                        worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(),
+                        10, false
+                );
+                if (nearestPlayer != null) {
+                    PlayerHelper.grantCriterion((ServerPlayer) nearestPlayer, prefix("main/" + LibAdvancementNames.KURUKURU), "code_triggered");
+                }
+            }
+        }
 
+        if (level.getGameTime() % 10 == 0 && !self.isEmpty()) {
+            for (ItemStack hammer : self.automaticHammers.keySet()) {
+                ItemFrame frame = self.automaticHammers.get(hammer);
+                if (frame == null || !frame.isAlive()) {
+                    continue;
+                }
+                if (self.tryAutoSmash(hammer)) {
+                    break;
+                }
+            }
+        }
+
+        //if (level.getGameTime())
     }
     public static void clientTick(Level level, BlockPos worldPosition, BlockState state, PedestalBlockEntity self) {
 
+    }
+
+    public boolean tryAutoSmash(ItemStack hammer) {
+        for (Recipe<?> r : ExtraBotanyRecipeTypes.getRecipes(level, ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE).values()) {
+            if (!(r instanceof PedestalRecipe recipe)) {
+                continue;
+            }
+            if (!recipe.getSmashTools().test(hammer)) {
+                continue;
+            }
+            if (!recipe.getInput().test(this.getInsideItem())) {
+                if (ItemStack.isSameItemSameTags(recipe.getOutput(), this.getInsideItem())) {
+                    return false;
+                }
+                continue;
+            }
+
+            if (hammer.isDamageableItem() && hammer.hurt(1, level.random, null)) {
+                automaticHammers.get(hammer).setItem(ItemStack.EMPTY);
+            }
+
+
+            this.strikes++;
+            if (strikes < recipe.getStrike()) {
+                level.playSound(null, worldPosition, SoundEvents.STONE_HIT, SoundSource.BLOCKS, .8f,
+                        ((level.random.nextFloat() - level.random.nextFloat()) * .7f + 1) * 2);
+                return true;
+            }
+
+            ItemStack output = recipe.getOutput();
+            this.setInsideItem(output);
+            level.playSound(null, worldPosition, SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, .8F,
+                    ((level.random.nextFloat() - level.random.nextFloat()) * .7f + 1) * 2);
+            //createExperience((ServerLevel) level, player.position(), recipe.getExp());
+            return true;
+        }
+        return false;
+    }
+
+    public Map<ItemStack, ItemFrame> getPerhapsHammers() {
+        return level.getEntitiesOfClass(ItemFrame.class,
+                        new AABB(worldPosition).inflate(2.0)
+                ).stream()
+                .filter(frame -> frame.getPos().relative(frame.getDirection().getOpposite()).equals(worldPosition))
+                .filter(itemFrame -> !itemFrame.getItem().isEmpty())
+                .collect(Collectors.toMap(ItemFrame::getItem, itemFrame -> itemFrame, (oldFrame, newFrame) -> newFrame));
+    }
+
+    public void updateAutomaticHammers() {
+        this.automaticHammers = getPerhapsHammers();
+        if (this.automaticHammers == null) {
+            this.automaticHammers = new HashMap<>();
+        }
     }
 
     public int getStrikes() {

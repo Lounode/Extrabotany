@@ -15,6 +15,14 @@
   "advancement.extrabotany:overload.desc": "将大师魔力之戒充能至第二阶段",
   "advancement.extrabotany:load_of_ring": "指环王",
   "advancement.extrabotany:load_of_ring.desc": "将大师魔力之戒充满",
+  "advancement.extrabotany:craft_pedestal": "快到坛里来",
+  "advancement.extrabotany:craft_pedestal.desc": "合成一种自然祭坛",
+  "advancement.extrabotany:goodtek": "GOODTEK!",
+  "advancement.extrabotany:goodtek.desc": "用锻造锤锻造自然祭坛中的物品",
+  "advancement.extrabotany:kurukuru": "转圈圈",
+  "advancement.extrabotany:kurukuru.desc": "将一个自然祭坛的四面都贴上放入锻造锤的展示框",
+  "advancement.extrabotany:deep_dark_fantasy": "Deep Dark Fantasy",
+  "advancement.extrabotany:deep_dark_fantasy.desc": "食用一个梦魇燃料",
   
   
   "block.extrabotany.aerialite_block": "天空块",
@@ -55,20 +63,46 @@
   "item.extrabotany.shadowium_hammer": "暗影锤",
   "item.extrabotany.aerialite_hammer": "天空锤",
   "item.extrabotany.orichalcos_hammer": "奥力哈钢锤",
-  "item.extrabotany.ultimate_hammer": "莱茵锤",
+  "item.extrabotany.rhein_hammer": "莱茵锤",
   
   "message.actionbar.mana_left": "魔力: %s",
+  
+  "extrabotany.patchouli.template.pedestal_smash.operate": "锻造",
+  "extrabotany.patchouli.template.pedestal_smash.tip": "提示: 用锤子右键活石祭坛来锻造物品",
+  "extrabotany.patchouli.template.eat.operate": "食用",
+  "extrabotany.patchouli.template.eat.tip": "提示: 拿在手中，然后食用",
   
   "extrabotany.entry.zadkiel": "冰结傀儡",
   "extrabotany.page.zadkiel0": "通过$(thing)魔力$()将寒冷的冰雪与$(item)不死图腾$()融合，可以创造出一种能够调动寒冰的$(item)冰结傀儡$()。$(br2)持有它时，寒冷的气息将冻结周围的水源，并令你的敌人减速。$(br2)消耗一点点$(thing)魔力$()，它还可以调动为你而战的坚冰，刺向你的敌人。",
   "extrabotany.page.zadkiel1": "不……不要摸我的头！",
+  
   "extrabotany.entry.mana_reader": "真·魔力定量统计",
   "extrabotany.page.mana_reader0": "$(7)哎呀，看来你找到了被神烦狗丢弃的这一页。$()$(br2)计算$(item)魔力池$()中还剩下多少$(thing)魔力$()总是件令人头疼的事情，现在有了$(item)魔力读取器$()。$(br2)使用它右键$(item)魔力池$()、$(item)魔力发射器$()，甚至一些$(thing)产能花$()，都可以准确显示出里面蕴含的$(thing)魔力$()。",
   "extrabotany.page.mana_reader1": "……可以！",
   "extrabotany.page.mana_reader2": "$(item)魔力读取器$()可以和$(item)森林法杖$()、$(item)精灵森林法杖$()在$(thing)工作台$()中进行合成，以附加功能。$(br2)附加功能的$(item)森林法杖$()在对准$(item)魔力池$()等方块时，会在$(thing)魔力条$()的底部显示出方块的$(thing)当前魔力$()与$(thing)最大魔力$()。",
   "extrabotany.page.mana_reader3": "与森林法杖合成附加功能",
+  
   "extrabotany.entry.mana_ring_master": "大师魔力之戒",
   "extrabotany.page.mana_ring_master0": "感觉$(item)魔力之戒$()、$(item)高级魔力之戒$()所容纳的$(thing)魔力$()还是太少了？$(br2)这里有专门为魔力不足恐惧症者设计的$(item)大师魔力之戒$()，拥有$(t: Long.MAX_VALUE)近乎无限$() $(9)I$(a)n$(b)f$(9)i$(d)n$(c)i$(e)t$(6)y$() 的$(thing)魔力$()存储量。",
   "extrabotany.page.mana_ring_master1": "$(7)尽量不要去想填满它……$()",
-  "extrabotany.entry.pedestals": "自然祭坛"
+  
+  "extrabotany.entry.pedestals": "自然祭坛",
+  "extrabotany.page.pedestals0": "$(item)活石$()的作用有很多，除了可以用它合成$(item)花药台$()外，你也可以用它来合成一个$(thing)自然祭坛$()。$(br2)对着它$(thing)$(k:use)$()可以将手持物品摆放在祭坛上。",
+  "extrabotany.page.pedestals1": "我可以摸摸你的奖杯吗？",
+  "extrabotany.page.pedestals2": "放在$(thing)自然祭坛$()上的一些物品可以使用$(thing)锻造锤$()$(k:use)来进行$(thing)锻造$()。$(br2)经过若干次的$(thing)锻造$()后，它最终将会变成另一种物品，并掉落少许经验。",
+  "extrabotany.page.pedestals3": "比肯德基的好吃",
+  "extrabotany.page.pedestals4": "需要一直锻造大量物品总是件令人烦人的事情。对于有这种需求的人，可以将一个$(item)物品展示框$()贴在它的$(thing)侧面$()，并放入$(thing)锻造锤$()。$(br2)祭坛便会使用展示框中的$(thing)锻造锤$()自动对物品进行$(thing)锻造$()。",
+  "extrabotany.page.pedestals5": "虽然身体变小，头脑依旧灵活",
+  
+  "extrabotany.entry.hammers": "锻造锤",
+  "extrabotany.page.hammers0": "用$(item)魔钢$()、$(item)源质钢$()，或者$(item)泰拉钢$()等魔力金属来合成一把$(thing)锻造锤$()吧！$(br2)它不仅能用于$(thing)自然祭坛$()锻造，更可以当做一把$(thing)镐子$()来使用。$(br2)同时还拥有$(thing)斧子$()的伤害。",
+  "extrabotany.page.hammers1": "锤子电波歌",
+  
+  "extrabotany.entry.fuels": "梦魇燃料",
+  "extrabotany.page.fuels0": "通过$(thing)魔力$()灌注$(item)煤炭$()获得的一种高级燃料，能在$(item)熔炉$()中支持燃烧数倍于$(item)煤炭$()的时长。",
+  "extrabotany.page.fuels1": "大脑在颤抖",
+  "extrabotany.page.fuels2": "食用$(item)梦魇燃料$()并不是个好主意，因为它会带给你一小会的$(thing)负面药水效果$()，并强制扣除一定的$(thing)生命值$()。$(br2)但是，通过在食用的过程中你的精神与$(item)梦魇燃料$()的融合，最终会化学反应出一种全新的燃料：$(item)精神燃料$()。",
+  "extrabotany.page.fuels3": "想象力可以改变一切",
+  "extrabotany.page.fuels4": "与$(item)梦魇燃料$()相反，食用$(item)精神燃料$()会带给你一段时间的$(thing)正面药水效果$()，并且在熔炉中支持的燃烧时长也数倍于$(item)梦魇燃料$()$(br2)$(item)精神燃料$()也可以通过将$(item)梦魇燃料$()放置在$(thing)自然祭坛$()中于阳光底下暴晒$(t:五分钟)一段时间$()后获得。"
+  
 }

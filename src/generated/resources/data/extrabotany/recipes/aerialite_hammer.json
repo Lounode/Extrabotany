@@ -3,10 +3,10 @@
   "category": "equipment",
   "key": {
     "H": {
-      "item": "extrabotany:aerialite_hammer"
+      "item": "extrabotany:aerialite_ingot"
     },
     "S": {
-      "item": "botania:livingwood_twig"
+      "item": "botania:dreamwood_twig"
     }
   },
   "pattern": [

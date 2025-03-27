@@ -13,6 +13,8 @@ import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.concurrent.CompletableFuture;
 
+import static io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks.ALL_PEDESTALS;
+
 
 public class ItemTagProvider extends ItemTagsProvider {
     public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {
@@ -43,6 +45,7 @@ public class ItemTagProvider extends ItemTagsProvider {
             this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(hammer);
         }
 
+        this.copy(ExtraBotanyTags.Blocks.PEDESTALS, ExtraBotanyTags.Items.PEDESTALS);
     }
 
 }
