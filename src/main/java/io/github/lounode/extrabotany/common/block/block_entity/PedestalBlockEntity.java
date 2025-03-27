@@ -1,39 +1,44 @@
 package io.github.lounode.extrabotany.common.block.block_entity;
 
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
+import io.github.lounode.extrabotany.common.block.PedestalBlock;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
     private int strikes;
+    private int FINISH_CRAFT_STRIKE_FLAG = -1;
     private Map<ItemStack, ItemFrame> automaticHammers = new HashMap<>();
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ExtraBotanyBlockEntities.PEDESTAL, pos, state);
@@ -51,25 +56,116 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
     }
 
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
-        if (world.isClientSide() && !isEmpty()) {
-            //return InteractionResult.SUCCESS;
+        if(hand == InteractionHand.OFF_HAND) {
+            return InteractionResult.PASS;
         }
 
-        //TODO 锤子效率
-        var result = InteractionResult.PASS;
-        /*
-        result = handleSmash(state, world, pos, player, hand, hit);
-        if (!result.consumesAction() ||result == InteractionResult.CONSUME_PARTIAL) {
-            return result;
-        }
 
-         */
-        //Place&Get Item
-        result = handlePlaceItem(state, world, pos, player, hand, hit);
-        return result;
+        List<Function<Void, Map.Entry<InteractionResult, Boolean>>> handlers = Arrays.asList(
+                (Void v) -> handleExtractFinishItem(state, world, pos, player, hand, hit),
+                (Void v) -> handleSmashNew(state, world, pos, player, hand, hit),
+                (Void v) -> handleReversePlaceItem(state, world, pos, player, hand, hit),
+                (Void v) -> handlePlaceItemNew(state, world, pos, player, hand, hit)
+        );
+        Map.Entry<InteractionResult, Boolean> result = new AbstractMap.SimpleEntry<>(InteractionResult.CONSUME, false);
+
+        for (var handler : handlers) {
+            result = handler.apply(null);
+
+            if (result.getKey() != InteractionResult.CONSUME) {
+                break;
+            }
+        }
+        player.swing(result.getValue() ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND);
+
+        return result.getKey();
     }
+    public Map.Entry<InteractionResult, Boolean> handleExtractFinishItem(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        if (!isEmpty() && strikes == FINISH_CRAFT_STRIKE_FLAG) {
+            ItemStack stack = extractPedestal();
+            if (player.addItem(stack)) {
+                playSound();
+            } else {
+                Containers.dropItemStack(world, player.getX(), player.getY(), player.getZ(), stack);
+            }
+            return new AbstractMap.SimpleEntry<>(InteractionResult.CONSUME_PARTIAL, false);
+        }
+        return new AbstractMap.SimpleEntry<>(InteractionResult.CONSUME, false);
+    }
+    public Map.Entry<InteractionResult, Boolean> handleSmashNew(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        boolean swingOffHand = false;
+
+        if (!isEmpty()) {
+            ItemStack mainHandItem = player.getMainHandItem();
+            ItemStack offHandItem = player.getOffhandItem();
+
+            boolean denyInteraction = false;
+
+            for (Recipe<?> r : ExtraBotanyRecipeTypes.getRecipes(level, ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE).values()) {
+                if (!(r instanceof PedestalRecipe recipe)) {
+                    continue;
+                }
+                if (!recipe.getSmashTools().test(mainHandItem) && !recipe.getSmashTools().test(offHandItem)) {
+                    continue;
+                } else {
+                    denyInteraction = true;
+                }
+
+                if (!recipe.getInput().test(this.getInsideItem())) {
+                    continue;
+                }
+
+                ItemStack smashTools = null;
+                if (recipe.getSmashTools().test(mainHandItem)) {
+                    smashTools = mainHandItem;
+                } else if (recipe.getSmashTools().test(offHandItem)) {
+                    smashTools = offHandItem;
+                    swingOffHand = true;
+                }
+                boolean finalSwingOffHand = swingOffHand;
+
+                //TODO 过于OP暂未启用
+                /*
+                * 时运：经验加成
+                * 效率：击打次数加成
+                * 经验修补：自动化自我修复
+                * */
+                int expBoost = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_FORTUNE, smashTools);
+                int efficiency = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, smashTools);
+
+                smashTools.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(finalSwingOffHand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND));
 
 
+                this.strikes += 1 /*+ efficiency*/;
+                if (!level.isClientSide()) {
+                    PlayerHelper.grantCriterion((ServerPlayer) player, prefix("main/" + LibAdvancementNames.GOODTEK), "code_triggered");
+                }
+
+                if (strikes > 0 && strikes < recipe.getStrike()) {
+                    level.playSound(null, pos, SoundEvents.STONE_HIT, SoundSource.PLAYERS, .8f,
+                            ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
+                    continue;
+                }
+
+                ItemStack output = recipe.getOutput().copy();
+                this.setInsideItem(output);
+                level.playSound(null, pos, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, .8F,
+                        ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
+                if (!level.isClientSide()) {
+
+                    createExperience((ServerLevel) level, player.position(), recipe.getExp() /* * expBoost*/);
+                }
+                strikes = FINISH_CRAFT_STRIKE_FLAG;
+                break;
+            }
+
+            return denyInteraction ?
+                    new AbstractMap.SimpleEntry<>(InteractionResult.CONSUME_PARTIAL, swingOffHand) :
+                    new AbstractMap.SimpleEntry<>(InteractionResult.CONSUME, swingOffHand);
+        }
+
+        return new AbstractMap.SimpleEntry<>(InteractionResult.CONSUME, swingOffHand);
+    }
     public InteractionResult handleSmash(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack mainHandItem = player.getMainHandItem();
         ItemStack offHandItem = player.getOffhandItem();
@@ -139,7 +235,69 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
         }
         return InteractionResult.CONSUME;
     }
+    public Map.Entry<InteractionResult, Boolean> handleReversePlaceItem(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        boolean swingOffHand = false;
+        if (isEmpty()) {
+            boolean reversePriority = false;
+            ItemStack mainHandItem = player.getMainHandItem();
+            if (!mainHandItem.isEmpty()) {
+                for (Recipe<?> r : ExtraBotanyRecipeTypes.getRecipes(level, ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE).values()) {
+                    if (!(r instanceof PedestalRecipe recipe)) {
+                        continue;
+                    }
+                    if (recipe.getSmashTools().test(mainHandItem)) {
+                        reversePriority = true;
+                        break;
+                    }
+                }
+            }
+            if (reversePriority) {
+                ItemStack offHandItem = player.getOffhandItem();
 
+                if (!offHandItem.isEmpty()) {
+                    insertPedestal(offHandItem);
+                    playSound();
+                    swingOffHand = true;
+                } else if (!mainHandItem.isEmpty()) {
+                    insertPedestal(mainHandItem);
+                    playSound();
+                }
+
+                return new AbstractMap.SimpleEntry<>(InteractionResult.CONSUME_PARTIAL, swingOffHand);
+            }
+        }
+        return new AbstractMap.SimpleEntry<>(InteractionResult.CONSUME, swingOffHand);
+    }
+    public Map.Entry<InteractionResult, Boolean> handlePlaceItemNew(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        boolean swingOffHand = false;
+        if (isEmpty()) {
+            ItemStack mainHandItem = player.getMainHandItem();
+            ItemStack offHandItem = player.getOffhandItem();
+
+            if (!mainHandItem.isEmpty()) {
+                insertPedestal(mainHandItem);
+                playSound();
+            }
+            else if (!offHandItem.isEmpty()) {
+                insertPedestal(offHandItem);
+                playSound();
+                swingOffHand = true;
+            }
+        } else {
+            ItemStack stack = extractPedestal();
+            if (player.addItem(stack)) {
+                playSound();
+            } else {
+                Containers.dropItemStack(world, player.getX(), player.getY(), player.getZ(), stack);
+            }
+        }
+        return new AbstractMap.SimpleEntry<>(InteractionResult.CONSUME, swingOffHand);
+    }
+
+    private void playSound() {
+        level.playSound(null, worldPosition, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
+                ((level.random.nextFloat() - level.random.nextFloat()) * .7f + 1) * 2);
+    }
 
     public InteractionResult handlePlaceItem(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack mainHandItem = player.getMainHandItem();
@@ -212,14 +370,44 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
     }
 
     public ItemStack getInsideItem() {
-        return getItemHandler().getItem(0);
+        return getItem(0);
     }
 
     public void setInsideItem(ItemStack itemStack) {
-        getItemHandler().setItem(0, itemStack);
-        this.level.gameEvent(GameEvent.BLOCK_CHANGE, this.getBlockPos(), GameEvent.Context.of(this.getBlockState()));
-        this.markUpdated();
+        setItem(0, itemStack);
+    }
+
+    @Override
+    public void setItem(int index, ItemStack stack) {
         this.setStrikes(0);
+
+        BlockState state = getBlockState();
+
+        this.level.blockEvent(getBlockPos(), state.getBlock(), 0, 0);
+        this.level.gameEvent(GameEvent.BLOCK_CHANGE, this.getBlockPos(), GameEvent.Context.of(this.getBlockState()));
+
+        this.level.setBlock(getBlockPos(), state.setValue(PedestalBlock.HAS_ITEM, !stack.isEmpty()), 3);
+
+        super.setItem(index, stack);
+
+        this.markUpdated();
+    }
+
+    @Override
+    public ItemStack removeItem(int index, int count) {
+        this.setStrikes(0);
+
+
+        BlockState state = getBlockState();
+
+        this.level.blockEvent(getBlockPos(), state.getBlock(), 0, 0);
+        this.level.gameEvent(GameEvent.BLOCK_CHANGE, this.getBlockPos(), GameEvent.Context.of(this.getBlockState()));
+
+        this.level.setBlock(getBlockPos(), state.setValue(PedestalBlock.HAS_ITEM, false), 3);
+
+        ItemStack superItemStack = super.removeItem(index, count);
+        this.markUpdated();
+        return superItemStack;
     }
 
     private void markUpdated() {
@@ -238,6 +426,10 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
     }
     //TODO 精神燃料自动化
     public static void serverTick(Level level, BlockPos worldPosition, BlockState state, PedestalBlockEntity self) {
+        if (level.getGameTime() % 10 == 0) {
+            self.markUpdated();
+        }
+
         if (level.getGameTime() % 20 == 0) {
             int lastHammers = self.automaticHammers.size();
             self.updateAutomaticHammers();
@@ -285,23 +477,40 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
                 continue;
             }
 
+            int expBoost = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_FORTUNE, hammer);
+            int efficiency = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, hammer);
+
             if (hammer.isDamageableItem() && hammer.hurt(1, level.random, null)) {
                 automaticHammers.get(hammer).setItem(ItemStack.EMPTY);
             }
 
-
-            this.strikes++;
-            if (strikes < recipe.getStrike()) {
+            this.strikes+= 1 /*+ efficiency*/;
+            if (strikes > 0 && strikes < recipe.getStrike()) {
                 level.playSound(null, worldPosition, SoundEvents.STONE_HIT, SoundSource.BLOCKS, .8f,
                         ((level.random.nextFloat() - level.random.nextFloat()) * .7f + 1) * 2);
                 return true;
             }
 
-            ItemStack output = recipe.getOutput();
+            ItemStack output = recipe.getOutput().copy();
             this.setInsideItem(output);
             level.playSound(null, worldPosition, SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, .8F,
                     ((level.random.nextFloat() - level.random.nextFloat()) * .7f + 1) * 2);
-            //createExperience((ServerLevel) level, player.position(), recipe.getExp());
+            strikes = FINISH_CRAFT_STRIKE_FLAG;
+
+            //Mending
+            /*
+            int exp = recipe.getExp() * expBoost;
+            if (hammer != null && !hammer.isEmpty() && hammer.isDamageableItem()) {
+                int mendingLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.MENDING, hammer);
+
+                if (mendingLevel > 0 && exp > 0) {
+                    int repairAmount = Math.min(exp * 2, hammer.getDamageValue());
+                    hammer.setDamageValue(hammer.getDamageValue() - repairAmount);
+                }
+            }
+
+             */
+
             return true;
         }
         return false;
@@ -342,6 +551,16 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
         super.writePacketNBT(tag);
         tag.putInt("strikes", strikes);
     }
+
+    public int getAnalogOutputSignal() {
+        return this.strikes == FINISH_CRAFT_STRIKE_FLAG ? 15 : 0;
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int index, @NotNull ItemStack stack, @Nullable Direction direction) {
+        return this.strikes == FINISH_CRAFT_STRIKE_FLAG;
+    }
+
 
     //TODO 活石祭坛HUD
     public static class HUD {

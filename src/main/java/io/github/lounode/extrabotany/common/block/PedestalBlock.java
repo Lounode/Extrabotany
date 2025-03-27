@@ -16,15 +16,18 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 
-public class PedestalBlock extends ExtraBotanyBlock implements EntityBlock {
+public class PedestalBlock extends BotaniaWaterloggedBlock implements EntityBlock {
     private static final VoxelShape SHAPE = Shapes.or(
             // Base layers (0-4 y-level)
             Block.box(0, 0, 0, 16, 2, 16),      // baseBottom
@@ -49,11 +52,14 @@ public class PedestalBlock extends ExtraBotanyBlock implements EntityBlock {
         LIVINGROCK,
     }
     public final Variant variant;
+    public static final BooleanProperty HAS_ITEM = BooleanProperty.create("has_item");
 
     protected PedestalBlock(Variant v, BlockBehaviour.Properties builder) {
         super(builder);
         this.variant = v;
+        this.registerDefaultState(this.stateDefinition.any().setValue(HAS_ITEM, Boolean.FALSE));
     }
+
     @NotNull
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
@@ -65,6 +71,7 @@ public class PedestalBlock extends ExtraBotanyBlock implements EntityBlock {
     public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
         return SHAPE;
     }
+
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!(world.getBlockEntity(pos) instanceof PedestalBlockEntity pedestal)) {
@@ -91,14 +98,16 @@ public class PedestalBlock extends ExtraBotanyBlock implements EntityBlock {
 
     @Override
     public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
-        BlockEntity be = world.getBlockEntity(pos);
-        if (be instanceof SimpleInventoryBlockEntity inventory) {
-            Containers.dropContents(world, pos, inventory.getItemHandler());
+        if (!state.is(newState.getBlock())) {
+            BlockEntity be = world.getBlockEntity(pos);
+            if (be instanceof SimpleInventoryBlockEntity inventory) {
+                Containers.dropContents(world, pos, inventory.getItemHandler());
+                world.updateNeighbourForOutputSignal(pos, this);
+            }
+            super.onRemove(state, world, pos, newState, isMoving);
         }
-        super.onRemove(state, world, pos, newState, isMoving);
     }
 
-    //TODO 比较器红石信号
     @Override
     public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
@@ -106,6 +115,15 @@ public class PedestalBlock extends ExtraBotanyBlock implements EntityBlock {
 
     @Override
     public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-        return 0;
+        if (!(world.getBlockEntity(pos) instanceof PedestalBlockEntity pedestal)) {
+            return 0;
+        }
+        return pedestal.getAnalogOutputSignal();
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(HAS_ITEM);
     }
 }

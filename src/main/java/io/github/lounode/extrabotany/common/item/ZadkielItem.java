@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 
-//TODO完善功能
+//TODO完善功能 冰刺
 public class ZadkielItem extends Item {
     public ZadkielItem(Properties properties) {
         super(properties);
@@ -41,7 +41,6 @@ public class ZadkielItem extends Item {
                         3, 0, 0, 0, 0.1);
             }
 
-            // TODO 冰刺
             for (int i = 0; i < 5; i++) {
                 Vec3 pos = player.position()
                         .add(player.getLookAngle().scale(2 + i));
