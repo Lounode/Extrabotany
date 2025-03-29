@@ -110,6 +110,15 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
                 .pattern("OCO")
                 .unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaRingGreater))
                 .save(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, consumer));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.camera)
+                .define('B', ExtraBotanyBlocks.shadowiumBlock)
+                .define('G', BotaniaItems.gaiaIngot)
+                .define('S', Items.SPYGLASS)
+                .pattern("BBB")
+                .pattern("BSB")
+                .pattern("GGG")
+                .unlockedBy("has_item", conditionsFromItem(BotaniaItems.gaiaIngot))
+                .save(consumer);
     }
     private void registerTools(Consumer<FinishedRecipe> consumer) {
         //ManaReader&WandExtend

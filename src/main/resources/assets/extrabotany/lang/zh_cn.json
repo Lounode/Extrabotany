@@ -23,7 +23,8 @@
   "advancement.extrabotany:kurukuru.desc": "将一个自然祭坛的四面都贴上放入锻造锤的展示框",
   "advancement.extrabotany:deep_dark_fantasy": "Deep Dark Fantasy",
   "advancement.extrabotany:deep_dark_fantasy.desc": "食用一个梦魇燃料",
-  
+  "advancement.extrabotany:i_see_everything": "全都看见了",
+  "advancement.extrabotany:i_see_everything.desc": "使用相机一次性标记不少于10名敌人",
   
   "block.extrabotany.aerialite_block": "天空块",
   "block.extrabotany.orichalcos_block": "奥利哈钢块",
@@ -31,7 +32,10 @@
   "block.extrabotany.shadowium_block": "暗影块",
   "block.extrabotany.pedestal_livingrock" : "活石祭坛",
   
+  "death.attack.extrabotany.link": "%s 对别人的痛苦感同身受",
+  
   "effect.extrabotany.immobilize": "定身",
+  "effect.extrabotany.link": "链接",
   
   "item.extrabotany.aerialite_ingot": "天空锭",
   "item.extrabotany.orichalcos_ingot": "奥利哈钢",
@@ -112,6 +116,10 @@
   "extrabotany.page.fuels1": "大脑在颤抖",
   "extrabotany.page.fuels2": "食用$(item)梦魇燃料$()并不是个好主意，因为它会带给你一小会的$(thing)负面药水效果$()，并强制扣除一定的$(thing)生命值$()。$(br2)但是，通过在食用的过程中你的精神与$(item)梦魇燃料$()的融合，最终会化学反应出一种全新的燃料：$(item)精神燃料$()。",
   "extrabotany.page.fuels3": "想象力可以改变一切",
-  "extrabotany.page.fuels4": "与$(item)梦魇燃料$()相反，食用$(item)精神燃料$()会带给你一段时间的$(thing)正面药水效果$()，并且在熔炉中支持的燃烧时长也数倍于$(item)梦魇燃料$()$(br2)$(item)精神燃料$()也可以通过将$(item)梦魇燃料$()放置在$(thing)自然祭坛$()中于阳光底下暴晒$(t:五分钟)一段时间$()后获得。"
+  "extrabotany.page.fuels4": "与$(item)梦魇燃料$()相反，食用$(item)精神燃料$()会带给你一段时间的$(thing)正面药水效果$()，并且在熔炉中支持的燃烧时长也数倍于$(item)梦魇燃料$()$(br2)$(item)精神燃料$()也可以通过将$(item)梦魇燃料$()放置在$(thing)自然祭坛$()中于阳光底下暴晒$(t:五分钟)一段时间$()后获得。",
   
+  "extrabotany.entry.camera": "文文的相机",
+  "extrabotany.page.camera0": "拥有$(thing)能够使用念写程度的能力$()。$(br2)使用时消耗一定$(thing)魔力$()，标记取景框范围内的敌人，并清除一定范围内所有的非友方投掷物。",
+  "extrabotany.page.camera1": "被相机标记的敌人会为它们附加$(thing)链接$()效果。$(br2)拥有$(thing)链接$()效果的实体$(thing)受伤$()时，周围所有具有$(thing)链接$()效果的实体也将同时受到等同于原伤害一定比例的伤害。",
+  "extrabotany.page.camera2": "风符「风神少女」"
 }

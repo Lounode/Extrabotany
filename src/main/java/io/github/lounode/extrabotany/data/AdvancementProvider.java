@@ -47,6 +47,11 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
                                     MinMaxBounds.Ints.atLeast(1000)
                             ))
                     .save(consumer, mainId(LibAdvancementNames.SENBON_ZAKURA));
+            Advancement iSeeEveryThing = Advancement.Builder.advancement()
+                    .display(simple(ExtraBotanyItems.camera, LibAdvancementNames.I_SEE_EVERYTHING, FrameType.GOAL))
+                    .parent(root)
+                    .addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+                    .save(consumer, mainId(LibAdvancementNames.I_SEE_EVERYTHING));
             //ManaRing
             Advancement craftRing = Advancement.Builder.advancement()
                     .display(simple(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.PANDA_DO_NOT_WEAR_RINGS, FrameType.GOAL))

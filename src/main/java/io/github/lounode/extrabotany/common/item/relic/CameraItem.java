@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.lounode.extrabotany.ExtraBotany;
 import io.github.lounode.extrabotany.common.brew.effect.ExtrabotanyMobEffects;
 import io.github.lounode.extrabotany.common.event.ItemCooldownFinishEvent;
+import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import io.github.lounode.extrabotany.common.sounds.ExtrabotanySounds;
 import io.github.lounode.extrabotany.common.util.SoundEventUtil;
 import net.minecraft.ChatFormatting;
@@ -45,6 +46,7 @@ import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.common.item.relic.RelicItem;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -63,14 +65,14 @@ import static vazkii.botania.client.gui.HUDHandler.renderManaBar;
 public class CameraItem extends RelicItem {
     private static final int MANA_PER_USE = 1500;
     private static final int RANGE = 20;
+    private static final int ADVANCEMENT_REQUIRE = 10;
 
     public CameraItem(Properties props) {
         super(props);
     }
-    //TODO 拍照UI 装填拍照音效 投掷物变成P点飞过来
+    //TODO 拍照UI 投掷物变成P点飞过来
     //拿着相机受伤时播放东方受伤音效
-    //饰品，能够使用念写程度的能力
-    //Z键
+    //Z键 饰品栏也能拍照
     //车万女仆联动
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
@@ -114,7 +116,12 @@ public class CameraItem extends RelicItem {
                     .filter(entity -> entity.getTeam() == null || !entity.getTeam().isAlliedTo(player.getTeam()))
                     .toList();
             for (var livingEntity : livingEntities) {
-                livingEntity.addEffect(new MobEffectInstance(ExtrabotanyMobEffects.IMMOBILIZE, 100));
+                //livingEntity.addEffect(new MobEffectInstance(ExtrabotanyMobEffects.IMMOBILIZE, 100));
+                livingEntity.addEffect(new MobEffectInstance(ExtrabotanyMobEffects.LINK, 20 * 10));
+            }
+
+            if (!world.isClientSide() && livingEntities.size() >= ADVANCEMENT_REQUIRE) {
+                PlayerHelper.grantCriterion((ServerPlayer) player, prefix("main/" + LibAdvancementNames.I_SEE_EVERYTHING), "code_triggered");
             }
 
             List<Projectile> projectiles = world.getEntitiesOfClass(Projectile.class, getFreezeBounds(player)).stream()
@@ -125,7 +132,8 @@ public class CameraItem extends RelicItem {
                 projectile.remove(Entity.RemovalReason.DISCARDED);
             }
 
-            player.getCooldowns().addCooldown(this, 20);
+            //player.getCooldowns().addCooldown(this, 20);
+            player.getCooldowns().addCooldown(this, 20 * 8);
 
             world.playSound(null, player.getOnPos(), ExtrabotanySounds.CAMERA_USE, SoundSource.PLAYERS);
         }

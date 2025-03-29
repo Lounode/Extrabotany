@@ -3,6 +3,7 @@ package io.github.lounode.extrabotany;
 import com.google.common.base.Suppliers;
 import com.mojang.logging.LogUtils;
 import io.github.lounode.extrabotany.api.ExtraBotaniaRegistries;
+import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
 import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
@@ -26,6 +27,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -64,7 +66,9 @@ public class ExtraBotany
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
+
         bind(modEventBus, Registries.SOUND_EVENT, ExtrabotanySounds::init);
+        //bind(modEventBus, Registries.DAMAGE_TYPE, ExtraBotanyDamageTypes::init);
         //Block&ItemBlock&Items
         bind(modEventBus, Registries.BLOCK, ExtraBotanyBlocks::registerBlocks);
         bindForItems(modEventBus, ExtraBotanyBlocks::registerItemBlocks);
@@ -113,7 +117,15 @@ public class ExtraBotany
             //modEventBus.addListener(this::registerTinkersMaterials);
         }
     }
-
+    /*
+    private  void registerDamageTypes() {
+        IEventBus bus = MinecraftForge.EVENT_BUS;
+        bus.addGenericListener();
+        event.register(Registries.DAMAGE_TYPE, helper -> {
+            helper.register(ExtraBotanyDamageTypes.LINK_DAMAGE, ExtraBotanyDamageTypes.LINK);
+        });
+    }
+    */
     private void registerEvents() {
         IEventBus bus = MinecraftForge.EVENT_BUS;
         bus.addGenericListener(ItemStack.class, this::attachItemCaps);
