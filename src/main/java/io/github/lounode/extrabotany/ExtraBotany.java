@@ -6,10 +6,13 @@ import io.github.lounode.extrabotany.api.ExtraBotaniaRegistries;
 import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
+import io.github.lounode.extrabotany.common.brew.effect.ExtrabotanyMobEffects;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.item.CustomCreativeTabContents;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.relic.CameraItem;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
+import io.github.lounode.extrabotany.common.sounds.ExtrabotanySounds;
 import io.github.lounode.extrabotany.network.PacketHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
@@ -61,6 +64,7 @@ public class ExtraBotany
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
+        bind(modEventBus, Registries.SOUND_EVENT, ExtrabotanySounds::init);
         //Block&ItemBlock&Items
         bind(modEventBus, Registries.BLOCK, ExtraBotanyBlocks::registerBlocks);
         bindForItems(modEventBus, ExtraBotanyBlocks::registerItemBlocks);
@@ -71,6 +75,9 @@ public class ExtraBotany
         bind(modEventBus, Registries.RECIPE_SERIALIZER, ExtraBotanyItems::registerRecipeSerializers);
         bind(modEventBus, Registries.RECIPE_TYPE, ExtraBotanyRecipeTypes::submitRecipeTypes);
         bind(modEventBus, Registries.RECIPE_SERIALIZER, ExtraBotanyRecipeTypes::submitRecipeSerializers);
+
+        // Potions
+        bind(modEventBus, Registries.MOB_EFFECT, ExtrabotanyMobEffects::registerPotions);
 
         //Advance
         ExtrabotanyCriteriaTriggers.init();
@@ -149,7 +156,8 @@ public class ExtraBotany
             ExtraBotanyItems.manaRingMaster, MasterBandOfManaItem.ExtendManaItemImpl::new
     ));
     private static final Supplier<Map<Item, Function<ItemStack, Relic>>> RELIC = Suppliers.memoize(() -> Map.of(
-            ExtraBotanyItems.manaRingMaster, MasterBandOfManaItem::makeRelic
+            ExtraBotanyItems.manaRingMaster, MasterBandOfManaItem::makeRelic,
+            ExtraBotanyItems.camera, CameraItem::makeRelic
     ));
 
 

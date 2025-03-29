@@ -1,13 +1,17 @@
 package io.github.lounode.extrabotany.client;
 
 import io.github.lounode.extrabotany.ExtraBotany;
+import io.github.lounode.extrabotany.client.gui.CameraUI;
+import io.github.lounode.extrabotany.client.gui.HUDHandler;
 import io.github.lounode.extrabotany.client.gui.MasterBandOfManaTooltipComponent;
 import io.github.lounode.extrabotany.client.renderer.ColorHandler;
+import io.github.lounode.extrabotany.common.item.relic.CameraItem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.client.event.RenderTooltipEvent;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,6 +24,9 @@ public class ForgeClientInitializer {
     @SubscribeEvent
     public static void clientInit(FMLClientSetupEvent evt) {
         var bus = MinecraftForge.EVENT_BUS;
+        bus.addListener(EventPriority.NORMAL, false, net.minecraftforge.client.event.RenderGuiEvent.Post.class, event -> {
+            CameraUI.renderIfNeeded(event.getGuiGraphics(), event.getPartialTick());
+        });
         //MasterRingToolTip TODO
         /*
         bus.addListener(EventPriority.LOWEST, (RenderTooltipEvent.Color e) -> {
@@ -43,6 +50,12 @@ public class ForgeClientInitializer {
         });
 
          */
+    }
+
+    @SubscribeEvent
+    public static void registerGuiOverlays(RegisterGuiOverlaysEvent e) {
+        e.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "hud",
+                (gui, poseStack, partialTick, width, height) -> HUDHandler.onDrawScreenPost(poseStack, partialTick));
     }
 
     @SubscribeEvent

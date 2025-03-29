@@ -22,6 +22,8 @@ public class DataGenerators {
         //Client
         gen.addProvider(event.includeClient(), new ItemModelProvider(output));
         gen.addProvider(event.includeClient(), new BlockstateProvider(output));
+
+        gen.addProvider(event.includeClient(), new SoundDefinitionsProvider(output, ExtraBotany.MODID, efh));
         //Server
         var forgeBlockTagProvider = new ForgeBlockTagProvider(output, event.getLookupProvider(), disabledHelper);
         gen.addProvider(event.includeServer(), forgeBlockTagProvider);

@@ -36,4 +36,5 @@ public final class LibItemNames {
     public static final String AERIALITE_HAMMER = "aerialite_hammer";
     public static final String ORICHALCOS_HAMMER = "orichalcos_hammer";
     public static final String RHEIN_HAMMER = "rhein_hammer";
+    public static final String CAMERA = "camera";
 }

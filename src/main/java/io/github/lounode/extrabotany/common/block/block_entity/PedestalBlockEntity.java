@@ -38,7 +38,7 @@ import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.pr
 
 public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
     private int strikes;
-    private int FINISH_CRAFT_STRIKE_FLAG = -1;
+    private final int FINISH_CRAFT_STRIKE_FLAG = -1;
     private Map<ItemStack, ItemFrame> automaticHammers = new HashMap<>();
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ExtraBotanyBlockEntities.PEDESTAL, pos, state);

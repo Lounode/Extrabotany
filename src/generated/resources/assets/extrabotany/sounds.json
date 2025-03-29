@@ -1,0 +1,20 @@
+{
+  "item.camera.charge": {
+    "sounds": [
+      "extrabotany:item/camera/charge"
+    ],
+    "subtitle": "subtitles.extrabotany:item.camera.charge"
+  },
+  "item.camera.focus": {
+    "sounds": [
+      "extrabotany:item/camera/focus"
+    ],
+    "subtitle": "subtitles.extrabotany:item.camera.focus"
+  },
+  "item.camera.use": {
+    "sounds": [
+      "extrabotany:item/camera/use"
+    ],
+    "subtitle": "subtitles.extrabotany:item.camera.use"
+  }
+}

@@ -30,6 +30,8 @@
   "block.extrabotany.shadowium_block": "Block of Shadowium",
   "block.extrabotany.pedestal_livingrock" : "Livingrock Pedestal",
   
+  "effect.extrabotany.immobilize": "Immobilize",
+  
   "item.extrabotany.aerialite_ingot": "Aerialite Ingot",
   "item.extrabotany.orichalcos_ingot": "Orichalcos Ingot",
   "item.extrabotany.photonium_ingot": "Photonium Ingot",
@@ -63,8 +65,15 @@
   "item.extrabotany.aerialite_hammer": "天空锤",
   "item.extrabotany.orichalcos_hammer": "奥力哈钢锤",
   "item.extrabotany.rhein_hammer": "莱茵锤",
+  "item.extrabotany.camera": "Shameimaru's Camera",
   
   "message.actionbar.mana_left": "Mana: %s",
+  
+  "subtitles.extrabotany:item.camera.use": "Camera flash",
+  "subtitles.extrabotany:item.camera.charge": "Camera charged",
+  "subtitles.extrabotany:item.camera.focus": "Camera focus",
+  
+  "tooltip.extrabotany.camera": "能够使用念写程度的能力",
   
   "extrabotany.patchouli.template.pedestal_smash.operate": "锻造",
   "extrabotany.patchouli.template.pedestal_smash.tip": "提示:用锤子右键活石祭坛来锻造物品",

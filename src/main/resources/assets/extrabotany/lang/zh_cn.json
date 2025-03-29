@@ -31,6 +31,8 @@
   "block.extrabotany.shadowium_block": "暗影块",
   "block.extrabotany.pedestal_livingrock" : "活石祭坛",
   
+  "effect.extrabotany.immobilize": "定身",
+  
   "item.extrabotany.aerialite_ingot": "天空锭",
   "item.extrabotany.orichalcos_ingot": "奥利哈钢",
   "item.extrabotany.photonium_ingot": "光子锭",
@@ -64,8 +66,15 @@
   "item.extrabotany.aerialite_hammer": "天空锤",
   "item.extrabotany.orichalcos_hammer": "奥力哈钢锤",
   "item.extrabotany.rhein_hammer": "莱茵锤",
+  "item.extrabotany.camera": "文文的相机",
   
   "message.actionbar.mana_left": "魔力: %s",
+  
+  "subtitles.extrabotany:item.camera.use": "相机：闪烁",
+  "subtitles.extrabotany:item.camera.charge": "相机：装填完毕",
+  "subtitles.extrabotany:item.camera.focus": "相机：瞄准",
+  
+  "tooltip.extrabotany.camera": "能够使用念写程度的能力",
   
   "extrabotany.patchouli.template.pedestal_smash.operate": "锻造",
   "extrabotany.patchouli.template.pedestal_smash.tip": "提示: 用锤子右键活石祭坛来锻造物品",

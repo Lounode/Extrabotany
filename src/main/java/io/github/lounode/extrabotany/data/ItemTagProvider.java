@@ -44,6 +44,7 @@ public class ItemTagProvider extends ItemTagsProvider {
             this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(hammer);
             this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(hammer);
         }
+        this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(ExtraBotanyItems.camera);
 
         this.copy(ExtraBotanyTags.Blocks.PEDESTALS, ExtraBotanyTags.Items.PEDESTALS);
     }
