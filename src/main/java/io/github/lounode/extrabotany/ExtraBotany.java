@@ -9,9 +9,11 @@ import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
 import io.github.lounode.extrabotany.common.brew.effect.ExtrabotanyMobEffects;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.item.CustomCreativeTabContents;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
+import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
 import io.github.lounode.extrabotany.common.sounds.ExtrabotanySounds;
 import io.github.lounode.extrabotany.network.PacketHandler;
@@ -79,6 +81,9 @@ public class ExtraBotany
         bind(modEventBus, Registries.RECIPE_SERIALIZER, ExtraBotanyItems::registerRecipeSerializers);
         bind(modEventBus, Registries.RECIPE_TYPE, ExtraBotanyRecipeTypes::submitRecipeTypes);
         bind(modEventBus, Registries.RECIPE_SERIALIZER, ExtraBotanyRecipeTypes::submitRecipeSerializers);
+
+        // Entities
+        bind(modEventBus, Registries.ENTITY_TYPE, ExtraBotanyEntityType::registerEntities);
 
         // Potions
         bind(modEventBus, Registries.MOB_EFFECT, ExtrabotanyMobEffects::registerPotions);
@@ -169,7 +174,8 @@ public class ExtraBotany
     ));
     private static final Supplier<Map<Item, Function<ItemStack, Relic>>> RELIC = Suppliers.memoize(() -> Map.of(
             ExtraBotanyItems.manaRingMaster, MasterBandOfManaItem::makeRelic,
-            ExtraBotanyItems.camera, CameraItem::makeRelic
+            ExtraBotanyItems.camera, CameraItem::makeRelic,
+            ExtraBotanyItems.failnaught, FailnaughtItem::makeRelic
     ));
 
 

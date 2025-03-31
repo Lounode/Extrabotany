@@ -8,6 +8,7 @@ import io.github.lounode.extrabotany.client.renderer.ColorHandler;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
@@ -72,5 +73,11 @@ public class ForgeClientInitializer {
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item evt) {
         ColorHandler.submitItems(evt::register);
+    }
+
+    @SubscribeEvent
+    public static void onModelRegister(ModelEvent.RegisterAdditional evt) {
+        var resourceManager = Minecraft.getInstance().getResourceManager();
+        ExtraBotanyItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
     }
 }

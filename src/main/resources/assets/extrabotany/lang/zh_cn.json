@@ -25,6 +25,8 @@
   "advancement.extrabotany:deep_dark_fantasy.desc": "食用一个梦魇燃料",
   "advancement.extrabotany:i_see_everything": "全都看见了",
   "advancement.extrabotany:i_see_everything.desc": "使用相机一次性标记不少于10名敌人",
+  "advancement.extrabotany:hundred_block_pierce": "百步穿杨",
+  "advancement.extrabotany:hundred_block_pierce.desc": "使用百中弓从至少100米外射杀一只骷髅",
   
   "block.extrabotany.aerialite_block": "天空块",
   "block.extrabotany.orichalcos_block": "奥利哈钢块",
@@ -71,6 +73,7 @@
   "item.extrabotany.orichalcos_hammer": "奥力哈钢锤",
   "item.extrabotany.rhein_hammer": "莱茵锤",
   "item.extrabotany.camera": "文文的相机",
+  "item.extrabotany.failnaught": "百中弓",
   
   "message.actionbar.mana_left": "魔力: %s",
   
@@ -121,5 +124,11 @@
   "extrabotany.entry.camera": "文文的相机",
   "extrabotany.page.camera0": "拥有$(thing)能够使用念写程度的能力$()。$(br2)使用时消耗一定$(thing)魔力$()，标记取景框范围内的敌人，并清除一定范围内所有的非友方投掷物。",
   "extrabotany.page.camera1": "被相机标记的敌人会为它们附加$(thing)链接$()效果。$(br2)拥有$(thing)链接$()效果的实体$(thing)受伤$()时，周围所有具有$(thing)链接$()效果的实体也将同时受到等同于原伤害一定比例的伤害。",
-  "extrabotany.page.camera2": "风符「风神少女」"
+  "extrabotany.page.camera2": "风符「风神少女」",
+  
+  "extrabotany.entry.failnaught": "百中弓",
+  "extrabotany.page.failnaught0": "消耗大量$(thing)魔力$()，$(item)百中弓$()可以发射出一支完全由$(thing)魔力$()组成的强力箭矢。$(br2)这支箭矢不仅可以贯穿敌人，还能对它途径路线上的$(thing)实体$()造成大量伤害。蓄力时间越久，伤害越高，飞行距离也越长。",
+  "extrabotany.page.failnaught1": "为了我的炼金术师",
+  "extrabotany.page.failnaught2": "$(item)百中弓$()可以被$(thing)附魔$()，以下是各种$(thing)附魔$()对它的加成：$(br2)$(thing)力量$(): 消耗$(thing)魔力$()增加0.5点基础伤害，每级额外增加0.5点基础伤害。$(br2)$(thing)多重射击$(): 射出的$(thing)魔力箭矢$()数量增加至三条，消耗的$(thing)魔力$()同时变成原来的三倍。$(br2)$(thing)快速装填$(): 消耗$(thing)魔力$()，加快拉弓速度。",
+  "extrabotany.page.failnaught3": "$(thing)冲击$(): 消耗$(thing)魔力$()，增加命中后击退距离。$(br2)$(thing)火矢$(): 消耗$(thing)魔力$()使命中的敌人燃烧起来。"
 }

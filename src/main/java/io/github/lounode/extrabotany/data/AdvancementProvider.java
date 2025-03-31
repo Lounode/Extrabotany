@@ -16,6 +16,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
@@ -52,6 +54,11 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
                     .parent(root)
                     .addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
                     .save(consumer, mainId(LibAdvancementNames.I_SEE_EVERYTHING));
+            Advancement hundredBlockPierce = Advancement.Builder.advancement()
+                    .display(simple(ExtraBotanyItems.failnaught, LibAdvancementNames.HUNDRED_BLOCK_PIERCE, FrameType.CHALLENGE))
+                    .parent(root)
+                    .addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+                    .save(consumer, mainId(LibAdvancementNames.HUNDRED_BLOCK_PIERCE));
             //ManaRing
             Advancement craftRing = Advancement.Builder.advancement()
                     .display(simple(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.PANDA_DO_NOT_WEAR_RINGS, FrameType.GOAL))

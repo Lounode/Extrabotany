@@ -22,6 +22,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.*;
 import static vazkii.botania.data.ItemModelProvider.takeAll;
 
 public class ItemModelProvider implements DataProvider {
@@ -38,7 +39,7 @@ public class ItemModelProvider implements DataProvider {
         Map<ResourceLocation, Supplier<JsonElement>> map = new HashMap<>();
 
         registerItemBlocks(takeAll(items, i -> i instanceof BlockItem).stream().map(i -> (BlockItem) i).collect(Collectors.toSet()), map::put);
-        //registerItemOverrides(items, map::put);
+        registerItemOverrides(items, map::put);
         registerItems(items, map::put);
 
         PackOutput.PathProvider modelPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
@@ -60,6 +61,10 @@ public class ItemModelProvider implements DataProvider {
         takeAll(items, i -> true).forEach(i -> ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(i), consumer));
     }
 
+    private static void registerItemOverrides(Set<Item> items, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
+        //Manual items
+        items.remove(failnaught);
+    }
     @NotNull
     @Override
     public String getName() {

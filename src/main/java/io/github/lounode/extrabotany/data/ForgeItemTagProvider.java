@@ -27,6 +27,7 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        //Material
         this.tag(forge("ingots/orichalcos")).addTag(ExtraBotanyTags.Items.INGOTS_ORICHALCOS);
         this.tag(forge("ingots/photonium")).addTag(ExtraBotanyTags.Items.INGOTS_PHOTONIUM);
         this.tag(forge("ingots/shadowium")).addTag(ExtraBotanyTags.Items.INGOTS_SHADOWIUM);
@@ -52,6 +53,8 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
         this.copyToSameName(ForgeBlockTagProvider.PHOTONIUM);
         this.copyToSameName(ForgeBlockTagProvider.SHADOWIUM);
         this.copyToSameName(ForgeBlockTagProvider.AERIALITE);
+        //Tools(Manual)
+        this.tag(forge("tools/bows")).add(failnaught);
 
         this.generateAccessoryTags();
     }

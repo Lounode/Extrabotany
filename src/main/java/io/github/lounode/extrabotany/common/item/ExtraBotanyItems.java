@@ -3,6 +3,7 @@ package io.github.lounode.extrabotany.common.item;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.*;
 import io.github.lounode.extrabotany.common.item.material.BossBattleItem;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
+import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
 import io.github.lounode.extrabotany.data.recipes.WandOfTheForestExtendRecipe;
@@ -29,6 +30,7 @@ public final class ExtraBotanyItems {
     public static final Item manaReader = make(prefix(LibItemNames.MANA_READER), new ManaReaderItem(unstackable()));
     public static final Item natureOrb = make(prefix(LibItemNames.NATURE_ORB), new Item(unstackable()));
     public static final Item camera = make(prefix(LibItemNames.CAMERA), new CameraItem(unstackable().rarity(Rarity.UNCOMMON)));
+    public static final Item failnaught = make(prefix(LibItemNames.FAILNAUGHT), new FailnaughtItem(unstackable().rarity(Rarity.UNCOMMON)));
 
     //Hammer
     public static final Item manasteelHammer = make(prefix(LibItemNames.MANASTEEL_HAMMER),

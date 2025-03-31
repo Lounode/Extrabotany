@@ -121,6 +121,15 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
                 .save(consumer);
     }
     private void registerTools(Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.failnaught)
+                .define('O', ExtraBotanyItems.orichalcos)
+                .define('S', BotaniaItems.manaString)
+                .define('G', BotaniaItems.gaiaIngot)
+                .pattern(" GS")
+                .pattern("GOS")
+                .pattern(" GS")
+                .unlockedBy("has_item", conditionsFromItem(ExtraBotanyItems.orichalcos))
+                .save(consumer);
         //ManaReader&WandExtend
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.manaReader)
                 .define('D', BotaniaItems.manaDiamond)
