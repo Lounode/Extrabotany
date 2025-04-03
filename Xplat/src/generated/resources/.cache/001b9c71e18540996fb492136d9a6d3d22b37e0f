@@ -1,0 +1,8 @@
+// 1.20.1	2025-04-03T21:15:38.5677914	Extra Botany: Reburn/Tags for minecraft:block
+71d662700ae0d1395959df09235d9f6a00f4ead2 data\extrabotany\tags\blocks\pedestals.json
+2bfcc3484b9732c63e48e21dc3f2ee238e1db55d data\extrabotany\tags\blocks\aerialite_blocks.json
+19afe9ce2bc38e4178665624fc78efb71231865c data\extrabotany\tags\blocks\orichalcos_blocks.json
+ed762bb667f5e0bff4cc3e42a533aa01b651ce04 data\minecraft\tags\blocks\mineable\pickaxe.json
+6171e0ab34b14a987058c52f8419c4af93507035 data\extrabotany\tags\blocks\photonium_blocks.json
+34ef4b0483b76c72624991fdd91dadef40f15979 data\extrabotany\tags\blocks\shadowium_blocks.json
+fe0a458eb1458ffb54adda68205e580e3654395f data\minecraft\tags\blocks\beacon_base_blocks.json

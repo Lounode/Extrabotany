@@ -1,15 +1,84 @@
 plugins {
+    /*
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin' version '0.7.+'
+
+     */
+    id 'com.diffplug.spotless' version '5.12.5' apply false
 }
 
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'maven-publish'
+    apply plugin: 'pmd'
+    apply plugin: "com.diffplug.spotless"
+    //apply plugin: 'net.minecraftforge.gradle'
+    //apply plugin: 'org.parchmentmc.librarian.forgegradle'
+    //apply plugin: 'org.spongepowered.mixin'
+
+    java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+    java.withSourcesJar()
+    archivesBaseName = "${mod_name}"
+
+
+
+    repositories {
+        mavenCentral()
+
+        maven {
+            name = 'Sponge / Mixin'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.encoding = 'UTF-8'
+        it.options.release = 17
+    }
+
+    tasks.withType(GenerateModuleMetadata).configureEach {
+        it.enabled = false
+    }
+
+    pmd {
+        toolVersion '6.35.0'
+        incrementalAnalysis.set(true)
+        ruleSetFiles = rootProject.files("spotless/pmd-ruleset.xml")
+    }
+
+    jar {
+        //from "LICENSE"
+
+        exclude "**/*.bat"
+        exclude "**/*.psd"
+        exclude "**/*.ase"
+        exclude "**/*.exe"
+        exclude "**/unused"
+
+        exclude ".cache"
+    }
+
+    spotless {
+        enforceCheck = false // workaround around jenkins having wrong line endings in some files
+        // we explicitly check in github actions builds
+        java {
+            indentWithTabs()
+            //eclipse().configFile rootProject.file('spotless/eclipseformat.xml')
+            removeUnusedImports()
+            //importOrderFile rootProject.file('spotless/eclipse.importorder')
+        }
+    }
+}
+/*
 version = mod_version
 group = mod_group_id
-
+/*
 base {
     archivesName = mod_id
 }
@@ -19,7 +88,8 @@ mixin{
 
     config "extrabotany.mixins.json"
 }
-
+*/
+/*
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
@@ -105,32 +175,31 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     //Mixin
-    annotationProcessor "org.spongepowered:mixin:0.8.5"
-    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
-    implementation "org.spongepowered:mixin:0.8.5"
+    //annotationProcessor "org.spongepowered:mixin:0.8.5"
+    //annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+    //implementation "org.spongepowered:mixin:0.8.5"
     //I18N
-    implementation "com.demonwav.mcdev:annotations:2.1.0"
-    compileOnly 'org.jetbrains:annotations:24.0.1'
+
 
     //Botania
-    compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}")
-    runtimeOnly fg.deobf("vazkii.botania:Botania:${botania_version}")
+    //compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}")
+    //runtimeOnly fg.deobf("vazkii.botania:Botania:${botania_version}")
 
     //Pachouli
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
+    //compileOnly fg.deobf("vazkii.patchouli:Patchouli-xplat:${patchouli_version}:api")
+    //runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 
     //Curios
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
+    //compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+    //runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
 
     //JEI
-    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
-    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
-    runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
+    //compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
+    //compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
+    //runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
 
     //implementation(fg.deobf("maven.modrinth:nbtedit:5.2.8+mc1.20.1"))
-    implementation fg.deobf("curse.maven:nbtedit-reborn-678133:5984630")
+    //implementation fg.deobf("curse.maven:nbtedit-reborn-678133:5984630")
 
     //Tinkers
     //compileOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
@@ -204,3 +273,4 @@ publishing {
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
+*/

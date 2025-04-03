@@ -1,0 +1,139 @@
+package io.github.lounode.extrabotany.fabric;
+
+import io.github.lounode.extrabotany.api.ExtraBotaniaRegistries;
+import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
+import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
+import io.github.lounode.extrabotany.common.brew.effect.ExtraBotanyMobEffects;
+import io.github.lounode.extrabotany.common.brew.effect.LinkMobEffect;
+import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
+import io.github.lounode.extrabotany.common.item.CustomCreativeTabContents;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.relic.CameraItem;
+import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
+import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
+import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+import io.github.lounode.extrabotany.fabric.events.ItemCooldownEvents;
+import io.github.lounode.extrabotany.fabric.events.PlayerTickEvents;
+import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import vazkii.botania.api.BotaniaFabricCapabilities;
+import vazkii.botania.common.handler.EquipmentHandler;
+
+import java.lang.reflect.Constructor;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.function.BiConsumer;
+
+public class FabricCommonInitializer implements ModInitializer {
+    @Override
+    public void onInitialize() {
+        coreInit();
+        registryInit();
+
+        registerCapabilities();
+        registerEvents();
+    }
+
+    private void coreInit() {
+        //Fix register null bug
+        EquipmentHandler.init();
+
+        FabricExtraBotanyConfig.setup();
+        FabricPacketHandler.init();
+    }
+
+    private void registryInit() {
+        // Core item/block/BE
+        ExtraBotanySounds.init(bind(BuiltInRegistries.SOUND_EVENT));
+        ExtraBotanyBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
+        ExtraBotanyBlocks.registerItemBlocks(boundForItem);
+        ExtraBotanyBlockEntities.registerTiles(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
+        ExtraBotanyItems.registerItems(boundForItem);
+
+        // GUI and Recipe
+        ExtraBotanyItems.registerRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));
+        ExtraBotanyRecipeTypes.submitRecipeTypes(bind(BuiltInRegistries.RECIPE_TYPE));
+        ExtraBotanyRecipeTypes.submitRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));
+
+        // Entities
+        ExtraBotanyEntityType.registerEntities(bind(BuiltInRegistries.ENTITY_TYPE));
+
+        // Potions
+        ExtraBotanyMobEffects.registerPotions(bind(BuiltInRegistries.MOB_EFFECT));
+
+        // Rest
+        ExtrabotanyCriteriaTriggers.init();
+
+        // CreativeTab
+        Registry.register(
+                BuiltInRegistries.CREATIVE_MODE_TAB,
+                ExtraBotaniaRegistries.EXTRA_BOTANIA_TAB_KEY,
+                FabricItemGroup.builder()
+                        .title(Component.translatable("itemGroup.extrabotany").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
+                        .hideTitle()
+                        .icon(() -> new ItemStack(ExtraBotanyItems.zadkiel))
+                        .backgroundSuffix("extrabotany.png")
+                        .build()
+        );
+        ItemGroupEvents.modifyEntriesEvent(ExtraBotaniaRegistries.EXTRA_BOTANIA_TAB_KEY)
+                .register(entries -> {
+                    for (Item item : this.itemsToAddToCreativeTab) {
+                        if (item instanceof CustomCreativeTabContents cc) {
+                            cc.addToCreativeTab(item, entries);
+                        } else if (item instanceof BlockItem bi && bi.getBlock() instanceof CustomCreativeTabContents cc) {
+                            cc.addToCreativeTab(item, entries);
+                        } else {
+                            entries.accept(item);
+                        }
+                    }
+                });
+    }
+
+    private void registerEvents() {
+        ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) ->{
+            LinkMobEffect.onEntityDamaged(entity, source, amount);
+            return true;
+        });
+
+        ItemCooldownEvents.FINISH.register((player, item) -> {
+            CameraItem.onItemCooldownFinish(item, player);
+            return true;
+        });
+
+        PlayerTickEvents.END.register(player -> {
+            CameraItem.onEntityTickFinish(player);
+            return true;
+        });
+    }
+
+    private void registerCapabilities() {
+        BotaniaFabricCapabilities.MANA_ITEM.registerForItems((itemStack, unit) -> new MasterBandOfManaItem.ExtendManaItemImpl(itemStack), ExtraBotanyItems.manaRingMaster);
+        BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> MasterBandOfManaItem.makeRelic(st), ExtraBotanyItems.manaRingMaster);
+        BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> CameraItem.makeRelic(st), ExtraBotanyItems.camera);
+        BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> FailnaughtItem.makeRelic(st), ExtraBotanyItems.failnaught);
+    }
+
+    private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {
+        return (t, id) -> Registry.register(registry, id, t);
+    }
+
+    private final Set<Item> itemsToAddToCreativeTab = new LinkedHashSet<>();
+    private final BiConsumer<Item, ResourceLocation> boundForItem =
+            (t, id) -> {
+                this.itemsToAddToCreativeTab.add(t);
+                Registry.register(BuiltInRegistries.ITEM, id, t);
+            };
+}

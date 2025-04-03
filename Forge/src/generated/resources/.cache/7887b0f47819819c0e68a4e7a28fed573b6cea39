@@ -1,0 +1,17 @@
+// 1.20.1	2025-04-03T11:49:50.1094816	ExtraBotany item tags (Forge-specific)
+a174fb3a17b356a08cc051d4a3f1a63a9d236032 data/curios/tags/items/ring.json
+73ba7b5be6db8a4debbed4fcc757a27a3bf84879 data/forge/tags/items/ingots.json
+7714fcd005c5ee4ae2ae9874bb0a5b0aaff6a16c data/forge/tags/items/ingots/aerialite.json
+c99cb2f3ab8db21c4df5b1e49b0626129d0e1fae data/forge/tags/items/ingots/orichalcos.json
+c1cfe77a3fee38e6038f3fbef3a2cb85022f7b8a data/forge/tags/items/ingots/photonium.json
+10c087897b54a187d89714b597896dc9ef3b5eeb data/forge/tags/items/ingots/shadowium.json
+f1291f9ae26cd881d2f1d685655cab337da1c703 data/forge/tags/items/nuggets.json
+69dff1af90a67bfed6ff93f2eb91bbf39ebbb62d data/forge/tags/items/nuggets/aerialite.json
+44249781fb353a6f67953226cb2be80c1431a529 data/forge/tags/items/nuggets/orichalcos.json
+c623e2c86e2af196e1cfa0c65d77b8f80a6d204a data/forge/tags/items/nuggets/photonium.json
+6ead8c96848fe7401ebb25a3acb465a13ad30bc5 data/forge/tags/items/nuggets/shadowium.json
+61e26d592c8531a375bff8bf2e169f8b0aab1ea2 data/forge/tags/items/storage_blocks/aerialite.json
+ecbf36e1edca37438a8efbd7d22ca9013bd7f0b8 data/forge/tags/items/storage_blocks/orichalcos.json
+71e5c23c2a54c158e7eca9a1274089af07194d3a data/forge/tags/items/storage_blocks/photonium.json
+237710e36eb2c86b58a885a0f753f5bf08187c0f data/forge/tags/items/storage_blocks/shadowium.json
+d0b967916557a9538ffad94a58f8c7eaf5cffb63 data/forge/tags/items/tools/bows.json

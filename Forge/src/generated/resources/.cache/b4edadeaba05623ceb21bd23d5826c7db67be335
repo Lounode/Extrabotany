@@ -1,0 +1,6 @@
+// 1.20.1	2025-04-03T11:49:50.1064804	ExtraBotany block tags (Forge-specific)
+9097a36128db51f20a065ea6e21813ee4685769d data/forge/tags/blocks/storage_blocks.json
+61e26d592c8531a375bff8bf2e169f8b0aab1ea2 data/forge/tags/blocks/storage_blocks/aerialite.json
+ecbf36e1edca37438a8efbd7d22ca9013bd7f0b8 data/forge/tags/blocks/storage_blocks/orichalcos.json
+71e5c23c2a54c158e7eca9a1274089af07194d3a data/forge/tags/blocks/storage_blocks/photonium.json
+237710e36eb2c86b58a885a0f753f5bf08187c0f data/forge/tags/blocks/storage_blocks/shadowium.json

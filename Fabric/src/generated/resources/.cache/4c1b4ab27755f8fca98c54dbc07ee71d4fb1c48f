@@ -1,0 +1,5 @@
+// 1.20.1	2025-04-03T11:30:08.5260014	Extra Botany: Reburn/Tags for minecraft:item
+a0f747b905a542027c16ed078df7ca199502064c data\c\tags\items\bows.json
+1c63889b6c8876410ad9257b459f0f5c31207648 data\trinkets\tags\items\offhand\ring.json
+1c63889b6c8876410ad9257b459f0f5c31207648 data\trinkets\tags\items\hand\ring.json
+40d63e23f90528b1e93975be399e8db608f794e1 data\modern_industrialization\tags\items\replicator_blacklist.json

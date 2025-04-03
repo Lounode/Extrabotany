@@ -1,0 +1,11 @@
+// 1.20.1	2025-04-03T21:15:38.5627874	Extra Botany: Reburn/ExtraBotany Blockstates and Models
+b83058e6e68f7724f4383dab14d5e77e72c33079 assets\extrabotany\models\block\orichalcos_block.json
+757bc669ddba7fc7d515f39fc8717056d78aeb1a assets\extrabotany\models\block\photonium_block.json
+2cf5780c65f3fa2752ee98c8c3c4399c64fcb193 assets\extrabotany\blockstates\orichalcos_block.json
+f84fc656645f24f949af641e0d7c668879fbcdfd assets\extrabotany\blockstates\shadowium_block.json
+6b69da93369349cf0aaf5cb259617ed3c38837b1 assets\extrabotany\models\block\pedestal_livingrock.json
+28617e22031e12fc1030b3bf922fa998461f1a91 assets\extrabotany\blockstates\aerialite_block.json
+e67ba72d18f2e0841b77febf2778492c6e116e8f assets\extrabotany\models\block\aerialite_block.json
+ec98d7e2a24349709030c33dbefc3f683882c60e assets\extrabotany\blockstates\pedestal_livingrock.json
+6ba13ce064b8164d7904d7c52b85f4c7dbebe20a assets\extrabotany\blockstates\photonium_block.json
+bfd92784c05824d05778604e452565c4154edce8 assets\extrabotany\models\block\shadowium_block.json

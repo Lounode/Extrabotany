@@ -16,11 +16,14 @@ out
 # gradle
 build
 .gradle
+.cache
 
 # other
 eclipse
 run
 run-data
-src/generated/resources/.cache
+Xplat/src/generated/resources/.cache
+Forge/src/generated/resources/.cache
+Fabric/src/generated/resources/.cache
 
 

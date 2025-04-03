@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "extrabotany:aerialite_block",
+    "extrabotany:orichalcos_block",
+    "extrabotany:pedestal_livingrock",
+    "extrabotany:photonium_block",
+    "extrabotany:shadowium_block"
+  ]
+}
