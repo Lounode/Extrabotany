@@ -112,6 +112,11 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
                             )
                     )
                     .save(consumer, mainId(LibAdvancementNames.DEEP_DARK_FANTASY));
+            Advancement onePunch = Advancement.Builder.advancement()
+                    .display(simple(ExtraBotanyItems.featherOfJingwei, LibAdvancementNames.ONE_PUNCH, FrameType.CHALLENGE))
+                    .parent(root)
+                    .addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+                    .save(consumer, mainId(LibAdvancementNames.ONE_PUNCH));
         }
     }
 

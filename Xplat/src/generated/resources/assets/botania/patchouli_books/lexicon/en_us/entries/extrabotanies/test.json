@@ -1,0 +1,11 @@
+{
+  "category": "botania:extrabotanies",
+  "icon": "extrabotany:zadkiel",
+  "name": "extrabotany.entry.test",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "extrabotany.page.test0"
+    }
+  ]
+}

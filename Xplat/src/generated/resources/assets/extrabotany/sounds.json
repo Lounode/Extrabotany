@@ -16,5 +16,35 @@
       "extrabotany:item/camera/use"
     ],
     "subtitle": "subtitles.extrabotany:item.camera.use"
+  },
+  "item.excalibur.attack": {
+    "sounds": [
+      {
+        "name": "botania:terrablade",
+        "pitch": 1.4,
+        "volume": 0.4
+      }
+    ],
+    "subtitle": "subtitles.extrabotany:item.excalibur.attack"
+  },
+  "item.failnaught.shoot": {
+    "sounds": [
+      {
+        "name": "botania:terrablade",
+        "pitch": 1.4,
+        "volume": 0.4
+      }
+    ],
+    "subtitle": "subtitles.extrabotany:item.failnaught.shoot"
+  },
+  "item.feather_of_jingwei.shoot": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "block.fire.extinguish",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "subtitles.extrabotany:item.feather_of_jingwei.shoot"
   }
 }

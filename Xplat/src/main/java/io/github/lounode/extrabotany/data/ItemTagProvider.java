@@ -7,13 +7,12 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.concurrent.CompletableFuture;
 
-import static io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks.ALL_PEDESTALS;
+import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.*;
 
 
 public class ItemTagProvider extends ItemTagsProvider {
@@ -37,15 +36,18 @@ public class ItemTagProvider extends ItemTagsProvider {
         this.copy(ExtraBotanyTags.Blocks.BLOCKS_SHADOWIUM, ExtraBotanyTags.Items.BLOCKS_SHADOWIUM);
         this.copy(ExtraBotanyTags.Blocks.BLOCKS_AERIALITE, ExtraBotanyTags.Items.BLOCKS_AERIALITE);
 
-        //Hammer
-        for (var hammer : ExtraBotanyItems.ALL_HAMMERS) {
-            this.tag(ExtraBotanyTags.Items.HAMMERS).add(hammer);
-            this.tag(ItemTags.PICKAXES).add(hammer);
-            this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(hammer);
-            this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(hammer);
-        }
+        //Tools
+        this.tag(ExtraBotanyTags.Items.HAMMERS).add(HAMMERS);
+        this.tag(ItemTags.PICKAXES).add(HAMMERS);
+        this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(HAMMERS);
+
+        this.tag(ItemTags.SWORDS).add(SWORDS);
+
+
+
         //ManaUsingItem
-        this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(ExtraBotanyItems.camera, ExtraBotanyItems.failnaught);
+        this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(ExtraBotanyItems.MANA_USING_ITEM);
+        this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(HAMMERS);
 
 
         this.copy(ExtraBotanyTags.Blocks.PEDESTALS, ExtraBotanyTags.Items.PEDESTALS);

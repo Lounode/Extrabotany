@@ -17,6 +17,8 @@ public class ExtraBotanyDynamicRegistryProvider extends FabricDynamicRegistryPro
     @Override
     protected void configure(HolderLookup.Provider provider, Entries entries) {
         entries.add(LINK_DAMAGE, LINK);
+        entries.add(EXCALIBUR_BEAM_DAMAGE, EXCALIBUR);
+        entries.add(JINGWEI_PUNCH_DAMAGE, JINGWEI);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.common.item.equipment.tool.hammer;
 
+import io.github.lounode.extrabotany.common.item.material.HammerTiers;
 import net.minecraft.world.item.Tier;
 
 public class RheinHammerItem extends ManasteelHammerItem {

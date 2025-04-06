@@ -79,6 +79,7 @@ legacyForge {
             gameDirectory = file('../run/')
             systemProperty('fml.earlyprogresswindow', 'false')
 
+            jvmArgument("-XX:+AllowEnhancedClassRedefinition")
 
         }
     }

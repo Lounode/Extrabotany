@@ -54,16 +54,15 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
         this.copyToSameName(ForgeBlockTagProvider.PHOTONIUM);
         this.copyToSameName(ForgeBlockTagProvider.SHADOWIUM);
         this.copyToSameName(ForgeBlockTagProvider.AERIALITE);
-        //Tools(Manual)
-        this.tag(forge("tools/bows")).add(failnaught);
+        //Tools
+        this.tag(forge("tools/bows")).add(BOWS);
 
         this.generateAccessoryTags();
     }
 
     private void generateAccessoryTags() {
-        tag(accessory("ring")).add(
-                manaRingMaster
-        );
+        tag(accessory("ring")).add(RINGS);
+        tag(accessory("curio")).add(ALL_SLOT);
     }
 
     private static TagKey<Item> accessory(String name) {

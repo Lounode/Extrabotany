@@ -12,4 +12,5 @@ public class LibAdvancementNames {
     public static final String DEEP_DARK_FANTASY = "deep_dark_fantasy";
     public static final String I_SEE_EVERYTHING = "i_see_everything";
     public static final String HUNDRED_BLOCK_PIERCE = "hundred_block_pierce";
+    public static final String ONE_PUNCH = "one_punch";
 }

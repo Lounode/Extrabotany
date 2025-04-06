@@ -40,7 +40,7 @@ loom {
         configureEach {
             runDir "../run"
             ideConfigGenerated(true)
-
+            vmArg "-XX:+AllowEnhancedClassRedefinition"
         }
     }
 

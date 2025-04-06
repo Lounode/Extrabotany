@@ -10,6 +10,8 @@ import io.github.lounode.extrabotany.common.brew.effect.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.brew.effect.LinkMobEffect;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
+import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
+import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
 import io.github.lounode.extrabotany.forge.event.ItemCooldownFinishEvent;
 import io.github.lounode.extrabotany.common.item.CustomCreativeTabContents;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
@@ -25,12 +27,15 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
@@ -153,6 +158,15 @@ public class ForgeCommonInitializer
         bus.addListener((ItemCooldownFinishEvent event) -> {
             CameraItem.onItemCooldownFinish(event.getItem(), event.getPlayer());
         });
+
+        //LeftClick
+        bus.addListener((PlayerInteractEvent.LeftClickEmpty e) -> ExcaliburItem.leftClick(e.getItemStack()));
+        bus.addListener((AttackEntityEvent e) -> ExcaliburItem.attackEntity(
+                e.getEntity(), e.getEntity().level(), InteractionHand.MAIN_HAND, e.getTarget(), null));
+
+        bus.addListener((PlayerInteractEvent.LeftClickEmpty e) -> FeatherOfJingweiItem.leftClick(e.getEntity()));
+        bus.addListener((AttackEntityEvent e) -> FeatherOfJingweiItem.attackEntity(
+                e.getEntity(), e.getEntity().level(), InteractionHand.MAIN_HAND, e.getTarget(), null));
     }
 
     private void registerFuels(FurnaceFuelBurnTimeEvent e) {
@@ -192,7 +206,8 @@ public class ForgeCommonInitializer
     private static final Supplier<Map<Item, Function<ItemStack, Relic>>> RELIC = Suppliers.memoize(() -> Map.of(
             ExtraBotanyItems.manaRingMaster, MasterBandOfManaItem::makeRelic,
             ExtraBotanyItems.camera, CameraItem::makeRelic,
-            ExtraBotanyItems.failnaught, FailnaughtItem::makeRelic
+            ExtraBotanyItems.failnaught, FailnaughtItem::makeRelic,
+            ExtraBotanyItems.excalibur, ExcaliburItem::makeRelic
     ));
 
 

@@ -1,6 +1,8 @@
 package io.github.lounode.extrabotany.fabric.network;
 
 import io.github.lounode.extrabotany.network.clientbound.ManaReaderPacket;
+import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketExcalibur;
+import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketJingwei;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
@@ -14,7 +16,8 @@ import java.util.function.Function;
 public class FabricPacketHandler {
     private FabricPacketHandler() {}
     public static void init() {
-
+        ServerPlayNetworking.registerGlobalReceiver(LeftClickPacketExcalibur.ID, makeServerBoundHandler(LeftClickPacketExcalibur::decode, LeftClickPacketExcalibur::handle));
+        ServerPlayNetworking.registerGlobalReceiver(LeftClickPacketJingwei.ID, makeServerBoundHandler(LeftClickPacketJingwei::decode, LeftClickPacketJingwei::handle));
     }
 
     public static void initClient() {

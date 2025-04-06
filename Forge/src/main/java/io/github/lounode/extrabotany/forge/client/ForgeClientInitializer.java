@@ -55,7 +55,7 @@ public class ForgeClientInitializer {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers evt) {
         EntityRenderers.registerBlockEntityRenderers(evt::registerBlockEntityRenderer);
-        //EntityRenderers.registerEntityRenderers(evt::registerEntityRenderer);
+        EntityRenderers.registerEntityRenderers(evt::registerEntityRenderer);
     }
 
     @SubscribeEvent

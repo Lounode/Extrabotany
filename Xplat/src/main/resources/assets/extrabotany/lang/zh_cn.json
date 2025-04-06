@@ -27,6 +27,8 @@
   "advancement.extrabotany:i_see_everything.desc": "使用相机一次性标记不少于10名敌人",
   "advancement.extrabotany:hundred_block_pierce": "百步穿杨",
   "advancement.extrabotany:hundred_block_pierce.desc": "使用百中弓从至少100米外射杀一只骷髅",
+  "advancement.extrabotany:one_punch": "一拳超人",
+  "advancement.extrabotany:one_punch.desc": "打出一发超过40伤害的拳风",
   
   "block.extrabotany.aerialite_block": "天空块",
   "block.extrabotany.orichalcos_block": "奥利哈钢块",
@@ -34,10 +36,20 @@
   "block.extrabotany.shadowium_block": "暗影块",
   "block.extrabotany.pedestal_livingrock" : "活石祭坛",
   
-  "death.attack.extrabotany.link": "%s 对别人的痛苦感同身受",
+  "death.attack.extrabotany.link": "%1$s 对别人的痛苦感同身受",
+  "death.attack.extrabotany.link.player": "%1$s 对 %2$s 的痛苦感同身受",
+  "death.attack.extrabotany.link.item": "%1$s 对 %2$s 的痛苦感同身受",
+  "death.attack.extrabotany.excalibur": "%1$s 被咖喱棒发射的光线刺穿了",
+  "death.attack.extrabotany.excalibur.player": "%1$s 被 %2$s 的咖喱棒发射的光线刺穿了",
+  "death.attack.extrabotany.excalibur.item": "%1$s 被 %2$s 的 %3$s 发射的光线刺穿了",
+  "death.attack.extrabotany.jingwei": "%1$s 被寸劲开天了",
+  "death.attack.extrabotany.jingwei.player": "%1$s 被 %2$s 寸劲开天了",
+  "death.attack.extrabotany.jingwei.item": "%1$s 被 %2$s 寸劲开天了",
   
   "effect.extrabotany.immobilize": "定身",
   "effect.extrabotany.link": "链接",
+  
+  "entity.extrabotany.aura_fire": "精卫之火",
   
   "item.extrabotany.aerialite_ingot": "天空锭",
   "item.extrabotany.orichalcos_ingot": "奥利哈钢",
@@ -74,14 +86,21 @@
   "item.extrabotany.rhein_hammer": "莱茵锤",
   "item.extrabotany.camera": "文文的相机",
   "item.extrabotany.failnaught": "百中弓",
+  "item.extrabotany.excalibur": "王者圣剑",
+  "item.extrabotany.feather_of_jingwei": "精卫之羽",
   
   "message.actionbar.mana_left": "魔力: %s",
   
   "subtitles.extrabotany:item.camera.use": "相机：闪烁",
   "subtitles.extrabotany:item.camera.charge": "相机：装填完毕",
   "subtitles.extrabotany:item.camera.focus": "相机：瞄准",
+  "subtitles.extrabotany:item.failnaught.shoot": "百中弓：射击",
+  "subtitles.extrabotany:item.excalibur.attack": "王者圣剑：激活",
+  "subtitles.extrabotany:item.feather_of_jingwei.shoot": "精卫之羽：拳气",
   
   "tooltip.extrabotany.camera": "能够使用念写程度的能力",
+  "tooltip.extrabotany.excalibur": "吾王剑锋所指 吾等心之所向",
+  "tooltip.extrabotany.failnaught": "百发百中",
   
   "extrabotany.patchouli.template.pedestal_smash.operate": "锻造",
   "extrabotany.patchouli.template.pedestal_smash.tip": "提示: 用锤子右键活石祭坛来锻造物品",
@@ -130,5 +149,16 @@
   "extrabotany.page.failnaught0": "消耗大量$(thing)魔力$()，$(item)百中弓$()可以发射出一支完全由$(thing)魔力$()组成的强力箭矢。$(br2)这支箭矢不仅可以贯穿敌人，还能对它途径路线上的$(thing)实体$()造成大量伤害。蓄力时间越久，伤害越高，飞行距离也越长。",
   "extrabotany.page.failnaught1": "为了我的炼金术师",
   "extrabotany.page.failnaught2": "$(item)百中弓$()可以被$(thing)附魔$()，以下是各种$(thing)附魔$()对它的加成：$(br2)$(thing)力量$(): 消耗$(thing)魔力$()增加0.5点基础伤害，每级额外增加0.5点基础伤害。$(br2)$(thing)多重射击$(): 射出的$(thing)魔力箭矢$()数量增加至三条，消耗的$(thing)魔力$()同时变成原来的三倍。$(br2)$(thing)快速装填$(): 消耗$(thing)魔力$()，加快拉弓速度。",
-  "extrabotany.page.failnaught3": "$(thing)冲击$(): 消耗$(thing)魔力$()，增加命中后击退距离。$(br2)$(thing)火矢$(): 消耗$(thing)魔力$()使命中的敌人燃烧起来。"
+  "extrabotany.page.failnaught3": "$(thing)冲击$(): 消耗$(thing)魔力$()，增加命中后击退距离。$(br2)$(thing)火矢$(): 消耗$(thing)魔力$()使命中的敌人燃烧起来。",
+  
+  "extrabotany.entry.excalibur": "王者圣剑",
+  "extrabotany.page.excalibur0": "是时候升级你的$(item)泰拉之刃$()了，这里有更好的$(item)王者圣剑$()。$(br2)相比$(item)泰拉之刃$()，它能在攻击时发射金色的$(item)魔力$()光束追踪并攻击你的敌人，造成的伤害$(thing)无视护甲$()。",
+  "extrabotany.page.excalibur1": "EX咖喱棒",
+  
+  "extrabotany.entry.jingwei": "精卫之羽",
+  "extrabotany.page.jingwei0": "千年之羽的力量附在其上，为装备者提供强大的力量。$(br2)当装备$(item)精卫之羽$()后，装备者的每一次$(thing)空手$()攻击都会打出一道$(thing)拳风$()，对远处的敌人造成伤害。$(br2)$(thing)拳风$()造成伤害时，还会为装备者提供少量$(thing)伤害吸收$()。",
+  "extrabotany.page.jingwei1": "寸劲，开天！",
+  
+  "extrabotany.entry.": "",
+  "extrabotany.page.": ""
 }

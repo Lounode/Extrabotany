@@ -38,4 +38,6 @@ public final class LibItemNames {
     public static final String RHEIN_HAMMER = "rhein_hammer";
     public static final String CAMERA = "camera";
     public static final String FAILNAUGHT = "failnaught";
+    public static final String EXCALIBUR = "excalibur";
+    public static final String FEATHER_OF_JINGWEI = "feather_of_jingwei";
 }

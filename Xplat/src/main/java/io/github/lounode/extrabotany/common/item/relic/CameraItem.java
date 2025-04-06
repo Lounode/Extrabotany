@@ -199,12 +199,7 @@ public class CameraItem extends RelicItem {
         );
     }
     public static Relic makeRelic(ItemStack stack) {
-        return new RelicImpl(stack, null) {
-            @Override
-            public boolean shouldDamageWrongPlayer() {
-                return false;
-            }
-        };
+        return new RelicImpl(stack, null);
     }
 
     @Override

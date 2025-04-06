@@ -10,7 +10,9 @@ import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.item.CustomCreativeTabContents;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
+import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
 import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
@@ -19,6 +21,7 @@ import io.github.lounode.extrabotany.fabric.events.PlayerTickEvents;
 import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.ChatFormatting;
@@ -117,6 +120,10 @@ public class FabricCommonInitializer implements ModInitializer {
             CameraItem.onEntityTickFinish(player);
             return true;
         });
+
+        //LeftClick
+        AttackEntityCallback.EVENT.register(ExcaliburItem::attackEntity);
+        AttackEntityCallback.EVENT.register(FeatherOfJingweiItem::attackEntity);
     }
 
     private void registerCapabilities() {
@@ -124,6 +131,7 @@ public class FabricCommonInitializer implements ModInitializer {
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> MasterBandOfManaItem.makeRelic(st), ExtraBotanyItems.manaRingMaster);
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> CameraItem.makeRelic(st), ExtraBotanyItems.camera);
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> FailnaughtItem.makeRelic(st), ExtraBotanyItems.failnaught);
+        BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ExcaliburItem.makeRelic(st), ExtraBotanyItems.excalibur);
     }
 
     private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {

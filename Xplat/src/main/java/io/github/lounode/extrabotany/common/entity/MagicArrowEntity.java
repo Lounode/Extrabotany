@@ -36,9 +36,9 @@ public class MagicArrowEntity extends ThrowableProjectile {
         super(type, world);
     }
 
-    public MagicArrowEntity(Level world, LivingEntity owner) {
-        super(ExtraBotanyEntityType.MAGIC_ARROW, world);
-    }
+    //public MagicArrowEntity(Level world, LivingEntity owner) {
+        //super(ExtraBotanyEntityType.MAGIC_ARROW, world);
+    //}
 
     @Override
     protected void defineSynchedData() {

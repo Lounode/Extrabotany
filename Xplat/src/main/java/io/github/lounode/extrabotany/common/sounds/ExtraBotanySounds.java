@@ -15,6 +15,9 @@ public class ExtraBotanySounds {
     public static final SoundEvent CAMERA_USE = makeSoundEvent("item.camera.use");
     public static final SoundEvent CAMERA_CHARGE = makeSoundEvent("item.camera.charge");
     public static final SoundEvent CAMERA_FOCUS = makeSoundEvent("item.camera.focus");
+    public static final SoundEvent EXCALIBUR_ATTACK = makeSoundEvent("item.excalibur.attack");
+    public static final SoundEvent FAILNAUGHT_SHOOT = makeSoundEvent("item.failnaught.shoot");
+    public static final SoundEvent FEATHER_OF_JINGWEI_SHOOT = makeSoundEvent("item.feather_of_jingwei.shoot");
 
     private static SoundEvent makeSoundEvent(String name) {
         SoundEvent event = SoundEvent.createVariableRangeEvent(prefix(name));

@@ -2,6 +2,8 @@ package io.github.lounode.extrabotany.common.item.relic;
 
 import io.github.lounode.extrabotany.common.item.enchantment.ICustomEnchantable;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
+import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -144,7 +146,7 @@ public class FailnaughtItem extends LivingwoodBowItem implements LensEffectItem,
                     player.level().addFreshEntity(burst);
                 }
 
-                player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraBlade, SoundSource.PLAYERS, 1F, 1F);
+                player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ExtraBotanySounds.FAILNAUGHT_SHOOT, SoundSource.PLAYERS, 1F, 1F);
             }
         }
     }
@@ -334,16 +336,13 @@ public class FailnaughtItem extends LivingwoodBowItem implements LensEffectItem,
 
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+        tooltip.add(Component.translatable("tooltip.extrabotany.failnaught").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+        tooltip.add(Component.literal(""));
         RelicImpl.addDefaultTooltip(stack, tooltip);
     }
 
     public static Relic makeRelic(ItemStack stack) {
-        return new RelicImpl(stack, null) {
-            @Override
-            public boolean shouldDamageWrongPlayer() {
-                return false;
-            }
-        };
+        return new RelicImpl(stack, null);
     }
 
     @Override

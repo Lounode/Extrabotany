@@ -6,7 +6,9 @@
   "mixins": [
     "DenyJumpMixin",
     "ItemCustomEnchantableEnchantTableSupporter",
-    "ItemCustomEnchantableSupporter"
+    "ItemCustomEnchantableSupporter",
+    "client.PatchouliTemplateXModMixin",
+    "client.PatchouliTemplateXModMixinBuilder"
   ],
   "client": [
     "client.HUDHandlerInvoker",

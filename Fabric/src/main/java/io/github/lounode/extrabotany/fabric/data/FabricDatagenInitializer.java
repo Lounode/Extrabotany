@@ -43,9 +43,11 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
         pack.addProvider(DamageTypeTagProvider::new);
 
         //Recipes
+        pack.addProvider((PackOutput output) -> new PedestalRecipeProvider(output));
         //pack.addProvider((PackOutput output) -> new StonecuttingProvider(output));
         pack.addProvider((PackOutput output) -> new CraftingRecipeProvider(output));
         //pack.addProvider((PackOutput output) -> new SmeltingProvider(output));
+        pack.addProvider((PackOutput output) -> new SmithingRecipeProvider(output));
         pack.addProvider((PackOutput output) -> new ElvenTradeProvider(output));
         pack.addProvider((PackOutput output) -> new ManaInfusionProvider(output));
         //pack.addProvider((PackOutput output) -> new PureDaisyProvider(output));
@@ -60,6 +62,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
         //pack.addProvider((PackOutput output) -> new PottedPlantModelProvider(output));
         pack.addProvider(AdvancementProvider::create);
         pack.addProvider((PackOutput output) -> new ExtraBotanySoundDefinitionsProvider(output, LibMisc.MOD_ID));
+        pack.addProvider((PackOutput output) -> new ExtraBotanyPatchouliProvider(output));
     }
 
     @Override
@@ -69,5 +72,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 
     protected static void damageTypeBC(BootstapContext<DamageType> context) {
         context.register(LINK_DAMAGE, LINK);
+        context.register(EXCALIBUR_BEAM_DAMAGE, EXCALIBUR);
+        context.register(JINGWEI_PUNCH_DAMAGE, JINGWEI);
     }
 }

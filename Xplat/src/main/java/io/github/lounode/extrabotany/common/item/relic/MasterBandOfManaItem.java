@@ -80,12 +80,7 @@ public class MasterBandOfManaItem extends RelicBaubleItem implements CustomCreat
     }
 
     public static Relic makeRelic(ItemStack stack) {
-        return new RelicImpl(stack, null) {
-            @Override
-            public boolean shouldDamageWrongPlayer() {
-                return false;
-            }
-        };
+        return new RelicImpl(stack, null);
     }
 
     public static class ExtendManaItemImpl implements ManaItem {

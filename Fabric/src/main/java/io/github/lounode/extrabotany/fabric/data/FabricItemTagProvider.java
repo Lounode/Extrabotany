@@ -33,21 +33,19 @@ public class FabricItemTagProvider extends ItemTagProvider {
     }
 
     private void generateToolTags() {
-        this.tag(ConventionalItemTags.BOWS).add(failnaught);
+        this.tag(ConventionalItemTags.BOWS).add(BOWS);
 
     }
 
     private void generateAccessoryTags() {
-        Item[] rings = {
-            manaRingMaster
-        };
-        this.tag(accessory("hand/ring")).add(rings);
-        this.tag(accessory("offhand/ring")).add(rings);
+        this.tag(accessory("hand/ring")).add(RINGS);
+        this.tag(accessory("offhand/ring")).add(RINGS);
+        this.tag(accessory("all")).add(ALL_SLOT);
     }
 
     private void generateCompatTags() {
         this.tag(itemTag(new ResourceLocation("modern_industrialization", "replicator_blacklist")))
-                .add(failnaught, manaRingMaster);
+                .add(REPLICATOR_BLACKLIST);
     }
 
     private static TagKey<Item> accessory(String name) {

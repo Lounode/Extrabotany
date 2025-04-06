@@ -1,0 +1,16 @@
+{
+  "category": "botania:extrabotanies",
+  "icon": "extrabotany:excalibur",
+  "name": "extrabotany.entry.excalibur",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "extrabotany.page.excalibur0"
+    },
+    {
+      "type": "extrabotany:smithing",
+      "recipe": "extrabotany:smithing/excalibur",
+      "text": "extrabotany.page.excalibur1"
+    }
+  ]
+}

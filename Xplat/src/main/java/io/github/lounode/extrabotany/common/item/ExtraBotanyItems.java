@@ -1,8 +1,11 @@
 package io.github.lounode.extrabotany.common.item;
 
+import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.*;
 import io.github.lounode.extrabotany.common.item.material.BossBattleItem;
+import io.github.lounode.extrabotany.common.item.material.HammerTiers;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
+import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
 import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
@@ -25,12 +28,12 @@ import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.pr
 public final class ExtraBotanyItems {
     public static final Map<ResourceLocation, Item> ALL = new LinkedHashMap<>();
 
+
     //Mana Item
     public static final Item zadkiel = make(prefix(LibItemNames.ZADKIEL), new ZadkielItem(unstackable()));
     public static final Item manaReader = make(prefix(LibItemNames.MANA_READER), new ManaReaderItem(unstackable()));
     public static final Item natureOrb = make(prefix(LibItemNames.NATURE_ORB), new Item(unstackable()));
-    public static final Item camera = make(prefix(LibItemNames.CAMERA), new CameraItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
-    public static final Item failnaught = make(prefix(LibItemNames.FAILNAUGHT), new FailnaughtItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
+    public static final Item featherOfJingwei = make(prefix(LibItemNames.FEATHER_OF_JINGWEI), new FeatherOfJingweiItem(unstackable()));
 
     //Hammer
     public static final Item manasteelHammer = make(prefix(LibItemNames.MANASTEEL_HAMMER),
@@ -51,11 +54,7 @@ public final class ExtraBotanyItems {
             new ManasteelHammerItem(HammerTiers.ORICHALCOS, 5, -3.0F, unstackableCustomDamage().rarity(Rarity.EPIC).fireResistant()));
     public static final Item rheinHammer = make(prefix(LibItemNames.RHEIN_HAMMER),
             new RheinHammerItem(unstackableCustomDamage().rarity(Rarity.EPIC).fireResistant()));
-    public static final Item[] ALL_HAMMERS = {
-            manasteelHammer, elementiumHammer, terrasteelHammer, gaiaHammer,
-            photoniumHammer, shadowiumHammer, aerialiteHammer, orichalcosHammer,
-            rheinHammer
-    };
+
 
     //Material
     public static final Item orichalcos = make(prefix(LibItemNames.ORICHALCOS), new Item(defaultBuilder().rarity(Rarity.EPIC).fireResistant()));
@@ -101,7 +100,41 @@ public final class ExtraBotanyItems {
 
     //Relic
     public static final Item manaRingMaster = make(prefix(LibItemNames.MANA_RING_MASTER), new MasterBandOfManaItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
+    public static final Item camera = make(prefix(LibItemNames.CAMERA), new CameraItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
+    public static final Item failnaught = make(prefix(LibItemNames.FAILNAUGHT), new FailnaughtItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
+    public static final Item excalibur = make(prefix(LibItemNames.EXCALIBUR), new ExcaliburItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
 
+    //For tags
+    public static final Item[] HAMMERS = {
+            manasteelHammer, elementiumHammer, terrasteelHammer, gaiaHammer,
+            photoniumHammer, shadowiumHammer, aerialiteHammer, orichalcosHammer,
+            rheinHammer
+    };
+    public static final Item[] PICKAXES = {
+
+    };
+
+    public static final Item[] SWORDS = {
+            excalibur,
+    };
+    public static final Item[] BOWS = {
+            failnaught
+    };
+    public static final Item[] MANA_USING_ITEM = {
+            camera, failnaught, excalibur, featherOfJingwei
+    };
+
+    public static final Item[] REPLICATOR_BLACKLIST = {
+            failnaught, manaRingMaster, excalibur
+    };
+    //Bauble
+    public static final Item[] RINGS = {
+            manaRingMaster,
+    };
+
+    public static final Item[] ALL_SLOT = {
+            featherOfJingwei
+    };
 
     private static <T extends Item> T make(ResourceLocation id, T item) {
         var old = ALL.put(id, item);

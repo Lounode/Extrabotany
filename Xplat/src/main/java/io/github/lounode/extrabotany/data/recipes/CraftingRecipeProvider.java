@@ -110,7 +110,7 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
                 .pattern("OCO")
                 .unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaRingGreater))
                 .save(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, consumer));
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.camera)
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.camera)
                 .define('B', ExtraBotanyBlocks.shadowiumBlock)
                 .define('G', BotaniaItems.gaiaIngot)
                 .define('S', Items.SPYGLASS)
@@ -119,9 +119,20 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
                 .pattern("GGG")
                 .unlockedBy("has_item", conditionsFromItem(BotaniaItems.gaiaIngot))
                 .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.featherOfJingwei)
+                .define('L', Items.LAVA_BUCKET)
+                .define('F', Items.FEATHER)
+                .define('H', ExtraBotanyItems.heroMedal)
+                .define('B', Items.BLAZE_POWDER)
+                .pattern("BLB")
+                .pattern("BFB")
+                .pattern("BHB")
+                .unlockedBy("has_item", conditionsFromItem(ExtraBotanyItems.heroMedal))
+                .save(consumer);
+
     }
     private void registerTools(Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.failnaught)
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.failnaught)
                 .define('O', ExtraBotanyItems.orichalcos)
                 .define('S', BotaniaItems.manaString)
                 .define('G', BotaniaItems.gaiaIngot)

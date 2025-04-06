@@ -2,6 +2,8 @@ package io.github.lounode.extrabotany.common.lib;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -43,6 +45,14 @@ public class ExtraBotanyTags {
 
         private static TagKey<Block> tag(String name) {
             return TagKey.create(Registries.BLOCK, prefix(name));
+        }
+    }
+
+    public static class DamageTypes {
+        public static final TagKey<DamageType> PEACE_AMULET_AVAILABLE = tag("peace_amulet_available");
+
+        private static TagKey<DamageType> tag(String name) {
+            return TagKey.create(Registries.DAMAGE_TYPE, prefix(name));
         }
     }
 }
