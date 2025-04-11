@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.api;
 
+import io.github.lounode.extrabotany.api.item.equipment.bauble.CoreOfTheVoidVariant;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
@@ -10,6 +11,11 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vazkii.botania.api.ServiceUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public interface ExtraBotanyAPI {
     String MODID = "extrabotany";
@@ -96,5 +102,11 @@ public interface ExtraBotanyAPI {
 
     static ExtraBotanyAPI instance() {
         return INSTANCE;
+    }
+
+    default void registerCOVVariant(CoreOfTheVoidVariant variant) {}
+
+    default Map<String ,CoreOfTheVoidVariant> getCOVVariants() {
+        return new HashMap<>();
     }
 }

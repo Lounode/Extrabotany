@@ -1,9 +1,7 @@
 package io.github.lounode.extrabotany.fabric.mixin;
 
-import io.github.lounode.extrabotany.fabric.events.ItemCooldownEvents;
-import io.github.lounode.extrabotany.fabric.events.PlayerTickEvents;
+import io.github.lounode.extrabotany.fabric.event.PlayerTickEvents;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

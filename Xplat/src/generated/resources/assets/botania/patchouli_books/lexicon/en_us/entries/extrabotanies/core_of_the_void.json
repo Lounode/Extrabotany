@@ -1,0 +1,15 @@
+{
+  "category": "botania:extrabotanies",
+  "icon": "extrabotany:core_of_the_void",
+  "name": "extrabotany.entry.core_of_the_void",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "extrabotany.page.core_of_the_void0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "extrabotany.page.core_of_the_void1"
+    }
+  ]
+}

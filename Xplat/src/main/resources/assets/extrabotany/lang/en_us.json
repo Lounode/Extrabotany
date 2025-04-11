@@ -36,7 +36,7 @@
   "block.extrabotany.shadowium_block": "Block of Shadowium",
   "block.extrabotany.pedestal_livingrock" : "Livingrock Pedestal",
   
-  "death.attack.extrabotany.link": "%s 对别人的痛苦感同身受",
+  "death.attack.extrabotany.link": "%1$s 对别人的痛苦感同身受",
   "death.attack.extrabotany.link.player": "%1$s 对 %2$s 的痛苦感同身受",
   "death.attack.extrabotany.link.item": "%1$s 对 %2$s 的痛苦感同身受",
   "death.attack.extrabotany.excalibur": "%1$s 被咖喱棒发射的光线刺穿了",
@@ -45,10 +45,17 @@
   "death.attack.extrabotany.jingwei": "%1$s 被寸劲开天了",
   "death.attack.extrabotany.jingwei.player": "%1$s 被 %2$s 寸劲开天了",
   "death.attack.extrabotany.jingwei.item": "%1$s 被 %2$s 寸劲开天了",
+  "death.attack.extrabotany.reverse_heal": "%1$s 伤重不治",
+  "death.attack.extrabotany.reverse_heal.player": "%1$s 在试图逃离 %2$s 时伤重不治",
+  "death.attack.extrabotany.reverse_heal.item": "%1$s 在试图逃离 %2$s 的 %3$s 时伤重不治",
+  "death.attack.extrabotany.backfire": "%1$s 被崩坏能反噬了",
+  "death.attack.extrabotany.backfire.player": "%1$s 在试图逃离 %2$s 时被崩坏能反噬了",
+  "death.attack.extrabotany.backfire.item": "%1$s 在试图逃离 %2$s 的 %3$s 时被崩坏能反噬了",
   
   
   "effect.extrabotany.immobilize": "Immobilize",
   "effect.extrabotany.link": "Link",
+  "effect.extrabotany.heal_reverse": "Reverse Heal",
   
   "entity.extrabotany.aura_fire": "Jingwei Fire",
   
@@ -89,6 +96,10 @@
   "item.extrabotany.failnaught": "Failnaught",
   "item.extrabotany.excalibur": "Excalibur",
   "item.extrabotany.feather_of_jingwei": "Feather of Jingwei",
+  "item.extrabotany.magic_finger": "Magic Finger",
+  "item.extrabotany.walking_cane": "Walking Cane",
+  "item.extrabotany.core_of_the_void": "Core of The Void",
+  "item.extrabotany.void_archives": "Void Archives",
   
   "message.actionbar.mana_left": "Mana: %s",
   
@@ -98,10 +109,16 @@
   "subtitles.extrabotany:item.failnaught.shoot": "Failnaught shoot",
   "subtitles.extrabotany:item.excalibur.attack": "Excalibur active",
   "subtitles.extrabotany:item.feather_of_jingwei.shoot": "Feather of Jingwei shoot",
+  "subtitles.extrabotany:entity.player.hurt_backfire": "玩家：遭受反噬",
   
   "tooltip.extrabotany.camera": "能够使用念写程度的能力",
   "tooltip.extrabotany.excalibur": "吾王剑锋所指 吾等心之所向",
   "tooltip.extrabotany.failnaught": "百发百中",
+  
+  "extrabotany.wings.herrscher": "Wings: Herrscher",
+  "extrabotany.wings.steampunk": "Wings: Steampunk",
+  "extrabotany.wings.flandre": "Wings: Flandre",
+  "extrabotany.wings.jim": "Wings: Jim",
   
   "extrabotany.patchouli.template.pedestal_smash.operate": "锻造",
   "extrabotany.patchouli.template.pedestal_smash.tip": "提示:用锤子右键活石祭坛来锻造物品",
@@ -159,6 +176,19 @@
   "extrabotany.entry.jingwei": "精卫之羽",
   "extrabotany.page.jingwei0": "千年之羽的力量附在其上，为装备者提供强大的力量。$(br2)当装备$(item)精卫之羽$()后，装备者的每一次$(thing)空手$()攻击都会打出一道$(thing)拳风$()，对远处的敌人造成伤害。$(br2)$(thing)拳风$()造成伤害时，还会为装备者提供少量$(thing)伤害吸收$()。",
   "extrabotany.page.jingwei1": "寸劲，开天！",
+  
+  "extrabotany.entry.magic_finger": "魔术手指",
+  "extrabotany.page.magic_finger0": "出门在外，身上有很多$(thing)魔力$()而$(item)魔力池$()里没有$(thing)魔力$()怎么办？常规的方式是摘下你的$(item)魔力之戒$()并等待，好在有了$(item)魔术手指$()。$(br2)用魔术手指$(k:sneak)$(k:use)$(item)魔力池$()，就可以将身上的$(thing)10,000魔力$()转移到$(item)魔力池$()里。$(br2)由于$(thing)魔力$()之间的相互作用，被它击中的实体会在接下来的3秒内$(thing)治疗反转$()。",
+  "extrabotany.page.magic_finger1": "双倍的快乐",
+  
+  "extrabotany.entry.walking_cane": "步行手杖",
+  "extrabotany.page.walking_cane0": "$(item)步行手杖$()是个好东西，将它拿在手里就会提升你的$(thing)移动速度$()。$(br2)消耗少量$(thing)魔力$()$(k:use)蓄力，它还可以带你向前方$(thing)突进$()，方便快速赶路。",
+  "extrabotany.page.walking_cane1": "没有海象牙T-T",
+  
+  "extrabotany.entry.core_of_the_void": "空之律者核心",
+  "extrabotany.page.core_of_the_void0": "$(7)崩坏，是一种异常的灾害，是宇宙周期性调整的律动。$(br2)——奥托·阿波卡利斯$()$(br2)$(thing)空之律者$()的能量核心，其中蕴含有强大的崩坏能。",
+  "extrabotany.page.core_of_the_void1": "装备$(item)空之律者核心$()时，将获得如同创造模式一般的$(thing)飞行$()能力，大大提升$(thing)移动速度$()与$(thing)飞行速度$()，同时免疫$(thing)投掷物$()和$(thing)负面药水效果$()。$(br2)强大的力量不是没有代价的，以上的所有增益效果建立在消耗大量$(thing)魔力$()维持虚数内能稳定的前提下，一旦魔力被耗光，暴走的虚数内能便会$(thing)反噬$()其主人的生命，请务必确保身上的魔力源充足。",
+  
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""

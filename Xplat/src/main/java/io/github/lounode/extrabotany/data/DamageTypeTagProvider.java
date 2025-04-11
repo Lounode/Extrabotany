@@ -28,10 +28,18 @@ public class DamageTypeTagProvider extends TagsProvider<DamageType> {
                 PEACE_AMULET_AVAILABLE, BYPASSES_ARMOR, BYPASSES_SHIELD
         ));
         map.put(LINK_DAMAGE, List.of(
-                NO_IMPACT
+                NO_IMPACT, WITCH_RESISTANT_TO
         ));
         map.put(JINGWEI_PUNCH_DAMAGE, List.of(
                 PEACE_AMULET_AVAILABLE, IS_FIRE
+        ));
+        map.put(REVERSE_HEAL_DAMAGE, List.of(
+                BYPASSES_ARMOR, BYPASSES_SHIELD, BYPASSES_RESISTANCE, BYPASSES_EFFECTS, BYPASSES_ENCHANTMENTS,
+                NO_IMPACT, WITCH_RESISTANT_TO
+        ));
+        map.put(BACKFIRE_DAMAGE, List.of(
+                BYPASSES_ARMOR, BYPASSES_SHIELD, BYPASSES_RESISTANCE, BYPASSES_EFFECTS, BYPASSES_ENCHANTMENTS,
+                NO_IMPACT, WITCH_RESISTANT_TO
         ));
     }
 

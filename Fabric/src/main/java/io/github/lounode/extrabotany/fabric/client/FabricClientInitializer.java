@@ -1,15 +1,17 @@
 package io.github.lounode.extrabotany.fabric.client;
 
 import io.github.lounode.extrabotany.client.ExtraBotanyItemProperties;
+import io.github.lounode.extrabotany.client.core.ExtraBotanyModels;
 import io.github.lounode.extrabotany.client.gui.HUDHandler;
 import io.github.lounode.extrabotany.client.renderer.ColorHandler;
 import io.github.lounode.extrabotany.client.renderer.entity.EntityRenderers;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
 import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
-import io.github.lounode.extrabotany.fabric.events.PlayerInteractEvents;
+import io.github.lounode.extrabotany.fabric.event.PlayerInteractEvents;
 import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -24,6 +26,10 @@ public class FabricClientInitializer implements ClientModInitializer {
         FabricPacketHandler.initClient();
 
         //Block&Items
+        ModelLoadingPlugin.register(pluginContext -> {
+            ExtraBotanyModels.INSTANCE.onModelRegister(Minecraft.getInstance().getResourceManager(), pluginContext::addModels);
+            pluginContext.modifyModelAfterBake().register((bakedModel, context) -> ExtraBotanyModels.INSTANCE.modifyModelAfterbake(bakedModel, context.id()));
+        });
         ExtraBotanyItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
 
         //EntityRender

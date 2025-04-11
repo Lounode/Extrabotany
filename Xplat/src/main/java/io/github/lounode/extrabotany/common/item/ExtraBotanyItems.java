@@ -1,6 +1,8 @@
 package io.github.lounode.extrabotany.common.item;
 
+import io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
+import io.github.lounode.extrabotany.common.item.equipment.tool.MagicFingerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.*;
 import io.github.lounode.extrabotany.common.item.material.BossBattleItem;
 import io.github.lounode.extrabotany.common.item.material.HammerTiers;
@@ -34,6 +36,10 @@ public final class ExtraBotanyItems {
     public static final Item manaReader = make(prefix(LibItemNames.MANA_READER), new ManaReaderItem(unstackable()));
     public static final Item natureOrb = make(prefix(LibItemNames.NATURE_ORB), new Item(unstackable()));
     public static final Item featherOfJingwei = make(prefix(LibItemNames.FEATHER_OF_JINGWEI), new FeatherOfJingweiItem(unstackable()));
+    public static final Item magicFinger = make(prefix(LibItemNames.MAGIC_FINGER), new MagicFingerItem(unstackable()));
+    public static final Item walkingCane = make(prefix(LibItemNames.WALKING_CANE), new WalkingCaneItem(unstackable()));
+    public static final Item coreOfTheVoid = make(prefix(LibItemNames.CORE_OF_THE_VOID), new CoreOfTheVoidItem(unstackable().rarity(Rarity.UNCOMMON)));
+    public static final Item voidArchives = make(prefix(LibItemNames.VOID_ARCHIVES), new Item(unstackable().rarity(Rarity.EPIC)));
 
     //Hammer
     public static final Item manasteelHammer = make(prefix(LibItemNames.MANASTEEL_HAMMER),
@@ -121,7 +127,7 @@ public final class ExtraBotanyItems {
             failnaught
     };
     public static final Item[] MANA_USING_ITEM = {
-            camera, failnaught, excalibur, featherOfJingwei
+            camera, failnaught, excalibur, featherOfJingwei, magicFinger, coreOfTheVoid
     };
 
     public static final Item[] REPLICATOR_BLACKLIST = {
@@ -130,6 +136,10 @@ public final class ExtraBotanyItems {
     //Bauble
     public static final Item[] RINGS = {
             manaRingMaster,
+    };
+
+    public static final Item[] BODY = {
+            coreOfTheVoid
     };
 
     public static final Item[] ALL_SLOT = {

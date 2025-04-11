@@ -23,6 +23,7 @@ public final class ExtraBotanyPatchouliProvider extends PatchouliProvider {
 
     @Override
     protected void buildEntries(Consumer<PatchouliEntry> consumer) {
+        /*
         PatchouliBuilder.entry(CATEGORY)
                 .withName("extrabotany.entry.test")
                 .withIcon(ExtraBotanyItems.zadkiel)
@@ -30,6 +31,8 @@ public final class ExtraBotanyPatchouliProvider extends PatchouliProvider {
                         text("extrabotany.page.test0")
                 )
                 .save(consumer, id("test"));
+
+         */
         PatchouliBuilder.entry(CATEGORY)
                 .withName("extrabotany.entry.mana_reader")
                 .withIcon(ExtraBotanyItems.manaReader)
@@ -137,6 +140,34 @@ public final class ExtraBotanyPatchouliProvider extends PatchouliProvider {
                                 .withText("extrabotany.page.jingwei1")
                 )
                 .save(consumer, id("jingwei"));
+        PatchouliBuilder.entry(CATEGORY)
+                .withName("extrabotany.entry.magic_finger")
+                .withIcon(ExtraBotanyItems.magicFinger)
+                .pages(
+                        text("extrabotany.page.magic_finger0"),
+                        crafting(ExtraBotanyItems.magicFinger)
+                                .withText("extrabotany.page.magic_finger1")
+
+                )
+                .save(consumer, id("magic_finger"));
+        PatchouliBuilder.entry(CATEGORY)
+                .withName("extrabotany.entry.walking_cane")
+                .withIcon(ExtraBotanyItems.walkingCane)
+                .pages(
+                        text("extrabotany.page.walking_cane0"),
+                        crafting(ExtraBotanyItems.walkingCane)
+                                .withText("extrabotany.page.walking_cane1")
+                )
+                .save(consumer, id("walking_cane"));
+        PatchouliBuilder.entry(CATEGORY)
+                .withName("extrabotany.entry.core_of_the_void")
+                .withIcon(ExtraBotanyItems.coreOfTheVoid)
+                .pages(
+                        text("extrabotany.page.core_of_the_void0"),
+                        text("extrabotany.page.core_of_the_void1")
+
+                )
+                .save(consumer, id("core_of_the_void"));
     }
 
 

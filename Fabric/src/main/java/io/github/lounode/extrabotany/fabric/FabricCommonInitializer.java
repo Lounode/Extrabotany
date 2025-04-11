@@ -5,25 +5,29 @@ import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTrig
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
 import io.github.lounode.extrabotany.common.brew.effect.ExtraBotanyMobEffects;
+import io.github.lounode.extrabotany.common.brew.effect.HealReverseMobEffect;
 import io.github.lounode.extrabotany.common.brew.effect.LinkMobEffect;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
-import io.github.lounode.extrabotany.common.item.CustomCreativeTabContents;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
+import io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
 import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
 import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
-import io.github.lounode.extrabotany.fabric.events.ItemCooldownEvents;
-import io.github.lounode.extrabotany.fabric.events.PlayerTickEvents;
+import io.github.lounode.extrabotany.fabric.event.ItemCooldownEvents;
+import io.github.lounode.extrabotany.fabric.event.LivingEntityEvents;
+import io.github.lounode.extrabotany.fabric.event.PlayerTickEvents;
 import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -34,8 +38,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.item.CustomCreativeTabContents;
 
-import java.lang.reflect.Constructor;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -48,6 +52,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
         registerCapabilities();
         registerEvents();
+        registerFuels();
     }
 
     private void coreInit() {
@@ -56,6 +61,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
         FabricExtraBotanyConfig.setup();
         FabricPacketHandler.init();
+        //ResourceManagerHelper.get
     }
 
     private void registryInit() {
@@ -124,6 +130,7 @@ public class FabricCommonInitializer implements ModInitializer {
         //LeftClick
         AttackEntityCallback.EVENT.register(ExcaliburItem::attackEntity);
         AttackEntityCallback.EVENT.register(FeatherOfJingweiItem::attackEntity);
+        LivingEntityEvents.HEAL.register(HealReverseMobEffect::onLivingHeal);
     }
 
     private void registerCapabilities() {
@@ -132,6 +139,12 @@ public class FabricCommonInitializer implements ModInitializer {
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> CameraItem.makeRelic(st), ExtraBotanyItems.camera);
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> FailnaughtItem.makeRelic(st), ExtraBotanyItems.failnaught);
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ExcaliburItem.makeRelic(st), ExtraBotanyItems.excalibur);
+        BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> CoreOfTheVoidItem.makeRelic(st), ExtraBotanyItems.coreOfTheVoid);
+    }
+
+    private void registerFuels() {
+        FuelRegistry.INSTANCE.add(ExtraBotanyItems.nightmareFuel, 3200);
+        FuelRegistry.INSTANCE.add(ExtraBotanyItems.spiritFuel, 12800);
     }
 
     private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {

@@ -1,4 +1,13 @@
 {
+  "entity.player.hurt_backfire": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "entity.player.hurt_freeze"
+      }
+    ],
+    "subtitle": "subtitles.extrabotany:entity.player.hurt_backfire"
+  },
   "item.camera.charge": {
     "sounds": [
       "extrabotany:item/camera/charge"

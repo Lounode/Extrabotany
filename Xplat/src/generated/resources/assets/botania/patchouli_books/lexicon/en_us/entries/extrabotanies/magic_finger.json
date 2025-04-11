@@ -1,0 +1,16 @@
+{
+  "category": "botania:extrabotanies",
+  "icon": "extrabotany:magic_finger",
+  "name": "extrabotany.entry.magic_finger",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "extrabotany.page.magic_finger0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "extrabotany:magic_finger",
+      "text": "extrabotany.page.magic_finger1"
+    }
+  ]
+}

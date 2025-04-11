@@ -41,6 +41,7 @@ public class FabricItemTagProvider extends ItemTagProvider {
         this.tag(accessory("hand/ring")).add(RINGS);
         this.tag(accessory("offhand/ring")).add(RINGS);
         this.tag(accessory("all")).add(ALL_SLOT);
+        this.tag(accessory("chest/cape")).add(BODY);
     }
 
     private void generateCompatTags() {

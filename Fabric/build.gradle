@@ -59,6 +59,7 @@ sourceSets.main.resources {
 }
 
 repositories {
+    mavenLocal()
     maven {
         name = "Modmuss"
         url = "https://maven.modmuss50.me/"
@@ -107,6 +108,12 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+    maven {
+        name = "Forge"
+        url = "https://maven.minecraftforge.net"
+    }
+
+
 }
 
 dependencies {

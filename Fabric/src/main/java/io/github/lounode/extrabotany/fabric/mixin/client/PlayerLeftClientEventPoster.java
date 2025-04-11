@@ -1,7 +1,6 @@
 package io.github.lounode.extrabotany.fabric.mixin.client;
 
-import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
-import io.github.lounode.extrabotany.fabric.events.PlayerInteractEvents;
+import io.github.lounode.extrabotany.fabric.event.PlayerInteractEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import org.jetbrains.annotations.Nullable;

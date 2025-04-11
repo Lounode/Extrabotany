@@ -20,6 +20,7 @@ legacyForge {
 }
 
 repositories {
+    mavenLocal()
     maven {
         name = "Jared" // Patchouli and JEI
         url = "https://maven.blamejared.com/"
@@ -33,6 +34,12 @@ repositories {
         url "https://repo.unascribed.com" // for ears
         content {
             includeGroup "com.unascribed"
+        }
+    }
+    repositories {
+        maven {
+            name = "Forge"
+            url = "https://maven.minecraftforge.net"
         }
     }
 }
@@ -49,6 +56,7 @@ dependencies {
 
     implementation "com.demonwav.mcdev:annotations:2.1.0"
     compileOnly 'org.jetbrains:annotations:24.0.1'
+
 }
 
 test {

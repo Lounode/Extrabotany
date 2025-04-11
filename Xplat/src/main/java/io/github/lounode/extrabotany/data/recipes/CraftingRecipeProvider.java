@@ -170,6 +170,25 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
         hammer(ExtraBotanyItems.shadowium, BotaniaItems.livingwoodTwig, ExtraBotanyItems.shadowiumHammer).save(consumer);
         hammer(ExtraBotanyItems.aerialite, BotaniaItems.dreamwoodTwig, ExtraBotanyItems.aerialiteHammer).save(consumer);
         //hammer(ExtraBotanyItems.orichalcos, ExtraBotanyItems.orichalcosHammer).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.walkingCane)
+                .define('T', BotaniaItems.livingwoodTwig)
+                .define('G', Items.GOLD_BLOCK)
+                .define('P', Items.PRISMARINE_CRYSTALS)
+                .pattern("TGP")
+                .pattern(" TG")
+                .pattern("T T")
+                .unlockedBy("has_item", conditionsFromItem(BotaniaItems.livingwoodTwig))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ExtraBotanyItems.magicFinger)
+                .define('C', Items.CARROT)
+                .define('H', ExtraBotanyItems.heroMedal)
+                .define('P', BotaniaItems.manaPowder)
+                .pattern(" P ")
+                .pattern("PCP")
+                .pattern(" H ")
+                .unlockedBy("has_item", conditionsFromItem(ExtraBotanyItems.heroMedal))
+                .save(consumer);
     }
     private void registerConversions(Consumer<FinishedRecipe> consumer) {
         compression(ExtraBotanyItems.orichalcos, ExtraBotanyTags.Items.NUGGETS_ORICHALCOS)

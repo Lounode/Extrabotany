@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.forge.client;
 
 import io.github.lounode.extrabotany.client.ExtraBotanyItemProperties;
+import io.github.lounode.extrabotany.client.core.ExtraBotanyModels;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.client.gui.HUDHandler;
 import io.github.lounode.extrabotany.client.renderer.ColorHandler;
@@ -70,6 +71,13 @@ public class ForgeClientInitializer {
 
     @SubscribeEvent
     public static void onModelRegister(ModelEvent.RegisterAdditional evt) {
+        var resourceManager = Minecraft.getInstance().getResourceManager();
+        ExtraBotanyModels.INSTANCE.onModelRegister(resourceManager, evt::register);
         ExtraBotanyItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
+    }
+
+    @SubscribeEvent
+    public static void onModelBake(ModelEvent.ModifyBakingResult evt) {
+        ExtraBotanyModels.INSTANCE.onModelBake(evt.getModelBakery(), evt.getModels());
     }
 }

@@ -19,6 +19,8 @@ public class ExtraBotanyDynamicRegistryProvider extends FabricDynamicRegistryPro
         entries.add(LINK_DAMAGE, LINK);
         entries.add(EXCALIBUR_BEAM_DAMAGE, EXCALIBUR);
         entries.add(JINGWEI_PUNCH_DAMAGE, JINGWEI);
+        entries.add(REVERSE_HEAL_DAMAGE, REVERSE_HEAL);
+        entries.add(BACKFIRE_DAMAGE, BACKFIRE);
     }
 
     @Override

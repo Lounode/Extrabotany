@@ -1,6 +1,5 @@
 package io.github.lounode.extrabotany.fabric.data;
 
-import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.data.*;
 import io.github.lounode.extrabotany.data.recipes.*;
@@ -9,7 +8,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.world.damagesource.DamageType;
 
@@ -61,7 +59,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
         pack.addProvider((PackOutput output) -> new ItemModelProvider(output));
         //pack.addProvider((PackOutput output) -> new PottedPlantModelProvider(output));
         pack.addProvider(AdvancementProvider::create);
-        pack.addProvider((PackOutput output) -> new ExtraBotanySoundDefinitionsProvider(output, LibMisc.MOD_ID));
+        pack.addProvider((PackOutput output) -> new SoundProvider(output, LibMisc.MOD_ID));
         pack.addProvider((PackOutput output) -> new ExtraBotanyPatchouliProvider(output));
     }
 
@@ -74,5 +72,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
         context.register(LINK_DAMAGE, LINK);
         context.register(EXCALIBUR_BEAM_DAMAGE, EXCALIBUR);
         context.register(JINGWEI_PUNCH_DAMAGE, JINGWEI);
+        context.register(REVERSE_HEAL_DAMAGE, REVERSE_HEAL);
+        context.register(BACKFIRE_DAMAGE, BACKFIRE);
     }
 }

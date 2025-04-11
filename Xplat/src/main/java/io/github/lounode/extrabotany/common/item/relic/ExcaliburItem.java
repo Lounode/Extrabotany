@@ -239,6 +239,7 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
                 relic.tickBinding(player);
             }
         }
+        super.inventoryTick(stack, world, entity, slot, selected);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package io.github.lounode.extrabotany.fabric.mixin;
 
-import io.github.lounode.extrabotany.fabric.events.ItemCooldownEvents;
+import io.github.lounode.extrabotany.fabric.event.ItemCooldownEvents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ServerItemCooldowns;

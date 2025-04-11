@@ -1,7 +1,6 @@
 package io.github.lounode.extrabotany.common.item.relic;
 
 import io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger;
-import io.github.lounode.extrabotany.common.item.CustomCreativeTabContents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,6 +19,7 @@ import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.relic.RelicBaubleItem;
 import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.xplat.XplatAbstractions;

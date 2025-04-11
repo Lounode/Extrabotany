@@ -5,4 +5,5 @@ import net.minecraft.resources.ResourceLocation;
 public class LibPotionNames {
     public static final String IMMOBILIZE = "immobilize";
     public static final String LINK = "link";
+    public static final String HEAL_REVERSE = "heal_reverse";
 }

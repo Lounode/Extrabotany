@@ -9,6 +9,6 @@ import vazkii.botania.client.gui.HUDHandler;
 public interface HUDHandlerInvoker {
     @Invoker(value = "renderManaInvBar", remap = false)
     public static void renderManaInvBar(GuiGraphics gui, int totalMana, int totalMaxMana) {
-        throw new AssertionError();
+        //throw new AssertionError();
     }
 }
