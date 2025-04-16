@@ -51,6 +51,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 
         this.copy(ExtraBotanyTags.Blocks.PEDESTALS, ExtraBotanyTags.Items.PEDESTALS);
+
+        this.tag(ItemTags.PIGLIN_LOVED).add(gildedPotato, gildedPotatoMashed, dasRheingold);
     }
 
 }

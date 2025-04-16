@@ -1,6 +1,5 @@
 package io.github.lounode.extrabotany.forge.xplat;
 
-import io.github.lounode.extrabotany.common.event.api.IPlatformEventHelper;
 import io.github.lounode.extrabotany.forge.network.ForgePacketHandler;
 import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;

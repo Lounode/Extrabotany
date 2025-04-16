@@ -17,8 +17,6 @@ import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
 import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
-import io.github.lounode.extrabotany.fabric.event.ItemCooldownEvents;
-import io.github.lounode.extrabotany.fabric.event.LivingEntityEvents;
 import io.github.lounode.extrabotany.fabric.event.PlayerTickEvents;
 import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
 import net.fabricmc.api.ModInitializer;
@@ -116,12 +114,12 @@ public class FabricCommonInitializer implements ModInitializer {
             LinkMobEffect.onEntityDamaged(entity, source, amount);
             return true;
         });
-
+        /*
         ItemCooldownEvents.FINISH.register((player, item) -> {
             CameraItem.onItemCooldownFinish(item, player);
             return true;
         });
-
+        */
         PlayerTickEvents.END.register(player -> {
             CameraItem.onEntityTickFinish(player);
             return true;
@@ -130,7 +128,7 @@ public class FabricCommonInitializer implements ModInitializer {
         //LeftClick
         AttackEntityCallback.EVENT.register(ExcaliburItem::attackEntity);
         AttackEntityCallback.EVENT.register(FeatherOfJingweiItem::attackEntity);
-        LivingEntityEvents.HEAL.register(HealReverseMobEffect::onLivingHeal);
+        //LivingEntityEvents.HEAL.register(HealReverseMobEffect::onLivingHeal);
     }
 
     private void registerCapabilities() {

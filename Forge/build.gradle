@@ -17,6 +17,7 @@ mixin{
 }
 
 repositories {
+    mavenLocal()
     maven {
         name = "Jared"
         url = "https://maven.blamejared.com/"
@@ -97,10 +98,15 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     modImplementation("vazkii.patchouli:Patchouli:${patchouli_version}-FORGE")
-    modImplementation("vazkii.botania:Botania:${botania_version}-FORGE")
+
+    modCompileOnly("vazkii.botania:Botania:${botania_version}-FORGE")
+    modRuntimeOnly("vazkii.botania:Botania:${botania_version}-FORGE")
+    //compileOnly("vazkii.botania:Botania:${botania_version}-FORGE")
+    //runtimeOnly("vazkii.botania:Botania:${botania_version}-FORGE")
 
     modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    //runtimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     modCompileOnly("top.theillusivec4.curios:curios-forge:${curios_version}:api")
     modRuntimeOnly("top.theillusivec4.curios:curios-forge:${curios_version}")
@@ -110,11 +116,14 @@ dependencies {
     //modCompileOnly("top.theillusivec4.curios:curios-forge:5.4.2+1.20.1:api")
     //modRuntimeOnly("top.theillusivec4.curios:curios-forge:5.4.2+1.20.1")
 
+    modImplementation("io.github.lounode.eventwrapper:eventwrapper-forge:1.20.1-1.0.0-SNAPSHOT")
+
 
     modCompileOnly('com.unascribed:ears-api:1.4.5')
 
     compileOnly "org.jetbrains:annotations:24.0.1"
 }
+
 
 compileJava {
     source(project(":Xplat").sourceSets.main.allSource)

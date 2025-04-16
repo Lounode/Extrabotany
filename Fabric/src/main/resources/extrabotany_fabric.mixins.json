@@ -4,9 +4,6 @@
   "package": "io.github.lounode.extrabotany.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ItemCooldownEventPoster",
-    "LivingEntityHealEventPoster",
-    "MobEffectEventPoster",
     "PlayerTickEventPoster"
   ],
   "injectors": {

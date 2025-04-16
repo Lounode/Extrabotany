@@ -48,6 +48,7 @@ dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
     compileOnly "vazkii.patchouli:Patchouli-xplat:${patchouli_version}"
 
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
 
@@ -57,6 +58,7 @@ dependencies {
     implementation "com.demonwav.mcdev:annotations:2.1.0"
     compileOnly 'org.jetbrains:annotations:24.0.1'
 
+    compileOnly("io.github.lounode.eventwrapper:eventwrapper-common:1.20.1-1.0.0-SNAPSHOT")
 }
 
 test {

@@ -1,6 +1,9 @@
 package io.github.lounode.extrabotany.common.item.relic;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import io.github.lounode.eventwrapper.event.entity.player.ItemCooldownFinishEventWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.brew.effect.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
@@ -40,6 +43,7 @@ import java.util.List;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
+@EventBusSubscriberWrapper
 public class CameraItem extends RelicItem {
     private static final int MANA_PER_USE = 1500;
     private static final int RANGE = 20;
@@ -173,9 +177,13 @@ public class CameraItem extends RelicItem {
         }
     }
 
-
-    public static void onItemCooldownFinish(Item item, Player player) {
-        if (!(item instanceof CameraItem)) {
+    @SubscribeEventWrapper
+    public static void onItemCooldownFinish(ItemCooldownFinishEventWrapper event) {
+        if (!(event.getItem() instanceof CameraItem)) {
+            return;
+        }
+        Player player = event.getPlayer();
+        if (!player.level().isClientSide()) {
             return;
         }
         player.playNotifySound(ExtraBotanySounds.CAMERA_CHARGE, SoundSource.PLAYERS, .3F, SoundEventUtil.randomPitch(player.level()));

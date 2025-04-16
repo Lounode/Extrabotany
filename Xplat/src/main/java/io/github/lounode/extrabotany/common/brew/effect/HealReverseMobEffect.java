@@ -1,17 +1,20 @@
 package io.github.lounode.extrabotany.common.brew.effect;
 
+import io.github.lounode.eventwrapper.event.entity.living.LivingHealEventWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
-import io.github.lounode.extrabotany.common.event.entity.living.LivingHealEventWrapper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
+@EventBusSubscriberWrapper
 public class HealReverseMobEffect extends MobEffect {
     protected HealReverseMobEffect(MobEffectCategory category, int color) {
         super(category, color);
     }
-
-    public static void onLivingHeal(LivingHealEventWrapper event) {
+    @SubscribeEventWrapper
+    private static void onLivingHeal(LivingHealEventWrapper event) {
         LivingEntity entity = event.getEntity();
         float amount = event.getAmount();
 

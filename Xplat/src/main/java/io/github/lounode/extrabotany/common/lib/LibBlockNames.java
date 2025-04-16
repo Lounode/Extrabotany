@@ -7,4 +7,5 @@ public class LibBlockNames {
     public static final String AERIALITE_BLOCK = "aerialite_block";
     public static final String PEDESTAL = "pedestal";
     public static final String PEDESTAL_PREFIX = "pedestal_";
+    public static final String DIMENSION_CATALYST = "dimension_catalyst";
 }

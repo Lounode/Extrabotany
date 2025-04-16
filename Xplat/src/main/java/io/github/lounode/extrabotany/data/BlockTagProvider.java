@@ -48,7 +48,8 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
     private void registerMiningTags() {
         Set<Block> pickaxe = new HashSet<>(Set.of(
-                aerialiteBlock, orichalcosBlock, photoniumBlock, shadowiumBlock
+                aerialiteBlock, orichalcosBlock, photoniumBlock, shadowiumBlock,
+                dimensionCatalyst
         ));
         pickaxe.addAll(List.of(ALL_PEDESTALS));
 

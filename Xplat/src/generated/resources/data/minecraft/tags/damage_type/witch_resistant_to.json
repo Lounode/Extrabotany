@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "extrabotany:backfire",
-    "extrabotany:link",
-    "extrabotany:reverse_heal"
+    "extrabotany:reverse_heal",
+    "extrabotany:link"
   ]
 }

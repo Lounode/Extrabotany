@@ -2,6 +2,7 @@ package io.github.lounode.extrabotany.common.item;
 
 import io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
+import io.github.lounode.extrabotany.common.item.equipment.shield.ManasteelShieldItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.MagicFingerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.*;
 import io.github.lounode.extrabotany.common.item.material.BossBattleItem;
@@ -19,6 +20,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.LinkedHashMap;
@@ -60,7 +62,9 @@ public final class ExtraBotanyItems {
             new ManasteelHammerItem(HammerTiers.ORICHALCOS, 5, -3.0F, unstackableCustomDamage().rarity(Rarity.EPIC).fireResistant()));
     public static final Item rheinHammer = make(prefix(LibItemNames.RHEIN_HAMMER),
             new RheinHammerItem(unstackableCustomDamage().rarity(Rarity.EPIC).fireResistant()));
-
+    //Shield
+    public static final Item manasteelShield = make(prefix(LibItemNames.MANASTEEL_SHIELD),
+            new ManasteelShieldItem(unstackable().durability(BotaniaAPI.instance().getManasteelItemTier().getUses())));
 
     //Material
     public static final Item orichalcos = make(prefix(LibItemNames.ORICHALCOS), new Item(defaultBuilder().rarity(Rarity.EPIC).fireResistant()));

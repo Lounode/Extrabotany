@@ -35,6 +35,7 @@
   "block.extrabotany.photonium_block": "Block of Photonium",
   "block.extrabotany.shadowium_block": "Block of Shadowium",
   "block.extrabotany.pedestal_livingrock" : "Livingrock Pedestal",
+  "block.extrabotany.dimension_catalyst" : "Dimension Catalyst",
   
   "death.attack.extrabotany.link": "%1$s 对别人的痛苦感同身受",
   "death.attack.extrabotany.link.player": "%1$s 对 %2$s 的痛苦感同身受",

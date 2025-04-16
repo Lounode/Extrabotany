@@ -1,6 +1,5 @@
 package io.github.lounode.extrabotany.fabric.xplat;
 
-import io.github.lounode.extrabotany.common.event.api.IPlatformEventHelper;
 import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;

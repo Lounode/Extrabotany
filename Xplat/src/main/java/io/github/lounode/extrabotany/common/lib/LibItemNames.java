@@ -44,4 +44,5 @@ public final class LibItemNames {
     public static final String WALKING_CANE = "walking_cane";
     public static final String CORE_OF_THE_VOID = "core_of_the_void";
     public static final String VOID_ARCHIVES = "void_archives";
+    public static final String MANASTEEL_SHIELD = "manasteel_shield";
 }

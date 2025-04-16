@@ -12,8 +12,8 @@ import javax.annotation.Nullable;
 
 public class ExtraBotanyBlock extends Block {
 
-    public ExtraBotanyBlock(Properties pProperties) {
-        super(pProperties);
+    public ExtraBotanyBlock(Properties prop) {
+        super(prop);
     }
 
     @Override

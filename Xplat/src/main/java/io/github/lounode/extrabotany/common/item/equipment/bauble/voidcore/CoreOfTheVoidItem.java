@@ -3,13 +3,13 @@ package io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.vertex.PoseStack;
+import io.github.lounode.eventwrapper.event.entity.ProjectileImpactEventWrapper;
+import io.github.lounode.eventwrapper.event.entity.living.MobEffectEventWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.api.item.equipment.bauble.CoreOfTheVoidVariant;
 import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
-import io.github.lounode.extrabotany.common.event.EventFactory;
-import io.github.lounode.extrabotany.common.event.api.SubscribeEventWrapper;
-import io.github.lounode.extrabotany.common.event.entity.ProjectileImpactEventWrapper;
-import io.github.lounode.extrabotany.common.event.entity.living.MobEffectEventWrapper;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore.variants.Flandre;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore.variants.Herrscher;
@@ -24,7 +24,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -47,7 +49,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
-
+@EventBusSubscriberWrapper
 public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabContents {
 
     private static final String TAG_VARIANT = "variant";
@@ -67,7 +69,6 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
         ExtraBotanyAPI.instance().registerCOVVariant(new Jim());
         ExtraBotanyAPI.instance().registerCOVVariant(new Steampunk());
         Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
-        EventFactory.register(this);
     }
 
     @Override
@@ -129,7 +130,7 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
             return;
         }
 
-        //tryRemoveHarmfulPotion(stack, entity);
+        tryRemoveHarmfulPotion(stack, entity);
     }
 
     public static void playerLoggedOut(ServerPlayer player) {
@@ -258,36 +259,38 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
     }
 
     //Projectile immunity
+    @SubscribeEventWrapper
     public static void onProjectileImpact(ProjectileImpactEventWrapper event) {
 
     }
 
-    public static void onLivingAttack() {
+    public void onLivingAttack() {
 
     }
 
-    public static void onLivingDamage() {
+    public void onLivingDamage() {
 
     }
 
-    public static void onLivingHurt() {
+    public void onLivingHurt() {
 
     }
     //Harmful potion remove
     protected void tryRemoveHarmfulPotion(ItemStack stack, LivingEntity entity) {
         var effects = entity.getActiveEffectsMap();
 
-        for (var effect : effects.entrySet()) {
+        Iterator<Map.Entry<MobEffect, MobEffectInstance>> iterator = effects.entrySet().iterator();
+        while (iterator.hasNext()) {
+            var effect = iterator.next();
             var type = effect.getKey();
 
             if (type.getCategory() != MobEffectCategory.HARMFUL) {
                 continue;
             }
 
-            if (
-                    entity instanceof Player player &&
-                            !(player.isCreative() || player.isSpectator()) &&
-                            !(ManaItemHandler.instance().requestManaExactForTool(stack, player, getCureCost(), true))) {
+            if (entity instanceof Player player &&
+                    !(player.isCreative() || player.isSpectator()) &&
+                    !(ManaItemHandler.instance().requestManaExactForTool(stack, player, getCureCost(), true))) {
                 return;
             }
 
@@ -296,8 +299,7 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
     }
     //TODO 立即生效药水效果截断
     @SubscribeEventWrapper
-    public void onEffectAdd(MobEffectEventWrapper.Added event) {
-        //ProjectileImpactEvent event
+    public static void onEffectAdd(MobEffectEventWrapper.Added event) {
         System.out.println("Effect added " + event.getEntity().toString());
     }
 }

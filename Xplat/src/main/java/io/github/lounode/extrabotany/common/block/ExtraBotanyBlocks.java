@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.common.block;
 
+import io.github.lounode.extrabotany.common.block.mana.DimensionCatalystBlock;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.LibBlockNames;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.material.MapColor;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
@@ -32,6 +34,8 @@ public final class ExtraBotanyBlocks {
             .mapColor(MapColor.TERRACOTTA_WHITE));
 
     public static final Block[] ALL_PEDESTALS = new Block[] {livingrockPedestal};
+
+    public static final Block dimensionCatalyst = new DimensionCatalystBlock(BlockBehaviour.Properties.copy(BotaniaBlocks.livingrock));
     public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {
         r.accept(orichalcosBlock, prefix(LibBlockNames.ORICHALCOS_BLOCK));
         r.accept(photoniumBlock, prefix(LibBlockNames.PHOTONIUM_BLOCK));
@@ -40,6 +44,8 @@ public final class ExtraBotanyBlocks {
 
         //Pedestal
         r.accept(livingrockPedestal, prefix(LibBlockNames.PEDESTAL_PREFIX + PedestalBlock.Variant.LIVINGROCK.name().toLowerCase(Locale.ROOT)));
+
+        r.accept(dimensionCatalyst, prefix(LibBlockNames.DIMENSION_CATALYST));
     }
 
     public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
@@ -51,5 +57,7 @@ public final class ExtraBotanyBlocks {
         r.accept(new BlockItem(aerialiteBlock, props), BuiltInRegistries.BLOCK.getKey(aerialiteBlock));
 
         r.accept(new BlockItem(livingrockPedestal, props), BuiltInRegistries.BLOCK.getKey(livingrockPedestal));
+
+        r.accept(new BlockItem(dimensionCatalyst, props), BuiltInRegistries.BLOCK.getKey(dimensionCatalyst));
     }
 }

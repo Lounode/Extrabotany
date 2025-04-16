@@ -1,0 +1,14 @@
+{
+  "type": "botania:mana_infusion",
+  "catalyst": {
+    "type": "block",
+    "block": "extrabotany:dimension_catalyst"
+  },
+  "input": {
+    "item": "minecraft:diamond"
+  },
+  "mana": 20000,
+  "output": {
+    "item": "minecraft:ender_pearl"
+  }
+}
