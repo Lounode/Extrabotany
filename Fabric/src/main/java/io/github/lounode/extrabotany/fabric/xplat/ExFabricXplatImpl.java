@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import vazkii.botania.fabric.xplat.FabricXplatImpl;
 
 public class ExFabricXplatImpl extends FabricXplatImpl implements EXplatAbstractions {

@@ -31,7 +31,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import org.jetbrains.annotations.NotNull;
-import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

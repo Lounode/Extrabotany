@@ -10,7 +10,6 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import vazkii.botania.network.TriConsumer;
-import vazkii.botania.network.clientbound.SpawnGaiaGuardianPacket;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;

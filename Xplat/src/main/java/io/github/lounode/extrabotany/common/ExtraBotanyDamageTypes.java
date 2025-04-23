@@ -4,19 +4,11 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.damagesource.DamageEffects;
-import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 
 import javax.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.BiConsumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 

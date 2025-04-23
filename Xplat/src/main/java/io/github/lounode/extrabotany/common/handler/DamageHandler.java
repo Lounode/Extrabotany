@@ -1,16 +1,12 @@
 package io.github.lounode.extrabotany.common.handler;
 
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import vazkii.botania.common.handler.EquipmentHandler;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static io.github.lounode.extrabotany.common.handler.DamageHandler.DamageType.*;
 
 public class DamageHandler {
     public static final DamageHandler INSTANCE = new DamageHandler();

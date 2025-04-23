@@ -1,23 +1,20 @@
 package io.github.lounode.extrabotany.data;
 
-import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes.*;
-import static io.github.lounode.extrabotany.common.lib.ExtraBotanyTags.DamageTypes.*;
+import static io.github.lounode.extrabotany.common.lib.ExtraBotanyTags.DamageTypes.PEACE_AMULET_AVAILABLE;
 import static net.minecraft.tags.DamageTypeTags.*;
 
 public class DamageTypeTagProvider extends TagsProvider<DamageType> {

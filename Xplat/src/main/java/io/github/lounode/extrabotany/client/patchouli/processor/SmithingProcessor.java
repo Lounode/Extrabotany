@@ -1,6 +1,5 @@
 package io.github.lounode.extrabotany.client.patchouli.processor;
 
-import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;

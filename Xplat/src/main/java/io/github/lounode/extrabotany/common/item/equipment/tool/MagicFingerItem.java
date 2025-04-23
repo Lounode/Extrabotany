@@ -1,11 +1,8 @@
 package io.github.lounode.extrabotany.common.item.equipment.tool;
 
-import com.google.common.collect.Iterables;
 import io.github.lounode.extrabotany.common.brew.effect.ExtraBotanyMobEffects;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;

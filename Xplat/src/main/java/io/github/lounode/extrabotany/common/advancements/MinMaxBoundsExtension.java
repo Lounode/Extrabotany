@@ -1,23 +1,14 @@
 package io.github.lounode.extrabotany.common.advancements;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
-import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-
-import java.math.BigInteger;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import javax.annotation.Nullable;
-
 import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.GsonHelper;
+
+import javax.annotation.Nullable;
+import java.math.BigInteger;
+import java.util.function.Function;
 
 public class MinMaxBoundsExtension {
     public static class Longs extends MinMaxBounds<Long> {

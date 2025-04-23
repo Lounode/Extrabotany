@@ -5,9 +5,7 @@ import com.mojang.serialization.Dynamic;
 import io.github.lounode.extrabotany.api.gaia.ColorfulBossBar;
 import io.github.lounode.extrabotany.api.gaia.GaiaArena;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
-import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.proxy.Proxy;
-import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.network.clientbound.SpawnGaiaPacket;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -62,7 +60,6 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
 

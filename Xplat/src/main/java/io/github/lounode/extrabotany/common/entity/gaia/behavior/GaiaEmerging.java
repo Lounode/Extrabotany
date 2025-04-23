@@ -2,7 +2,6 @@ package io.github.lounode.extrabotany.common.entity.gaia.behavior;
 
 import com.google.common.collect.ImmutableMap;
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;

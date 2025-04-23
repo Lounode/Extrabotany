@@ -1,16 +1,12 @@
 package io.github.lounode.extrabotany.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
-import vazkii.botania.client.lib.ResourcesLib;
 
 public final class HUDHandler {
     private HUDHandler() {

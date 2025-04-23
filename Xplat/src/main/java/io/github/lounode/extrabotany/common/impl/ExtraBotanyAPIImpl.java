@@ -3,7 +3,8 @@ package io.github.lounode.extrabotany.common.impl;
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.api.item.equipment.bauble.CoreOfTheVoidVariant;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ExtraBotanyAPIImpl implements ExtraBotanyAPI {
     private final Map<String, CoreOfTheVoidVariant> covVariants = new LinkedHashMap<>();

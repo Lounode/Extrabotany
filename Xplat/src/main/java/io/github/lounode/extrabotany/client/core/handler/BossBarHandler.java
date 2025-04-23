@@ -2,24 +2,23 @@ package io.github.lounode.extrabotany.client.core.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-
 import io.github.lounode.extrabotany.api.gaia.ColorfulBossBar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.BossEvent;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.entity.GaiaGuardianEntity;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.OptionalInt;
+import java.util.Set;
+import java.util.WeakHashMap;
 public final class BossBarHandler {
 
     private BossBarHandler() {}

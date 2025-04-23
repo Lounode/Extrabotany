@@ -4,7 +4,6 @@ import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
-import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.function.Supplier;
 

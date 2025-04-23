@@ -1,7 +1,6 @@
 package io.github.lounode.extrabotany.network.serverbound;
 
 import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
-import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;

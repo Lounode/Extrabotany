@@ -3,15 +3,17 @@ package io.github.lounode.extrabotany.common.util;
 import com.google.gson.JsonElement;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
-import vazkii.patchouli.client.book.*;
+import vazkii.patchouli.client.book.BookContentLoader;
+import vazkii.patchouli.client.book.BookContentResourceDirectLoader;
+import vazkii.patchouli.client.book.ClientBookRegistry;
 import vazkii.patchouli.client.book.template.BookTemplate;
+import vazkii.patchouli.common.book.Book;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import vazkii.patchouli.common.book.Book;
 
 /**
  * A Patchouli Template Poll to cache all books registered templates

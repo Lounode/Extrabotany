@@ -2,7 +2,9 @@ package io.github.lounode.extrabotany.data;
 
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
-import io.github.lounode.extrabotany.data.patchouli.*;
+import io.github.lounode.extrabotany.data.patchouli.PatchouliBuilder;
+import io.github.lounode.extrabotany.data.patchouli.PatchouliEntry;
+import io.github.lounode.extrabotany.data.patchouli.PatchouliProvider;
 import io.github.lounode.extrabotany.data.patchouli.page.botania.ManaInfusionPage;
 import io.github.lounode.extrabotany.data.patchouli.page.botania.RunicAltarPage;
 import io.github.lounode.extrabotany.data.patchouli.page.extrabotany.EatPage;

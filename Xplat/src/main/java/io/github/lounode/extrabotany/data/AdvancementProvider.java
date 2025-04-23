@@ -1,6 +1,5 @@
 package io.github.lounode.extrabotany.data;
 
-import io.github.lounode.extrabotany.common.advancements.ItemUsedTrigger;
 import io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger;
 import io.github.lounode.extrabotany.common.advancements.MinMaxBoundsExtension;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
@@ -11,13 +10,14 @@ import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
+import net.minecraft.advancements.critereon.ImpossibleTrigger;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;

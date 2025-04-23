@@ -15,14 +15,13 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
-
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.*;
+import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.failnaught;
 import static vazkii.botania.data.ItemModelProvider.takeAll;
 
 public class ItemModelProvider implements DataProvider {

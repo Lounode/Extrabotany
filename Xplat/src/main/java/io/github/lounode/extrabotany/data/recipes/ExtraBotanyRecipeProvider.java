@@ -2,13 +2,11 @@ package io.github.lounode.extrabotany.data.recipes;
 
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
-
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

@@ -2,7 +2,6 @@ package io.github.lounode.extrabotany.data;
 
 
 import io.github.lounode.extrabotany.common.lib.LibMisc;
-import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.data.sound.SoundDefinition;
 import io.github.lounode.extrabotany.data.sound.SoundDefinitionsProvider;
 import net.minecraft.core.registries.BuiltInRegistries;

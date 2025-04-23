@@ -2,7 +2,6 @@ package io.github.lounode.extrabotany.data.patchouli.page.botania;
 
 import com.demonwav.mcdev.annotations.Translatable;
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
-import io.github.lounode.extrabotany.data.patchouli.page.extrabotany.EatPage;
 import net.minecraft.resources.ResourceLocation;
 
 public class ManaInfusionPage extends AbstractPage {

@@ -1,12 +1,9 @@
 package io.github.lounode.extrabotany.common.item;
 
-import io.github.lounode.extrabotany.common.advancements.ItemUsedTrigger;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import io.github.lounode.extrabotany.network.clientbound.ManaReaderPacket;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -14,18 +11,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.xplat.XplatAbstractions;
-
-import javax.annotation.Nonnull;
-import java.util.function.Supplier;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 

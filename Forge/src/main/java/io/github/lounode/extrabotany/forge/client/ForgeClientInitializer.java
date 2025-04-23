@@ -2,21 +2,20 @@ package io.github.lounode.extrabotany.forge.client;
 
 import io.github.lounode.extrabotany.client.ExtraBotanyItemProperties;
 import io.github.lounode.extrabotany.client.core.ExtraBotanyModels;
-import io.github.lounode.extrabotany.common.lib.LibMisc;
+import io.github.lounode.extrabotany.client.core.handler.BossBarHandler;
 import io.github.lounode.extrabotany.client.gui.HUDHandler;
 import io.github.lounode.extrabotany.client.renderer.ColorHandler;
+import io.github.lounode.extrabotany.client.renderer.entity.EntityRenderers;
+import io.github.lounode.extrabotany.common.lib.LibMisc;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import io.github.lounode.extrabotany.client.renderer.entity.EntityRenderers;
-import io.github.lounode.extrabotany.client.core.handler.BossBarHandler;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeClientInitializer {

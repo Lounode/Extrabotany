@@ -2,9 +2,9 @@ package io.github.lounode.extrabotany.common.entity.gaia.behavior;
 
 import com.google.common.collect.ImmutableMap;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.entity.MagicLandMineEntity;
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
-import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.Brain;

@@ -1,20 +1,18 @@
 package io.github.lounode.extrabotany.data.recipes;
 
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
-import io.github.lounode.extrabotany.common.block.PedestalBlock;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.ResourceLocationHelper;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -22,7 +20,6 @@ import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.data.recipes.WrapperResult;
 
-import java.util.Locale;
 import java.util.function.Consumer;
 
 public class CraftingRecipeProvider extends vazkii.botania.data.recipes.CraftingRecipeProvider {
