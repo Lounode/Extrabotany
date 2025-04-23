@@ -20,6 +20,8 @@ public class ExtraBotanySounds {
     public static final SoundEvent FEATHER_OF_JINGWEI_SHOOT = makeSoundEvent("item.feather_of_jingwei.shoot");
     public static final SoundEvent PLAYER_BACKFIRE = makeSoundEvent("entity.player.hurt_backfire");
 
+    public static final SoundEvent MUSIC_GAIA3 = makeSoundEvent("music.gaia3");
+
     private static SoundEvent makeSoundEvent(String name) {
         SoundEvent event = SoundEvent.createVariableRangeEvent(prefix(name));
         EVENTS.add(event);

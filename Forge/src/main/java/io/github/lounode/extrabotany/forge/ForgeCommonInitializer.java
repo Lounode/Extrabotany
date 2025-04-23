@@ -7,12 +7,10 @@ import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTrig
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
 import io.github.lounode.extrabotany.common.brew.effect.ExtraBotanyMobEffects;
-import io.github.lounode.extrabotany.common.brew.effect.HealReverseMobEffect;
-import io.github.lounode.extrabotany.common.brew.effect.LinkMobEffect;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
-import io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore.CoreOfTheVoidItem;
-import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
+import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
@@ -27,20 +25,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHealEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
@@ -110,12 +100,14 @@ public class ForgeCommonInitializer
 
         // Entities
         bind(modEventBus, Registries.ENTITY_TYPE, ExtraBotanyEntityType::registerEntities);
+        modEventBus.addListener((EntityAttributeCreationEvent e) -> ExtraBotanyEntityType.registerAttributes((type, builder) -> e.put(type, builder.build())));
+        bind(modEventBus, Registries.MEMORY_MODULE_TYPE, ExtraBotanyMemoryType::registerMemories);
 
         // Potions
         bind(modEventBus, Registries.MOB_EFFECT, ExtraBotanyMobEffects::registerPotions);
 
         // Rest
-        registerDatas(modEventBus);
+        //registerDatas(modEventBus);
 
         ExtrabotanyCriteriaTriggers.init();
 
@@ -148,76 +140,13 @@ public class ForgeCommonInitializer
 
     }
 
-    private void registerDatas(IEventBus modEventBus) {
-        /*
-        modEventBus.addListener((DataPackRegistryEvent.NewRegistry event) ->{
-            event.dataPackRegistry(ExtraBotanyRegistries.CORE_OF_THE_VOID_VARIANTS, CoreOfTheVoidVariant.CODEC);
-        });
-
-
-
-        modEventBus.addListener((FMLClientSetupEvent event) ->{
-            event.enqueueWork(() -> {
-
-                //ExtraBotanyRegistries.CORE_OF_THE_VOID_VARIANTS.cast()
-                Registry<CoreOfTheVoidVariant> registry = (Registry<CoreOfTheVoidVariant>) BuiltInRegistries.REGISTRY.get(ExtraBotanyRegistries.CORE_OF_THE_VOID_VARIANTS.location());
-                for(Map.Entry<ResourceKey<CoreOfTheVoidVariant>, CoreOfTheVoidVariant> entry : registry.entrySet()) {
-                    ResourceKey<CoreOfTheVoidVariant> key = entry.getKey();
-                    CoreOfTheVoidVariant value = entry.getValue();
-
-                    System.out.println("OKKKK:"+ value.getTexture().toString());
-                }
-
-            });
-        });
-        */
-    }
-
     private void registerEvents() {
         IEventBus bus = MinecraftForge.EVENT_BUS;
         bus.addGenericListener(ItemStack.class, this::attachItemCaps);
+        bus.addGenericListener(Level.class, this::attachLevelCaps);
 
         bus.addListener(this::registerFuels);
 
-        //Potion - LINK
-        bus.addListener((LivingHurtEvent event) -> {
-            LinkMobEffect.onEntityDamaged(event.getEntity(), event.getSource(), event.getAmount());
-        });
-        //Potion - HealReverse
-        /*
-        bus.addListener((LivingHealEvent e) -> {
-            LivingHealEventWrapper healEvent = new LivingHealEventWrapper(e.getEntity(), e.getAmount());
-            HealReverseMobEffect.onLivingHeal(healEvent);
-            e.setAmount(healEvent.getAmount());
-        });
-        */
-        //Camera
-        bus.addListener((TickEvent.PlayerTickEvent event) -> {
-            if (event.phase != TickEvent.Phase.END) {
-                return;
-            }
-            CameraItem.onEntityTickFinish(event.player);
-        });
-        /*
-        bus.addListener((ItemCooldownFinishEvent event) -> {
-            CameraItem.onItemCooldownFinish(event.getItem(), event.getPlayer());
-        });
-        */
-        //Excalibur
-        bus.addListener((PlayerInteractEvent.LeftClickEmpty e) -> ExcaliburItem.leftClick(e.getItemStack()));
-        bus.addListener((AttackEntityEvent e) -> ExcaliburItem.attackEntity(
-                e.getEntity(), e.getEntity().level(), InteractionHand.MAIN_HAND, e.getTarget(), null));
-        //Jingwei
-        bus.addListener((PlayerInteractEvent.LeftClickEmpty e) -> FeatherOfJingweiItem.leftClick(e.getEntity()));
-        bus.addListener((AttackEntityEvent e) -> FeatherOfJingweiItem.attackEntity(
-                e.getEntity(), e.getEntity().level(), InteractionHand.MAIN_HAND, e.getTarget(), null));
-        //CoreOfVoid
-        bus.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> CoreOfTheVoidItem.playerLoggedOut((ServerPlayer) e.getEntity()));
-        bus.addListener((LivingEvent.LivingTickEvent e) -> {
-            if (e.getEntity() instanceof Player player) {
-                CoreOfTheVoidItem.updatePlayerFlyStatus(player);
-            }
-        });
     }
 
     private void registerFuels(FurnaceFuelBurnTimeEvent e) {
@@ -228,6 +157,10 @@ public class ForgeCommonInitializer
         if (e.getItemStack().is(ExtraBotanyItems.spiritFuel)) {
             e.setBurnTime(12800);
         }
+    }
+
+    private void attachLevelCaps(AttachCapabilitiesEvent<Level> event) {
+
     }
 
     private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {

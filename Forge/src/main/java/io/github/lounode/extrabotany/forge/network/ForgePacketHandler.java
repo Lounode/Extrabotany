@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.forge.network;
 
 import io.github.lounode.extrabotany.network.clientbound.ManaReaderPacket;
+import io.github.lounode.extrabotany.network.clientbound.SpawnGaiaPacket;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketExcalibur;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketJingwei;
 import net.minecraft.server.MinecraftServer;
@@ -9,6 +10,7 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import vazkii.botania.network.TriConsumer;
+import vazkii.botania.network.clientbound.SpawnGaiaGuardianPacket;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -32,6 +34,8 @@ public class ForgePacketHandler {
         //ClientBound
         CHANNEL.registerMessage(i++, ManaReaderPacket.class, ManaReaderPacket::encode, ManaReaderPacket::decode,
                 makeClientBoundHandler(ManaReaderPacket.Handler::handle));
+        CHANNEL.registerMessage(i++, SpawnGaiaPacket.class, SpawnGaiaPacket::encode, SpawnGaiaPacket::decode,
+                makeClientBoundHandler(SpawnGaiaPacket.Handler::handle));
     }
     private static <T> BiConsumer<T, Supplier<NetworkEvent.Context>> makeServerBoundHandler(TriConsumer<T, MinecraftServer, ServerPlayer> handler) {
         return (m, ctx) -> {

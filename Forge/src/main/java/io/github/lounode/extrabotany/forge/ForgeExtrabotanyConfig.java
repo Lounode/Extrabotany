@@ -49,6 +49,7 @@ public class ForgeExtrabotanyConfig
 
     private static class Common implements ExtraBotanyConfig.ConfigAccess {
         public final ForgeConfigSpec.BooleanValue testServerConfig;
+        public final ForgeConfigSpec.BooleanValue disableGaiaDisArm;
 
         public Common(ForgeConfigSpec.Builder builder) {
             builder.push("test");
@@ -56,6 +57,9 @@ public class ForgeExtrabotanyConfig
             testServerConfig = builder
                     .comment("This is a test for server config")
                     .define("testServerConfig", true);
+            disableGaiaDisArm = builder
+                    .comment("Set true to disable Gaia's disarm")
+                    .define("disableGaiaDisarm", false);
 
             builder.pop();
         }
@@ -63,6 +67,11 @@ public class ForgeExtrabotanyConfig
         @Override
         public boolean testServerConfig() {
             return testServerConfig.get();
+        }
+
+        @Override
+        public boolean disableGaiaDisArm() {
+            return disableGaiaDisArm.get();
         }
     }
 

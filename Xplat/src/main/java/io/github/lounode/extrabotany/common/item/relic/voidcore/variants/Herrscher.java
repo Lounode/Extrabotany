@@ -1,6 +1,7 @@
-package io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore.variants;
+package io.github.lounode.extrabotany.common.item.relic.voidcore.variants;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import io.github.lounode.extrabotany.api.item.equipment.bauble.CoreOfTheVoidVariant;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -12,19 +13,19 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Map;
 import java.util.function.Consumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
-public class Flandre implements CoreOfTheVoidVariant {
+public class Herrscher implements CoreOfTheVoidVariant {
+    private static final String ID = "herrscher";
+    private static final ResourceLocation LEFT_WING_MODEL = prefix("wing/herrscher_left");
+    private static final ResourceLocation RIGHT_WING_MODEL = prefix("wing/herrscher_right");
 
-    private static final String ID = "flandre";
-    private static final ResourceLocation WING_MODEL = prefix("wing/flandre");
-
-    private BakedModel wing;
+    private BakedModel leftWing;
+    private BakedModel rightWing;
 
     @Override
     public String getId() {
@@ -33,19 +34,17 @@ public class Flandre implements CoreOfTheVoidVariant {
 
     @Override
     public void onModelInit(Map<ResourceLocation, Consumer<BakedModel>> consumer) {
-        consumer.put(WING_MODEL, bakedModel -> this.wing = bakedModel);
+        consumer.put(LEFT_WING_MODEL, bakedModel -> this.leftWing = bakedModel);
+        consumer.put(RIGHT_WING_MODEL, bakedModel -> this.rightWing = bakedModel);
     }
 
-    @Override
     public void render(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (wing == null) {
+        if (rightWing == null || leftWing == null) {
             return;
         }
 
         boolean flying = living instanceof Player player && player.getAbilities().flying;
         float flap = 12F + (float) ((Math.sin((double) (living.tickCount + partialTicks) * (flying ? 0.2F : 0.12F)) + 0.4F) * (flying ? 30F : 5F));
-        flap *= 0.25f;
-
 
         ms.pushPose();
 
@@ -53,21 +52,31 @@ public class Flandre implements CoreOfTheVoidVariant {
         bipedModel.body.translateAndRotate(ms);
 
         // position on body
-        ms.translate(0, 0.2, 0.2);
+        ms.translate(0, -0.2, 0.3);
 
-        for (int i = 0; i < 2; i++) {
+        //Right wing
+        for(int i = 0; i < 3; i++) {
             ms.pushPose();
-            ms.mulPose(VecHelper.rotateY(i == 0 ? flap : 180 - flap));
+            ms.mulPose(Axis.YP.rotationDegrees(flap*0.25F));
+            ms.mulPose(Axis.ZP.rotationDegrees(-35F * i));
 
-            // move so flapping about the edge instead of center of texture
-            ms.translate(-1, 0, 0);
+            ms.translate(-1.2, -0.1F * i, 0);
 
-            // rotate since the textures are stored rotated
-            //ms.mulPose(VecHelper.rotateZ(-60));
-            ms.scale(1.5F, -1.5F, -1.5F);
-            Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, wing);
+            ms.scale(1.9F, -1.9F, -1.9F);
+            Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, rightWing);
             ms.popPose();
         }
+        //Left wing
+
+            ms.pushPose();
+            ms.mulPose(Axis.YP.rotationDegrees(180 - flap * 0.25F));
+
+            ms.translate(-1.2, 0, 0);
+
+            ms.scale(1.7F, -1.7F, -1.7F);
+            Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, leftWing);
+            ms.popPose();
+
 
         ms.popPose();
     }

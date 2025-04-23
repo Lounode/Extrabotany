@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.fabric.network;
 
 import io.github.lounode.extrabotany.network.clientbound.ManaReaderPacket;
+import io.github.lounode.extrabotany.network.clientbound.SpawnGaiaPacket;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketExcalibur;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketJingwei;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -22,6 +23,7 @@ public class FabricPacketHandler {
 
     public static void initClient() {
         ClientPlayNetworking.registerGlobalReceiver(ManaReaderPacket.ID, makeClientBoundHandler(ManaReaderPacket::decode, ManaReaderPacket.Handler::handle));
+        ClientPlayNetworking.registerGlobalReceiver(SpawnGaiaPacket.ID, makeClientBoundHandler(SpawnGaiaPacket::decode, SpawnGaiaPacket.Handler::handle));
     }
 
     private static <T> ServerPlayNetworking.PlayChannelHandler makeServerBoundHandler(Function<FriendlyByteBuf, T> decoder, TriConsumer<T, MinecraftServer, ServerPlayer> handle) {

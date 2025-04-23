@@ -1,15 +1,12 @@
 package io.github.lounode.extrabotany.client.core;
 
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
-import io.github.lounode.extrabotany.api.item.equipment.bauble.CoreOfTheVoidVariant;
-import io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore.CoreOfTheVoidItem;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;

@@ -55,5 +55,14 @@
       }
     ],
     "subtitle": "subtitles.extrabotany:item.feather_of_jingwei.shoot"
+  },
+  "music.gaia3": {
+    "sounds": [
+      {
+        "name": "extrabotany:music/gaia3",
+        "stream": true,
+        "volume": 0.25
+      }
+    ]
   }
 }

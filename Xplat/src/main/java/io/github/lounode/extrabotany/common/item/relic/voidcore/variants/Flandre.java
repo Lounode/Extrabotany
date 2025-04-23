@@ -1,4 +1,4 @@
-package io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore.variants;
+package io.github.lounode.extrabotany.common.item.relic.voidcore.variants;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.lounode.extrabotany.api.item.equipment.bauble.CoreOfTheVoidVariant;
@@ -19,12 +19,13 @@ import java.util.function.Consumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
-public class Steampunk implements CoreOfTheVoidVariant {
+public class Flandre implements CoreOfTheVoidVariant {
 
-    private static final String ID = "steampunk";
-    private static final ResourceLocation WING_MODEL = prefix("wing/steampunk");
+    private static final String ID = "flandre";
+    private static final ResourceLocation WING_MODEL = prefix("wing/flandre");
 
     private BakedModel wing;
+
     @Override
     public String getId() {
         return ID;
@@ -43,6 +44,7 @@ public class Steampunk implements CoreOfTheVoidVariant {
 
         boolean flying = living instanceof Player player && player.getAbilities().flying;
         float flap = 12F + (float) ((Math.sin((double) (living.tickCount + partialTicks) * (flying ? 0.2F : 0.12F)) + 0.4F) * (flying ? 30F : 5F));
+        flap *= 0.25f;
 
 
         ms.pushPose();
@@ -51,7 +53,7 @@ public class Steampunk implements CoreOfTheVoidVariant {
         bipedModel.body.translateAndRotate(ms);
 
         // position on body
-        ms.translate(0, 0.5, 0.2);
+        ms.translate(0, 0.2, 0.2);
 
         for (int i = 0; i < 2; i++) {
             ms.pushPose();

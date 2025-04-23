@@ -41,5 +41,6 @@ public class ExtraBotanyConfig {
 
     public interface ConfigAccess {
         boolean testServerConfig();
+        boolean disableGaiaDisArm();
     }
 }

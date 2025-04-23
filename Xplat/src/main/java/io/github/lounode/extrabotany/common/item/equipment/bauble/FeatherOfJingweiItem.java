@@ -1,5 +1,9 @@
 package io.github.lounode.extrabotany.common.item.equipment.bauble;
 
+import io.github.lounode.eventwrapper.event.entity.player.AttackEntityEventWrapper;
+import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.entity.AuraFireEntity;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
@@ -20,19 +24,24 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 
+@EventBusSubscriberWrapper
 public class FeatherOfJingweiItem extends BaubleItem {
     public static final int MANA_PER_USE = 300;
     public FeatherOfJingweiItem(Properties props) {
         super(props);
     }
 
-    public static void leftClick(Player player) {
+    @SubscribeEventWrapper
+    public static void leftClick(PlayerInteractEventWrapper.LeftClickEmpty event) {
+        Player player = event.getEntity();
         if (!EquipmentHandler.findOrEmpty(ExtraBotanyItems.featherOfJingwei, player).isEmpty()) {
             ExClientXplatAbstractions.INSTANCE.sendToServer(LeftClickPacketJingwei.INSTANCE);
         }
     }
 
-    public static InteractionResult attackEntity(Player player, Level world, InteractionHand hand, Entity target, @Nullable EntityHitResult hit) {
+    @SubscribeEventWrapper
+    public static InteractionResult attackEntity(AttackEntityEventWrapper event) {
+        Player player = event.getEntity();
         if (!player.level().isClientSide) {
             trySpawnAuraFire(player);
         }

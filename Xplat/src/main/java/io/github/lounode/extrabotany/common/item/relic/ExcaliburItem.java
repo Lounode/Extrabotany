@@ -2,6 +2,10 @@ package io.github.lounode.extrabotany.common.item.relic;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import io.github.lounode.eventwrapper.event.entity.player.AttackEntityEventWrapper;
+import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.material.ItemTiers;
@@ -44,6 +48,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
+@EventBusSubscriberWrapper
 public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem {
     private static final int MANA_PER_DAMAGE = 200;
     public static final double SEARCH_TARGET_RADIUS = 5.0D;
@@ -52,17 +57,19 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
         super(ItemTiers.EXCALIBUR, 8, -2F, props);
     }
 
-    public static void leftClick(ItemStack stack) {
+    @SubscribeEventWrapper
+    public static void leftClick(PlayerInteractEventWrapper.LeftClickEmpty event) {
+        ItemStack stack = event.getItemStack();
         if (!stack.isEmpty() && stack.getItem() instanceof ExcaliburItem) {
             ExClientXplatAbstractions.INSTANCE.sendToServer(LeftClickPacketExcalibur.INSTANCE);
         }
     }
-
-    public static InteractionResult attackEntity(Player player, Level world, InteractionHand hand, Entity target, @Nullable EntityHitResult hit) {
+    @SubscribeEventWrapper
+    public static void attackEntity(AttackEntityEventWrapper event) {
+        Player player = event.getEntity();
         if (!player.level().isClientSide) {
             trySpawnBurst(player);
         }
-        return InteractionResult.PASS;
     }
 
     public static void trySpawnBurst(Player player) {

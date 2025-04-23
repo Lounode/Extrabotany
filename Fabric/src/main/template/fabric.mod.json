@@ -42,6 +42,7 @@
     "minecraft": "${minecraft_version}",
     "botania": ">=${botania_version}-FABRIC",
     "java": ">=17",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "eventwrapper": "*"
   }
 }

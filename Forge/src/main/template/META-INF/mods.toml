@@ -77,3 +77,10 @@ description='''${mod_description}'''
     versionRange="${top_version_range}"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="eventwrapper"
+    mandatory=true
+    versionRange="[1.0.0,)"
+    ordering="NONE"
+    side="BOTH"

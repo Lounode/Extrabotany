@@ -1,6 +1,6 @@
 package io.github.lounode.extrabotany.common.item;
 
-import io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore.CoreOfTheVoidItem;
+import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
 import io.github.lounode.extrabotany.common.item.equipment.shield.ManasteelShieldItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.MagicFingerItem;
@@ -79,7 +79,7 @@ public final class ExtraBotanyItems {
     public static final Item dasRheingold = make(prefix(LibItemNames.DAS_RHEINGOLD), new Item(defaultBuilder()));
     public static final Item gildedPotato = make(prefix(LibItemNames.GILDED_POTATO), new Item(defaultBuilder()));
     public static final Item gildedPotatoMashed = make(prefix(LibItemNames.GILDED_POTATO_MASHED), new Item(defaultBuilder()));
-    public static final Item heroMedal = make(prefix(LibItemNames.HERO_MEDAL), new Item(defaultBuilder().rarity(Rarity.UNCOMMON)));//OT
+    public static final Item heroMedal = make(prefix(LibItemNames.HERO_MEDAL), new BossBattleItem(defaultBuilder().rarity(Rarity.UNCOMMON)));//OT
     public static final Item challengeTicket = make(prefix(LibItemNames.CHALLENGE_TICKET), new BossBattleItem(defaultBuilder()));//OT
     public static final Item nightmareFuel = make(prefix(LibItemNames.NIGHTMARE_FUEL), new NightmareFuelItem(defaultBuilder()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0.3F).alwaysEat()

@@ -31,7 +31,7 @@ public record ManaReaderPacket(int mana) implements ExtrabotanyPacket
             Minecraft.getInstance().execute(() ->{
                 Minecraft client = Minecraft.getInstance();
                 client.player.displayClientMessage(
-                        Component.translatable("message.actionbar.mana_left", mana), true
+                        Component.translatable("message.extrabotany.actionbar.mana_left", mana), true
                 );
             });
         }

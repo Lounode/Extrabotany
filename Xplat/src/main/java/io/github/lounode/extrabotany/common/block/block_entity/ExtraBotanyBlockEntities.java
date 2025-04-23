@@ -4,6 +4,7 @@ import io.github.lounode.extrabotany.common.lib.LibBlockNames;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,6 +24,7 @@ public class ExtraBotanyBlockEntities {
     public static final BlockEntityType<PedestalBlockEntity> PEDESTAL = type(prefix(LibBlockNames.PEDESTAL), PedestalBlockEntity::new,
             livingrockPedestal
     );
+
     private static <T extends BlockEntity> BlockEntityType<T> type(ResourceLocation id, BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
         var ret = XplatAbstractions.INSTANCE.createBlockEntityType(func, blocks);
         var old = ALL.put(id, ret);

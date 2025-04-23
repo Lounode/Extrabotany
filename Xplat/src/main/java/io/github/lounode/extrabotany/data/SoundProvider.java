@@ -32,6 +32,7 @@ public class SoundProvider extends SoundDefinitionsProvider {
         take(soundEvents, FAILNAUGHT_SHOOT);
         take(soundEvents, FEATHER_OF_JINGWEI_SHOOT);
         take(soundEvents, PLAYER_BACKFIRE);
+        take(soundEvents, MUSIC_GAIA3);
 
         this.add(EXCALIBUR_ATTACK, SoundDefinitionsProvider.definition()
                 .subtitle(title(EXCALIBUR_ATTACK))
@@ -63,6 +64,13 @@ public class SoundProvider extends SoundDefinitionsProvider {
                 .subtitle(title(PLAYER_BACKFIRE))
                 .with(
                         SoundDefinitionsProvider.sound(SoundEvents.PLAYER_HURT_FREEZE.getLocation(), SoundDefinition.SoundType.EVENT)
+                )
+        );
+
+        this.add(MUSIC_GAIA3, SoundDefinitionsProvider.definition()
+                .with(
+                        SoundDefinitionsProvider.sound(relocateOggPath(MUSIC_GAIA3.getLocation()))
+                                .stream()
                 )
         );
 

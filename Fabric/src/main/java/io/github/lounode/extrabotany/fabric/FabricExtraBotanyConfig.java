@@ -60,19 +60,34 @@ public class FabricExtraBotanyConfig {
 
     private static class COMMON implements ExtraBotanyConfig.ConfigAccess {
         public final PropertyMirror<Boolean> testServerConfig = PropertyMirror.create(BOOLEAN);
+        public final PropertyMirror<Boolean> disableGaiaDisArm = PropertyMirror.create(BOOLEAN);
 
         public ConfigTree configure(ConfigTreeBuilder builder) {
-            builder.fork("server")
+            builder
+
+            .fork("server")
+
                     .beginValue("testServerConfig", BOOLEAN, true)
                     .withComment("Test Fabric Server Config")
                     .finishValue(testServerConfig::mirror)
-                    .finishBranch();
+
+                    .beginValue("disableGaiaDisarm", BOOLEAN, false)
+                    .withComment("Set true to disable Gaia's disarm")
+                    .finishValue(disableGaiaDisArm::mirror)
+
+            .finishBranch();
+
             return builder.build();
         }
 
         @Override
         public boolean testServerConfig() {
             return testServerConfig.getValue();
+        }
+
+        @Override
+        public boolean disableGaiaDisArm() {
+            return disableGaiaDisArm.getValue();
         }
     }
 

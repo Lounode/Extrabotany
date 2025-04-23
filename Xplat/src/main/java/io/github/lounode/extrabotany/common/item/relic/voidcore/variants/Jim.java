@@ -1,4 +1,4 @@
-package io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore.variants;
+package io.github.lounode.extrabotany.common.item.relic.voidcore.variants;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.lounode.extrabotany.api.item.equipment.bauble.CoreOfTheVoidVariant;

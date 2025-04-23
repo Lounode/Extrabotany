@@ -16,12 +16,23 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import io.github.lounode.extrabotany.client.renderer.entity.EntityRenderers;
+import io.github.lounode.extrabotany.client.core.handler.BossBarHandler;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeClientInitializer {
     @SubscribeEvent
     public static void clientInit(FMLClientSetupEvent evt) {
         var bus = MinecraftForge.EVENT_BUS;
+
+        bus.addListener((CustomizeGuiOverlayEvent.BossEventProgress e) -> {
+            var result = BossBarHandler.onBarRender(e.getGuiGraphics(), e.getX(), e.getY(),
+                    e.getBossEvent(), true);
+            result.ifPresent(increment -> {
+                e.setCanceled(true);
+                e.setIncrement(increment);
+            });
+        });
+
         //MasterRingToolTip TODO
         /*
         bus.addListener(EventPriority.LOWEST, (RenderTooltipEvent.Color e) -> {

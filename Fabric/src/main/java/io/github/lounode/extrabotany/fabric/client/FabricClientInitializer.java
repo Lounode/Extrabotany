@@ -5,9 +5,6 @@ import io.github.lounode.extrabotany.client.core.ExtraBotanyModels;
 import io.github.lounode.extrabotany.client.gui.HUDHandler;
 import io.github.lounode.extrabotany.client.renderer.ColorHandler;
 import io.github.lounode.extrabotany.client.renderer.entity.EntityRenderers;
-import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
-import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
-import io.github.lounode.extrabotany.fabric.event.PlayerInteractEvents;
 import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
@@ -41,6 +38,7 @@ public class FabricClientInitializer implements ClientModInitializer {
         HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
 
         //LeftClick
+        /*
         PlayerInteractEvents.LEFT_CLICK.register((player) -> {
             ExcaliburItem.leftClick(player.getItemInHand(InteractionHand.MAIN_HAND));
             return true;
@@ -49,6 +47,8 @@ public class FabricClientInitializer implements ClientModInitializer {
             FeatherOfJingweiItem.leftClick(player);
             return true;
         });
+
+         */
     }
 
     private void loadComplete(Minecraft mc) {

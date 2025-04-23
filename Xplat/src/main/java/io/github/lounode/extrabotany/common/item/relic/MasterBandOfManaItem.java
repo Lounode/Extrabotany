@@ -6,7 +6,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -57,7 +56,7 @@ public class MasterBandOfManaItem extends RelicBaubleItem implements CustomCreat
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.literal(""));
         String manaString = getManaItem(stack).getRealMana() + "/" + getManaItem(stack).getRealMaxMana();
-        tooltip.add(Component.translatable("message.actionbar.mana_left", manaString).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("message.extrabotany.actionbar.mana_left", manaString).withStyle(ChatFormatting.GRAY));
     }
     @Override
     public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean held) {

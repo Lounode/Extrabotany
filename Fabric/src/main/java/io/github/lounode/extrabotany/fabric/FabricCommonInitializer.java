@@ -1,31 +1,30 @@
 package io.github.lounode.extrabotany.fabric;
 
+import io.github.lounode.eventwrapper.fabric.AutoEventSubscriberRegistryFabric;
 import io.github.lounode.extrabotany.api.ExtraBotaniaRegistries;
 import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
 import io.github.lounode.extrabotany.common.brew.effect.ExtraBotanyMobEffects;
-import io.github.lounode.extrabotany.common.brew.effect.HealReverseMobEffect;
-import io.github.lounode.extrabotany.common.brew.effect.LinkMobEffect;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
-import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
-import io.github.lounode.extrabotany.common.item.equipment.bauble.voidcore.CoreOfTheVoidItem;
+import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
 import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
 import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
+import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
-import io.github.lounode.extrabotany.fabric.event.PlayerTickEvents;
 import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
-import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.impl.ModContainerImpl;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -59,7 +58,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
         FabricExtraBotanyConfig.setup();
         FabricPacketHandler.init();
-        //ResourceManagerHelper.get
+
     }
 
     private void registryInit() {
@@ -77,6 +76,8 @@ public class FabricCommonInitializer implements ModInitializer {
 
         // Entities
         ExtraBotanyEntityType.registerEntities(bind(BuiltInRegistries.ENTITY_TYPE));
+        ExtraBotanyEntityType.registerAttributes(FabricDefaultAttributeRegistry::register);
+        ExtraBotanyMemoryType.registerMemories(bind(BuiltInRegistries.MEMORY_MODULE_TYPE));
 
         // Potions
         ExtraBotanyMobEffects.registerPotions(bind(BuiltInRegistries.MOB_EFFECT));
@@ -110,25 +111,15 @@ public class FabricCommonInitializer implements ModInitializer {
     }
 
     private void registerEvents() {
-        ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) ->{
-            LinkMobEffect.onEntityDamaged(entity, source, amount);
-            return true;
-        });
-        /*
-        ItemCooldownEvents.FINISH.register((player, item) -> {
-            CameraItem.onItemCooldownFinish(item, player);
-            return true;
-        });
-        */
-        PlayerTickEvents.END.register(player -> {
-            CameraItem.onEntityTickFinish(player);
-            return true;
+        FabricLoader.getInstance().getModContainer(LibMisc.MOD_ID).ifPresent(mod -> {
+            if (mod instanceof ModContainerImpl impl) {
+                AutoEventSubscriberRegistryFabric.register(impl);
+            }
         });
 
         //LeftClick
-        AttackEntityCallback.EVENT.register(ExcaliburItem::attackEntity);
-        AttackEntityCallback.EVENT.register(FeatherOfJingweiItem::attackEntity);
-        //LivingEntityEvents.HEAL.register(HealReverseMobEffect::onLivingHeal);
+        //AttackEntityCallback.EVENT.register(ExcaliburItem::attackEntity);
+        //AttackEntityCallback.EVENT.register(FeatherOfJingweiItem::attackEntity);
     }
 
     private void registerCapabilities() {

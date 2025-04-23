@@ -22,6 +22,9 @@ public final class EntityRenderers {
     }
     public static void registerEntityRenderers(EntityRendererConsumer consumer) {
         consumer.accept(ExtraBotanyEntityType.AURA_FIRE, NoopRenderer::new);
+        consumer.accept(ExtraBotanyEntityType.MAGIC_LANDMINE, MagicLandMineRenderer::new);
+        consumer.accept(ExtraBotanyEntityType.GAIA_LEGACY, GaiaRender::new);
+        consumer.accept(ExtraBotanyEntityType.GAIA_III, GaiaRender::new);
     }
     public static void registerBlockEntityRenderers(BERConsumer consumer) {
         consumer.register(ExtraBotanyBlockEntities.PEDESTAL, PedestalRenderer::new);

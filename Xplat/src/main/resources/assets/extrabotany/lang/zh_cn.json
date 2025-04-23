@@ -58,6 +58,9 @@
   "effect.extrabotany.heal_reverse": "治疗反转",
   
   "entity.extrabotany.aura_fire": "精卫之火",
+  "entity.extrabotany.magic_landmine": "盖亚陷阱",
+  "entity.extrabotany.gaia_legacy": "盖亚守护者",
+  "entity.extrabotany.gaia_3rd": "盖亚守护者III",
   
   "item.extrabotany.aerialite_ingot": "天空锭",
   "item.extrabotany.orichalcos_ingot": "奥利哈钢",
@@ -101,7 +104,9 @@
   "item.extrabotany.core_of_the_void": "空之律者核心",
   "item.extrabotany.void_archives": "虚空万藏",
   
-  "message.actionbar.mana_left": "魔力: %s",
+  "message.extrabotany.actionbar.mana_left": "魔力: %1$s",
+  "message.extrabotany.chat.bad_struct": "无论你多么努力地尝试将%1$s送入信标之中，什么事都没有发生。也许你摆放的仪式结构有问题。",
+  "message.extrabotany.chat.unsafe_inventory": "无论你怎么呼唤守护者，始终没有回应。或许周围人身上只携带与原版或者与植物魔法有关的物品是个好主意。",
   
   "subtitles.extrabotany:item.camera.use": "相机：闪烁",
   "subtitles.extrabotany:item.camera.charge": "相机：装填完毕",
@@ -156,7 +161,7 @@
   "extrabotany.page.fuels1": "大脑在颤抖",
   "extrabotany.page.fuels2": "食用$(item)梦魇燃料$()并不是个好主意，因为它会带给你一小会的$(thing)负面药水效果$()，并强制扣除一定的$(thing)生命值$()。$(br2)但是，通过在食用的过程中你的精神与$(item)梦魇燃料$()的融合，最终会化学反应出一种全新的燃料：$(item)精神燃料$()。",
   "extrabotany.page.fuels3": "想象力可以改变一切",
-  "extrabotany.page.fuels4": "与$(item)梦魇燃料$()相反，食用$(item)精神燃料$()会带给你一段时间的$(thing)正面药水效果$()，并且在熔炉中支持的燃烧时长也数倍于$(item)梦魇燃料$()$(br2)$(item)精神燃料$()也可以通过将$(item)梦魇燃料$()放置在$(thing)自然祭坛$()中于阳光底下暴晒$(t:五分钟)一段时间$()后获得。",
+  "extrabotany.page.fuels4": "与$(item)梦魇燃料$()相反，食用$(item)精神燃料$()会带给你一段时间的$(thing)正面药水效果$()，并且在熔炉中支持的燃烧时长也数倍于$(item)梦魇燃料$()",
   
   "extrabotany.entry.camera": "文文的相机",
   "extrabotany.page.camera0": "拥有$(thing)能够使用念写程度的能力$()。$(br2)使用时消耗一定$(thing)魔力$()，标记取景框范围内的敌人，并清除一定范围内所有的非友方投掷物。",

@@ -115,11 +115,13 @@ public class CameraItem extends RelicItem {
         return InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 
-    public static void onEntityTickFinish(Entity entity) {
+    @Override
+    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
         if (!(entity instanceof Player player)) {
             return;
         }
         ItemStack usingItem = player.getUseItem();
+
         if (usingItem.isEmpty() || !(usingItem.getItem() instanceof CameraItem)) {
             return;
         }
@@ -141,6 +143,8 @@ public class CameraItem extends RelicItem {
                     true
             ));
         }
+
+        super.inventoryTick(stack, world, entity, slot, selected);
     }
 
     public static void renderAABBBorder(Level level, AABB bounds) {
@@ -182,7 +186,7 @@ public class CameraItem extends RelicItem {
         if (!(event.getItem() instanceof CameraItem)) {
             return;
         }
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         if (!player.level().isClientSide()) {
             return;
         }

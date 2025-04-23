@@ -14,7 +14,6 @@ public class DenyJumpMixin {
         LivingEntity self = (LivingEntity)(Object)this;
         if (self.hasEffect(ExtraBotanyMobEffects.IMMOBILIZE)) {
             cir.setReturnValue(0.0f);
-            cir.cancel();
         }
     }
 }
