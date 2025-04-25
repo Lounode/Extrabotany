@@ -18,6 +18,10 @@ import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.model.armor.ArmorModels;
 
+import java.util.Map;
+import java.util.UUID;
+import java.util.WeakHashMap;
+
 public class GaiaRender extends HumanoidMobRenderer<Gaia, HumanoidModel<Gaia>> {
     public static final float DEFAULT_GRAIN_INTENSITY = 0.05F;
     public static final float DEFAULT_DISFIGURATION = 0.025F;
@@ -46,6 +50,8 @@ public class GaiaRender extends HumanoidMobRenderer<Gaia, HumanoidModel<Gaia>> {
                 disfiguration = (DEFAULT_DISFIGURATION + dopple.hurtTime * ((1F - 0.15F) / 20F)) / 2F;
                 grainIntensity = DEFAULT_GRAIN_INTENSITY + dopple.hurtTime * ((1F - 0.15F) / 10F);
             }
+
+
             shader.safeGetUniform("BotaniaGrainIntensity").set(grainIntensity);
             shader.safeGetUniform("BotaniaDisfiguration").set(disfiguration);
         }
@@ -58,6 +64,12 @@ public class GaiaRender extends HumanoidMobRenderer<Gaia, HumanoidModel<Gaia>> {
         }
 
         super.render(dopple, yaw, partialTicks, ms, buffers, light);
+
+        //TODO BUG 多个盖亚会出现问题
+        if (shader != null) {
+            //shader.safeGetUniform("BotaniaGrainIntensity").set(DEFAULT_GRAIN_INTENSITY);
+            //shader.safeGetUniform("BotaniaDisfiguration").set(DEFAULT_DISFIGURATION);
+        }
     }
 
     @NotNull

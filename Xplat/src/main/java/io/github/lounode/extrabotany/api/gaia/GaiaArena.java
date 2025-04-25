@@ -11,9 +11,12 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -330,16 +333,23 @@ public class GaiaArena {
             return false;
         }
 
-        var result = checkStructureNeedsMatchResult(world, ARENA_PATTERN);
-        if (result instanceof BlockPatternExtend.BlockPatternMatchFail fail) {
-            List<BlockPos> invalidPylonBlocks = fail.getFailedBlocks().keySet().stream().toList();
-            if (!world.isClientSide()) {
-                player.sendSystemMessage(Component.translatable("message.extrabotany.chat.bad_struct", stack.getItem().getDescription()).withStyle(ChatFormatting.RED));
-            } else {
-                warnInvalidBlocks(world, invalidPylonBlocks);
+        if (world.isClientSide()) {
+            if (!checkStructure(world, ARENA_PATTERN)) {
+                return false;
             }
-            return false;
+        } else {
+            var result = checkStructureNeedsMatchResult(world, ARENA_PATTERN);
+            if (result instanceof BlockPatternExtend.BlockPatternMatchFail fail) {
+                if (!world.isClientSide()) {
+                    List<BlockPos> invalidPylonBlocks = fail.getFailedBlocks().keySet().stream().toList();
+                    warnInvalidBlocksServer((ServerPlayer) player, (ServerLevel) world, invalidPylonBlocks);
+                    player.sendSystemMessage(Component.translatable("message.extrabotany.chat.bad_struct", stack.getItem().getDescription()).withStyle(ChatFormatting.RED));
+                }
+                return false;
+            }
         }
+
+
 
         var invalidArenaBlocks = checkArea(world);
         if (!invalidArenaBlocks.isEmpty()) {
@@ -347,6 +357,7 @@ public class GaiaArena {
                 warnInvalidBlocks(world, invalidArenaBlocks);
                 showRadius(world);
             } else {
+                //warnInvalidBlocksServer((ServerPlayer) player, (ServerLevel) world, invalidPylonBlocks);
                 player.sendSystemMessage(Component.translatable("botaniamisc.badArena").withStyle(ChatFormatting.RED));
             }
 
@@ -533,6 +544,15 @@ public class GaiaArena {
         WispParticleData data = WispParticleData.wisp(0.5F, 1, 0.2F, 0.2F, 8, false);
         for (BlockPos pos_ : invalidPositions) {
             world.addParticle(data, pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 0, 0, 0);
+        }
+    }
+
+    public static void warnInvalidBlocksServer(ServerPlayer player, ServerLevel level, Iterable<BlockPos> invalidPositions) {
+        WispParticleData data = WispParticleData.wisp(0.5F, 1, 0.2F, 0.2F, 8, false);
+        for (BlockPos pos_ : invalidPositions) {
+            level.sendParticles(player, data, false, pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 1, 0 ,0 ,0, 0);
+            //level.sendParticles(player, data, false, pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ(), 1, 0,0,0);
+                    //.addParticle(data, pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 0, 0, 0);
         }
     }
 

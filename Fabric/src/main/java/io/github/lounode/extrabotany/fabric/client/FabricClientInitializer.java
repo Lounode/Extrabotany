@@ -2,7 +2,7 @@ package io.github.lounode.extrabotany.fabric.client;
 
 import io.github.lounode.extrabotany.client.ExtraBotanyItemProperties;
 import io.github.lounode.extrabotany.client.core.ExtraBotanyModels;
-import io.github.lounode.extrabotany.client.gui.HUDHandler;
+import io.github.lounode.extrabotany.client.gui.HUD;
 import io.github.lounode.extrabotany.client.renderer.ColorHandler;
 import io.github.lounode.extrabotany.client.renderer.entity.EntityRenderers;
 import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
@@ -17,9 +17,11 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 
 public class FabricClientInitializer implements ClientModInitializer {
+    private HUD hud;
     @Override
     public void onInitializeClient() {
         FabricPacketHandler.initClient();
+        this.hud = new HUD(Minecraft.getInstance());
 
         //Block&Items
         ModelLoadingPlugin.register(pluginContext -> {
@@ -34,7 +36,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 
         //Events
         ClientLifecycleEvents.CLIENT_STARTED.register(this::loadComplete);
-        HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
+        HudRenderCallback.EVENT.register((gui, partialTick) -> this.hud.onDrawScreenPost(gui, partialTick));
 
         //LeftClick
         /*

@@ -1,5 +1,7 @@
 package io.github.lounode.extrabotany.forge.network;
 
+import io.github.lounode.extrabotany.client.gui.HUD;
+import io.github.lounode.extrabotany.network.clientbound.ColorfulBossEventPacket;
 import io.github.lounode.extrabotany.network.clientbound.ManaReaderPacket;
 import io.github.lounode.extrabotany.network.clientbound.SpawnGaiaPacket;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketExcalibur;
@@ -35,6 +37,8 @@ public class ForgePacketHandler {
                 makeClientBoundHandler(ManaReaderPacket.Handler::handle));
         CHANNEL.registerMessage(i++, SpawnGaiaPacket.class, SpawnGaiaPacket::encode, SpawnGaiaPacket::decode,
                 makeClientBoundHandler(SpawnGaiaPacket.Handler::handle));
+        CHANNEL.registerMessage(i++, ColorfulBossEventPacket.class, ColorfulBossEventPacket::encode, ColorfulBossEventPacket::decode,
+                makeClientBoundHandler((packet) -> HUD.getInstance().getBossOverlay().update(packet)));
     }
     private static <T> BiConsumer<T, Supplier<NetworkEvent.Context>> makeServerBoundHandler(TriConsumer<T, MinecraftServer, ServerPlayer> handler) {
         return (m, ctx) -> {

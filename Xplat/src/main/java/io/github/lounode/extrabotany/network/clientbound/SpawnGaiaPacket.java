@@ -24,7 +24,7 @@ public record SpawnGaiaPacket (ClientboundAddEntityPacket inner, Gaia.GaiaSpawnD
         inner().write(buf);
         buf.writeVarInt(data().getPlayerCount());
         buf.writeGlobalPos(data().getHome());
-        buf.writeUUID(data().getBossInfoUUID());
+        //buf.writeUUID(data().getBossInfoUUID());
         buf.writeJsonWithCodec(GaiaArena.CODEC, data().getArena());
     }
 
@@ -33,7 +33,7 @@ public record SpawnGaiaPacket (ClientboundAddEntityPacket inner, Gaia.GaiaSpawnD
         var data = new Gaia.GaiaSpawnData();
         data.setPlayerCount(buf.readVarInt());
         data.setHome(buf.readGlobalPos());
-        data.setBossInfoUUID(buf.readUUID());
+        //data.setBossInfoUUID(buf.readUUID());
         data.setArena(buf.readJsonWithCodec(GaiaArena.CODEC));
         return new SpawnGaiaPacket(inner, data);
     }

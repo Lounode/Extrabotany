@@ -4,6 +4,8 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
 import io.github.lounode.extrabotany.api.gaia.ColorfulBossBar;
 import io.github.lounode.extrabotany.api.gaia.GaiaArena;
+import io.github.lounode.extrabotany.common.bossevents.ServerColorfulBossEvent;
+import io.github.lounode.extrabotany.common.bossevents.ServerGaiaBossEvent;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.proxy.Proxy;
 import io.github.lounode.extrabotany.network.clientbound.SpawnGaiaPacket;
@@ -48,6 +50,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -63,11 +66,11 @@ import java.util.*;
 
 import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
 
-public class Gaia extends Monster implements ColorfulBossBar {
+public class Gaia extends Monster {
 
     private static final Logger LOGGER = LogUtils.getLogger();
-    private static final float MAX_HP = 320F;
-    private static final float DAMAGE_CAP = 32;
+    public static final float MAX_HP = 320F;
+    public static final float DAMAGE_CAP = 32;
 
     private static final String TAG_INVUL_TIME = "InvulTime";
     private static final String TAG_HOME = "Home";
@@ -78,8 +81,7 @@ public class Gaia extends Monster implements ColorfulBossBar {
     private static final EntityDataAccessor<Integer> INVUL_TIME = SynchedEntityData.defineId(Gaia.class, EntityDataSerializers.INT);
 
     protected int playerCount = 0;
-    protected ServerBossEvent bossInfo;
-    protected UUID bossInfoUUID;
+    protected ServerGaiaBossEvent bossEvent;
 
     private final Set<UUID> playersWhoAttacked = new HashSet<>();
     @NotNull
@@ -91,9 +93,9 @@ public class Gaia extends Monster implements ColorfulBossBar {
         super(type, world);
         this.xpReward = 825;
         this.setHealth(getMaxHealth());
-        setHome(GlobalPos.of(world.dimension(), ManaBurst.NO_SOURCE));
-        this.bossInfo = (ServerBossEvent) new ServerBossEvent(type.getDescription(), BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS).setCreateWorldFog(true);
-        this.bossInfoUUID = bossInfo.getId();
+        this.setHome(GlobalPos.of(world.dimension(), ManaBurst.NO_SOURCE));
+        //TODO 持久化玩家数量
+        this.bossEvent = (ServerGaiaBossEvent) new ServerGaiaBossEvent(type.getDescription(), BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS).setCreateWorldFog(true);
         if (world.isClientSide) {
             Proxy.INSTANCE.addBoss(this);
         }
@@ -101,7 +103,7 @@ public class Gaia extends Monster implements ColorfulBossBar {
 
     public Gaia(EntityType<? extends Gaia> type, Level world , BlockPos source) {
         this(type, world);
-        setHome(GlobalPos.of(world.dimension(), source));
+        this.setHome(GlobalPos.of(world.dimension(), source));
     }
 
     public Gaia(Level world, BlockPos source) {
@@ -144,13 +146,14 @@ public class Gaia extends Monster implements ColorfulBossBar {
 
             gaia.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, (long) GaiaAI.EMERGE_TIME);
             gaia.setInvulTime(GaiaAI.EMERGE_TIME);
+            gaia.bossEvent.setProgress(0.0F);
             gaia.setHealth(1F);
-
 
             List<Player> playersAround = arena.getPlayersAround(world);
 
             int playerCount = playersAround.size();
             gaia.playerCount = playerCount;
+            gaia.bossEvent.setPlayerCount(playerCount);
 
             float healthMultiplier = 1;
             if (playerCount > 1) {
@@ -175,8 +178,27 @@ public class Gaia extends Monster implements ColorfulBossBar {
 
     @Override
     public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+        if (this.getHome().pos() == ManaBurst.NO_SOURCE) {
+            this.setHome(GlobalPos.of(level.getLevel().dimension(), this.findSafeHomePos()));
+        }
         initMemories(level, difficulty, reason, spawnData, dataTag);
+
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+    }
+
+    private BlockPos findSafeHomePos() {
+        BlockPos spawnPos = this.getOnPos();
+        Level level = this.level();
+
+        for (int i = 0; i <= 10; i++) {
+            BlockPos checkPos = spawnPos.below(i);
+
+            if (level.getBlockState(checkPos).isSolid()) {
+                return checkPos.above();
+            }
+        }
+
+        return spawnPos;
     }
 
     protected void initMemories(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
@@ -198,33 +220,13 @@ public class Gaia extends Monster implements ColorfulBossBar {
         super.customServerAiStep();
 
         updateAI();
-    }
-
-    protected void updateAI() {
-        GaiaAI.updateActivity(this);
-    }
-
-    @Override
-    public void aiStep() {
-        super.aiStep();
-        if (this.arena != null && this.isAlive() && !isNoAi()) {
-            this.arena.tick(this);
-        }
-
-        if (!this.isAlive() || this.isRemoved()) {
-            return;
-        }
-
-        if (level().isClientSide) {
-            return;
-        }
 
         int invul = getInvulTime();
         if (invul > 0) {
             setInvulTime(invul - 1);
         }
 
-        bossInfo.setProgress(getHealth() / getMaxHealth());
+        bossEvent.setProgress(getHealth() / getMaxHealth());
 
         if (this.isPassenger()) {
             this.stopRiding();
@@ -242,6 +244,18 @@ public class Gaia extends Monster implements ColorfulBossBar {
             getArena().ifPresent(arena -> {
                 player.getAbilities().flying &= player.getAbilities().instabuild;
             });
+        }
+    }
+
+    protected void updateAI() {
+        GaiaAI.updateActivity(this);
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (this.arena != null && this.isAlive() && !isNoAi()) {
+            this.arena.tick(this);
         }
     }
 
@@ -354,7 +368,10 @@ public class Gaia extends Monster implements ColorfulBossBar {
 
     @Override
     public void kill() {
+        //this.remove(Entity.RemovalReason.KILLED);
+        //this.gameEvent(GameEvent.ENTITY_DIE);
         this.setHealth(0.0F);
+        this.bossEvent.setProgress(0.0F);
         getArena().ifPresent(arena -> {
             arena.cleanup(this.level());
         });
@@ -371,13 +388,14 @@ public class Gaia extends Monster implements ColorfulBossBar {
     @Override
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
-        bossInfo.addPlayer(player);
+        bossEvent.addPlayer(player);
+
     }
 
     @Override
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
-        bossInfo.removePlayer(player);
+        bossEvent.removePlayer(player);
     }
 
     @Override
@@ -422,7 +440,7 @@ public class Gaia extends Monster implements ColorfulBossBar {
     @Override
     public void setCustomName(@Nullable Component name) {
         super.setCustomName(name);
-        this.bossInfo.setName(this.getDisplayName());
+        this.bossEvent.setName(getDisplayName());
     }
 
     public List<Player> getPlayersAround() {
@@ -443,19 +461,8 @@ public class Gaia extends Monster implements ColorfulBossBar {
                 source.getZ() + 0.5
         ).inflate(range);
     }
-    @Override
     public int getPlayerCount() {
         return playerCount;
-    }
-    @Override
-    public UUID getBossInfoUuid() {
-        return bossInfoUUID;
-    }
-
-    @Override
-    public float getGrainIntensity() {
-        float time = getInvulTime();
-        return time > 20 ? 1F : Math.max(0.5F , time / 20F);
     }
 
     public Optional<GaiaArena> getArena() {
@@ -468,6 +475,7 @@ public class Gaia extends Monster implements ColorfulBossBar {
 
     public void setInvulTime(int time) {
         entityData.set(INVUL_TIME, time);
+        this.bossEvent.setGrainTime(time);
     }
 
     public int getInvulTime() {
@@ -494,7 +502,7 @@ public class Gaia extends Monster implements ColorfulBossBar {
     }
 
     public float getArenaRange() {
-        return GaiaArena.ARENA_RANGE;
+        return this.getArena().map(GaiaArena::radius).orElse(GaiaArena.ARENA_RANGE);
     }
 
     public float getDamageCap() {
@@ -508,20 +516,22 @@ public class Gaia extends Monster implements ColorfulBossBar {
     /// SyncData
     public void syncDataFormServer(GaiaSpawnData data) {
         this.playerCount = data.getPlayerCount();
-        this.bossInfoUUID = data.getBossInfoUUID();
+        //this.bossInfoUUID = data.getBossInfoUUID();
         this.setHome(data.getHome());
-        this.setArena(data.getArena());
-
-        Proxy.INSTANCE.runOnClient(() -> () -> DopplegangerMusic.play(this));
+        if (!ManaBurst.NO_SOURCE.equals(data.getArena().center().pos())) {
+            this.setArena(data.getArena());
+            Proxy.INSTANCE.runOnClient(() -> () -> DopplegangerMusic.play(this));
+        }
     }
 
     @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         var spawnData = new GaiaSpawnData();
         spawnData.setHome(getHome());
-        spawnData.setBossInfoUUID(getBossInfoUuid());
+        //spawnData.setBossInfoUUID(getBossInfoUuid());
         spawnData.setPlayerCount(getPlayerCount());
-        spawnData.setArena(getArena().orElse(null));
+        spawnData.setArena(getArena().orElse(GaiaArena.of(GlobalPos.of(level().dimension(), ManaBurst.NO_SOURCE))));
+
 
         return EXplatAbstractions.INSTANCE.toVanillaClientboundPacket(
                 new SpawnGaiaPacket(new ClientboundAddEntityPacket(this), spawnData));
@@ -562,10 +572,10 @@ public class Gaia extends Monster implements ColorfulBossBar {
         setInvulTime(cmp.getInt(TAG_INVUL_TIME));
 
         if (cmp.contains(TAG_HOME)) {
-            setHome(GlobalPos.CODEC.parse(NbtOps.INSTANCE, cmp.get(TAG_HOME)).resultOrPartial(LOGGER::error)
+            this.setHome(GlobalPos.CODEC.parse(NbtOps.INSTANCE, cmp.get(TAG_HOME)).resultOrPartial(LOGGER::error)
                     .orElse(GlobalPos.of(this.level().dimension(), ManaBurst.NO_SOURCE)));
         } else {
-            setHome(GlobalPos.of(this.level().dimension(), ManaBurst.NO_SOURCE));
+            this.setHome(GlobalPos.of(this.level().dimension(), ManaBurst.NO_SOURCE));
         }
 
         if (cmp.contains(TAG_ARENA)) {
@@ -588,7 +598,7 @@ public class Gaia extends Monster implements ColorfulBossBar {
         }
 
         if (this.hasCustomName()) {
-            this.bossInfo.setName(this.getDisplayName());
+            this.bossEvent.setName(getDisplayName());
         }
     }
 

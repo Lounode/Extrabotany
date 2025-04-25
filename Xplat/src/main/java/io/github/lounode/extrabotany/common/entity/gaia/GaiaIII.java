@@ -71,11 +71,13 @@ public class GaiaIII extends Gaia {
             gaia.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, (long) GaiaIIIAI.EMERGE_TIME);
             gaia.setInvulTime(GaiaIIIAI.EMERGE_TIME);
             gaia.setHealth(1F);
+            gaia.bossEvent.setProgress(0.0F);
 
             List<Player> playersAround = arena.getPlayersAround(world);
 
             int playerCount = playersAround.size();
             gaia.playerCount = playerCount;
+            gaia.bossEvent.setPlayerCount(playerCount);
 
             float healthMultiplier = 1;
             if (playerCount > 1) {
