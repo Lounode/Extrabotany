@@ -1,16 +1,14 @@
 package io.github.lounode.extrabotany.common.item;
 
 import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
+import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
 import io.github.lounode.extrabotany.common.item.equipment.shield.ManasteelShieldItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.MagicFingerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.ManasteelHammerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.RheinHammerItem;
 import io.github.lounode.extrabotany.common.item.material.BossBattleItem;
 import io.github.lounode.extrabotany.common.item.material.HammerTiers;
-import io.github.lounode.extrabotany.common.item.relic.CameraItem;
-import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
-import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
-import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
+import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
 import io.github.lounode.extrabotany.data.recipes.WandOfTheForestExtendRecipe;
@@ -37,7 +35,7 @@ public final class ExtraBotanyItems {
     //Mana Item
     public static final Item zadkiel = make(prefix(LibItemNames.ZADKIEL), new ZadkielItem(unstackable()));
     public static final Item manaReader = make(prefix(LibItemNames.MANA_READER), new ManaReaderItem(unstackable()));
-    public static final Item natureOrb = make(prefix(LibItemNames.NATURE_ORB), new Item(unstackable()));
+    public static final Item natureOrb = make(prefix(LibItemNames.NATURE_ORB), new NatureOrbItem(unstackable()));
     public static final Item featherOfJingwei = make(prefix(LibItemNames.FEATHER_OF_JINGWEI), new FeatherOfJingweiItem(unstackable()));
     public static final Item magicFinger = make(prefix(LibItemNames.MAGIC_FINGER), new MagicFingerItem(unstackable()));
     public static final Item walkingCane = make(prefix(LibItemNames.WALKING_CANE), new WalkingCaneItem(unstackable()));
@@ -76,6 +74,8 @@ public final class ExtraBotanyItems {
     public static final Item photoniumNugget = make(prefix(LibItemNames.PHOTONIUM_NUGGET), new Item(defaultBuilder()));
     public static final Item shadowiumNugget = make(prefix(LibItemNames.SHADOWIUM_NUGGET), new Item(defaultBuilder()));
     public static final Item aerialiteNugget = make(prefix(LibItemNames.AERIALITE_NUGGET), new Item(defaultBuilder()));
+    public static final Item gaiaQuartz = make(prefix(LibItemNames.GAIA_QUARTZ), new Item(defaultBuilder()));
+    public static final Item elementiumQuartz = make(prefix(LibItemNames.ELEMENTIUM_QUARTZ), new Item(defaultBuilder()));
 
     public static final Item dasRheingold = make(prefix(LibItemNames.DAS_RHEINGOLD), new Item(defaultBuilder()));
     public static final Item gildedPotato = make(prefix(LibItemNames.GILDED_POTATO), new Item(defaultBuilder()));
@@ -109,6 +109,14 @@ public final class ExtraBotanyItems {
     public static final Item theEnd = make(prefix(LibItemNames.THE_END), new Item(defaultBuilder()));
     public static final Item theUniverse = make(prefix(LibItemNames.THE_UNIVERSE), new Item(defaultBuilder()));
 
+    public static final Item einsRewardBag = make(prefix(LibItemNames.EINS_REWARD_BAG), new RewardBagItem(defaultBuilder(), prefix("eins")));
+    public static final Item zweiRewardBag = make(prefix(LibItemNames.ZWEI_REWARD_BAG), new RewardBagItem(defaultBuilder(), prefix("zwei")));
+    public static final Item dreiRewardBag = make(prefix(LibItemNames.DREI_REWARD_BAG), new RewardBagItem(defaultBuilder(), prefix("drei")));
+    public static final Item vierRewardBag = make(prefix(LibItemNames.VIER_REWARD_BAG), new RewardBagItem(defaultBuilder(), prefix("vier")));
+    public static final Item nineAndThreeQuartersRewardBag = make(prefix(LibItemNames.NINE_AND_THREE_QUARTERS_REWARD_BAG), new RewardBagItem(defaultBuilder(), prefix("nine_and_three_quarters")));
+    public static final Item pandorasBox = make(prefix(LibItemNames.PANDORAS_BOX), new PandorasBoxItem(unstackable().rarity(Rarity.UNCOMMON), prefix("pandoras_box")));
+
+
     //Relic
     public static final Item manaRingMaster = make(prefix(LibItemNames.MANA_RING_MASTER), new MasterBandOfManaItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
     public static final Item camera = make(prefix(LibItemNames.CAMERA), new CameraItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
@@ -116,6 +124,10 @@ public final class ExtraBotanyItems {
     public static final Item excalibur = make(prefix(LibItemNames.EXCALIBUR), new ExcaliburItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
 
     //For tags
+    public static final Item[] REWARD_BAGS = {
+            einsRewardBag, zweiRewardBag, dreiRewardBag, vierRewardBag,
+            nineAndThreeQuartersRewardBag, pandorasBox,
+    };
     public static final Item[] HAMMERS = {
             manasteelHammer, elementiumHammer, terrasteelHammer, gaiaHammer,
             photoniumHammer, shadowiumHammer, aerialiteHammer, orichalcosHammer,
@@ -148,7 +160,7 @@ public final class ExtraBotanyItems {
     };
 
     public static final Item[] ALL_SLOT = {
-            featherOfJingwei
+            featherOfJingwei, natureOrb
     };
 
     private static <T extends Item> T make(ResourceLocation id, T item) {

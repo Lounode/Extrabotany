@@ -1,0 +1,17 @@
+<root>
+    <item name='io.github.lounode.extrabotany.common.item.RewardBagItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.RewardBagItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.RewardBagItem void appendHoverText(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, java.util.List&lt;net.minecraft.network.chat.Component&gt;, net.minecraft.world.item.TooltipFlag) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.RewardBagItem void appendHoverText(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, java.util.List&lt;net.minecraft.network.chat.Component&gt;, net.minecraft.world.item.TooltipFlag) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.RewardBagItem void appendHoverText(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, java.util.List&lt;net.minecraft.network.chat.Component&gt;, net.minecraft.world.item.TooltipFlag) 3'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

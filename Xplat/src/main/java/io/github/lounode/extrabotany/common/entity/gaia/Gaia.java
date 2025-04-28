@@ -318,15 +318,6 @@ public class Gaia extends Monster {
     }
 
     @Override
-    public ResourceLocation getDefaultLootTable() {
-        return BuiltInLootTables.EMPTY;
-        //if (mobSpawnTicks > 0) {
-        //    return BuiltInLootTables.EMPTY;
-        //}
-        //return prefix("gaia_guardian_2");
-    }
-
-    @Override
     protected void dropFromLootTable(@NotNull DamageSource source, boolean wasRecentlyHit) {
         // Save true killer, they get extra loot
         //if (wasRecentlyHit && isTruePlayer(source.getEntity())) {

@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.phys.Vec3;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -23,7 +24,8 @@ public class GaiaTeleport<E extends Gaia> extends Behavior<E> {
         super(ImmutableMap.of(
                 ExtraBotanyMemoryType.TELEPORT_DELAY_BASE, MemoryStatus.REGISTERED,
                 ExtraBotanyMemoryType.TELEPORT_DELAY, MemoryStatus.REGISTERED,
-                ExtraBotanyMemoryType.TELEPORT_RANGE, MemoryStatus.REGISTERED
+                ExtraBotanyMemoryType.TELEPORT_RANGE, MemoryStatus.REGISTERED,
+                MemoryModuleType.HURT_BY, MemoryStatus.REGISTERED
         ));
     }
 
@@ -48,8 +50,8 @@ public class GaiaTeleport<E extends Gaia> extends Behavior<E> {
         int delay = getTeleportDelay(gaia);
 
         //When hurt reset delay
-        if (gaia.hurtTime > 0 && delay > 4) {
-            delay = 4;
+        if (isHurt(gaia)) {
+            resolveHurt(gaia);
         }
 
         if (delay > 0) {
@@ -113,36 +115,6 @@ public class GaiaTeleport<E extends Gaia> extends Behavior<E> {
             double pz = oldPos.z() + (newPos.z() - oldPos.z()) * progress + (random.nextDouble() - 0.5D) * gaia.getBbWidth() * 2.0D;
             gaia.level().addParticle(ParticleTypes.PORTAL, px, py, pz, vx, vy, vz);
         }
-
-        //Vec3 oldPosVec = new Vec3(oldX, oldY + getBbHeight() / 2, oldZ);
-        //Vec3 newPosVec = new Vec3(newX, newY + getBbHeight() / 2, newZ);
-
-        /*
-        if (oldPosVec.distanceToSqr(newPosVec) > 1) {
-            //damage players in the path of the teleport
-            for (Player player : getPlayersAround()) {
-                boolean hit = player.getBoundingBox().inflate(0.25).clip(oldPosVec, newPosVec)
-                        .isPresent();
-                if (hit) {
-                    player.hurt(damageSources().mobAttack(this), 6);
-                }
-            }
-
-            //break blocks in the path of the teleport
-            int breakSteps = (int) oldPosVec.distanceTo(newPosVec);
-            if (breakSteps >= 2) {
-                for (int i = 0; i < breakSteps; i++) {
-                    float progress = i / (float) (breakSteps - 1);
-                    int breakX = Mth.floor(oldX + (newX - oldX) * progress);
-                    int breakY = Mth.floor(oldY + (newY - oldY) * progress);
-                    int breakZ = Mth.floor(oldZ + (newZ - oldZ) * progress);
-
-                    //smashBlocksAround(breakX, breakY, breakZ, 1);
-                }
-            }
-        }
-
-         */
     }
 
     public GlobalPos getHome(Gaia gaia) {
@@ -163,6 +135,15 @@ public class GaiaTeleport<E extends Gaia> extends Behavior<E> {
 
     public int getTeleportDelayBase(Gaia gaia) {
         return gaia.getBrain().getMemory(ExtraBotanyMemoryType.TELEPORT_DELAY_BASE).orElse(TELEPORT_DELAY);
+    }
+
+    public boolean isHurt(Gaia gaia) {
+        return gaia.getBrain().hasMemoryValue(MemoryModuleType.HURT_BY);
+    }
+
+    protected void resolveHurt(Gaia gaia) {
+        setTeleportDelay(gaia, 4);
+        gaia.getBrain().eraseMemory(MemoryModuleType.HURT_BY);
     }
 
 }

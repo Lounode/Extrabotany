@@ -2,14 +2,22 @@ package io.github.lounode.extrabotany.fabric.data;
 
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.data.*;
+import io.github.lounode.extrabotany.data.loot.BlockLootProvider;
+import io.github.lounode.extrabotany.data.loot.EntityLootProvider;
+import io.github.lounode.extrabotany.data.loot.RewardBagLootProvider;
 import io.github.lounode.extrabotany.data.recipes.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+
+import java.util.List;
+import java.util.Set;
 
 import static io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes.*;
 
@@ -32,6 +40,11 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 
     private void configureXplatDatagen(FabricDataGenerator.Pack pack) {
         pack.addProvider((PackOutput output) -> new BlockLootProvider(output));
+
+        pack.addProvider((PackOutput output) -> new LootTableProvider(output, Set.of(), List.of(
+                new LootTableProvider.SubProviderEntry(EntityLootProvider::new, LootContextParamSets.ENTITY),
+                new LootTableProvider.SubProviderEntry(RewardBagLootProvider::new, LootContextParamSets.EMPTY)
+        )));
         //pack.addProvider((PackOutput output) -> new LooniumStructureLootProvider(output));
         //pack.addProvider((PackOutput output) -> new LooniumStructureConfigurationProvider(output));
         BlockTagProvider blockTagProvider = pack.addProvider(BlockTagProvider::new);

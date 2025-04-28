@@ -56,12 +56,29 @@
     ],
     "subtitle": "subtitles.extrabotany:item.feather_of_jingwei.shoot"
   },
+  "item.pandoras_box.open": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "item.armor.equip_chain"
+      }
+    ],
+    "subtitle": "subtitles.extrabotany:item.pandoras_box.open"
+  },
+  "item.reward_bag.open": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "item.armor.equip_leather"
+      }
+    ],
+    "subtitle": "subtitles.extrabotany:item.reward_bag.open"
+  },
   "music.gaia3": {
     "sounds": [
       {
         "name": "extrabotany:music/gaia3",
-        "stream": true,
-        "volume": 0.25
+        "stream": true
       }
     ]
   }

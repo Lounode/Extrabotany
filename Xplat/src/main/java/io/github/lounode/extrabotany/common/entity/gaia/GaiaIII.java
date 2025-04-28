@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Unit;
@@ -30,6 +31,8 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.handler.BotaniaSounds;
 
 import java.util.List;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class GaiaIII extends Gaia {
     public static final float ARENA_RANGE = 15F;
@@ -119,6 +122,11 @@ public class GaiaIII extends Gaia {
     @Override
     protected void updateAI() {
         GaiaIIIAI.updateActivity(this);
+    }
+
+    @Override
+    public ResourceLocation getDefaultLootTable() {
+        return this.getType().getDefaultLootTable();
     }
 
     @Override

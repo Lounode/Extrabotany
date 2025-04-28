@@ -3,6 +3,8 @@ package io.github.lounode.extrabotany.forge;
 import com.google.common.base.Suppliers;
 import com.mojang.logging.LogUtils;
 import io.github.lounode.extrabotany.api.ExtraBotaniaRegistries;
+import io.github.lounode.extrabotany.api.ExtrabotanyForgeCapabilities;
+import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
 import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
@@ -11,10 +13,8 @@ import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
-import io.github.lounode.extrabotany.common.item.relic.CameraItem;
-import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
-import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
-import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
+import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
+import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
@@ -149,7 +149,6 @@ public class ForgeCommonInitializer
         bus.addGenericListener(Level.class, this::attachLevelCaps);
 
         bus.addListener(this::registerFuels);
-
     }
 
     private void registerFuels(FurnaceFuelBurnTimeEvent e) {
@@ -180,12 +179,22 @@ public class ForgeCommonInitializer
                     CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_ITEM, makeManaItem.apply(stack)));
         }
 
+        var makeNatureEnergyItem = NATURE_ENERGY_ITEM.get().get(stack.getItem());
+        if (makeNatureEnergyItem != null) {
+            e.addCapability(prefix("nature_energy_item"),
+                    CapabilityUtil.makeProvider(ExtrabotanyForgeCapabilities.NATURE_ENERGY_ITEM, makeNatureEnergyItem.apply(stack)));
+        }
+
         var makeRelic = RELIC.get().get(stack.getItem());
         if (makeRelic != null) {
             e.addCapability(prefix("relic"),
                     CapabilityUtil.makeProvider(BotaniaForgeCapabilities.RELIC, makeRelic.apply(stack)));
         }
     }
+
+    private static final Supplier<Map<Item, Function<ItemStack, NatureEnergyItem>>> NATURE_ENERGY_ITEM = Suppliers.memoize(() -> Map.of(
+            ExtraBotanyItems.natureOrb, NatureOrbItem.NatureEnergyImpl::new
+    ));
 
     private static final Supplier<Map<Item, Function<ItemStack, ManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(
             ExtraBotanyItems.manaRingMaster, MasterBandOfManaItem.ExtendManaItemImpl::new
@@ -195,7 +204,8 @@ public class ForgeCommonInitializer
             ExtraBotanyItems.camera, CameraItem::makeRelic,
             ExtraBotanyItems.failnaught, FailnaughtItem::makeRelic,
             ExtraBotanyItems.excalibur, ExcaliburItem::makeRelic,
-            ExtraBotanyItems.coreOfTheVoid, CoreOfTheVoidItem::makeRelic
+            ExtraBotanyItems.coreOfTheVoid, CoreOfTheVoidItem::makeRelic,
+            ExtraBotanyItems.pandorasBox, PandorasBoxItem::makeRelic
     ));
 
 

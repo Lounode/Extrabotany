@@ -2,6 +2,7 @@ package io.github.lounode.extrabotany.fabric;
 
 import io.github.lounode.eventwrapper.fabric.AutoEventSubscriberRegistryFabric;
 import io.github.lounode.extrabotany.api.ExtraBotaniaRegistries;
+import io.github.lounode.extrabotany.api.ExtrabotanyFabricCapabilities;
 import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
@@ -10,10 +11,8 @@ import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
-import io.github.lounode.extrabotany.common.item.relic.CameraItem;
-import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
-import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
-import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
+import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
+import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
@@ -116,19 +115,17 @@ public class FabricCommonInitializer implements ModInitializer {
                 AutoEventSubscriberRegistryFabric.register(impl);
             }
         });
-
-        //LeftClick
-        //AttackEntityCallback.EVENT.register(ExcaliburItem::attackEntity);
-        //AttackEntityCallback.EVENT.register(FeatherOfJingweiItem::attackEntity);
     }
 
     private void registerCapabilities() {
+        ExtrabotanyFabricCapabilities.NATURE_ENERGY_ITEM.registerForItems((st, c) -> new NatureOrbItem.NatureEnergyImpl(st), ExtraBotanyItems.natureOrb);
         BotaniaFabricCapabilities.MANA_ITEM.registerForItems((itemStack, unit) -> new MasterBandOfManaItem.ExtendManaItemImpl(itemStack), ExtraBotanyItems.manaRingMaster);
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> MasterBandOfManaItem.makeRelic(st), ExtraBotanyItems.manaRingMaster);
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> CameraItem.makeRelic(st), ExtraBotanyItems.camera);
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> FailnaughtItem.makeRelic(st), ExtraBotanyItems.failnaught);
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ExcaliburItem.makeRelic(st), ExtraBotanyItems.excalibur);
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> CoreOfTheVoidItem.makeRelic(st), ExtraBotanyItems.coreOfTheVoid);
+        BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> PandorasBoxItem.makeRelic(st), ExtraBotanyItems.pandorasBox);
     }
 
     private void registerFuels() {

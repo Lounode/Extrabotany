@@ -27,6 +27,7 @@ public class ExtraBotanyTags {
 
         public static final TagKey<Item> HAMMERS = tag("hammers");
         public static final TagKey<Item> PEDESTALS = tag("pedestals");
+        public static final TagKey<Item> REWARD_BAGS = tag("reward_bags");
 
 
 

@@ -1,5 +1,7 @@
 package io.github.lounode.extrabotany.common.lib;
 
+import net.minecraft.resources.ResourceLocation;
+
 public final class LibItemNames {
     public static final String ZADKIEL = "zadkiel";
     public static final String ORICHALCOS = "orichalcos_ingot";
@@ -45,4 +47,12 @@ public final class LibItemNames {
     public static final String CORE_OF_THE_VOID = "core_of_the_void";
     public static final String VOID_ARCHIVES = "void_archives";
     public static final String MANASTEEL_SHIELD = "manasteel_shield";
+    public static final String EINS_REWARD_BAG = "eins_reward_bag";
+    public static final String ZWEI_REWARD_BAG = "zwei_reward_bag";
+    public static final String DREI_REWARD_BAG = "drei_reward_bag";
+    public static final String VIER_REWARD_BAG = "vier_reward_bag";
+    public static final String PANDORAS_BOX = "pandoras_box";
+    public static final String NINE_AND_THREE_QUARTERS_REWARD_BAG = "nine_and_three_quarters_reward_bag";
+    public static final String GAIA_QUARTZ = "gaia_quartz";
+    public static final String ELEMENTIUM_QUARTZ = "elementium_quartz";
 }

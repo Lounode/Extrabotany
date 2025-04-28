@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.common.block.block_entity;
 
+import io.github.lounode.extrabotany.api.block.Pedestal;
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
 import io.github.lounode.extrabotany.common.block.PedestalBlock;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
@@ -39,9 +40,10 @@ import java.util.stream.Collectors;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
-public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
-    private int strikes;
+public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity implements Pedestal {
+
     private final int FINISH_CRAFT_STRIKE_FLAG = -1;
+    private int strikes;
     private Map<ItemStack, ItemFrame> automaticHammers = new HashMap<>();
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ExtraBotanyBlockEntities.PEDESTAL, pos, state);
@@ -357,7 +359,6 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
     }
 
     private static void createExperience(ServerLevel world, Vec3 pos, int amount) {
-
         ExperienceOrb.award(world, pos, amount);
     }
 
@@ -583,11 +584,6 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity {
     @Override
     public boolean canTakeItemThroughFace(int index, @NotNull ItemStack stack, @Nullable Direction direction) {
         return this.strikes == FINISH_CRAFT_STRIKE_FLAG;
-    }
-
-    @Override
-    public void clearContent() {
-
     }
 
 

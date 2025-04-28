@@ -10,8 +10,10 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.fx.WispParticleData;
@@ -23,8 +25,8 @@ import java.util.UUID;
 
 public class MagicLandMineEntity extends Entity {
 
-    private static final int EXPLODE_COUNTDOWN = 55;
-    private static final float DAMAGE = 10;
+    public static final int EXPLODE_COUNTDOWN = 55;
+    public static final float EXPLODE_DAMAGE = 10;
 
     private static final String TAG_OWNER = "Owner";
     private static final String TAG_DAMAGE = "Damage";
@@ -41,7 +43,8 @@ public class MagicLandMineEntity extends Entity {
 
     public MagicLandMineEntity(EntityType<? extends MagicLandMineEntity> type, Level level) {
         super(type, level);
-        this.damage = DAMAGE;
+        this.setDamage(EXPLODE_DAMAGE);
+        this.setExplodeCountDown(EXPLODE_COUNTDOWN);
     }
 
     @Override
@@ -66,7 +69,7 @@ public class MagicLandMineEntity extends Entity {
         if (!level().isClientSide()) {
             level().playSound(null, getX(), getY(), getZ(), BotaniaSounds.gaiaTrap, SoundSource.NEUTRAL, 1F, 1F);
 
-            List<Player> players = level().getEntitiesOfClass(Player.class, getBoundingBox());
+            List<Player> players = getVictimPlayers();
             for (Player player : players) {
                 if (player.isSpectator() || player.isCreative()) {
                     continue;
@@ -103,6 +106,15 @@ public class MagicLandMineEntity extends Entity {
             WispParticleData data = WispParticleData.wisp(0.4F, r, g, b, (float) 1);
             level().addParticle(data, getX() - range + Math.random() * range * 2, getY(), getZ() - range + Math.random() * range * 2, 0, - -0.015F, 0);
         }
+    }
+
+    public List<? extends LivingEntity> getVictims(Class<? extends LivingEntity> entityClass) {
+        return level().getEntitiesOfClass(entityClass, getBoundingBox());
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Player> getVictimPlayers() {
+        return (List<Player>) getVictims(Player.class);
     }
 
     public float getDamage() {

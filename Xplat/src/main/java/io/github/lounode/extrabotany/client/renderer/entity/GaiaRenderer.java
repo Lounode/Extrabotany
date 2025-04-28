@@ -18,18 +18,14 @@ import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.model.armor.ArmorModels;
 
-import java.util.Map;
-import java.util.UUID;
-import java.util.WeakHashMap;
-
-public class GaiaRender extends HumanoidMobRenderer<Gaia, HumanoidModel<Gaia>> {
+public class GaiaRenderer extends HumanoidMobRenderer<Gaia, HumanoidModel<Gaia>> {
     public static final float DEFAULT_GRAIN_INTENSITY = 0.05F;
     public static final float DEFAULT_DISFIGURATION = 0.025F;
 
     private final Model normalModel;
     private final Model slimModel;
 
-    public GaiaRender(EntityRendererProvider.Context ctx) {
+    public GaiaRenderer(EntityRendererProvider.Context ctx) {
         super(ctx, new Model(ctx.bakeLayer(ModelLayers.PLAYER)), 0F);
         this.normalModel = (Model) this.getModel();
         this.slimModel = new Model(ctx.bakeLayer(ModelLayers.PLAYER_SLIM));

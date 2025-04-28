@@ -1,0 +1,5 @@
+<root>
+    <item name='io.github.lounode.extrabotany.client.renderer.entity.SkullLandMineRenderer net.minecraft.resources.ResourceLocation getTextureLocation(io.github.lounode.extrabotany.common.entity.SkullLandMineEntity)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

@@ -190,7 +190,6 @@ public class GaiaArena {
     public void tick(Gaia gaia) {
         if (gaia.level().isClientSide()) {
             particles(gaia);
-            return;
         }
 
         List<Player> players = getPlayersAround(gaia.level());
@@ -199,10 +198,11 @@ public class GaiaArena {
             gaia.discard();
         }
 
-        for (Player player : players) {
-            keepInsideArena(player);
+        if (!gaia.level().isClientSide()) {
+            for (Player player : players) {
+                keepInsideArena(player);
+            }
         }
-
     }
 
     public void cleanup(Level level) {

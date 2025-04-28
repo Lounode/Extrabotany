@@ -1,6 +1,6 @@
 package io.github.lounode.extrabotany.api;
 
-import io.github.lounode.extrabotany.api.item.equipment.bauble.CoreOfTheVoidVariant;
+import io.github.lounode.extrabotany.api.item.CoreOfTheVoidVariant;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;

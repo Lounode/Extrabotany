@@ -23,8 +23,12 @@ public final class EntityRenderers {
     public static void registerEntityRenderers(EntityRendererConsumer consumer) {
         consumer.accept(ExtraBotanyEntityType.AURA_FIRE, NoopRenderer::new);
         consumer.accept(ExtraBotanyEntityType.MAGIC_LANDMINE, MagicLandMineRenderer::new);
-        consumer.accept(ExtraBotanyEntityType.GAIA_LEGACY, GaiaRender::new);
-        consumer.accept(ExtraBotanyEntityType.GAIA_III, GaiaRender::new);
+        consumer.accept(ExtraBotanyEntityType.GAIA_LEGACY, GaiaRenderer::new);
+        consumer.accept(ExtraBotanyEntityType.GAIA_III, GaiaRenderer::new);
+        consumer.accept(ExtraBotanyEntityType.SKULL_MISSILE, SkullMissileRenderer::new);
+        consumer.accept(ExtraBotanyEntityType.SKULL_LANDMINE_BLUE, SkullLandMineRenderer::new);
+        consumer.accept(ExtraBotanyEntityType.SKULL_LANDMINE_RED, SkullLandMineRenderer::new);
+        consumer.accept(ExtraBotanyEntityType.SKULL_LANDMINE_GREEN, SkullLandMineRenderer::new);
     }
     public static void registerBlockEntityRenderers(BERConsumer consumer) {
         consumer.register(ExtraBotanyBlockEntities.PEDESTAL, PedestalRenderer::new);

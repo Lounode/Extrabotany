@@ -108,7 +108,7 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
                 .unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaRingGreater))
                 .save(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, consumer));
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.camera)
-                .define('B', ExtraBotanyBlocks.shadowiumBlock)
+                .define('B', ExtraBotanyItems.shadowium)
                 .define('G', BotaniaItems.gaiaIngot)
                 .define('S', Items.SPYGLASS)
                 .pattern("BBB")

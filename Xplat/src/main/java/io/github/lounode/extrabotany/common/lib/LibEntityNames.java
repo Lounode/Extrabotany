@@ -9,4 +9,8 @@ public class LibEntityNames {
     public static final ResourceLocation MAGIC_LANDMINE = prefix("magic_landmine");
     public static final ResourceLocation GAIA_LEGACY = prefix("gaia_legacy");
     public static final ResourceLocation GAIA_III = prefix("gaia_3rd");
+    public static final ResourceLocation SKULL_MISSILE = prefix("skull_missile");
+    public static final ResourceLocation SKULL_LANDMINE_BLUE = prefix("skull_landmine_blue");
+    public static final ResourceLocation SKULL_LANDMINE_RED = prefix("skull_landmine_red");
+    public static final ResourceLocation SKULL_LANDMINE_GREEN = prefix("skull_landmine_green");
 }

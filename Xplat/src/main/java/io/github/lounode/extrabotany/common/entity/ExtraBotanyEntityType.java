@@ -43,11 +43,43 @@ public class ExtraBotanyEntityType {
             .updateInterval(10)
             .build(LibEntityNames.GAIA_III.toString());
 
+    public static final EntityType<SkullMissileEntity> SKULL_MISSILE = EntityType.Builder.<SkullMissileEntity>of(
+            SkullMissileEntity::new, MobCategory.MISC)
+            .sized(0.5F, 0.5F)
+            .clientTrackingRange(4)
+            .updateInterval(2)
+            .build(LibEntityNames.SKULL_MISSILE.toString());
+
+    public static final EntityType<SkullLandMineEntity.Default> SKULL_LANDMINE_BLUE = EntityType.Builder.<SkullLandMineEntity.Default>of(
+            SkullLandMineEntity.Default::new, MobCategory.MISC)
+            .sized(0.5F, 0.5F)
+            .clientTrackingRange(8)
+            .updateInterval(40)
+            .build(LibEntityNames.SKULL_LANDMINE_BLUE.toString());
+
+    public static final EntityType<SkullLandMineEntity.Danger> SKULL_LANDMINE_RED = EntityType.Builder.<SkullLandMineEntity.Danger>of(
+                    SkullLandMineEntity.Danger::new, MobCategory.MISC)
+            .sized(0.5F, 0.5F)
+            .clientTrackingRange(8)
+            .updateInterval(40)
+            .build(LibEntityNames.SKULL_LANDMINE_RED.toString());
+
+    public static final EntityType<SkullLandMineEntity.Disarm> SKULL_LANDMINE_GREEN = EntityType.Builder.<SkullLandMineEntity.Disarm>of(
+                    SkullLandMineEntity.Disarm::new, MobCategory.MISC)
+            .sized(0.5F, 0.5F)
+            .clientTrackingRange(8)
+            .updateInterval(40)
+            .build(LibEntityNames.SKULL_LANDMINE_GREEN.toString());
+
     public static void registerEntities(BiConsumer<EntityType<?>, ResourceLocation> r) {
         r.accept(AURA_FIRE, LibEntityNames.AURA_FIRE);
         r.accept(MAGIC_LANDMINE, LibEntityNames.MAGIC_LANDMINE);
         r.accept(GAIA_LEGACY, LibEntityNames.GAIA_LEGACY);
         r.accept(GAIA_III, LibEntityNames.GAIA_III);
+        r.accept(SKULL_MISSILE, LibEntityNames.SKULL_MISSILE);
+        r.accept(SKULL_LANDMINE_BLUE, LibEntityNames.SKULL_LANDMINE_BLUE);
+        r.accept(SKULL_LANDMINE_RED, LibEntityNames.SKULL_LANDMINE_RED);
+        r.accept(SKULL_LANDMINE_GREEN, LibEntityNames.SKULL_LANDMINE_GREEN);
     }
 
     public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> consumer) {

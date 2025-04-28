@@ -3,7 +3,7 @@ package io.github.lounode.extrabotany.common.entity.gaia;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.Dynamic;
-import io.github.lounode.extrabotany.common.entity.gaia.behavior.GaiaTeleport;
+import io.github.lounode.extrabotany.common.entity.gaia.behavior.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.Brain;
@@ -25,7 +25,8 @@ public class GaiaIIIAI extends GaiaAI{
 
     protected static void initMemories(Gaia gaia, ServerLevel level, BlockPos pos) {
         GaiaTeleport.initMemories(gaia.getBrain(), TELEPORT_RANGE, TELEPORT_DELAY, TELEPORT_DELAY_INITIAL);
-
+        GaiaSpawnSkullLandMine.initMemories(gaia.getBrain(), GaiaSpawnSkullLandMine.LANDMINE_COUNTS);
+        GaiaSpawnPixies.initMemories(gaia.getBrain(), PIXIES_PRE_SPAWN_MAX);
     }
 
     protected static Brain<?> makeBrain(Gaia gaia, Dynamic<?> ops) {
@@ -43,7 +44,12 @@ public class GaiaIIIAI extends GaiaAI{
 
     private static void initFightActivity(Brain<? extends Gaia> brain) {
         brain.addActivity(Activity.FIGHT, 10, ImmutableList.of(
-                new GaiaTeleport<>()
+                new GaiaTeleport<>(),
+                new GaiaSpawnSkullMissile<>(),
+                new GaiaSpawnSkullLandMine<>(),
+                new GaiaSpawnPixies<>(),
+                new GaiaSmashBlocksAround<>(),
+                new GaiaCleanPlayerUnstableEffects<>()
         ));
     }
 }

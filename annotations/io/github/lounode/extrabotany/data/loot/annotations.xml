@@ -1,0 +1,5 @@
+<root>
+    <item name='io.github.lounode.extrabotany.data.loot.EntityLootSubProvider void generate(java.util.function.BiConsumer&lt;net.minecraft.resources.ResourceLocation,net.minecraft.world.level.storage.loot.LootTable.Builder&gt;) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

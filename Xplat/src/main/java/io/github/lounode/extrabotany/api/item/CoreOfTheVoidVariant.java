@@ -1,4 +1,4 @@
-package io.github.lounode.extrabotany.api.item.equipment.bauble;
+package io.github.lounode.extrabotany.api.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HumanoidModel;

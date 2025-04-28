@@ -89,16 +89,17 @@ public class ColorfulBossBarOverlay {
             drawHealthBar(gui, event, healthX, healthY, healthU, healthV,
                     (int) (healthWidth * event.getProgress()), healthHeight);
 
-            y += frameHeight;
+            //y += frameHeight;
 
             //PlayerCount
             int px = x + 160;
             int py = y + 12;
             if (event.displayPlayerCount()) {
                 drawPlayerCount(event.getPlayerCount(), gui, px, py);
+
             }
 
-            y+= frameHeight;
+            y+= (frameHeight * 2);
 
             if (y >= gui.guiHeight() / 3) {
                 break;

@@ -1,0 +1,14 @@
+<root>
+    <item name='io.github.lounode.extrabotany.common.entity.SkullMissileEntity void addAdditionalSaveData(net.minecraft.nbt.CompoundTag) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.entity.SkullMissileEntity void onHitBlock(net.minecraft.world.phys.BlockHitResult) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.entity.SkullMissileEntity void onHitEntity(net.minecraft.world.phys.EntityHitResult) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.entity.SkullMissileEntity void readAdditionalSaveData(net.minecraft.nbt.CompoundTag) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

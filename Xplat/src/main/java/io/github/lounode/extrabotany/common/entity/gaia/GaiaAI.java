@@ -23,7 +23,7 @@ public class GaiaAI {
     protected static final int TELEPORT_DELAY = 35;
     protected static final float TELEPORT_RANGE = 12;
     protected static final int LANDMINE_COUNTS = 6;
-    protected static final int PIXIES_MAX = 6;
+    protected static final int PIXIES_PRE_SPAWN_MAX = 6;
 
     protected static final float MOB_SPAWN_THRESHOLD = 0.2F;
     public static final int MOB_SPAWN_START_TICKS = 20;
@@ -37,7 +37,8 @@ public class GaiaAI {
 
 
     protected static final List<SensorType<? extends Sensor<? super Gaia>>> SENSOR_TYPES = List.of(
-            SensorType.NEAREST_PLAYERS
+            SensorType.NEAREST_PLAYERS,
+            SensorType.HURT_BY
     );
     protected static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
             MemoryModuleType.NEAREST_LIVING_ENTITIES,
@@ -52,7 +53,8 @@ public class GaiaAI {
             ExtraBotanyMemoryType.MOB_SPAWN_TICKS,
             MemoryModuleType.NEAREST_PLAYERS,
             MemoryModuleType.NEAREST_VISIBLE_PLAYER,
-            MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER
+            MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
+            MemoryModuleType.HURT_BY
     );
 
     public GaiaAI() {}
@@ -89,7 +91,7 @@ public class GaiaAI {
     protected static void initMemories(Gaia gaia, ServerLevel level, BlockPos pos) {
         GaiaTeleport.initMemories(gaia.getBrain(), TELEPORT_RANGE, TELEPORT_DELAY, TELEPORT_DELAY_INITIAL);
         GaiaSpawnLandMine.initMemories(gaia.getBrain(), LANDMINE_COUNTS);
-        GaiaSpawnPixies.initMemories(gaia.getBrain(), PIXIES_MAX);
+        GaiaSpawnPixies.initMemories(gaia.getBrain(), PIXIES_PRE_SPAWN_MAX);
 
         gaia.getBrain().setMemoryWithExpiry(ExtraBotanyMemoryType.MOB_SPAWN_TICKS,MOB_SPAWN_TICKS, MOB_SPAWN_TICKS);
     }

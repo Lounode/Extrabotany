@@ -1,0 +1,46 @@
+package io.github.lounode.extrabotany.data.loot;
+
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.lib.LibMisc;
+import io.github.lounode.extrabotany.common.loot.ExtendBindUUID;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.loot.EnableRelics;
+import vazkii.botania.common.loot.RealPlayerCondition;
+
+import java.util.stream.Stream;
+
+
+public class EntityLootProvider extends EntityLootSubProviderFix {
+    public EntityLootProvider() {
+        super(FeatureFlags.REGISTRY.allFlags());
+    }
+
+    @Override
+    protected Stream<EntityType<?>> getKnownEntityTypes() {
+        return  BuiltInRegistries.ENTITY_TYPE.stream()
+                .filter(e -> LibMisc.MOD_ID.equals(BuiltInRegistries.ENTITY_TYPE.getKey(e).getNamespace()));
+    }
+
+    @Override
+    public void generate() {
+        this.add(ExtraBotanyEntityType.GAIA_LEGACY, LootTable.lootTable());
+        this.add(ExtraBotanyEntityType.GAIA_III, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        //F**K there's no static method in these conditions
+                        .when(EnableRelics::new)
+                        .when(() -> RealPlayerCondition.INSTANCE)
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(ExtraBotanyItems.pandorasBox)
+                                .apply(ExtendBindUUID.bindUUID()))
+                )
+        );
+    }
+}

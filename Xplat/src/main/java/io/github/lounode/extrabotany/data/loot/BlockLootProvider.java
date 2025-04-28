@@ -1,4 +1,4 @@
-package io.github.lounode.extrabotany.data;
+package io.github.lounode.extrabotany.data.loot;
 
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;

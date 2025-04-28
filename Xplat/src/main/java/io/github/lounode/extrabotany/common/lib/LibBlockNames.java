@@ -8,4 +8,6 @@ public class LibBlockNames {
     public static final String PEDESTAL = "pedestal";
     public static final String PEDESTAL_PREFIX = "pedestal_";
     public static final String DIMENSION_CATALYST = "dimension_catalyst";
+    public static final String GAIA_QUARTZ = "gaia_quartz";
+    public static final String ELEMENTIUM_QUARTZ = "elementium_quartz";
 }

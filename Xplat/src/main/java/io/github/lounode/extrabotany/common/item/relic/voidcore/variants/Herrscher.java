@@ -2,7 +2,7 @@ package io.github.lounode.extrabotany.common.item.relic.voidcore.variants;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import io.github.lounode.extrabotany.api.item.equipment.bauble.CoreOfTheVoidVariant;
+import io.github.lounode.extrabotany.api.item.CoreOfTheVoidVariant;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;

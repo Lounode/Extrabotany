@@ -32,6 +32,22 @@ public class SoundProvider extends SoundDefinitionsProvider {
         take(soundEvents, FEATHER_OF_JINGWEI_SHOOT);
         take(soundEvents, PLAYER_BACKFIRE);
         take(soundEvents, MUSIC_GAIA3);
+        take(soundEvents, REWARD_BAG_OPEN);
+        take(soundEvents, PANDORAS_BOX_OPEN);
+
+        this.add(PANDORAS_BOX_OPEN, SoundDefinitionsProvider.definition()
+                .subtitle(title(PANDORAS_BOX_OPEN))
+                .with(
+                        SoundDefinitionsProvider.sound(SoundEvents.ARMOR_EQUIP_CHAIN.getLocation(), SoundDefinition.SoundType.EVENT)
+                )
+        );
+
+        this.add(REWARD_BAG_OPEN, SoundDefinitionsProvider.definition()
+                .subtitle(title(REWARD_BAG_OPEN))
+                .with(
+                        SoundDefinitionsProvider.sound(SoundEvents.ARMOR_EQUIP_LEATHER.getLocation(), SoundDefinition.SoundType.EVENT)
+                )
+        );
 
         this.add(EXCALIBUR_ATTACK, SoundDefinitionsProvider.definition()
                 .subtitle(title(EXCALIBUR_ATTACK))
