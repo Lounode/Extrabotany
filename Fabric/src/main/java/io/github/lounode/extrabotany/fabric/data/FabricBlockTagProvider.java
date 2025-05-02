@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.fabric.data;
 
 import io.github.lounode.extrabotany.data.BlockTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -33,5 +34,6 @@ public class FabricBlockTagProvider extends BlockTagProvider {
 
         var oreTag = tag(XplatAbstractions.INSTANCE.getOreTag());
         vanillaTags.forEach(oreTag::addTag);
+
     }
 }

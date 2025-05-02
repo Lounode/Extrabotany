@@ -32,14 +32,14 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
     protected void addTags(HolderLookup.Provider provider) {
         tag(BlockTags.BEACON_BASE_BLOCKS).add(
                 aerialiteBlock,
-                ExtraBotanyBlocks.orichalcosBlock,
-                ExtraBotanyBlocks.photoniumBlock,
-                ExtraBotanyBlocks.shadowiumBlock
+                orichalcosBlock,
+                photoniumBlock,
+                shadowiumBlock
                 );
         tag(ExtraBotanyTags.Blocks.BLOCKS_AERIALITE).add(aerialiteBlock);
-        tag(ExtraBotanyTags.Blocks.BLOCKS_ORICHALCOS).add(ExtraBotanyBlocks.orichalcosBlock);
-        tag(ExtraBotanyTags.Blocks.BLOCKS_PHOTONIUM).add(ExtraBotanyBlocks.photoniumBlock);
-        tag(ExtraBotanyTags.Blocks.BLOCKS_SHADOWIUM).add(ExtraBotanyBlocks.shadowiumBlock);
+        tag(ExtraBotanyTags.Blocks.BLOCKS_ORICHALCOS).add(orichalcosBlock);
+        tag(ExtraBotanyTags.Blocks.BLOCKS_PHOTONIUM).add(photoniumBlock);
+        tag(ExtraBotanyTags.Blocks.BLOCKS_SHADOWIUM).add(shadowiumBlock);
 
         tag(ExtraBotanyTags.Blocks.PEDESTALS).add(ALL_PEDESTALS);
 
@@ -52,10 +52,9 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
                 dimensionCatalyst
         ));
         pickaxe.addAll(List.of(ALL_PEDESTALS));
+        pickaxe.addAll(List.of(ALL_QUARTZ));
 
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
-                getModBlocks(block -> pickaxe.contains(block))
-        );
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(getModBlocks(pickaxe::contains));
     }
 
     @NotNull

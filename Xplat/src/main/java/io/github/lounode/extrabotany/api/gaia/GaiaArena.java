@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.lounode.extrabotany.common.entity.MagicLandMineEntity;
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 import io.github.lounode.extrabotany.common.lib.RegistryHelper;
+import io.github.lounode.extrabotany.common.telemetry.ExtraBotanyTelemetry;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -196,6 +197,7 @@ public class GaiaArena {
 
         if (players.isEmpty() && !gaia.level().players().isEmpty()) {
             gaia.discard();
+            ExtraBotanyTelemetry.Event.onGaiaBattleFinish(gaia);
         }
 
         if (!gaia.level().isClientSide()) {

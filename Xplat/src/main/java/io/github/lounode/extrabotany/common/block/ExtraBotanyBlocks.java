@@ -59,7 +59,14 @@ public final class ExtraBotanyBlocks {
     public static final Block smoothElementiumQuartzStairs = new BotaniaStairBlock(smoothElementiumQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(smoothElementiumQuartz));
     public static final Block smoothElementiumQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(smoothElementiumQuartz));
 
-
+    public static final Block[] ALL_QUARTZ = new Block[] {
+            gaiaQuartzBlock, gaiaQuartzStairs, gaiaQuartzSlab,
+            chiseledGaiaQuartzBlock, gaiaQuartzBricks, gaiaQuartzPillar,
+            smoothGaiaQuartz, smoothGaiaQuartzStairs, smoothGaiaQuartzSlab,
+            elementiumQuartzBlock, elementiumQuartzStairs, elementiumQuartzSlab,
+            chiseledElementiumQuartzBlock, elementiumQuartzBricks, elementiumQuartzPillar,
+            smoothElementiumQuartz, smoothElementiumQuartzStairs, smoothElementiumQuartzSlab
+    };
 
 
     public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {

@@ -8,6 +8,7 @@ import io.github.lounode.extrabotany.common.bossevents.ServerColorfulBossEvent;
 import io.github.lounode.extrabotany.common.bossevents.ServerGaiaBossEvent;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.proxy.Proxy;
+import io.github.lounode.extrabotany.common.telemetry.ExtraBotanyTelemetry;
 import io.github.lounode.extrabotany.network.clientbound.SpawnGaiaPacket;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -297,6 +298,7 @@ public class Gaia extends Monster {
 
         getArena().ifPresent(arena -> {
             arena.cleanup(this.level());
+            ExtraBotanyTelemetry.Event.onGaiaBattleFinish(this);
         });
 
         if (!level().isClientSide) {

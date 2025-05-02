@@ -18,6 +18,7 @@ import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+import io.github.lounode.extrabotany.common.telemetry.ExtraBotanyTelemetry;
 import io.github.lounode.extrabotany.forge.network.ForgePacketHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
@@ -33,8 +34,11 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -149,6 +153,14 @@ public class ForgeCommonInitializer
         bus.addGenericListener(Level.class, this::attachLevelCaps);
 
         bus.addListener(this::registerFuels);
+
+        bus.addListener((ServerStartedEvent event) -> {
+            ExtraBotanyTelemetry.getInstance();
+            ExtraBotanyTelemetry.onServerStarted(event.getServer());
+        });
+        bus.addListener((ServerStoppingEvent event) -> {
+            ExtraBotanyTelemetry.onServerStopping(event.getServer());
+        });
     }
 
     private void registerFuels(FurnaceFuelBurnTimeEvent e) {

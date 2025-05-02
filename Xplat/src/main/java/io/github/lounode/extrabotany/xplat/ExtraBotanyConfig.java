@@ -40,7 +40,8 @@ public class ExtraBotanyConfig {
     }
 
     public interface ConfigAccess {
-        boolean testServerConfig();
         boolean disableGaiaDisArm();
+        boolean enableTelemetry();
+        String telemetryUUID();
     }
 }

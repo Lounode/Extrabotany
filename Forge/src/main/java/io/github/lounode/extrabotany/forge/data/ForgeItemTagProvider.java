@@ -16,6 +16,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import java.util.concurrent.CompletableFuture;
 
 import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.*;
+import static net.minecraftforge.common.Tags.*;
 
 public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvider {
     public ForgeItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider, ExistingFileHelper helper) {
@@ -34,7 +35,7 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
         this.tag(forge("ingots/photonium")).addTag(ExtraBotanyTags.Items.INGOTS_PHOTONIUM);
         this.tag(forge("ingots/shadowium")).addTag(ExtraBotanyTags.Items.INGOTS_SHADOWIUM);
         this.tag(forge("ingots/aerialite")).addTag(ExtraBotanyTags.Items.INGOTS_AERIALITE);
-        this.tag(forge("ingots"))
+        this.tag(Items.INGOTS)
                 .addTag(forge("ingots/orichalcos"))
                 .addTag(forge("ingots/photonium"))
                 .addTag(forge("ingots/shadowium"))
@@ -44,7 +45,7 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
         this.tag(forge("nuggets/photonium")).addTag(ExtraBotanyTags.Items.NUGGETS_PHOTONIUM);
         this.tag(forge("nuggets/shadowium")).addTag(ExtraBotanyTags.Items.NUGGETS_SHADOWIUM);
         this.tag(forge("nuggets/aerialite")).addTag(ExtraBotanyTags.Items.NUGGETS_AERIALITE);
-        this.tag(forge("nuggets"))
+        this.tag(Items.NUGGETS)
                 .addTag(forge("nuggets/orichalcos"))
                 .addTag(forge("nuggets/photonium"))
                 .addTag(forge("nuggets/shadowium"))
@@ -55,10 +56,14 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
         this.copyToSameName(ForgeBlockTagProvider.PHOTONIUM);
         this.copyToSameName(ForgeBlockTagProvider.SHADOWIUM);
         this.copyToSameName(ForgeBlockTagProvider.AERIALITE);
+
+        this.tag(Items.GEMS_QUARTZ).add(gaiaQuartz, elementiumQuartz);
+
         //Tools
-        this.tag(forge("tools/bows")).add(BOWS);
+        this.tag(Items.TOOLS_BOWS).add(BOWS);
 
         this.generateAccessoryTags();
+        //TODO 盖亚bossTag
     }
 
     private void generateAccessoryTags() {

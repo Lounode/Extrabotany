@@ -15,70 +15,70 @@ authors="${mod_authors}"
 description='''${mod_description}'''
 
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
     modId="forge"
     mandatory=true
     versionRange="${forge_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
     modId="minecraft"
     mandatory=true
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
     modId="botania"
     mandatory=true
     versionRange="${botania_version_range}"
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
     modId="patchouli"
     mandatory=true
     versionRange="${patchouli_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
     modId="curios"
     mandatory=true
     versionRange="${curios_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
     modId="jei"
     mandatory=false
     versionRange="${jei_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
     modId="mantle"
     mandatory=false
     versionRange="${mantle_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
     modId="tconstruct"
     mandatory=false
     versionRange="${tinkers_version_range}"
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
     modId="theoneprobe"
     mandatory=false
     versionRange="${top_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
     modId="eventwrapper"
     mandatory=true
     versionRange="[1.0.0,)"

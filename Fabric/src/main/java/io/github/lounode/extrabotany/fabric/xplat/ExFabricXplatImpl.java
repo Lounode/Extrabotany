@@ -2,9 +2,12 @@ package io.github.lounode.extrabotany.fabric.xplat;
 
 import io.github.lounode.extrabotany.api.ExtrabotanyFabricCapabilities;
 import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
+import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,5 +29,10 @@ public class ExFabricXplatImpl extends FabricXplatImpl implements EXplatAbstract
     @Override
     public NatureEnergyItem findNatureEnergyItem(ItemStack stack) {
         return ExtrabotanyFabricCapabilities.NATURE_ENERGY_ITEM.find(stack, Unit.INSTANCE);
+    }
+
+    @Override
+    public String getExtraBotanyVersion() {
+        return FabricLoader.getInstance().getModContainer(LibMisc.MOD_ID).get().getMetadata().getVersion().getFriendlyString();
     }
 }

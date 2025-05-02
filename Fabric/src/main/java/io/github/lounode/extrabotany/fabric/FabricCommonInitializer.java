@@ -16,8 +16,11 @@ import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+import io.github.lounode.extrabotany.common.telemetry.ExtraBotanyTelemetry;
 import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -114,6 +117,15 @@ public class FabricCommonInitializer implements ModInitializer {
             if (mod instanceof ModContainerImpl impl) {
                 AutoEventSubscriberRegistryFabric.register(impl);
             }
+        });
+
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            ExtraBotanyTelemetry.getInstance();
+            ExtraBotanyTelemetry.onServerStarted(server);
+        });
+
+        ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
+            ExtraBotanyTelemetry.onServerStopping(server);
         });
     }
 

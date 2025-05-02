@@ -13,8 +13,10 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.io.*;
 import java.nio.file.*;
+import java.util.UUID;
 
 import static io.github.fablabsmc.fablabs.api.fiber.v1.schema.type.derived.ConfigTypes.BOOLEAN;
+import static io.github.fablabsmc.fablabs.api.fiber.v1.schema.type.derived.ConfigTypes.STRING;
 
 public class FabricExtraBotanyConfig {
     private static final Client CLIENT = new Client();
@@ -59,21 +61,39 @@ public class FabricExtraBotanyConfig {
 
 
     private static class COMMON implements ExtraBotanyConfig.ConfigAccess {
-        public final PropertyMirror<Boolean> testServerConfig = PropertyMirror.create(BOOLEAN);
         public final PropertyMirror<Boolean> disableGaiaDisArm = PropertyMirror.create(BOOLEAN);
+        public final PropertyMirror<Boolean> enableTelemetry = PropertyMirror.create(BOOLEAN);
+        public final PropertyMirror<String> telemetryUUID = PropertyMirror.create(STRING);
 
         public ConfigTree configure(ConfigTreeBuilder builder) {
             builder
 
             .fork("server")
+                    .fork("telemetry")
 
-                    .beginValue("testServerConfig", BOOLEAN, true)
-                    .withComment("Test Fabric Server Config")
-                    .finishValue(testServerConfig::mirror)
+                        .beginValue("enableTelemetry", BOOLEAN, true)
+                        .withComment("We use telemetry data to provide a better gameplay experience.")
+                        .withComment("The following data will be collected during your play session:")
+                        .withComment("    - Gaia III completion rate")
+                        .withComment("    - etc...")
+                        .withComment("")
+                        .withComment("Find more on: https://github.com/Lounode/Extrabotany")
+                        .withComment("If you prefer not to participate, set the option below to false.")
+                        .finishValue(enableTelemetry::mirror)
 
-                    .beginValue("disableGaiaDisarm", BOOLEAN, false)
-                    .withComment("Set true to disable Gaia's disarm")
-                    .finishValue(disableGaiaDisArm::mirror)
+                        .beginValue("telemetryUUID", STRING, UUID.randomUUID().toString())
+                        .withComment("The UUID of the telemetry data")
+                        .finishValue(telemetryUUID::mirror)
+
+                    .finishBranch()
+
+                    .fork("gaia")
+
+                        .beginValue("disableGaiaDisarm", BOOLEAN, false)
+                        .withComment("Set true to disable Gaia's disarm")
+                        .finishValue(disableGaiaDisArm::mirror)
+
+                    .finishBranch()
 
             .finishBranch();
 
@@ -81,13 +101,18 @@ public class FabricExtraBotanyConfig {
         }
 
         @Override
-        public boolean testServerConfig() {
-            return testServerConfig.getValue();
+        public boolean disableGaiaDisArm() {
+            return disableGaiaDisArm.getValue();
         }
 
         @Override
-        public boolean disableGaiaDisArm() {
-            return disableGaiaDisArm.getValue();
+        public boolean enableTelemetry() {
+            return enableTelemetry.getValue();
+        }
+
+        @Override
+        public String telemetryUUID() {
+            return telemetryUUID.getValue();
         }
     }
 

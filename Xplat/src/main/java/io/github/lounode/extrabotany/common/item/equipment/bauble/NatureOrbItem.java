@@ -1,15 +1,30 @@
 package io.github.lounode.extrabotany.common.item.equipment.bauble;
 
+import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
+import io.github.lounode.extrabotany.common.entity.gaia.GaiaIII;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 
+
+@EventBusSubscriberWrapper
 public class NatureOrbItem extends BaubleItem implements CustomCreativeTabContents {
 
     public static final long MAX_ENERGY = 500_000;
@@ -18,6 +33,47 @@ public class NatureOrbItem extends BaubleItem implements CustomCreativeTabConten
 
     public NatureOrbItem(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        Player player = context.getPlayer();
+        BlockPos pos = context.getClickedPos();
+        ItemStack stack = context.getItemInHand();
+        Level level = context.getLevel();
+        var tile = level.getBlockEntity(pos);
+
+        if (tile instanceof BeaconBlockEntity && stack.getItem() instanceof NatureOrbItem) {
+            var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
+            if (natureItem != null && natureItem.getEnergy() > 1000) {
+                if (GaiaIII.spawn(player, stack, level, pos)) {
+                    natureItem.addEnergy(-1000);
+                    return InteractionResult.SUCCESS;
+
+                }
+            }
+        }
+
+        return InteractionResult.CONSUME;
+    }
+
+    //TODO Fabric wrapper mixin
+    @SubscribeEventWrapper
+    public static void onPlayerInteract(PlayerInteractEventWrapper.RightClickBlock event) {
+        Player player = event.getEntity();
+        BlockPos pos = event.getPos();
+        ItemStack stack = EquipmentHandler.findOrEmpty(ExtraBotanyItems.natureOrb, player);
+        Level level = player.level();
+        var tile = level.getBlockEntity(pos);
+
+        if (tile instanceof BeaconBlockEntity && stack.getItem() instanceof NatureOrbItem) {
+            var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
+            if (natureItem != null && natureItem.getEnergy() > 1000) {
+                if (GaiaIII.spawn(player, stack, level, pos)) {
+                    natureItem.addEnergy(-1000);
+                }
+            }
+        }
     }
 
     @Override

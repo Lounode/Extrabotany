@@ -30,11 +30,13 @@ public class FabricItemTagProvider extends ItemTagProvider {
         generateToolTags();
         generateAccessoryTags();
         generateCompatTags();
+
     }
 
     private void generateToolTags() {
         this.tag(ConventionalItemTags.BOWS).add(BOWS);
 
+        this.tag(ConventionalItemTags.QUARTZ).add(gaiaQuartz, elementiumQuartz);
     }
 
     private void generateAccessoryTags() {
