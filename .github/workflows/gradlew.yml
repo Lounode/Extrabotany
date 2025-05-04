@@ -25,7 +25,7 @@ jobs:
             ./Xplat/build/moddev
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle', './gradle.properties', './settings.gradle', '**/gradle-wrapper.properties') }}
       - name: Set script permissions
-        run: chmod +x ./scripts/check_lang.sh ./scripts/check_datagen.sh
+        run: chmod +x ./scripts/check_lang.sh ./scripts/check_datagen.sh gradlew
       - name: Check lang files
         run: ./scripts/check_lang.sh
       - name: Calculate artifact names
