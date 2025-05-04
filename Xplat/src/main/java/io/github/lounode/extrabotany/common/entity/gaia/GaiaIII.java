@@ -32,8 +32,6 @@ import vazkii.botania.common.handler.BotaniaSounds;
 
 import java.util.List;
 
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 public class GaiaIII extends Gaia {
     public static final float ARENA_RANGE = 15F;
     public static final int ARENA_HEIGHT = 7;

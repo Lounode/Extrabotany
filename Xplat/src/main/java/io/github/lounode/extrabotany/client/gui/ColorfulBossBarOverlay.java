@@ -10,8 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.LerpingBossEvent;
 import net.minecraft.network.chat.Component;
-
-import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.item.ItemStack;
@@ -174,30 +172,36 @@ public class ColorfulBossBarOverlay {
                 ColorfulBossBarOverlay.this.events.get(uuid).setGrainTime(time);
             }
 
+            @Override
             public void add(UUID uuid, Component name, float progress, BossEvent.BossBarColor bossBarColor, BossEvent.BossBarOverlay overlay, boolean darkenScreen, boolean playMusic, boolean createWorldFog) {
                 ColorfulBossBarOverlay.this.events.put(uuid, new GaiaLerpingBossEvent(uuid, name, progress, bossBarColor, overlay, darkenScreen, playMusic, createWorldFog));
             }
 
+            @Override
             public void remove(UUID uuid) {
                 ColorfulBossBarOverlay.this.events.remove(uuid);
             }
 
+            @Override
             public void updateProgress(UUID uuid, float progress) {
                 ColorfulBossBarOverlay.this.events.get(uuid).setProgress(progress);
             }
 
+            @Override
             public void updateName(UUID uuid, Component name) {
-                ((LerpingBossEvent)ColorfulBossBarOverlay.this.events.get(uuid)).setName(name);
+                ColorfulBossBarOverlay.this.events.get(uuid).setName(name);
             }
 
+            @Override
             public void updateStyle(UUID uuid, BossEvent.BossBarColor bossBarColor, BossEvent.BossBarOverlay overlay) {
-                LerpingBossEvent lerpingbossevent = (LerpingBossEvent)ColorfulBossBarOverlay.this.events.get(uuid);
+                LerpingBossEvent lerpingbossevent = ColorfulBossBarOverlay.this.events.get(uuid);
                 lerpingbossevent.setColor(bossBarColor);
                 lerpingbossevent.setOverlay(overlay);
             }
 
+            @Override
             public void updateProperties(UUID uuid, boolean darkenScreen, boolean playMusic, boolean createWorldFog) {
-                LerpingBossEvent lerpingbossevent = (LerpingBossEvent)ColorfulBossBarOverlay.this.events.get(uuid);
+                LerpingBossEvent lerpingbossevent = ColorfulBossBarOverlay.this.events.get(uuid);
                 lerpingbossevent.setDarkenScreen(darkenScreen);
                 lerpingbossevent.setPlayBossMusic(playMusic);
                 lerpingbossevent.setCreateWorldFog(createWorldFog);

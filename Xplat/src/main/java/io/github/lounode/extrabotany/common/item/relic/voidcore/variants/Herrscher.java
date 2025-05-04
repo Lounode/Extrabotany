@@ -38,6 +38,7 @@ public class Herrscher implements CoreOfTheVoidVariant {
         consumer.put(RIGHT_WING_MODEL, bakedModel -> this.rightWing = bakedModel);
     }
 
+    @Override
     public void render(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (rightWing == null || leftWing == null) {
             return;

@@ -17,7 +17,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -476,15 +475,17 @@ public class GaiaArena {
         }
         for(int i = 0; i < player.getInventory().getContainerSize(); i++){
             final ItemStack stack = player.getInventory().getItem(i);
-            if(!checkFeasibility(stack))
+            if(!checkFeasibility(stack)) {
                 return false;
+            }
         }
         return true;
     }
 
     public static boolean checkFeasibility(ItemStack stack){
-        if(stack.isEmpty())
+        if(stack.isEmpty()){
             return true;
+        }
 
         String modid = RegistryHelper.getRegistryName(stack.getItem()).getNamespace();
         if(modid.contains("extrabotany") || modid.contains("botania") || modid.contains("minecraft")){

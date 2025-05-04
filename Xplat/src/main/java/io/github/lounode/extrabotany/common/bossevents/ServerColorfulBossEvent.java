@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
+
 import java.util.Set;
 import java.util.function.Function;
 
@@ -22,6 +23,7 @@ public class ServerColorfulBossEvent extends ColorfulBossEvent {
         this.visible = true;
     }
 
+    @Override
     public void setProgress(float progress) {
         if (progress != this.progress) {
             super.setProgress(progress);
@@ -30,6 +32,7 @@ public class ServerColorfulBossEvent extends ColorfulBossEvent {
 
     }
 
+    @Override
     public void setColor(BossEvent.BossBarColor color) {
         if (color != this.color) {
             super.setColor(color);
@@ -38,6 +41,7 @@ public class ServerColorfulBossEvent extends ColorfulBossEvent {
 
     }
 
+    @Override
     public void setOverlay(BossEvent.BossBarOverlay overlay) {
         if (overlay != this.overlay) {
             super.setOverlay(overlay);
@@ -46,6 +50,7 @@ public class ServerColorfulBossEvent extends ColorfulBossEvent {
 
     }
 
+    @Override
     public BossEvent setDarkenScreen(boolean darkenSky) {
         if (darkenSky != this.darkenScreen) {
             super.setDarkenScreen(darkenSky);
@@ -55,6 +60,7 @@ public class ServerColorfulBossEvent extends ColorfulBossEvent {
         return this;
     }
 
+    @Override
     public BossEvent setPlayBossMusic(boolean playEndBossMusic) {
         if (playEndBossMusic != this.playBossMusic) {
             super.setPlayBossMusic(playEndBossMusic);
@@ -64,6 +70,7 @@ public class ServerColorfulBossEvent extends ColorfulBossEvent {
         return this;
     }
 
+    @Override
     public BossEvent setCreateWorldFog(boolean createFog) {
         if (createFog != this.createWorldFog) {
             super.setCreateWorldFog(createFog);
@@ -73,6 +80,7 @@ public class ServerColorfulBossEvent extends ColorfulBossEvent {
         return this;
     }
 
+    @Override
     public void setName(Component name) {
         if (!Objects.equal(name, this.name)) {
             super.setName(name);

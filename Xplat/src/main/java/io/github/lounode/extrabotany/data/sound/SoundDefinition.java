@@ -258,13 +258,27 @@ public final class SoundDefinition
 
             final JsonObject object = new JsonObject();
             object.addProperty("name", this.stripMcPrefix(this.name));
-            if (this.type != DEFAULT_TYPE) object.addProperty("type", this.type.jsonString);
-            if (this.volume != DEFAULT_VOLUME) object.addProperty("volume", this.volume);
-            if (this.pitch != DEFAULT_PITCH) object.addProperty("pitch", this.pitch);
-            if (this.weight != DEFAULT_WEIGHT) object.addProperty("weight", this.weight);
-            if (this.stream != DEFAULT_STREAM) object.addProperty("stream", this.stream);
-            if (this.preload != DEFAULT_PRELOAD) object.addProperty("preload", this.preload);
-            if (this.attenuationDistance != DEFAULT_ATTENUATION_DISTANCE) object.addProperty("attenuation_distance", this.attenuationDistance);
+            if (this.type != DEFAULT_TYPE) {
+                object.addProperty("type", this.type.jsonString);
+            }
+            if (this.volume != DEFAULT_VOLUME) {
+                object.addProperty("volume", this.volume);
+            }
+            if (this.pitch != DEFAULT_PITCH) {
+                object.addProperty("pitch", this.pitch);
+            }
+            if (this.weight != DEFAULT_WEIGHT) {
+                object.addProperty("weight", this.weight);
+            }
+            if (this.stream != DEFAULT_STREAM) {
+                object.addProperty("stream", this.stream);
+            }
+            if (this.preload != DEFAULT_PRELOAD) {
+                object.addProperty("preload", this.preload);
+            }
+            if (this.attenuationDistance != DEFAULT_ATTENUATION_DISTANCE) {
+                object.addProperty("attenuation_distance", this.attenuationDistance);
+            }
             return object;
         }
 
@@ -395,8 +409,12 @@ public final class SoundDefinition
         }
 
         final JsonObject object = new JsonObject();
-        if (this.replace) object.addProperty("replace", true);
-        if (this.subtitle != null) object.addProperty("subtitle", this.subtitle);
+        if (this.replace) {
+            object.addProperty("replace", true);
+        }
+        if (this.subtitle != null) {
+            object.addProperty("subtitle", this.subtitle);
+        }
         final JsonArray sounds = new JsonArray();
         this.sounds.stream().map(Sound::serialize).forEach(sounds::add);
         object.add("sounds", sounds);

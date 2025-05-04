@@ -6,12 +6,15 @@ import io.github.lounode.extrabotany.common.telemetry.charts.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.zip.GZIPOutputStream;
-import javax.net.ssl.HttpsURLConnection;
 
 public class Metrics {
     private static final Logger LOGGER = LoggerFactory.getLogger("Metrics");

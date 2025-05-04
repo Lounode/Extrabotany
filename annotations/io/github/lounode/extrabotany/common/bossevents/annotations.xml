@@ -1,0 +1,20 @@
+<root>
+    <item name='io.github.lounode.extrabotany.common.bossevents.ServerColorfulBossEvent net.minecraft.world.BossEvent setCreateWorldFog(boolean)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.bossevents.ServerColorfulBossEvent net.minecraft.world.BossEvent setDarkenScreen(boolean)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.bossevents.ServerColorfulBossEvent net.minecraft.world.BossEvent setPlayBossMusic(boolean)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.bossevents.ServerColorfulBossEvent void setColor(net.minecraft.world.BossEvent.BossBarColor) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.bossevents.ServerColorfulBossEvent void setName(net.minecraft.network.chat.Component) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.bossevents.ServerColorfulBossEvent void setOverlay(net.minecraft.world.BossEvent.BossBarOverlay) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

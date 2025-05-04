@@ -1,7 +1,5 @@
 package io.github.lounode.extrabotany.common.lib;
 
-import net.minecraft.resources.ResourceLocation;
-
 public final class LibItemNames {
     public static final String ZADKIEL = "zadkiel";
     public static final String ORICHALCOS = "orichalcos_ingot";

@@ -53,13 +53,17 @@ public class MinMaxBoundsExtension {
         }
 
         public boolean matches(long value) {
-            if (this.min != null && this.min > value) return false;
+            if (this.min != null && this.min > value) {
+                return false;
+            }
             return this.max == null || this.max >= value;
         }
 
         public boolean matchesSqr(long value) {
             BigInteger bigVal = BigInteger.valueOf(value);
-            if (this.minSq != null && this.minSq.compareTo(bigVal) > 0) return false;
+            if (this.minSq != null && this.minSq.compareTo(bigVal) > 0) {
+                return false;
+            }
             return this.maxSq == null || this.maxSq.compareTo(bigVal) >= 0;
         }
 

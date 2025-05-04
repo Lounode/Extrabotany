@@ -1,0 +1,8 @@
+<root>
+    <item name='io.github.lounode.extrabotany.api.gaia.BlockPatternExtend.BlockCacheLoader net.minecraft.world.level.block.state.pattern.BlockInWorld load(net.minecraft.core.BlockPos)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.api.gaia.BlockPatternExtend.BlockCacheLoader net.minecraft.world.level.block.state.pattern.BlockInWorld load(net.minecraft.core.BlockPos) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

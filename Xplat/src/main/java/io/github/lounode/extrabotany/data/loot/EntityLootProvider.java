@@ -11,7 +11,6 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.loot.EnableRelics;
 import vazkii.botania.common.loot.RealPlayerCondition;
 

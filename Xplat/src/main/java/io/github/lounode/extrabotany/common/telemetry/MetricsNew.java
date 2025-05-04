@@ -48,7 +48,9 @@ public class MetricsNew {
 
 
     public void start() {
-        if (enable) return;
+        if (enable) {
+            return;
+        }
         enable = true;
 
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -65,7 +67,9 @@ public class MetricsNew {
     }
 
     private void submitData() {
-        if (!enable) return;
+        if (!enable) {
+            return;
+        }
         var data = TelemetryPropertyMap.builder().putAll(deviceSessionProperties);
         appendServerData(data, getServer());
 

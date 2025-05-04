@@ -16,7 +16,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import java.util.concurrent.CompletableFuture;
 
 import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.*;
-import static net.minecraftforge.common.Tags.*;
+import static net.minecraftforge.common.Tags.Items;
 
 public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvider {
     public ForgeItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider, ExistingFileHelper helper) {

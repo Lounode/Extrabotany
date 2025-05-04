@@ -248,6 +248,7 @@ public class BlockPatternExtend {
             this.loadChunks = loadChunks;
         }
 
+        @Override
         public BlockInWorld load(BlockPos pos) {
             return new BlockInWorld(this.level, pos, this.loadChunks);
         }
@@ -270,6 +271,7 @@ public class BlockPatternExtend {
             return this.up;
         }
 
+        @Override
         public String toString() {
             return MoreObjects.toStringHelper(this)
                     .add("up", this.getUp())
@@ -332,6 +334,7 @@ public class BlockPatternExtend {
             return this.cache.getUnchecked(BlockPatternExtend.translateAndRotate(this.frontTopLeft, this.getForwards(), this.getUp(), palmOffset, thumbOffset, fingerOffset));
         }
 
+        @Override
         public String toString() {
             return MoreObjects.toStringHelper(this).add("up", this.getUp()).add("forwards", this.getForwards()).add("frontTopLeft", this.frontTopLeft).toString();
         }

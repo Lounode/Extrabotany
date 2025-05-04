@@ -21,6 +21,7 @@ public class LeftClickPacketExcalibur extends LeftClickPack {
         return ID;
     }
 
+    @Override
     public void handle(MinecraftServer server, ServerPlayer player) {
         float scale = player.getAttackStrengthScale(0F);
         server.execute(() -> ExcaliburItem.trySpawnBurst(player, scale));

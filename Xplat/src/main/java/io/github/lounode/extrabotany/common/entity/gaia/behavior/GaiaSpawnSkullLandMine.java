@@ -1,7 +1,6 @@
 package io.github.lounode.extrabotany.common.entity.gaia.behavior;
 
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
-import io.github.lounode.extrabotany.common.entity.MagicLandMineEntity;
 import io.github.lounode.extrabotany.common.entity.SkullLandMineEntity;
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;

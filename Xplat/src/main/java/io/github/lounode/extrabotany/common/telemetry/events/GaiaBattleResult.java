@@ -2,7 +2,6 @@ package io.github.lounode.extrabotany.common.telemetry.events;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.lounode.extrabotany.api.gaia.GaiaArena;
 import net.minecraft.world.Difficulty;
 
 public record GaiaBattleResult(String status, float healthRemain, int playerCount, Difficulty difficulty, int duration) {

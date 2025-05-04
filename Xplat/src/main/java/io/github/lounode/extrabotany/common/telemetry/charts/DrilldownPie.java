@@ -39,7 +39,9 @@ public class DrilldownPie extends Chart {
             }
         }
 
-        if (reallyAllSkipped) return null;
+        if (reallyAllSkipped) {
+            return null;
+        }
 
         data.add("values", values);
         return data;

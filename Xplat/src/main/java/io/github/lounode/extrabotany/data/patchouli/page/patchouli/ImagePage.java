@@ -36,8 +36,9 @@ public class ImagePage extends AbstractPage {
     @Override
     public JsonObject build() {
         JsonArray array = new JsonArray();
-        for (String s : images)
+        for (String s : images) {
             array.add(s);
+        }
         object.add("images", array);
         return super.build();
     }

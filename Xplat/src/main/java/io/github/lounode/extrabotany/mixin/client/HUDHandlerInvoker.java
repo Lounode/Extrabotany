@@ -8,7 +8,7 @@ import vazkii.botania.client.gui.HUDHandler;
 @Mixin(HUDHandler.class)
 public interface HUDHandlerInvoker {
     @Invoker(value = "renderManaInvBar", remap = false)
-    public static void renderManaInvBar(GuiGraphics gui, int totalMana, int totalMaxMana) {
+    static void renderManaInvBar(GuiGraphics gui, int totalMana, int totalMaxMana) {
         //throw new AssertionError();
     }
 }

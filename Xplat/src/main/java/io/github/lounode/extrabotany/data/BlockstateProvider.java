@@ -1,7 +1,6 @@
 package io.github.lounode.extrabotany.data;
 
 import io.github.lounode.extrabotany.common.block.PedestalBlock;
-import io.github.lounode.extrabotany.common.lib.LibBlockNames;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -13,7 +12,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.WallBlock;
 import org.jetbrains.annotations.NotNull;
 import vazkii.botania.mixin.BlockModelGeneratorsAccessor;
 

@@ -12,6 +12,7 @@ public class ItemUsedTrigger extends SimpleCriterionTrigger<ItemUsedTrigger.Trig
     public static final ResourceLocation ID = prefix("item_used");
     public static final ItemUsedTrigger INSTANCE = new ItemUsedTrigger();
 
+    @Override
     public ResourceLocation getId() {
         return ID;
     }
@@ -52,30 +53,5 @@ public class ItemUsedTrigger extends SimpleCriterionTrigger<ItemUsedTrigger.Trig
             json.add("count", this.count.serializeToJson());
             return json;
         }
-    }
-
-    public static class ItemUsedCounter {
-        private static final String TAG = "item_used";
-        /*
-
-
-        public static int getCount(Player player, Item item) {
-            return player.getPersistentData()
-                    .getCompound(ExtraBotany.MODID)
-                    .getCompound(TAG)
-                    .getInt(ForgeRegistries.ITEMS.getKey(item).toString());
-        }
-
-        public static void increment(Player player, Item item) {
-            CompoundTag root = player.getPersistentData();
-            CompoundTag modData = root.getCompound(ExtraBotany.MODID);
-            CompoundTag itemUsedData = modData.getCompound(TAG);
-            String key = ForgeRegistries.ITEMS.getKey(item).toString();
-            itemUsedData.putInt(key, itemUsedData.getInt(key) + 1);
-            modData.put(TAG, itemUsedData);
-            root.put(ExtraBotany.MODID, modData);
-        }
-        */
-
     }
 }

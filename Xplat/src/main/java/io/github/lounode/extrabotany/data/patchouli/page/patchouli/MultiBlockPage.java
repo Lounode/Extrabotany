@@ -38,8 +38,9 @@ public class MultiBlockPage extends AbstractPage {
         JsonArray pattern = new JsonArray();
         for (String[] obj : this.pattern) {
             JsonArray array = new JsonArray();
-            for (String s : obj)
+            for (String s : obj) {
                 array.add(s);
+            }
             pattern.add(array);
         }
         multiblock.add("pattern", pattern);

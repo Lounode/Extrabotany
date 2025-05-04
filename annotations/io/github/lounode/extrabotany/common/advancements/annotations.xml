@@ -1,0 +1,38 @@
+<root>
+    <item name='io.github.lounode.extrabotany.common.advancements.ItemUsedTrigger io.github.lounode.extrabotany.common.advancements.ItemUsedTrigger.TriggerInstance createInstance(com.google.gson.JsonObject, net.minecraft.advancements.critereon.ContextAwarePredicate, net.minecraft.advancements.critereon.DeserializationContext)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.advancements.ItemUsedTrigger io.github.lounode.extrabotany.common.advancements.ItemUsedTrigger.TriggerInstance createInstance(com.google.gson.JsonObject, net.minecraft.advancements.critereon.ContextAwarePredicate, net.minecraft.advancements.critereon.DeserializationContext) 1'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.advancements.ItemUsedTrigger io.github.lounode.extrabotany.common.advancements.ItemUsedTrigger.TriggerInstance createInstance(com.google.gson.JsonObject, net.minecraft.advancements.critereon.ContextAwarePredicate, net.minecraft.advancements.critereon.DeserializationContext) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.advancements.ItemUsedTrigger net.minecraft.resources.ResourceLocation getId()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.advancements.ItemUsedTrigger.TriggerInstance com.google.gson.JsonObject serializeToJson(net.minecraft.advancements.critereon.SerializationContext)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.advancements.ItemUsedTrigger.TriggerInstance com.google.gson.JsonObject serializeToJson(net.minecraft.advancements.critereon.SerializationContext) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger.TriggerInstance createInstance(com.google.gson.JsonObject, net.minecraft.advancements.critereon.ContextAwarePredicate, net.minecraft.advancements.critereon.DeserializationContext)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger.TriggerInstance createInstance(com.google.gson.JsonObject, net.minecraft.advancements.critereon.ContextAwarePredicate, net.minecraft.advancements.critereon.DeserializationContext) 1'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger.TriggerInstance createInstance(com.google.gson.JsonObject, net.minecraft.advancements.critereon.ContextAwarePredicate, net.minecraft.advancements.critereon.DeserializationContext) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger net.minecraft.resources.ResourceLocation getId()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger.TriggerInstance com.google.gson.JsonObject serializeToJson(net.minecraft.advancements.critereon.SerializationContext)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger.TriggerInstance com.google.gson.JsonObject serializeToJson(net.minecraft.advancements.critereon.SerializationContext) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

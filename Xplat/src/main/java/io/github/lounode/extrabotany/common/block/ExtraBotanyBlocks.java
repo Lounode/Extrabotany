@@ -19,7 +19,8 @@ import java.util.Locale;
 import java.util.function.BiConsumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-import static vazkii.botania.common.lib.LibBlockNames.*;
+import static vazkii.botania.common.lib.LibBlockNames.SLAB_SUFFIX;
+import static vazkii.botania.common.lib.LibBlockNames.STAIR_SUFFIX;
 
 public final class ExtraBotanyBlocks {
     public static final Block orichalcosBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.of().strength(3, 10).mapColor(MapColor.TERRACOTTA_PINK)

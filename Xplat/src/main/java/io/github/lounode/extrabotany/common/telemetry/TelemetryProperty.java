@@ -93,7 +93,7 @@ public record TelemetryProperty<T>(String id, String exportKey, Codec<T> codec, 
         private final String key;
         private final int id;
 
-        private GameMode(String key, int id) {
+        GameMode(String key, int id) {
             this.key = key;
             this.id = id;
         }
@@ -102,6 +102,7 @@ public record TelemetryProperty<T>(String id, String exportKey, Codec<T> codec, 
             return this.id;
         }
 
+        @Override
         public String getSerializedName() {
             return this.key;
         }
@@ -115,10 +116,11 @@ public record TelemetryProperty<T>(String id, String exportKey, Codec<T> codec, 
         public static final Codec<ServerType> CODEC = StringRepresentable.fromEnum(TelemetryProperty.ServerType::values);
         private final String key;
 
-        private ServerType(String key) {
+        ServerType(String key) {
             this.key = key;
         }
 
+        @Override
         public String getSerializedName() {
             return this.key;
         }

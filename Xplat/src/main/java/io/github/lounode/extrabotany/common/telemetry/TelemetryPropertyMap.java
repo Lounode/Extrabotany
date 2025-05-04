@@ -1,7 +1,6 @@
 package io.github.lounode.extrabotany.common.telemetry;
 
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.*;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
@@ -10,7 +9,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TelemetryPropertyMap {
@@ -26,6 +24,7 @@ public class TelemetryPropertyMap {
 
     public static Codec<TelemetryPropertyMap> createCodec(final List<TelemetryProperty<?>> properties) {
         return (new MapCodec<TelemetryPropertyMap>() {
+            @Override
             public <T> RecordBuilder<T> encode(TelemetryPropertyMap map, DynamicOps<T> ops, RecordBuilder<T> builder) {
                 RecordBuilder<T> recordbuilder = builder;
 
@@ -41,6 +40,7 @@ public class TelemetryPropertyMap {
                 return v != null ? builder.add(key.id(), v, key.codec()) : builder;
             }
 
+            @Override
             public <T> DataResult<TelemetryPropertyMap> decode(DynamicOps<T> ops, MapLike<T> p_262176_) {
                 DataResult<TelemetryPropertyMap.Builder> dataresult = DataResult.success(new TelemetryPropertyMap.Builder());
 
@@ -63,6 +63,7 @@ public class TelemetryPropertyMap {
                 }
             }
 
+            @Override
             public <T> Stream<T> keys(DynamicOps<T> p_261746_) {
                 return properties.stream().map(TelemetryProperty::id).map(p_261746_::createString);
             }
@@ -75,6 +76,7 @@ public class TelemetryPropertyMap {
         return (T)this.entries.get(key);
     }
 
+    @Override
     public String toString() {
         return this.entries.toString();
     }

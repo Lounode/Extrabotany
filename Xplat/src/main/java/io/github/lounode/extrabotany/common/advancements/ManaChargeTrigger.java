@@ -11,6 +11,8 @@ import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.pr
 public class ManaChargeTrigger extends SimpleCriterionTrigger<ManaChargeTrigger.TriggerInstance> {
     public static final ResourceLocation ID = prefix("mana_charge");
     public static final ManaChargeTrigger INSTANCE = new ManaChargeTrigger();
+
+    @Override
     public ResourceLocation getId() {
         return ID;
     }

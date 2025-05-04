@@ -17,7 +17,10 @@ public class SingleLineChart extends Chart {
     protected JsonObject getChartData() throws Exception {
         JsonObject data = new JsonObject();
         int value = callable.call();
-        if (value == 0) return null;
+        if (value == 0) {
+            return null;
+        }
+
         data.addProperty("value", value);
         return data;
     }

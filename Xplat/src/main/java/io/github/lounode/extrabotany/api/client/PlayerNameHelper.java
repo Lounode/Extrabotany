@@ -9,7 +9,6 @@ package io.github.lounode.extrabotany.api.client;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;

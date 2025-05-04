@@ -2,7 +2,6 @@ package io.github.lounode.extrabotany.xplat;
 
 import com.mojang.serialization.Codec;
 import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
-import io.github.lounode.extrabotany.common.telemetry.TelemetryProperty;
 import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -59,6 +58,7 @@ public interface EXplatAbstractions extends XplatAbstractions {
             this.key = key;
         }
 
+        @Override
         public String getSerializedName() {
             return this.key;
         }

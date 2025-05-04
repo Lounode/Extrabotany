@@ -434,6 +434,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
         return 0;
     }
 
+    @Override
     public boolean isEmpty() {
         for (int i = 0; i < inventorySize(); i++) {
             if (!getItemHandler().getItem(i).isEmpty()) {

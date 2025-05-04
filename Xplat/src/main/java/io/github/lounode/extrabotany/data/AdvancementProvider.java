@@ -34,6 +34,7 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
         return new net.minecraft.data.advancements.AdvancementProvider(packOutput, lookupProvider, List.of(new ExtrabotanyAdvancements()));
     }
     public static class ExtrabotanyAdvancements implements AdvancementSubProvider{
+        @Override
         public void generate(HolderLookup.Provider lookup, Consumer<Advancement> consumer) {
             Advancement root = Advancement.Builder.advancement()
                     .display(rootDisplay(ExtraBotanyItems.zadkiel,"itemGroup.extrabotany", "extrabotany.desc", prefix("textures/block/photonium_block.png")))

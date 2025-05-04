@@ -1,6 +1,5 @@
 package io.github.lounode.extrabotany.data;
 
-import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import net.minecraft.core.HolderLookup;

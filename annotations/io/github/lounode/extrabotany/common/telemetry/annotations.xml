@@ -1,0 +1,8 @@
+<root>
+    <item name='io.github.lounode.extrabotany.common.telemetry.TelemetryProperty.GameMode java.lang.String getSerializedName()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.telemetry.TelemetryProperty.ServerType java.lang.String getSerializedName()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>
