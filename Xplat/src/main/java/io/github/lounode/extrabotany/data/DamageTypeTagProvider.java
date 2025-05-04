@@ -9,6 +9,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -18,7 +19,7 @@ import static io.github.lounode.extrabotany.common.lib.ExtraBotanyTags.DamageTyp
 import static net.minecraft.tags.DamageTypeTags.*;
 
 public class DamageTypeTagProvider extends TagsProvider<DamageType> {
-    Map<ResourceKey<DamageType>, List<TagKey<DamageType>>> map = new HashMap<>();
+    Map<ResourceKey<DamageType>, List<TagKey<DamageType>>> map = new LinkedHashMap<>();
     public DamageTypeTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(packOutput, Registries.DAMAGE_TYPE, lookupProvider);
         map.put(EXCALIBUR_BEAM_DAMAGE, List.of(

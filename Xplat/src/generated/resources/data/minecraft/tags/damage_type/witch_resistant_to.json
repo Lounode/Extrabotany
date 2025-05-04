@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "extrabotany:backfire",
     "extrabotany:reverse_heal",
+    "extrabotany:backfire",
     "extrabotany:link"
   ]
 }
