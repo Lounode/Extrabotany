@@ -21,8 +21,8 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
             ./.gradle/loom-cache/remapped-mods
-            ./Forge/build/moddev
-            ./Xplat/build/moddev
+            #./Forge/build/moddev
+            #./Xplat/build/moddev
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle', './gradle.properties', './settings.gradle', '**/gradle-wrapper.properties') }}
       - name: Set script permissions
         run: chmod +x ./scripts/check_lang.sh ./scripts/check_datagen.sh gradlew
