@@ -64,13 +64,14 @@ legacyForge {
             client()
             systemProperty('forge.logging.console.level', 'debug')
             systemProperty('metrics_debug', 'true')
-
+            jvmArgument("-XX:+AllowEnhancedClassRedefinition")
         }
 
         server {
             server()
             systemProperty('forge.logging.console.level', 'debug')
             systemProperty('metrics_debug', 'true')
+            jvmArgument("-XX:+AllowEnhancedClassRedefinition")
         }
 
         data {
@@ -84,10 +85,7 @@ legacyForge {
         configureEach {
             gameDirectory = file('../run/')
             systemProperty('fml.earlyprogresswindow', 'false')
-
-
-            jvmArgument("-XX:+AllowEnhancedClassRedefinition")
-
+            
         }
     }
 

@@ -20,6 +20,7 @@ loom {
     runs {
         client{
             programArgs(["--username", "Dev", "--uuid", "4f201c25-b473-4c2c-959a-dea681f79c23"])
+            vmArg "-XX:+AllowEnhancedClassRedefinition"
         }
         gameTest {
             server()
@@ -44,7 +45,7 @@ loom {
         configureEach {
             runDir "../run"
             ideConfigGenerated(true)
-            vmArg "-XX:+AllowEnhancedClassRedefinition"
+
         }
     }
 
