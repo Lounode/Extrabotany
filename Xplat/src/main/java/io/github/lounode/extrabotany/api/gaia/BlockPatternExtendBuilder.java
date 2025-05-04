@@ -20,7 +20,7 @@ public class BlockPatternExtendBuilder {
     private int width;
 
     private BlockPatternExtendBuilder() {
-        this.lookup.put(' ', (Predicate)(p_187549_) -> true);
+        this.lookup.put(' ', (blockInWorld) -> true);
     }
 
     public BlockPatternExtendBuilder aisle(String... aisle) {
@@ -41,7 +41,7 @@ public class BlockPatternExtendBuilder {
 
                     for(char c0 : s.toCharArray()) {
                         if (!this.lookup.containsKey(c0)) {
-                            this.lookup.put(c0, (Predicate)null);
+                            this.lookup.put(c0, null);
                         }
                     }
                 }
@@ -75,7 +75,7 @@ public class BlockPatternExtendBuilder {
         for(int i = 0; i < this.pattern.size(); ++i) {
             for(int j = 0; j < this.height; ++j) {
                 for(int k = 0; k < this.width; ++k) {
-                    predicate[i][j][k] = (Predicate)this.lookup.get(((String[])this.pattern.get(i))[j].charAt(k));
+                    predicate[i][j][k] = this.lookup.get((this.pattern.get(i))[j].charAt(k));
                 }
             }
         }
@@ -88,7 +88,7 @@ public class BlockPatternExtendBuilder {
 
         for(Map.Entry<Character, Predicate<BlockInWorld>> entry : this.lookup.entrySet()) {
             if (entry.getValue() == null) {
-                list.add((Character)entry.getKey());
+                list.add(entry.getKey());
             }
         }
 

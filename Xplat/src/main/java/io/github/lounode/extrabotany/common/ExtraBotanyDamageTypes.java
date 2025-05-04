@@ -7,8 +7,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 

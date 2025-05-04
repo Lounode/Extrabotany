@@ -37,13 +37,13 @@ public class PatchouliUtil {
     }
 
     public @Nullable Supplier<BookTemplate> getTemplate(ResourceLocation id) {
-        return (Supplier)this.templatesPool.get(id);
+        return this.templatesPool.get(id);
     }
 
     private static Supplier<BookTemplate> loadTemplate(Book book, BookContentLoader loader, ResourceLocation key, ResourceLocation res) {
         JsonElement json = loadLocalizedJson(book, loader, res).json();
-        Supplier<BookTemplate> supplier = () -> (BookTemplate) ClientBookRegistry.INSTANCE.gson.fromJson(json, BookTemplate.class);
-        BookTemplate template = (BookTemplate)supplier.get();
+        Supplier<BookTemplate> supplier = () -> ClientBookRegistry.INSTANCE.gson.fromJson(json, BookTemplate.class);
+        BookTemplate template = supplier.get();
         if (template == null) {
             throw new IllegalArgumentException(res + " could not be instantiated by the supplier.");
         } else {
@@ -66,7 +66,7 @@ public class PatchouliUtil {
 
     private <T> void load(Book book, String thing, LoadFunc<T> loader, Map<ResourceLocation, T> builder) {
         BookContentLoader contentLoader = BookContentResourceDirectLoader.INSTANCE;
-        List<ResourceLocation> foundIds = new ArrayList();
+        List<ResourceLocation> foundIds = new ArrayList<>();
         contentLoader.findFiles(book, thing, foundIds);
 
         for(ResourceLocation id : foundIds) {

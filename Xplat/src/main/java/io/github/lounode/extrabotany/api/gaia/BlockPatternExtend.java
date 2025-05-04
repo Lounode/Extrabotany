@@ -11,8 +11,8 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -79,7 +79,7 @@ public class BlockPatternExtend {
         for(int i = 0; i < this.width; ++i) {
             for(int j = 0; j < this.height; ++j) {
                 for(int k = 0; k < this.depth; ++k) {
-                    if (!this.pattern[k][j][i].test((BlockInWorld)cache.getUnchecked(translateAndRotate(pos, finger, thumb, i, j, k)))) {
+                    if (!this.pattern[k][j][i].test(cache.getUnchecked(translateAndRotate(pos, finger, thumb, i, j, k)))) {
                         return null;
                     }
                 }
@@ -329,7 +329,7 @@ public class BlockPatternExtend {
         }
 
         public BlockInWorld getBlock(int palmOffset, int thumbOffset, int fingerOffset) {
-            return (BlockInWorld)this.cache.getUnchecked(BlockPatternExtend.translateAndRotate(this.frontTopLeft, this.getForwards(), this.getUp(), palmOffset, thumbOffset, fingerOffset));
+            return this.cache.getUnchecked(BlockPatternExtend.translateAndRotate(this.frontTopLeft, this.getForwards(), this.getUp(), palmOffset, thumbOffset, fingerOffset));
         }
 
         public String toString() {

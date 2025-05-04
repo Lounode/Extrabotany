@@ -1,13 +1,4 @@
 plugins {
-    /*
-    id 'eclipse'
-    id 'idea'
-    id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
-    id 'org.spongepowered.mixin' version '0.7.+'
-
-     */
     id 'com.diffplug.spotless' version '5.12.5' apply false
 }
 
@@ -17,14 +8,14 @@ subprojects {
     apply plugin: 'idea'
     apply plugin: 'maven-publish'
     apply plugin: 'pmd'
-    apply plugin: "com.diffplug.spotless"
+    //apply plugin: "com.diffplug.spotless"
     //apply plugin: 'net.minecraftforge.gradle'
     //apply plugin: 'org.parchmentmc.librarian.forgegradle'
     //apply plugin: 'org.spongepowered.mixin'
 
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
     java.withSourcesJar()
-    archivesBaseName = "${mod_name}"
+    //archivesBaseName = "${mod_id}"
 
 
 
@@ -63,7 +54,7 @@ subprojects {
 
         exclude ".cache"
     }
-
+    /*
     spotless {
         enforceCheck = false // workaround around jenkins having wrong line endings in some files
         // we explicitly check in github actions builds
@@ -74,6 +65,8 @@ subprojects {
             //importOrderFile rootProject.file('spotless/eclipse.importorder')
         }
     }
+
+     */
 }
 /*
 version = mod_version

@@ -1,12 +1,16 @@
 plugins {
+    id('java')
     id 'fabric-loom' version '1.10-SNAPSHOT'
     id 'maven-publish'
 }
 
-version = "${minecraft_version}-${build_number}-FABRIC"
+archivesBaseName =  mod_id + "-" + "fabric"
+version = "${minecraft_version}-${mod_version}"
+
 if (System.getenv().RELEASE_MODE != "1") {
     version += '-SNAPSHOT'
 }
+
 
 loom {
     accessWidenerPath = file("src/main/resources/extrabotany.accesswidener")
@@ -112,6 +116,12 @@ repositories {
         name = "Forge"
         url = "https://maven.minecraftforge.net"
     }
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 
 
 }
@@ -144,6 +154,8 @@ dependencies {
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
+    compileOnly "com.demonwav.mcdev:annotations:2.1.0"
+    compileOnly 'org.jetbrains:annotations:24.0.1'
 
     modImplementation("dev.emi:trinkets:3.7.0") { transitive = false }
 
@@ -161,7 +173,8 @@ dependencies {
 
     modImplementation "com.terraformersmc:modmenu:7.2.2"
 
-    modImplementation("io.github.lounode.eventwrapper:eventwrapper-fabric:1.20.1-1.0.0-SNAPSHOT")
+    //modImplementation("io.github.lounode.eventwrapper:eventwrapper-fabric:1.20.1-1.0.0-SNAPSHOT")
+    modImplementation "com.github.Lounode.EventWrapper:eventwrapper-fabric:1.20.1-SNAPSHOT"
 }
 
 compileJava {
@@ -224,8 +237,10 @@ publishing {
     }
 
     repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
+        if (System.getenv("GITHUB_ACTIONS") != null) {
+
+        } else {
+            mavenLocal()
         }
     }
 }

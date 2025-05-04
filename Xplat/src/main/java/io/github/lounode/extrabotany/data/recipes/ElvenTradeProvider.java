@@ -8,10 +8,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

@@ -69,11 +69,11 @@ public record TelemetryProperty<T>(String id, String exportKey, Codec<T> codec, 
     }
 
     public static TelemetryProperty<LongList> longSamples(String id, String exportKey) {
-        return create(id, exportKey, Codec.LONG.listOf().xmap(LongArrayList::new, Function.identity()), (p_261674_, p_262049_, p_262118_) -> p_261674_.addProperty(p_262049_, (String)p_262118_.longStream().mapToObj(String::valueOf).collect(Collectors.joining(";"))));
+        return create(id, exportKey, Codec.LONG.listOf().xmap(LongArrayList::new, Function.identity()), (p_261674_, p_262049_, p_262118_) -> p_261674_.addProperty(p_262049_, p_262118_.longStream().mapToObj(String::valueOf).collect(Collectors.joining(";"))));
     }
 
     public void export(TelemetryPropertyMap propertyMap, TelemetryPropertyContainer container) {
-        T t = (T)propertyMap.get(this);
+        T t = propertyMap.get(this);
         if (t != null) {
             this.exporter.apply(container, this.exportKey, t);
         } else {

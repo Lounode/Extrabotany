@@ -5,8 +5,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.*;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,7 +56,7 @@ public class TelemetryPropertyMap {
                 if (t != null) {
                     DataResult<V> dataresult = p_261627_.codec().parse(p_261859_, t);
                     return p_261892_.apply2stable((p_262028_, p_261796_) -> {
-                        return p_262028_.put(p_261627_, (V)p_261796_);
+                        return p_262028_.put(p_261627_, p_261796_);
                     }, dataresult);
                 } else {
                     return p_261892_;

@@ -9,11 +9,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 
-import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;

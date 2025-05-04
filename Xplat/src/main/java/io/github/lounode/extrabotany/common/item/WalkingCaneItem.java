@@ -67,7 +67,7 @@ public class WalkingCaneItem extends Item implements Vanishable {
     }
 
     public Vec3 getAdditionDeltaMovement(Player player, int time) {
-        float yIncrease = (float) (0.07F * time + 0.67F);
+        float yIncrease = (0.07F * time + 0.67F);
         if(yIncrease > 0.7f) {
             yIncrease = 0.7f;
         }

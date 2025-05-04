@@ -11,7 +11,7 @@ public class EntityPage extends AbstractPage {
         object.addProperty("entity", entity);
     }
 
-    public EntityPage(EntityType type){
+    public EntityPage(EntityType<?> type){
         this(RegistryHelper.getRegistryName(type).toString());
     }
 

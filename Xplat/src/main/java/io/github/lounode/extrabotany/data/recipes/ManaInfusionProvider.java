@@ -11,13 +11,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredientHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
-import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;

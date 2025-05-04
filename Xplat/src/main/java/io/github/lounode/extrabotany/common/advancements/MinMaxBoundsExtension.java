@@ -5,8 +5,8 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.util.GsonHelper;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.math.BigInteger;
 import java.util.function.Function;
 

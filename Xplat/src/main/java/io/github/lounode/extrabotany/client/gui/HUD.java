@@ -14,11 +14,11 @@ import net.minecraft.util.profiling.ProfilerFiller;
 public final class HUD {
     public static HUD INSTANCE;
 
-    protected Minecraft minecraft;
-    protected ColorfulBossBarOverlay bossOverlay;
-    protected float scopeScale;
+    private final Minecraft minecraft;
+    private final ColorfulBossBarOverlay bossOverlay;
+    private float scopeScale;
     public HUD(Minecraft minecraft) {
-        this.INSTANCE = this;
+        INSTANCE = this;
         this.minecraft = minecraft;
         this.bossOverlay = new ColorfulBossBarOverlay(minecraft);
     }

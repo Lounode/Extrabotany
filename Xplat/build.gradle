@@ -3,8 +3,8 @@ plugins {
     id 'net.neoforged.moddev.legacyforge' version '2.0.78'
 }
 
-archivesBaseName = "${artifact_name}-xplat"
-version = "${minecraft_version}-${build_number}"
+archivesBaseName =  mod_id + "-" + "common"
+version = "${minecraft_version}-${mod_version}"
 if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
 }
@@ -42,6 +42,9 @@ repositories {
             url = "https://maven.minecraftforge.net"
         }
     }
+    maven {
+        url "https://jitpack.io" // for step height eam
+    }
 }
 
 dependencies {
@@ -58,7 +61,8 @@ dependencies {
     implementation "com.demonwav.mcdev:annotations:2.1.0"
     compileOnly 'org.jetbrains:annotations:24.0.1'
 
-    compileOnly("io.github.lounode.eventwrapper:eventwrapper-common:1.20.1-1.0.0-SNAPSHOT")
+    //compileOnly("io.github.lounode.eventwrapper:eventwrapper-common:1.20.1-1.0.0-SNAPSHOT")
+    compileOnly "com.github.Lounode.EventWrapper:eventwrapper-common:1.20.1-SNAPSHOT"
 }
 
 test {
@@ -102,15 +106,17 @@ legacyForge.ideSyncTask generateModMetadataXplat
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId project.group
+            groupId mod_group_id
             artifactId project.archivesBaseName
             version project.version
             from components.java
         }
     }
     repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
+        if (System.getenv("GITHUB_ACTIONS") != null) {
+
+        } else {
+            mavenLocal()
         }
     }
 }
