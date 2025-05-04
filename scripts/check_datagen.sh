@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -e
 
-./gradlew :Fabric:runXplatDatagen :Forge:runData :Fabric:runFabricDatagen || exit 1
+./gradlew :Fabric:runXplatDatagen :Forge:runData :Fabric:runFabricDatagen -Dorg.gradle.jvmargs="-XX:-AllowEnhancedClassRedefinition" || exit 1
 
 STATUS="$(git status --porcelain Xplat/src/generated/resources Fabric/src/generated/resources Forge/src/generated/resources)"
 if [ -z "$STATUS" ]
