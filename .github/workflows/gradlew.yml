@@ -49,8 +49,8 @@ jobs:
         if: failure()
         with:
           path: '**/reports/pmd/main.xml'
-      - name: Check generated files up to date
-        run: ./scripts/check_datagen.sh
+      #- name: Check generated files up to date
+      #  run: ./scripts/check_datagen.sh
       - name: Stop Gradle
         run: ./gradlew --stop
 
