@@ -129,6 +129,6 @@ public class SoundProvider extends SoundDefinitionsProvider {
 
         String path = originPath.replace('.', '/');
 
-        return new ResourceLocation(namespace, path);
+        return ResourceLocation.tryBuild(namespace, path);
     }
 }

@@ -21,6 +21,6 @@ public class PedestalPage extends AbstractPage<PedestalPage> {
     }
     @Override
     public ResourceLocation getType() {
-        return new ResourceLocation("extrabotany:pedestal_smash");
+        return ResourceLocation.tryParse("extrabotany:pedestal_smash");
     }
 }

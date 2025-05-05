@@ -25,7 +25,7 @@ public final class BossBarHandler {
 
     // Only access on the client thread!
     public static final Set<LivingEntity> bosses = Collections.newSetFromMap(new WeakHashMap<>());
-    private static final ResourceLocation BAR_TEXTURE = new ResourceLocation(ResourcesLib.GUI_BOSS_BAR);
+    private static final ResourceLocation BAR_TEXTURE = ResourceLocation.tryParse(ResourcesLib.GUI_BOSS_BAR);
 
     public static OptionalInt onBarRender(GuiGraphics gui, int x, int y, BossEvent bossEvent, boolean drawName) {
         for (var currentBoss : bosses) {

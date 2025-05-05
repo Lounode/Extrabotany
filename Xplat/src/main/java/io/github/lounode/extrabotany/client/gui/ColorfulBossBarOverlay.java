@@ -23,8 +23,8 @@ import java.util.UUID;
 
 public class ColorfulBossBarOverlay {
 
-    public static final ResourceLocation BAR_TEXTURE = new ResourceLocation(ResourcesLib.GUI_BOSS_BAR);
-    private static final ResourceLocation GUI_BARS_LOCATION = new ResourceLocation("textures/gui/bars.png");
+    public static final ResourceLocation BAR_TEXTURE = ResourceLocation.tryParse(ResourcesLib.GUI_BOSS_BAR);
+    private static final ResourceLocation GUI_BARS_LOCATION = ResourceLocation.tryParse("textures/gui/bars.png");
     private static final int BAR_WIDTH = 182;
     private static final int BAR_HEIGHT = 5;
     private static final int OVERLAY_OFFSET = 80;

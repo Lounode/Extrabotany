@@ -34,7 +34,7 @@ public class PedestalRecipeCategory implements IRecipeCategory<PedestalRecipe> {
     public PedestalRecipeCategory(IGuiHelper guiHelper) {
         this.localizedName = Component.translatable("extrabotany.jei.pedestal");
         this.background = guiHelper.createBlankDrawable(142, 60);
-        this.overlay = guiHelper.createDrawable(new ResourceLocation("botania","textures/gui/pure_daisy_overlay.png"),
+        this.overlay = guiHelper.createDrawable(ResourceLocation.tryBuild("botania","textures/gui/pure_daisy_overlay.png"),
                 0, 0, 64, 46);
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, renderStack.copy());
     }

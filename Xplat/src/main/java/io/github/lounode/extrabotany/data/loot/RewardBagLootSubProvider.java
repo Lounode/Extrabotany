@@ -52,7 +52,7 @@ public abstract class RewardBagLootSubProvider implements LootTableSubProvider {
     }
 
     public void add(String key, LootTable.Builder builder) {
-        ResourceLocation lootTableLocation = new ResourceLocation(getNameSpace(), key).withPrefix("reward_bags/");
+        ResourceLocation lootTableLocation = ResourceLocation.tryBuild(getNameSpace(), key).withPrefix("reward_bags/");
         this.add(lootTableLocation, builder);
     }
 }

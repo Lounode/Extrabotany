@@ -1,6 +1,5 @@
 package io.github.lounode.extrabotany.api.recipe;
 
-import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -10,8 +9,10 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
+
 public interface PedestalRecipe extends Recipe<Container> {
-    ResourceLocation TYPE_ID = new ResourceLocation(ExtraBotanyAPI.MODID, "pedestal_smash");
+    ResourceLocation TYPE_ID = prefix("pedestal_smash");
 
     @NotNull
     @Override

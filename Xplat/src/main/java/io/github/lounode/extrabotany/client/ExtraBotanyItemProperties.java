@@ -21,7 +21,7 @@ public class ExtraBotanyItemProperties {
                         : (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier(stack, entity) / 20.0F;
             }
         };
-        consumer.accept(ExtraBotanyItems.failnaught, new ResourceLocation("pulling"), pulling);
-        consumer.accept(ExtraBotanyItems.failnaught, new ResourceLocation("pull"), pull);
+        consumer.accept(ExtraBotanyItems.failnaught, ResourceLocation.tryParse("pulling"), pulling);
+        consumer.accept(ExtraBotanyItems.failnaught, ResourceLocation.tryParse("pull"), pull);
     }
 }

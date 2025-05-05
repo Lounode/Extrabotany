@@ -40,6 +40,7 @@ import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -70,7 +71,7 @@ public class ForgeCommonInitializer
     private static final Logger LOGGER = LogUtils.getLogger();
     public ForgeCommonInitializer(FMLJavaModLoadingContext context)
     {
-        coreInit();
+        coreInit(context);
         registryInit(context);
         context.getModEventBus().addListener(this::commonSetup);
     }
@@ -85,8 +86,8 @@ public class ForgeCommonInitializer
         }
     }
 
-    private void coreInit() {
-        ForgeExtrabotanyConfig.setup();
+    private void coreInit(ModLoadingContext context) {
+        ForgeExtrabotanyConfig.setup(context);
     }
 
     private void registryInit(FMLJavaModLoadingContext context) {

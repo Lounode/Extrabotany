@@ -40,6 +40,6 @@ public class CraftingPage extends AbstractPage<CraftingPage> {
 
     @Override
     public ResourceLocation getType() {
-        return new ResourceLocation("patchouli:crafting");
+        return ResourceLocation.tryParse("patchouli:crafting");
     }
 }

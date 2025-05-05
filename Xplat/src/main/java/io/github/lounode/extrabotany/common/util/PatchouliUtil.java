@@ -52,7 +52,7 @@ public class PatchouliUtil {
     }
 
     private static BookContentLoader.LoadResult loadLocalizedJson(Book book, BookContentLoader loader, ResourceLocation file) {
-        ResourceLocation localizedFile = new ResourceLocation(file.getNamespace(), file.getPath().replaceAll("en_us", ClientBookRegistry.INSTANCE.currentLang));
+        ResourceLocation localizedFile = ResourceLocation.tryBuild(file.getNamespace(), file.getPath().replaceAll("en_us", ClientBookRegistry.INSTANCE.currentLang));
         BookContentLoader.LoadResult input = loader.loadJson(book, localizedFile);
         if (input == null) {
             input = loader.loadJson(book, file);
@@ -71,7 +71,7 @@ public class PatchouliUtil {
 
         for(ResourceLocation id : foundIds) {
             String filePath = String.format("%s/%s/%s/%s/%s.json", "patchouli_books", book.id.getPath(), "en_us", thing, id.getPath());
-            T value = loader.load(book, contentLoader, id, new ResourceLocation(id.getNamespace(), filePath));
+            T value = loader.load(book, contentLoader, id, ResourceLocation.tryBuild(id.getNamespace(), filePath));
             if (value != null) {
                 builder.put(id, value);
             }

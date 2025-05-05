@@ -46,6 +46,6 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
     }
 
     private static TagKey<Block> forge(String name) {
-        return TagKey.create(Registries.BLOCK, new ResourceLocation("forge", name));
+        return TagKey.create(Registries.BLOCK, ResourceLocation.tryBuild("forge", name));
     }
 }

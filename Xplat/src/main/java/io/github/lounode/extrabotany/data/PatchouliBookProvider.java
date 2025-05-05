@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public final class PatchouliBookProvider extends PatchouliProvider {
-    private static final ResourceLocation CATEGORY = new ResourceLocation("botania:extrabotanies");
+    private static final ResourceLocation CATEGORY = ResourceLocation.tryParse("botania:extrabotanies");
 
     public PatchouliBookProvider(PackOutput packOutput) {
         super(packOutput);
@@ -103,7 +103,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
         PatchouliBuilder.entry(CATEGORY)
                 .withName("extrabotany.entry.fuels")
                 .withIcon(ExtraBotanyItems.nightmareFuel)
-                .withAdvancement(new ResourceLocation("botania:main/mana_pool_pickup"))
+                .withAdvancement(ResourceLocation.tryParse("botania:main/mana_pool_pickup"))
                 .pages(
                         text("extrabotany.page.fuels0"),
                         manaInfusion(ExtraBotanyItems.nightmareFuel)
@@ -189,7 +189,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
         PatchouliBuilder.entry(CATEGORY)
                 .withName("extrabotany.entry.yin_and_yang")
                 .withIcon(ExtraBotanyItems.shadowium)
-                .withAdvancement(new ResourceLocation("botania:main/elf_portal_open"))
+                .withAdvancement(ResourceLocation.tryParse("botania:main/elf_portal_open"))
                 .pages(
                         text("extrabotany.page.yin_and_yang0"),
                         text("extrabotany.page.yin_and_yang1"),
@@ -259,7 +259,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
     }
 
     private ResourceLocation id(String fileName) {
-        return new ResourceLocation(CATEGORY.getPath(), fileName);
+        return ResourceLocation.tryBuild(CATEGORY.getPath(), fileName);
     }
     @Override
     protected Path getOutputPath (PatchouliEntry entry) {

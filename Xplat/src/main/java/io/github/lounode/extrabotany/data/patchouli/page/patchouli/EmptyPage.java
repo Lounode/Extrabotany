@@ -12,6 +12,6 @@ public class EmptyPage extends AbstractPage<EmptyPage> {
 
     @Override
     public ResourceLocation getType() {
-        return new ResourceLocation("patchouli:crafting");
+        return ResourceLocation.tryParse("patchouli:crafting");
     }
 }

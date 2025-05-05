@@ -17,7 +17,7 @@ public class SmithingProcessor implements IComponentProcessor {
     SmithingRecipe recipe;
     @Override
     public void setup(Level level, IVariableProvider variables) {
-        ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
+        ResourceLocation id = ResourceLocation.tryParse(variables.get("recipe").asString());
         this.recipe = PatchouliUtils.getRecipe(level, RecipeType.SMITHING, id);
     }
 

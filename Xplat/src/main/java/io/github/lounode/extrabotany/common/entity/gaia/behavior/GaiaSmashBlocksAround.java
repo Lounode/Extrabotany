@@ -20,8 +20,8 @@ public class GaiaSmashBlocksAround <E extends Gaia> extends Behavior<E> {
 
     protected static final TagKey<Block> BLACKLIST = BotaniaTags.Blocks.GAIA_BREAK_BLACKLIST;
     protected static final List<ResourceLocation> CHEATY_BLOCKS = Arrays.asList(
-            new ResourceLocation("openblocks", "beartrap"),
-            new ResourceLocation("thaumictinkerer", "magnet")
+            ResourceLocation.tryBuild("openblocks", "beartrap"),
+            ResourceLocation.tryBuild("thaumictinkerer", "magnet")
     );
 
     public GaiaSmashBlocksAround() {

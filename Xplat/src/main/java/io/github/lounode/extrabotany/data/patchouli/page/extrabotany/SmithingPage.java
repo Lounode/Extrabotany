@@ -21,6 +21,6 @@ public class SmithingPage extends AbstractPage<SmithingPage> {
 
     @Override
     public ResourceLocation getType() {
-        return new ResourceLocation("extrabotany:smithing");
+        return ResourceLocation.tryParse("extrabotany:smithing");
     }
 }

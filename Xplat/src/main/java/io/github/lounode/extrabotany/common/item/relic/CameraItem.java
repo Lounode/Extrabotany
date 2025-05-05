@@ -226,7 +226,7 @@ public class CameraItem extends RelicItem {
     }
 
     public static class Hud {
-        public static final ResourceLocation CAMERA_UI_LOCATION = new ResourceLocation("extrabotany:textures/gui/spyglass_scope.png");
+        public static final ResourceLocation CAMERA_UI_LOCATION = prefix("textures/gui/spyglass_scope.png");
         public static void renderSpyglassOverlay(GuiGraphics pGuiGraphics, float pScopeScale) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();

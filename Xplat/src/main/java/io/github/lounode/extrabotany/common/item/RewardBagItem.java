@@ -69,7 +69,7 @@ public class RewardBagItem extends Item implements RewardBag {
         if (stack.getItem() instanceof RewardBagItem bag) {
             String tableKey = ItemNBTHelper.getString(stack, TAG_LOOT_TABLE, "");
             if (!tableKey.isEmpty()) {
-                return new ResourceLocation(tableKey).withPrefix("reward_bags/");
+                return ResourceLocation.tryParse(tableKey).withPrefix("reward_bags/");
             } else {
                 return bag.getLootTable().withPrefix("reward_bags/");
             }

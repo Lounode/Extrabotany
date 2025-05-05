@@ -100,12 +100,12 @@ public class ForgeExtrabotanyConfig
         COMMON = specPair.getLeft();
     }
 
-    public static void setup() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_SPEC);
+    public static void setup(ModLoadingContext context) {
+        context.registerConfig(ModConfig.Type.COMMON, COMMON_SPEC);
         ExtraBotanyConfig.setCommon(COMMON);
 
         if (XplatAbstractions.INSTANCE.isPhysicalClient()) {
-            ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
+            context.registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
             ExtraBotanyConfig.setClient(CLIENT);
         }
     }

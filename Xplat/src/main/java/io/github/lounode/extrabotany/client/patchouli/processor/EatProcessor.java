@@ -15,7 +15,7 @@ public class EatProcessor implements IComponentProcessor {
     @Override
     public void setup(Level level, IVariableProvider variables) {
         String itemId = variables.get("output").asString();
-        output = BuiltInRegistries.ITEM.get(new ResourceLocation(itemId));
+        output = BuiltInRegistries.ITEM.get(ResourceLocation.tryParse(itemId));
     }
 
     @Override

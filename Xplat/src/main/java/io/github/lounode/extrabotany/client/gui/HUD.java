@@ -31,7 +31,7 @@ import java.util.List;
 @EventBusSubscriberWrapper
 public final class HUD {
     public static HUD INSTANCE;
-    private static final ResourceLocation manaBar = new ResourceLocation("botania:textures/gui/mana_hud.png");
+    private static final ResourceLocation manaBar = ResourceLocation.tryParse("botania:textures/gui/mana_hud.png");
 
     private final Minecraft minecraft;
     private final ColorfulBossBarOverlay bossOverlay;

@@ -21,6 +21,6 @@ public class RunicAltarPage extends AbstractPage<RunicAltarPage> {
 
     @Override
     public ResourceLocation getType() {
-        return new ResourceLocation("botania:runic_altar");
+        return ResourceLocation.tryParse("botania:runic_altar");
     }
 }

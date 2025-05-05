@@ -21,6 +21,6 @@ public class ManaInfusionPage extends AbstractPage<ManaInfusionPage> {
     }
     @Override
     public ResourceLocation getType() {
-        return new ResourceLocation("botania:mana_infusion");
+        return ResourceLocation.tryParse("botania:mana_infusion");
     }
 }

@@ -25,6 +25,6 @@ public class EatPage extends AbstractPage<EatPage> {
     }
     @Override
     public ResourceLocation getType() {
-        return new ResourceLocation("extrabotany:eat");
+        return ResourceLocation.tryParse("extrabotany:eat");
     }
 }
