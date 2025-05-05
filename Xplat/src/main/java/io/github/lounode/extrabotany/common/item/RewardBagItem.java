@@ -43,7 +43,7 @@ public class RewardBagItem extends Item implements RewardBag {
                     .withParameter(LootContextParams.THIS_ENTITY, player)
                     .withParameter(LootContextParams.ORIGIN, player.position())
                     .withLuck(player.getLuck());
-            LootParams lootparams = parameter.create(LootContextParamSets.EMPTY);
+            LootParams lootparams = parameter.create(LootContextParamSets.CHEST);
 
             if (!player.isCreative()) {
                 stack.shrink(1);

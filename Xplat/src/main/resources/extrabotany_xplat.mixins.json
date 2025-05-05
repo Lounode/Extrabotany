@@ -11,7 +11,6 @@
     "client.PatchouliTemplateXModMixinBuilder"
   ],
   "client": [
-    "client.HUDHandlerInvoker",
     "client.HUDHandlerMixin"
   ],
   "injectors": {

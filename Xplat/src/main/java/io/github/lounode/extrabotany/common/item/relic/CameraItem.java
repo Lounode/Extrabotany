@@ -84,7 +84,11 @@ public class CameraItem extends RelicItem {
     public InteractionResultHolder<ItemStack> executeCapture(Level world, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         var relic = XplatAbstractions.INSTANCE.findRelic(stack);
-        if (relic != null && relic.isRightPlayer(player) && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_PER_USE, true)) {
+        if (
+                relic != null && ( player.isCreative() || (
+                relic.isRightPlayer(player) &&
+                ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_PER_USE, true)))
+        ) {
 
             List<LivingEntity> livingEntities = world.getEntitiesOfClass(LivingEntity.class, getFreezeBounds(player)).stream()
                     .filter(entity -> !entity.equals(player))

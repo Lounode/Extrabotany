@@ -32,8 +32,8 @@ public class PandorasBoxItem extends RewardBagItem {
         ItemStack stack = player.getItemInHand(usedHand);
         var relic = XplatAbstractions.INSTANCE.findRelic(stack);
         if (
-                relic == null ||
-                !relic.isRightPlayer(player)
+                relic == null || (!player.isCreative() &&
+                !relic.isRightPlayer(player))
         ) {
             return InteractionResultHolder.fail(stack);
         }
