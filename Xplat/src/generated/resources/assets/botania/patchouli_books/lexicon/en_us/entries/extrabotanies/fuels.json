@@ -1,4 +1,5 @@
 {
+  "advancement": "botania:main/mana_pool_pickup",
   "category": "botania:extrabotanies",
   "icon": "extrabotany:nightmare_fuel",
   "name": "extrabotany.entry.fuels",

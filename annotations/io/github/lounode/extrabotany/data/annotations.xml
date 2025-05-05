@@ -2,4 +2,7 @@
     <item name='io.github.lounode.extrabotany.data.DamageTypeTagProvider void addTags(net.minecraft.core.HolderLookup.Provider) 0'>
         <annotation name='org.jetbrains.annotations.NotNull'/>
     </item>
+    <item name='io.github.lounode.extrabotany.data.PatchouliBookProvider java.lang.String getName()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
 </root>

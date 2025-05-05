@@ -47,6 +47,13 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven" // for "here be no dragons"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
     maven { url = uri("https://jitpack.io") }
 }
 
@@ -85,7 +92,7 @@ legacyForge {
         configureEach {
             gameDirectory = file('../run/')
             systemProperty('fml.earlyprogresswindow', 'false')
-            
+
         }
     }
 
@@ -105,22 +112,16 @@ dependencies {
 
     modCompileOnly("vazkii.botania:Botania:${botania_version}-FORGE")
     modRuntimeOnly("vazkii.botania:Botania:${botania_version}-FORGE")
-    //compileOnly("vazkii.botania:Botania:${botania_version}-FORGE")
-    //runtimeOnly("vazkii.botania:Botania:${botania_version}-FORGE")
 
     modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-    //runtimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     modCompileOnly("top.theillusivec4.curios:curios-forge:${curios_version}:api")
     modRuntimeOnly("top.theillusivec4.curios:curios-forge:${curios_version}")
 
     modRuntimeOnly ("curse.maven:nbtedit-reborn-678133:5984630")
+    modRuntimeOnly ("maven.modrinth:just-enough-resources-jer:1.4.0.247")
 
-    //modCompileOnly("top.theillusivec4.curios:curios-forge:5.4.2+1.20.1:api")
-    //modRuntimeOnly("top.theillusivec4.curios:curios-forge:5.4.2+1.20.1")
-
-    //modImplementation("io.github.lounode.eventwrapper:eventwrapper-forge:1.20.1-1.0.0-SNAPSHOT")
     modImplementation("com.github.Lounode.EventWrapper:eventwrapper-forge:1.20.1-SNAPSHOT")
 
 
@@ -129,6 +130,10 @@ dependencies {
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
     compileOnly "com.demonwav.mcdev:annotations:2.1.0"
     compileOnly 'org.jetbrains:annotations:24.0.1'
+}
+
+configurations.configureEach {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
 

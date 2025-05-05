@@ -5,7 +5,7 @@ import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 
-public class EntityPage extends AbstractPage {
+public class EntityPage extends AbstractPage<EntityPage> {
 
     public EntityPage(String entity) {
         object.addProperty("entity", entity);

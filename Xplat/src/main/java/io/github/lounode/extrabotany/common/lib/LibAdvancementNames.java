@@ -13,4 +13,7 @@ public class LibAdvancementNames {
     public static final String I_SEE_EVERYTHING = "i_see_everything";
     public static final String HUNDRED_BLOCK_PIERCE = "hundred_block_pierce";
     public static final String ONE_PUNCH = "one_punch";
+    public static final String STYGIAN_TWINS = "stygian_twins";
+    public static final String GAIA_TRIAL = "gaia_trial";
+    public static final String THE_SOURCE_OF_HONKAI = "the_source_of_honkai";
 }

@@ -7,4 +7,5 @@ public interface IPatchouliPage {
     ResourceLocation getType();
 
     JsonObject build();
+
 }

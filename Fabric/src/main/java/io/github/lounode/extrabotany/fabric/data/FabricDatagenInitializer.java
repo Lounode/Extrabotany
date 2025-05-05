@@ -73,7 +73,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
         //pack.addProvider((PackOutput output) -> new PottedPlantModelProvider(output));
         pack.addProvider(AdvancementProvider::create);
         pack.addProvider((PackOutput output) -> new SoundProvider(output, LibMisc.MOD_ID));
-        pack.addProvider((PackOutput output) -> new ExtraBotanyPatchouliProvider(output));
+        pack.addProvider((PackOutput output) -> new PatchouliBookProvider(output));
     }
 
     @Override

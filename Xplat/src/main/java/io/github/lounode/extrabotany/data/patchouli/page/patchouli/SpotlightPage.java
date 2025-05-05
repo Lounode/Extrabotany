@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.data.patchouli.page.patchouli;
 
+import com.demonwav.mcdev.annotations.Translatable;
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
@@ -7,7 +8,7 @@ import net.minecraft.world.level.ItemLike;
 import static io.github.lounode.extrabotany.common.lib.RegistryHelper.getRegistryName;
 
 
-public class SpotlightPage extends AbstractPage {
+public class SpotlightPage extends AbstractPage<SpotlightPage> {
 
     public SpotlightPage(String itemString) {
         object.addProperty("item", itemString);
@@ -27,7 +28,7 @@ public class SpotlightPage extends AbstractPage {
         return this;
     }
 
-    public SpotlightPage withText(String text) {
+    public SpotlightPage withText(@Translatable String text) {
         object.addProperty("text", text);
         return this;
     }

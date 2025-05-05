@@ -28,7 +28,15 @@
   "advancement.extrabotany:hundred_block_pierce": "百步穿杨",
   "advancement.extrabotany:hundred_block_pierce.desc": "使用百中弓从至少100米外射杀一只骷髅",
   "advancement.extrabotany:one_punch": "One Punch",
-  "advancement.extrabotany:one_punch.desc": "Cast an aura fire that deals over 40 damages",
+  "advancement.extrabotany:one_punch.desc": "Cast an Aura Fire that deals over 40 damages",
+  "advancement.extrabotany:stygian_twins": "Stygian Twins",
+  "advancement.extrabotany:stygian_twins.desc": "Craft a Shadowium Ingot and a Photonium Ingot",
+  "advancement.extrabotany:gaia_trial": "Gaia Trial",
+  "advancement.extrabotany:gaia_trial.desc": "Kill an Guardian of Gaia: III",
+  "advancement.extrabotany:the_source_of_honkai": "The source of Honkai?",
+  "advancement.extrabotany:the_source_of_honkai.desc": "Open a Pandora's box",
+  
+  "advancement.extrabotany:": "",
   
   "block.extrabotany.aerialite_block": "Block of Aerialite",
   "block.extrabotany.orichalcos_block": "Block of Orichalcos",
@@ -227,6 +235,31 @@
   "extrabotany.page.core_of_the_void0": "$(7)崩坏，是一种异常的灾害，是宇宙周期性调整的律动。$(br2)——奥托·阿波卡利斯$()$(br2)$(thing)空之律者$()的能量核心，其中蕴含有强大的崩坏能。",
   "extrabotany.page.core_of_the_void1": "装备$(item)空之律者核心$()时，将获得如同创造模式一般的$(thing)飞行$()能力，大大提升$(thing)移动速度$()与$(thing)飞行速度$()，同时免疫$(thing)投掷物$()和$(thing)负面药水效果$()。$(br2)强大的力量不是没有代价的，以上的所有增益效果建立在消耗大量$(thing)魔力$()维持虚数内能稳定的前提下，一旦魔力被耗光，暴走的虚数内能便会$(thing)反噬$()其主人的生命，请务必确保身上的魔力源充足。",
   
+  "extrabotany.entry.gaia_3rd": "进阶盖亚仪式",
+  "extrabotany.page.gaia_3rd0": "是时候应该挑战下自己了，在将$(item)盖亚之魂$()与光暗之力融合起来后，它变成了一张黑白色的票据。$(br2)这张看起来轻飘飘的票据却能召唤出比以往更加强大的$(thing)盖亚守护者$()。",
+  "extrabotany.page.gaia_3rd1": "呼噗，呼噗噗噗……",
+  "extrabotany.page.gaia_3rd2": "首先，召唤$(thing)守护者$()所需的区域空间比原来要更大。同时附近的所有人背包中不能存在除了原版、植物魔法，与本模组外的任何物品。在开战后，不在上述提到的范围内的物品将被强制缴械。",
+  "extrabotany.page.gaia_3rd3": "战斗的过程中，$(thing)守护者$()还会召唤不同颜色的$(thing)地雷：$(br2)$(li)$(1)蓝色$()：造成失明与凋零效果。$(li)$(4)红色$()：附加真实伤害。$(li)$(a)绿色$()：附加缴械主手物品。",
+  "extrabotany.page.gaia_3rd4": "$(thing)守护者$()还会召唤更为强大的仆从，它们会尽一切所能为祂而战，请务必优先击杀！",
+  
+  "extrabotany.entry.yin_and_yang": "光暗双子",
+  "extrabotany.page.yin_and_yang0": "向$(item)源质钢$()灌入蕴含光暗之力的$(thing)魔力$()，并用$(item)镀金土豆泥$()做催化剂，可以使其嬗变为一对彼岸双生的崭新金属材料。",
+  "extrabotany.page.yin_and_yang1": "这对金属材料拥有如下性质：WIP",
+  "extrabotany.page.yin_and_yang2": "天使と",
+  "extrabotany.page.yin_and_yang3": "悪魔と",
+  
+  "extrabotany.entry.pandoras_box": "潘多拉魔盒",
+  "extrabotany.page.pandoras_box0": "在击败$(thing)盖亚守护者III$()后，掉落的宝箱。$(br2)打开它会发生什么事情？谁也不知道。",
+  "extrabotany.page.pandoras_box1": "你感到罪恶爬上了你的脊梁，最终你还是打开了它。$(br2)出乎你意料的，并没有什么代价，只是一堆$(item)奖励袋$()，以及一枚象征着荣誉的$(item)英雄勋章$()。$(br2)看来你已经成功战胜了自我。",
+  "extrabotany.page.pandoras_box2": "A级，级别虎！",
+  
+  "extrabotany.entry.reward_bags": "奖励袋",
+  "extrabotany.page.reward_bags0": "抽卡是个好东西，人人都喜欢抽卡，尤其是抽中金色传说的那一刻。$(br2)$(m)而且抽$(thing)$(m)奖励袋$()$(m)还不用花钱。$()",
+  "extrabotany.page.reward_bags1": "悠香快乐袋$(br2)",
+  "extrabotany.page.reward_bags2": "",
+  "extrabotany.page.reward_bags3": "",
+  "extrabotany.page.reward_bags4": "God knows...",
+  "extrabotany.page.reward_bags5": "没有猫头鹰",
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""

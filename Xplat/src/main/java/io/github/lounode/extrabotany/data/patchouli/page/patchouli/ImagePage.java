@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImagePage extends AbstractPage {
+public class ImagePage extends AbstractPage<ImagePage> {
     List<String> images = new ArrayList<>();
 
     public ImagePage(){}

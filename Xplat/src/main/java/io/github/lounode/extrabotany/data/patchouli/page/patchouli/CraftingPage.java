@@ -8,7 +8,7 @@ import net.minecraft.world.level.ItemLike;
 import static io.github.lounode.extrabotany.common.lib.RegistryHelper.getRegistryName;
 
 
-public class CraftingPage extends AbstractPage {
+public class CraftingPage extends AbstractPage<CraftingPage> {
 
     public CraftingPage(String recipe) {
         object.addProperty("recipe", recipe);

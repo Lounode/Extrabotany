@@ -4,7 +4,7 @@ import com.demonwav.mcdev.annotations.Translatable;
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 import net.minecraft.resources.ResourceLocation;
 
-public class PedestalPage extends AbstractPage {
+public class PedestalPage extends AbstractPage<PedestalPage> {
 
     public PedestalPage(String recipe) {
         object.addProperty("recipe", recipe);

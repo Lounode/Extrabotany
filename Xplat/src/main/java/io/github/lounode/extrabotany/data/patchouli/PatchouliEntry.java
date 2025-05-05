@@ -16,13 +16,17 @@ public class PatchouliEntry {
     JsonObject object = new JsonObject();
     private ResourceLocation id;
 
-    public PatchouliEntry(ResourceLocation category, @Translatable String name, Item icon, List<IPatchouliPage> pages, ResourceLocation id, int sortNum) {
+    public PatchouliEntry(ResourceLocation category, @Translatable String name, Item icon, List<IPatchouliPage> pages, ResourceLocation id, int sortNum, ResourceLocation advancement) {
         object.addProperty("category", category.toString());
         object.addProperty("name", name);
         object.addProperty("icon", getRegistryName(icon.asItem()).toString());
 
         if (sortNum != 0) {
             object.addProperty("sortnum", sortNum);
+        }
+
+        if (advancement != null) {
+            object.addProperty("advancement", advancement.toString());
         }
 
         JsonArray pagesJArray = new JsonArray();

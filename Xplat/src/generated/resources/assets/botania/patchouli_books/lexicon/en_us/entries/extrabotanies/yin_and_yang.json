@@ -1,0 +1,26 @@
+{
+  "advancement": "botania:main/elf_portal_open",
+  "category": "botania:extrabotanies",
+  "icon": "extrabotany:shadowium_ingot",
+  "name": "extrabotany.entry.yin_and_yang",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "extrabotany.page.yin_and_yang0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "extrabotany.page.yin_and_yang1"
+    },
+    {
+      "type": "botania:runic_altar",
+      "recipe": "extrabotany:runic_altar/photonium_ingot",
+      "text": "extrabotany.page.yin_and_yang2"
+    },
+    {
+      "type": "botania:runic_altar",
+      "recipe": "extrabotany:runic_altar/shadowium_ingot",
+      "text": "extrabotany.page.yin_and_yang3"
+    }
+  ]
+}

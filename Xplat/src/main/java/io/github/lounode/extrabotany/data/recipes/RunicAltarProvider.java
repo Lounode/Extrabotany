@@ -46,7 +46,7 @@ public class RunicAltarProvider extends ExtraBotanyRecipeProvider{
                 Ingredient.of(Items.POWDER_SNOW_BUCKET),
                 Ingredient.of(Items.TOTEM_OF_UNDYING)
         ));
-        consumer.accept(new FinishedRecipe(idFor("orichalcos"), new ItemStack(ExtraBotanyItems.orichalcos), 150000,
+        consumer.accept(new FinishedRecipe(idFor("orichalcos_ingot"), new ItemStack(ExtraBotanyItems.orichalcos), 150000,
                 Ingredient.of(ExtraBotanyItems.heroMedal),
                 Ingredient.of(ExtraBotanyItems.gildedPotatoMashed),
                 Ingredient.of(BotaniaItems.gaiaIngot),
@@ -56,14 +56,14 @@ public class RunicAltarProvider extends ExtraBotanyRecipeProvider{
                 Ingredient.of(BotaniaItems.lifeEssence),
                 Ingredient.of(BotaniaItems.lifeEssence)
         ));
-        consumer.accept(new FinishedRecipe(idFor("shadowium"), new ItemStack(ExtraBotanyItems.shadowium), 4200,
+        consumer.accept(new FinishedRecipe(idFor("shadowium_ingot"), new ItemStack(ExtraBotanyItems.shadowium), 4200,
                 Ingredient.of(BotaniaItems.elementium),
                 Ingredient.of(ExtraBotanyItems.gildedPotatoMashed),
                 Ingredient.of(ExtraBotanyItems.nightmareFuel),
                 Ingredient.of(ExtraBotanyItems.nightmareFuel),
                 Ingredient.of(ExtraBotanyItems.nightmareFuel)
         ));
-        consumer.accept(new FinishedRecipe(idFor("photonium"), new ItemStack(ExtraBotanyItems.photonium), 4200,
+        consumer.accept(new FinishedRecipe(idFor("photonium_ingot"), new ItemStack(ExtraBotanyItems.photonium), 4200,
                 Ingredient.of(BotaniaItems.elementium),
                 Ingredient.of(ExtraBotanyItems.gildedPotatoMashed),
                 Ingredient.of(ExtraBotanyItems.spiritFragment),

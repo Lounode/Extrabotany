@@ -3,6 +3,7 @@ package io.github.lounode.extrabotany.data.patchouli;
 import com.demonwav.mcdev.annotations.Translatable;
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 import io.github.lounode.extrabotany.data.patchouli.page.IPatchouliPage;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -17,6 +18,7 @@ public class PatchouliBuilder {
     private String name;
     private Item icon;
     private int sortNum;
+    private ResourceLocation advancement;
     private final List<IPatchouliPage> pages = new ArrayList<>();
 
     public PatchouliBuilder(ResourceLocation category, @Translatable String name, ItemLike icon, int sortNum) {
@@ -44,12 +46,24 @@ public class PatchouliBuilder {
         return this;
     }
 
-    public PatchouliBuilder pages(AbstractPage... page) {
+    public PatchouliBuilder withAdvancement(Advancement advancement) {
+        this.advancement = advancement.getId();
+        return this;
+    }
+
+    public PatchouliBuilder withAdvancement(ResourceLocation advancement) {
+        this.advancement = advancement;
+        return this;
+    }
+
+    public PatchouliBuilder pages(AbstractPage<?>... page) {
         this.pages.addAll(List.of(page));
         return this;
     }
 
     public void save(Consumer<PatchouliEntry> consumer, ResourceLocation id) {
-        consumer.accept(new PatchouliEntry(category, name, icon, pages, id, sortNum));
+        consumer.accept(new PatchouliEntry(category, name, icon, pages, id, sortNum, advancement));
     }
+
+
 }

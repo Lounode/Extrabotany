@@ -4,7 +4,7 @@ import com.demonwav.mcdev.annotations.Translatable;
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 import net.minecraft.resources.ResourceLocation;
 
-public class RunicAltarPage extends AbstractPage {
+public class RunicAltarPage extends AbstractPage<RunicAltarPage> {
     public RunicAltarPage(String recipe) {
         object.addProperty("recipe", recipe);
     }

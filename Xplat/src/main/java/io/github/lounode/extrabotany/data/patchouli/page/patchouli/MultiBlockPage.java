@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiBlockPage extends AbstractPage {
+public class MultiBlockPage extends AbstractPage<MultiBlockPage> {
     List<Mapping> mappings = new ArrayList<>();
     String[][] pattern;
 

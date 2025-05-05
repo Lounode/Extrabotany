@@ -7,7 +7,7 @@ import net.minecraft.world.level.ItemLike;
 
 import static io.github.lounode.extrabotany.common.lib.RegistryHelper.getRegistryName;
 
-public class EatPage extends AbstractPage {
+public class EatPage extends AbstractPage<EatPage> {
 
     public EatPage(ItemLike input, ItemLike output) {
         object.addProperty("input", getRegistryName(input.asItem()).toString());

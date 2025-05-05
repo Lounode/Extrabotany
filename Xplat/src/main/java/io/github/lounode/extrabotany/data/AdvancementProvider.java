@@ -3,6 +3,7 @@ package io.github.lounode.extrabotany.data;
 import io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger;
 import io.github.lounode.extrabotany.common.advancements.MinMaxBoundsExtension;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
@@ -10,10 +11,7 @@ import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.advancements.critereon.ImpossibleTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementSubProvider;
@@ -118,6 +116,33 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
                     .parent(root)
                     .addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
                     .save(consumer, mainId(LibAdvancementNames.ONE_PUNCH));
+            Advancement stygianTwins = Advancement.Builder.advancement()
+                    .display(simple(ExtraBotanyItems.shadowium, LibAdvancementNames.STYGIAN_TWINS, FrameType.TASK))
+                    .parent(goodtek)
+                    .addCriterion("craft_shadowium", onPickup(ExtraBotanyItems.shadowium))
+                    .addCriterion("craft_photonium", onPickup(ExtraBotanyItems.photonium))
+                    .save(consumer, mainId(LibAdvancementNames.STYGIAN_TWINS));
+            Advancement gaiaTrial = Advancement.Builder.advancement()
+                    .display(simple(ExtraBotanyItems.challengeTicket, LibAdvancementNames.GAIA_TRIAL, FrameType.CHALLENGE))
+                    .parent(stygianTwins)
+                    .addCriterion("kill_gaia_3rd",
+                            KilledTrigger.TriggerInstance.playerKilledEntity(
+                                    EntityPredicate.Builder.entity()
+                                            .of(ExtraBotanyEntityType.GAIA_III)
+                                            .build()
+                                    )
+                    )
+                    .save(consumer, mainId(LibAdvancementNames.GAIA_TRIAL));
+            Advancement theSourceOfHonkai = Advancement.Builder.advancement()
+                    .display(simple(ExtraBotanyItems.pandorasBox, LibAdvancementNames.THE_SOURCE_OF_HONKAI, FrameType.TASK))
+                    .parent(gaiaTrial)
+                    .addCriterion("open_pandoras_box" , new UseItemSuccessTrigger.Instance(
+                            ContextAwarePredicate.ANY,
+                            ItemPredicate.Builder.item().of(ExtraBotanyItems.pandorasBox).build(),
+                            LocationPredicate.ANY
+                    ))
+                    .save(consumer, mainId(LibAdvancementNames.THE_SOURCE_OF_HONKAI));
+
         }
     }
 

@@ -3,6 +3,8 @@ package io.github.lounode.extrabotany.data.patchouli;
 import com.demonwav.mcdev.annotations.Translatable;
 import com.google.common.collect.Sets;
 import io.github.lounode.extrabotany.data.patchouli.page.patchouli.CraftingPage;
+import io.github.lounode.extrabotany.data.patchouli.page.patchouli.EmptyPage;
+import io.github.lounode.extrabotany.data.patchouli.page.patchouli.SpotlightPage;
 import io.github.lounode.extrabotany.data.patchouli.page.patchouli.TextPage;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -43,6 +45,10 @@ public abstract class PatchouliProvider implements DataProvider {
 
     protected abstract void buildEntries(Consumer<PatchouliEntry> consumer);
 
+    protected EmptyPage empty() {
+        return new EmptyPage();
+    }
+
     protected TextPage text(@Translatable String text) {
         return new TextPage(text);
     }
@@ -53,6 +59,10 @@ public abstract class PatchouliProvider implements DataProvider {
 
     protected CraftingPage crafting(String recipe) {
         return new CraftingPage(recipe);
+    }
+
+    protected SpotlightPage spotlight(ItemLike itemLike) {
+        return new SpotlightPage(itemLike).linkRecipe(true);
     }
 
     @NotNull

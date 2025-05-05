@@ -4,7 +4,7 @@ import com.demonwav.mcdev.annotations.Translatable;
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 import net.minecraft.resources.ResourceLocation;
 
-public class ManaInfusionPage extends AbstractPage {
+public class ManaInfusionPage extends AbstractPage<ManaInfusionPage> {
 
     public ManaInfusionPage(String recipe) {
         object.addProperty("recipes", recipe);

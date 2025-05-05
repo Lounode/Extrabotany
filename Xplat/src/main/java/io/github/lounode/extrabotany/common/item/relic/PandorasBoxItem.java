@@ -4,6 +4,8 @@ import io.github.lounode.extrabotany.common.item.RewardBagItem;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -14,6 +16,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.item.Relic;
+import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -34,6 +37,11 @@ public class PandorasBoxItem extends RewardBagItem {
         ) {
             return InteractionResultHolder.fail(stack);
         }
+
+        if (!level.isClientSide()) {
+            UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayer) player, stack, (ServerLevel) level, player.getX(), player.getY(), player.getZ());
+        }
+
         return super.use(level, player, usedHand);
     }
 

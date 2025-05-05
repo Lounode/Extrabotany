@@ -4,7 +4,7 @@ import com.demonwav.mcdev.annotations.Translatable;
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 import net.minecraft.resources.ResourceLocation;
 
-public class TextPage extends AbstractPage {
+public class TextPage extends AbstractPage<TextPage> {
 
     public TextPage(@Translatable String text) {
         object.addProperty("text", text);

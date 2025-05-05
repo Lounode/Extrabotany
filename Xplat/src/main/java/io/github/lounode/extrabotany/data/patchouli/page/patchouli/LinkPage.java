@@ -3,7 +3,7 @@ package io.github.lounode.extrabotany.data.patchouli.page.patchouli;
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 import net.minecraft.resources.ResourceLocation;
 
-public class LinkPage extends AbstractPage {
+public class LinkPage extends AbstractPage<LinkPage> {
 
     public LinkPage(String url, String linkText, String text) {
         this.object.addProperty("url", url);

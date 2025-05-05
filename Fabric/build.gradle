@@ -178,6 +178,10 @@ dependencies {
     modImplementation "com.github.Lounode.EventWrapper:eventwrapper-fabric:1.20.1-SNAPSHOT"
 }
 
+configurations.configureEach {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 compileJava {
     source(project(":Xplat").sourceSets.main.allSource)
     options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial"

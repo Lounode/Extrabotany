@@ -4,7 +4,7 @@ import com.demonwav.mcdev.annotations.Translatable;
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 import net.minecraft.resources.ResourceLocation;
 
-public class SmithingPage extends AbstractPage {
+public class SmithingPage extends AbstractPage<SmithingPage> {
     public SmithingPage(String recipe) {
         object.addProperty("recipe", recipe);
     }
