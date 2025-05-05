@@ -13,8 +13,7 @@ public abstract class ItemCustomEnchantableSupporter {
     @Inject(
             method = "canEnchant",
             at = @At("RETURN"),
-            cancellable = true,
-            remap = true
+            cancellable = true
     )
     private void onCanEnchant(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (stack.getItem() instanceof ICustomEnchantable checker) {

@@ -11,5 +11,6 @@
   },
   "client": [
   
-  ]
+  ],
+  "refmap": "extrabotany.refmap.json"
 }

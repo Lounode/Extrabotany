@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public class DenyJumpMixin {
-    @Inject(method = "getJumpPower", at = @At("RETURN"), remap = false, cancellable = true)
+    @Inject(method = "getJumpPower", at = @At("RETURN"), cancellable = true)
     private void getJumpPower(CallbackInfoReturnable<Float> cir) {
         LivingEntity self = (LivingEntity)(Object)this;
         if (self.hasEffect(ExtraBotanyMobEffects.IMMOBILIZE)) {

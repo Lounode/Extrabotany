@@ -18,7 +18,7 @@ import java.util.List;
 
 @Mixin(EnchantmentHelper.class)
 public class ItemCustomEnchantableEnchantTableSupporter {
-    @Inject(method = "getAvailableEnchantmentResults", at = @At("RETURN"), remap = false, cancellable = true)
+    @Inject(method = "getAvailableEnchantmentResults", at = @At("RETURN"), cancellable = true)
     private static void getFixedAvailableEnchantmentResults(int level, ItemStack stack, boolean allowTreasure, CallbackInfoReturnable<List<EnchantmentInstance>> cir) {
         if (!(stack.getItem() instanceof ICustomEnchantable supporter)) {
             return;
