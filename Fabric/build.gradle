@@ -64,7 +64,6 @@ sourceSets.main.resources {
 }
 
 repositories {
-    mavenLocal()
     maven {
         name = "Modmuss"
         url = "https://maven.modmuss50.me/"
@@ -123,6 +122,10 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        name = "lounode"
+        url = "https://maven.lounode.top/releases"
+    }
 
 
 }
@@ -175,7 +178,8 @@ dependencies {
     modImplementation "com.terraformersmc:modmenu:7.2.2"
 
     //modImplementation("io.github.lounode.eventwrapper:eventwrapper-fabric:1.20.1-1.0.0-SNAPSHOT")
-    modImplementation "com.github.Lounode.EventWrapper:eventwrapper-fabric:1.20.1-SNAPSHOT"
+    //modImplementation "com.github.Lounode.EventWrapper:eventwrapper-fabric:1.20.1-SNAPSHOT"
+    modImplementation "io.github.lounode.eventwrapper:eventwrapper-fabric:1.20.1-1.0.0-SNAPSHOT"
 }
 
 configurations.configureEach {
@@ -243,7 +247,14 @@ publishing {
 
     repositories {
         if (System.getenv("GITHUB_ACTIONS") != null) {
-
+            maven {
+                name = "lounode"
+                url = "https://maven.lounode.top/releases"
+                credentials {
+                    username = System.getenv("MAVEN_USERNAME")
+                    password = System.getenv("MAVEN_TOKEN")
+                }
+            }
         } else {
             mavenLocal()
         }

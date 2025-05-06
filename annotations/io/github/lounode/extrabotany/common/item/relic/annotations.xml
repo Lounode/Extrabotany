@@ -1,0 +1,29 @@
+<root>
+    <item name='io.github.lounode.extrabotany.common.item.relic.CameraItem int getUseDuration(net.minecraft.world.item.ItemStack) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.CameraItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.CameraItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.CameraItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.CameraItem net.minecraft.world.item.UseAnim getUseAnimation(net.minecraft.world.item.ItemStack)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.CameraItem net.minecraft.world.item.UseAnim getUseAnimation(net.minecraft.world.item.ItemStack) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.CameraItem void releaseUsing(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity, int) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.CameraItem void releaseUsing(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity, int) 1'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.CameraItem void releaseUsing(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity, int) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>
