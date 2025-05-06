@@ -217,7 +217,7 @@ task apiJar(type: Jar, dependsOn: classes) {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId project.group
+            groupId mod_group_id
             artifactId project.archivesBaseName
             version project.version
             artifact jar
