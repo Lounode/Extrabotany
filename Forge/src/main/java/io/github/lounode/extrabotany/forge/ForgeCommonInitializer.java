@@ -8,17 +8,19 @@ import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
 import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
-import io.github.lounode.extrabotany.common.brew.effect.ExtraBotanyMobEffects;
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.brew.InfiniteWineItem;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
 import io.github.lounode.extrabotany.common.item.relic.*;
+import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
-import io.github.lounode.extrabotany.common.telemetry.ExtraBotanyTelemetry;
 import io.github.lounode.extrabotany.forge.network.ForgePacketHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
@@ -36,8 +38,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -47,6 +47,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 import vazkii.botania.api.BotaniaForgeCapabilities;
+import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.handler.EquipmentHandler;
@@ -112,6 +113,7 @@ public class ForgeCommonInitializer
 
         // Potions
         bind(modEventBus, Registries.MOB_EFFECT, ExtraBotanyMobEffects::registerPotions);
+        bind(modEventBus, BotaniaRegistries.BREWS, ExtraBotanyBrews::submitRegistrations);
 
         // Rest
         //registerDatas(modEventBus);
@@ -153,24 +155,10 @@ public class ForgeCommonInitializer
         bus.addGenericListener(Level.class, this::attachLevelCaps);
 
         bus.addListener(this::registerFuels);
-
-        bus.addListener((ServerStartedEvent event) -> {
-            ExtraBotanyTelemetry.getInstance();
-            ExtraBotanyTelemetry.onServerStarted(event.getServer());
-        });
-        bus.addListener((ServerStoppingEvent event) -> {
-            ExtraBotanyTelemetry.onServerStopping(event.getServer());
-        });
     }
 
     private void registerFuels(FurnaceFuelBurnTimeEvent e) {
         //TODO 可配置燃烧时间
-        if (e.getItemStack().is(ExtraBotanyItems.nightmareFuel)) {
-            e.setBurnTime(3200);
-        }
-        if (e.getItemStack().is(ExtraBotanyItems.spiritFuel)) {
-            e.setBurnTime(12800);
-        }
     }
 
     private void attachLevelCaps(AttachCapabilitiesEvent<Level> event) {
@@ -217,7 +205,9 @@ public class ForgeCommonInitializer
             ExtraBotanyItems.failnaught, FailnaughtItem::makeRelic,
             ExtraBotanyItems.excalibur, ExcaliburItem::makeRelic,
             ExtraBotanyItems.coreOfTheVoid, CoreOfTheVoidItem::makeRelic,
-            ExtraBotanyItems.pandorasBox, PandorasBoxItem::makeRelic
+            ExtraBotanyItems.pandorasBox, PandorasBoxItem::makeRelic,
+            ExtraBotanyItems.infiniteWine, InfiniteWineItem::makeRelic,
+            ExtraBotanyItems.voidArchives, VoidArchivesItem::makeRelic
     ));
 
 

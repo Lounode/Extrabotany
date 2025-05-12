@@ -1,4 +1,58 @@
 <root>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem int getUseDuration(net.minecraft.world.item.ItemStack) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem net.minecraft.world.InteractionResult useOn(net.minecraft.world.item.context.UseOnContext)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem net.minecraft.world.InteractionResult useOn(net.minecraft.world.item.context.UseOnContext) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand) 1'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem net.minecraft.world.item.ItemStack finishUsingItem(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem net.minecraft.world.item.ItemStack finishUsingItem(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem net.minecraft.world.item.ItemStack finishUsingItem(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity) 1'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem net.minecraft.world.item.ItemStack finishUsingItem(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem net.minecraft.world.item.UseAnim getUseAnimation(net.minecraft.world.item.ItemStack)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem net.minecraft.world.item.UseAnim getUseAnimation(net.minecraft.world.item.ItemStack) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem void appendHoverText(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, java.util.List&lt;net.minecraft.network.chat.Component&gt;, net.minecraft.world.item.TooltipFlag) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem void appendHoverText(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, java.util.List&lt;net.minecraft.network.chat.Component&gt;, net.minecraft.world.item.TooltipFlag) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaCocktailItem void appendHoverText(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, java.util.List&lt;net.minecraft.network.chat.Component&gt;, net.minecraft.world.item.TooltipFlag) 3'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaGlassBottleItem net.minecraft.world.InteractionResult useOn(net.minecraft.world.item.context.UseOnContext)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.ManaGlassBottleItem net.minecraft.world.InteractionResult useOn(net.minecraft.world.item.context.UseOnContext) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
     <item name='io.github.lounode.extrabotany.common.item.RewardBagItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand)'>
         <annotation name='org.jetbrains.annotations.NotNull'/>
     </item>

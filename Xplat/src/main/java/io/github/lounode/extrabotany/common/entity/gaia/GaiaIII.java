@@ -64,7 +64,6 @@ public class GaiaIII extends Gaia {
 
         //all checks ok, spawn the boss
         if (!world.isClientSide()) {
-            stack.shrink(1);
             GaiaIII gaia = new GaiaIII(world, pos);
             gaia.setArena(arena);
             gaia.setPos(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);

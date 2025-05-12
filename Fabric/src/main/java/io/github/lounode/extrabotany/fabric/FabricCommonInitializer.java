@@ -6,24 +6,24 @@ import io.github.lounode.extrabotany.api.ExtrabotanyFabricCapabilities;
 import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
-import io.github.lounode.extrabotany.common.brew.effect.ExtraBotanyMobEffects;
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.brew.InfiniteWineItem;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
 import io.github.lounode.extrabotany.common.item.relic.*;
+import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
-import io.github.lounode.extrabotany.common.telemetry.ExtraBotanyTelemetry;
 import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.impl.ModContainerImpl;
 import net.minecraft.ChatFormatting;
@@ -34,7 +34,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
+import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 
@@ -43,6 +45,8 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 public class FabricCommonInitializer implements ModInitializer {
+    //private static final Registry<Brew> BREW_REGISTRY = FabricRegistryBuilder.createDefaulted(BotaniaRegistries.BREWS, prefix("fallback")).buildAndRegister();
+
     @Override
     public void onInitialize() {
         coreInit();
@@ -62,6 +66,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private void registryInit() {
         // Core item/block/BE
         ExtraBotanySounds.init(bind(BuiltInRegistries.SOUND_EVENT));
@@ -82,6 +87,18 @@ public class FabricCommonInitializer implements ModInitializer {
 
         // Potions
         ExtraBotanyMobEffects.registerPotions(bind(BuiltInRegistries.MOB_EFFECT));
+
+        //Use force class load because sometimes registry not init
+        Registry<Brew> BREW_REGISTRY = BotaniaAPI.instance().getBrewRegistry();
+        if (BREW_REGISTRY == null) {
+            try {
+                Class.forName("vazkii.botania.fabric.FabricCommonInitializer");
+            } catch (Exception ignored) {}
+
+            BREW_REGISTRY = BotaniaAPI.instance().getBrewRegistry();
+            assert BREW_REGISTRY != null;
+        }
+        ExtraBotanyBrews.submitRegistrations(bind(BREW_REGISTRY));
 
         // Rest
         ExtrabotanyCriteriaTriggers.init();
@@ -117,15 +134,6 @@ public class FabricCommonInitializer implements ModInitializer {
                 AutoEventSubscriberRegistryFabric.register(impl);
             }
         });
-
-        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-            ExtraBotanyTelemetry.getInstance();
-            ExtraBotanyTelemetry.onServerStarted(server);
-        });
-
-        ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
-            ExtraBotanyTelemetry.onServerStopping(server);
-        });
     }
 
     private void registerCapabilities() {
@@ -137,11 +145,13 @@ public class FabricCommonInitializer implements ModInitializer {
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ExcaliburItem.makeRelic(st), ExtraBotanyItems.excalibur);
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> CoreOfTheVoidItem.makeRelic(st), ExtraBotanyItems.coreOfTheVoid);
         BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> PandorasBoxItem.makeRelic(st), ExtraBotanyItems.pandorasBox);
+        BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> InfiniteWineItem.makeRelic(st), ExtraBotanyItems.infiniteWine);
+        BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> VoidArchivesItem.makeRelic(st), ExtraBotanyItems.voidArchives);
     }
 
     private void registerFuels() {
-        FuelRegistry.INSTANCE.add(ExtraBotanyItems.nightmareFuel, 3200);
-        FuelRegistry.INSTANCE.add(ExtraBotanyItems.spiritFuel, 12800);
+        //FuelRegistry.INSTANCE.add(ExtraBotanyItems.nightmareFuel, 3200);
+        //FuelRegistry.INSTANCE.add(ExtraBotanyItems.spiritFuel, 12800);
     }
 
     private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {

@@ -1,10 +1,16 @@
 package io.github.lounode.extrabotany.common.block.block_entity;
 
+import com.google.common.base.Suppliers;
 import io.github.lounode.extrabotany.api.block.Pedestal;
+import io.github.lounode.extrabotany.api.gaia.BlockPatternExtend;
+import io.github.lounode.extrabotany.api.gaia.BlockPatternExtendBuilder;
+import io.github.lounode.extrabotany.api.gaia.BlockTagPredicate;
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
 import io.github.lounode.extrabotany.common.block.PedestalBlock;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
+import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -24,26 +30,120 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.patchouli.api.IMultiblock;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity implements Pedestal {
+    public static final BlockPos[] POOL_LOCATIONS = {
+            new BlockPos(3, 0, 3), new BlockPos(-3, 0, 3), new BlockPos(3, 0, -3), new BlockPos(-3, 0, -3)
+    };
+
+    public static final String[][] TIER1_PATTERN = {
+            {
+
+                    "P___P",
+                    "_____",
+                    "__B__",
+                    "_____",
+                    "P___P",
+            }
+    };
+
+    public static final String[][] TIER2_PATTERN = {
+            {
+                    "P_____P",
+                    "_______",
+                    "_______",
+                    "_______",
+                    "_______",
+                    "_______",
+                    "P_____P",
+            },
+            {
+                    "M_____M",
+                    "_P___P_",
+                    "_______",
+                    "___B___",
+                    "_______",
+                    "_P___P_",
+                    "M_____M",
+            },
+            {
+                    "_______",
+                    "_SSSSS_",
+                    "_S___S_",
+                    "_S___S_",
+                    "_S___S_",
+                    "_SSSSS_",
+                    "_______",
+            },
+    };
+
+    public static final Supplier<IMultiblock> TIER_1_PATCHOULI = Suppliers.memoize(() -> {
+        var pedestal = PatchouliAPI.get().tagMatcher(ExtraBotanyTags.Blocks.PEDESTALS);
+        return PatchouliAPI.get().makeMultiblock(
+                TIER1_PATTERN,
+                'P', BotaniaBlocks.naturaPylon,
+                'B', pedestal
+        );
+    });
+
+    public static final Supplier<IMultiblock> TIER_2_PATCHOULI = Suppliers.memoize(() -> {
+        var pedestal = PatchouliAPI.get().tagMatcher(ExtraBotanyTags.Blocks.PEDESTALS);
+        var manaPool = PatchouliAPI.get().tagMatcher(ExtraBotanyTags.Blocks.MANA_POOLS);
+        return PatchouliAPI.get().makeMultiblock(
+                TIER2_PATTERN,
+                'P', BotaniaBlocks.naturaPylon,
+                'B', pedestal,
+                'S', BotaniaBlocks.shimmerrock,
+                'M', manaPool
+        );
+    });
+
+    public static final Predicate<BlockInWorld>[][][] TIER_1_PATTERN = BlockPatternExtendBuilder.start()
+            .aisle(TIER1_PATTERN[0])
+            .where('_', BlockInWorld.hasState(BlockStatePredicate.ANY))
+            .where('B', BlockInWorld.hasState(BlockTagPredicate.forTag(ExtraBotanyTags.Blocks.PEDESTALS)))
+            .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(BotaniaBlocks.naturaPylon)))
+            .createPattern();
+
+    public static final Predicate<BlockInWorld>[][][] TIER_2_PATTERN = BlockPatternExtendBuilder.start()
+            .aisle(TIER2_PATTERN[0])
+            .aisle(TIER2_PATTERN[1])
+            .aisle(TIER2_PATTERN[2])
+            .where('_', BlockInWorld.hasState(BlockStatePredicate.ANY))
+            .where('B', BlockInWorld.hasState(BlockTagPredicate.forTag(ExtraBotanyTags.Blocks.PEDESTALS)))
+            .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(BotaniaBlocks.naturaPylon)))
+            .where('S', BlockInWorld.hasState(BlockStatePredicate.forBlock(BotaniaBlocks.shimmerrock)))
+            .where('M', BlockInWorld.hasState(BlockTagPredicate.forTag(ExtraBotanyTags.Blocks.MANA_POOLS)))
+            .createPattern();
 
     private final int FINISH_CRAFT_STRIKE_FLAG = -1;
     private int strikes;
+    private int tier;
     private Map<ItemStack, ItemFrame> automaticHammers = new HashMap<>();
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ExtraBotanyBlockEntities.PEDESTAL, pos, state);
@@ -446,9 +546,30 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
     }
 
     //TODO 精神燃料自动化
-    public static void serverTick(Level level, BlockPos worldPosition, BlockState state, PedestalBlockEntity self) {
+    public static void serverTick(Level level, BlockPos pos, BlockState state, PedestalBlockEntity self) {
         if (level.getGameTime() % 10 == 0) {
             self.markUpdated();
+        }
+
+        //Lazy
+        if (level.getGameTime() % (20 * 5) == 0) {
+            self.updateTier();
+        }
+
+        var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(self.getInsideItem());
+        if (natureItem != null) {
+            //Hot
+            if (level.getGameTime() % 20 == 0) {
+                self.updateTier();
+            }
+
+            int chargeAmount = self.getChargeAmount();
+            if (chargeAmount > 0) {
+                natureItem.addEnergy(chargeAmount);
+                WispParticleData data = WispParticleData.wisp(0.5F, 0.15F, 0.8F, 0.15F);
+                ((ServerLevel)level).sendParticles(data, pos.getX() + 0.5F, pos.getY() + 1.1F, pos.getZ() + 0.5, 1, 0 ,0 ,0, 0);
+            }
+
         }
 
         if (level.getGameTime() % 20 == 0) {
@@ -456,7 +577,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
             self.updateAutomaticHammers();
             if (lastHammers != self.automaticHammers.size() && self.automaticHammers.size() == 4) {
                 Player nearestPlayer = level.getNearestPlayer(
-                        worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(),
+                        pos.getX(), pos.getY(), pos.getZ(),
                         10, false
                 );
                 if (nearestPlayer != null) {
@@ -477,8 +598,47 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
             }
         }
 
-        //if (level.getGameTime())
     }
+
+    public int getChargeAmount() {
+        int amount = 0;
+
+        if (getTier() >= 1) {
+            amount += 4;
+        }
+        if (getTier() >= 2) {
+            amount += 5;
+            for(BlockPos pos : POOL_LOCATIONS) {
+                BlockEntity tile = getLevel().getBlockEntity(getBlockPos().offset(pos.getX(), pos.getY(), pos.getZ()));
+                if (tile instanceof ManaPoolBlockEntity pool && pool.getCurrentMana() >= 10) {
+                    pool.receiveMana(-10);
+                    amount += 2;
+                }
+            }
+        }
+
+
+        return amount;
+    }
+
+    public void updateTier() {
+        setTier(0);
+        if (new BlockPatternExtend(TIER_1_PATTERN).findFlat(getLevel(), getBlockPos()) != null) {
+            setTier(1);
+        }
+        if (new BlockPatternExtend(TIER_2_PATTERN).findFlat(getLevel(), getBlockPos()) != null) {
+            setTier(2);
+        }
+    }
+
+    public void setTier(int tier) {
+        this.tier = tier;
+    }
+
+    public int getTier() {
+        return this.tier;
+    }
+
     public static void clientTick(Level level, BlockPos worldPosition, BlockState state, PedestalBlockEntity self) {
 
     }

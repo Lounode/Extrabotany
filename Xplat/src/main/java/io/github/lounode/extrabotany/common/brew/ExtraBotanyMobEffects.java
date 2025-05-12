@@ -1,5 +1,8 @@
-package io.github.lounode.extrabotany.common.brew.effect;
+package io.github.lounode.extrabotany.common.brew;
 
+import io.github.lounode.extrabotany.common.brew.effect.HealReverseMobEffect;
+import io.github.lounode.extrabotany.common.brew.effect.ImmobilizeMobEffect;
+import io.github.lounode.extrabotany.common.brew.effect.LinkMobEffect;
 import io.github.lounode.extrabotany.common.lib.LibPotionNames;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;

@@ -4,7 +4,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
 public class ImmobilizeMobEffect extends MobEffect {
-    protected ImmobilizeMobEffect(MobEffectCategory category, int color) {
+    public ImmobilizeMobEffect(MobEffectCategory category, int color) {
         super(category, color);
     }
 

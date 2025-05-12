@@ -6,6 +6,7 @@ import io.github.lounode.extrabotany.network.clientbound.ManaReaderPacket;
 import io.github.lounode.extrabotany.network.clientbound.SpawnGaiaPacket;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketExcalibur;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketJingwei;
+import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketVoidArchives;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -32,6 +33,8 @@ public class ForgePacketHandler {
                 makeServerBoundHandler(LeftClickPacketExcalibur::handle));
         CHANNEL.registerMessage(i++, LeftClickPacketJingwei.class, LeftClickPacketJingwei::encode, LeftClickPacketJingwei::decode,
                 makeServerBoundHandler(LeftClickPacketJingwei::handle));
+        CHANNEL.registerMessage(i++, LeftClickPacketVoidArchives.class, LeftClickPacketVoidArchives::encode, LeftClickPacketVoidArchives::decode,
+                makeServerBoundHandler(LeftClickPacketVoidArchives::handle));
         //ClientBound
         CHANNEL.registerMessage(i++, ManaReaderPacket.class, ManaReaderPacket::encode, ManaReaderPacket::decode,
                 makeClientBoundHandler(ManaReaderPacket.Handler::handle));

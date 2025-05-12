@@ -1,0 +1,11 @@
+<root>
+    <item name='io.github.lounode.extrabotany.common.item.brew.ManaCocktailItem net.minecraft.world.item.ItemStack finishUsingItem(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.brew.ManaCocktailItem net.minecraft.world.item.ItemStack finishUsingItem(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.brew.ManaGlassBottleItem net.minecraft.world.InteractionResult useOn(net.minecraft.world.item.context.UseOnContext)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

@@ -1,4 +1,19 @@
 <root>
+    <item name='io.github.lounode.extrabotany.common.entity.HolyWaterGrenadeEntity net.minecraft.world.item.Item getDefaultItem()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.entity.HolyWaterGrenadeEntity void addAdditionalSaveData(net.minecraft.nbt.CompoundTag) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.entity.HolyWaterGrenadeEntity void onHit(net.minecraft.world.phys.HitResult) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.entity.HolyWaterGrenadeEntity void onHitBlock(net.minecraft.world.phys.BlockHitResult) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.entity.HolyWaterGrenadeEntity void readAdditionalSaveData(net.minecraft.nbt.CompoundTag) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
     <item name='io.github.lounode.extrabotany.common.entity.SkullMissileEntity void addAdditionalSaveData(net.minecraft.nbt.CompoundTag) 0'>
         <annotation name='org.jetbrains.annotations.NotNull'/>
     </item>

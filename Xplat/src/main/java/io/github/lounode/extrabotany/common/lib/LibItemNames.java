@@ -53,4 +53,8 @@ public final class LibItemNames {
     public static final String NINE_AND_THREE_QUARTERS_REWARD_BAG = "nine_and_three_quarters_reward_bag";
     public static final String GAIA_QUARTZ = "gaia_quartz";
     public static final String ELEMENTIUM_QUARTZ = "elementium_quartz";
+    public static final String MANA_GLASS_BOTTLE = "mana_glass_bottle";
+    public static final String MANA_COCKTAIL = "mana_cocktail";
+    public static final String INFINITE_WINE = "infinite_wine";
+    public static final String HOLY_WATER_GRENADE = "holy_water_grenade";
 }

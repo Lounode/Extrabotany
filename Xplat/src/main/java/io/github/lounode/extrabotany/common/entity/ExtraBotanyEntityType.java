@@ -71,6 +71,13 @@ public class ExtraBotanyEntityType {
             .updateInterval(40)
             .build(LibEntityNames.SKULL_LANDMINE_GREEN.toString());
 
+    public static final EntityType<HolyWaterGrenadeEntity> HOLY_WATER_GRENADE = EntityType.Builder.<HolyWaterGrenadeEntity>of(
+                    HolyWaterGrenadeEntity::new, MobCategory.MISC)
+            .sized(0.25F, 0.25F)
+            .clientTrackingRange(4)
+            .updateInterval(10)
+            .build(LibEntityNames.HOLY_WATER_GRENADE.toString());
+
     public static void registerEntities(BiConsumer<EntityType<?>, ResourceLocation> r) {
         r.accept(AURA_FIRE, LibEntityNames.AURA_FIRE);
         r.accept(MAGIC_LANDMINE, LibEntityNames.MAGIC_LANDMINE);
@@ -80,6 +87,7 @@ public class ExtraBotanyEntityType {
         r.accept(SKULL_LANDMINE_BLUE, LibEntityNames.SKULL_LANDMINE_BLUE);
         r.accept(SKULL_LANDMINE_RED, LibEntityNames.SKULL_LANDMINE_RED);
         r.accept(SKULL_LANDMINE_GREEN, LibEntityNames.SKULL_LANDMINE_GREEN);
+        r.accept(HOLY_WATER_GRENADE, LibEntityNames.HOLY_WATER_GRENADE);
     }
 
     public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> consumer) {

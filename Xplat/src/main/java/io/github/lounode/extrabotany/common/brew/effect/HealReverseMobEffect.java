@@ -4,13 +4,14 @@ import io.github.lounode.eventwrapper.event.entity.living.LivingHealEventWrapper
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
 @EventBusSubscriberWrapper
 public class HealReverseMobEffect extends MobEffect {
-    protected HealReverseMobEffect(MobEffectCategory category, int color) {
+    public HealReverseMobEffect(MobEffectCategory category, int color) {
         super(category, color);
     }
     @SubscribeEventWrapper

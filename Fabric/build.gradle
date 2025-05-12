@@ -21,6 +21,7 @@ loom {
         client{
             programArgs(["--username", "Dev", "--uuid", "4f201c25-b473-4c2c-959a-dea681f79c23"])
             vmArg "-XX:+AllowEnhancedClassRedefinition"
+            vmArg "-Dmetrics_debug=true"
         }
         gameTest {
             server()
@@ -121,6 +122,10 @@ repositories {
         content {
             includeGroup "curse.maven"
         }
+    }
+    maven {
+        name = "lounode"
+        url = "https://maven.lounode.top/snapshots"
     }
     maven {
         name = "lounode"
@@ -247,12 +252,23 @@ publishing {
 
     repositories {
         if (System.getenv("GITHUB_ACTIONS") != null) {
-            maven {
-                name = "lounode"
-                url = "https://maven.lounode.top/releases"
-                credentials {
-                    username = System.getenv("MAVEN_USERNAME")
-                    password = System.getenv("MAVEN_TOKEN")
+            if (System.getenv().RELEASE_MODE == null) {
+                maven {
+                    name = "lounode"
+                    url = "https://maven.lounode.top/snapshots"
+                    credentials {
+                        username = System.getenv("MAVEN_USERNAME")
+                        password = System.getenv("MAVEN_TOKEN")
+                    }
+                }
+            } else {
+                maven {
+                    name = "lounode"
+                    url = "https://maven.lounode.top/releases"
+                    credentials {
+                        username = System.getenv("MAVEN_USERNAME")
+                        password = System.getenv("MAVEN_TOKEN")
+                    }
                 }
             }
         } else {

@@ -24,6 +24,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
+import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.BurstProperties;
@@ -63,7 +64,6 @@ public class FailnaughtItem extends LivingwoodBowItem implements LensEffectItem,
 
     public FailnaughtItem(Properties props) {
         super(props);
-
     }
 
     @Override
@@ -330,7 +330,7 @@ public class FailnaughtItem extends LivingwoodBowItem implements LensEffectItem,
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
         tooltip.add(Component.translatable("tooltip.extrabotany.failnaught").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         tooltip.add(Component.literal(""));
         RelicImpl.addDefaultTooltip(stack, tooltip);

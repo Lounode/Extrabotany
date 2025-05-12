@@ -1,11 +1,16 @@
 package io.github.lounode.extrabotany.client;
 
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
+import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
+import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.network.TriConsumer;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class ExtraBotanyItemProperties {
     public static void init(TriConsumer<ItemLike, ResourceLocation, ClampedItemPropertyFunction> consumer) {
@@ -23,5 +28,30 @@ public class ExtraBotanyItemProperties {
         };
         consumer.accept(ExtraBotanyItems.failnaught, ResourceLocation.tryParse("pulling"), pulling);
         consumer.accept(ExtraBotanyItems.failnaught, ResourceLocation.tryParse("pull"), pull);
+
+        ClampedItemPropertyFunction brewGetter = (stack, world, entity, seed) -> {
+            BaseBrewItem item = ((BaseBrewItem) stack.getItem());
+            if (item.getBrew(stack) == ExtraBotanyBrews.manaCocktail && item.getSwigsLeft(stack) == 1) {
+                return 0;
+            }
+
+            return (float) (0.1D * (item.getSwigs() - item.getSwigsLeft(stack)));
+        };
+
+        ClampedItemPropertyFunction brewGetter2 = (stack, world, entity, seed) -> {
+            BaseBrewItem item = ((BaseBrewItem) stack.getItem());
+
+            return (float) (0.01D * (item.getSwigs() - item.getSwigsLeft(stack)));
+        };
+
+        consumer.accept(ExtraBotanyItems.manaCocktail, prefix("swigs_taken"), brewGetter);
+        consumer.accept(ExtraBotanyItems.infiniteWine, prefix("swigs_taken"), brewGetter2);
+
+        ClampedItemPropertyFunction voidArchivesVariantGetter = (stack, world, entity, seed) -> {
+            int variantIndex = VoidArchivesItem.getVariantIndex(stack);
+            return (float) (0.01D * variantIndex);
+        };
+
+        consumer.accept(ExtraBotanyItems.voidArchives, prefix("variant"), voidArchivesVariantGetter);
     }
 }

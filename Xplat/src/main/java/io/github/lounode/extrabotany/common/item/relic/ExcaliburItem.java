@@ -65,30 +65,34 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
     @SubscribeEventWrapper
     public static void attackEntity(AttackEntityEventWrapper event) {
         Player player = event.getEntity();
-        if (!player.level().isClientSide) {
+        if (!player.level().isClientSide && player.getMainHandItem().getItem() instanceof ExcaliburItem) {
             trySpawnBurst(player);
         }
     }
 
     public static void trySpawnBurst(Player player) {
-        trySpawnBurst(player, player.getAttackStrengthScale(0F));
-    }
-
-    public static void trySpawnBurst(Player player, float attackStrength) {
+        ItemStack stack = player.getMainHandItem();
+        if (!stack.is(ExtraBotanyItems.excalibur)) {
+            return;
+        }
+        var relic = XplatAbstractions.INSTANCE.findRelic(stack);
         if (
-                player.isSpectator() ||
-                player.getMainHandItem().isEmpty() ||
-                !player.getMainHandItem().is(ExtraBotanyItems.excalibur) ||
-                attackStrength != 1
+                relic == null || !relic.isRightPlayer(player)
 
         ) {
             return;
         }
-        ItemStack itemStack = player.getMainHandItem();
-        var relic = XplatAbstractions.INSTANCE.findRelic(itemStack);
-        if (
-                relic == null || !relic.isRightPlayer(player)
+        trySpawnBurstUnsafe(player);
+    }
 
+    public static void trySpawnBurstUnsafe(Player player) {
+        trySpawnBurstUnsafe(player, player.getAttackStrengthScale(0F));
+    }
+
+    public static void trySpawnBurstUnsafe(Player player, float attackStrength) {
+        if (
+                player.isSpectator() ||
+                attackStrength != 1
         ) {
             return;
         }

@@ -1,19 +1,24 @@
 package io.github.lounode.extrabotany.data;
 
 import com.google.gson.JsonElement;
+import com.mojang.datafixers.util.Pair;
+import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
+import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
+import io.github.lounode.extrabotany.common.item.relic.void_archives.variants.*;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.models.model.DelegatedModel;
-import net.minecraft.data.models.model.ModelLocationUtils;
-import net.minecraft.data.models.model.ModelTemplates;
-import net.minecraft.data.models.model.TextureMapping;
+import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.data.util.ModelWithOverrides;
+import vazkii.botania.data.util.OverrideHolder;
+import vazkii.botania.mixin.TextureSlotAccessor;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -21,10 +26,30 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.failnaught;
+import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.*;
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 import static vazkii.botania.data.ItemModelProvider.takeAll;
 
 public class ItemModelProvider implements DataProvider {
+    private static final TextureSlot LAYER1 = TextureSlotAccessor.make("layer1");
+    private static final TextureSlot LAYER2 = TextureSlotAccessor.make("layer2");
+    private static final TextureSlot LAYER3 = TextureSlotAccessor.make("layer3");
+    private static final ModelTemplate GENERATED_0 = new ModelTemplate(Optional.of(new ResourceLocation("item/generated")), Optional.empty(), TextureSlot.LAYER0);
+    private static final ModelTemplate GENERATED_1 = new ModelTemplate(Optional.of(new ResourceLocation("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
+    private static final ModelTemplate GENERATED_2 = new ModelTemplate(Optional.of(new ResourceLocation("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2);
+    private static final ModelTemplate HANDHELD_0 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0);
+    private static final ModelTemplate HANDHELD_1 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
+    private static final ModelTemplate HANDHELD_3 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2, LAYER3);
+    private static final ModelTemplate WALL_INVENTORY = new ModelTemplate(Optional.of(prefix("block/shapes/wall_inventory")), Optional.empty(), TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.WALL);
+    private static final ModelTemplate WALL_INVENTORY_CHECKERED = new ModelTemplate(Optional.of(prefix("block/shapes/wall_inventory_checkered")), Optional.empty(), TextureSlot.NORTH, TextureSlot.SIDE);
+    private static final TextureSlot OUTSIDE = TextureSlotAccessor.make("outside");
+    private static final TextureSlot CORE = TextureSlotAccessor.make("core");
+    private static final ModelTemplate SPREADER = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_item")), Optional.empty(), TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, OUTSIDE, CORE);
+    private static final ModelWithOverrides GENERATED_OVERRIDES = new ModelWithOverrides(new ResourceLocation("item/generated"), TextureSlot.LAYER0);
+    private static final ModelWithOverrides GENERATED_OVERRIDES_1 = new ModelWithOverrides(new ResourceLocation("item/generated"), TextureSlot.LAYER0, LAYER1);
+    private static final ModelWithOverrides HANDHELD_OVERRIDES = new ModelWithOverrides(new ResourceLocation("item/handheld"), TextureSlot.LAYER0);
+    private static final ModelWithOverrides HANDHELD_OVERRIDES_2 = new ModelWithOverrides(new ResourceLocation("item/handheld"), TextureSlot.LAYER0, LAYER1, LAYER2);
+
     private final PackOutput packOutput;
 
     public ItemModelProvider(PackOutput packOutput) {
@@ -57,12 +82,112 @@ public class ItemModelProvider implements DataProvider {
         });
     }
     private static void registerItems(Set<Item> items, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
+        //Manual items
+        items.remove(failnaught);
+
+        takeAll(items, HAMMERS).forEach(i -> ModelTemplates.FLAT_HANDHELD_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(i), consumer));
+
         takeAll(items, i -> true).forEach(i -> ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(i), consumer));
     }
 
     private static void registerItemOverrides(Set<Item> items, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
-        //Manual items
-        items.remove(failnaught);
+
+        OverrideHolder manaCocktailOverrides = new OverrideHolder();
+        for (int i = 1; i <= 7; i++) {
+            ResourceLocation overrideModel = ModelLocationUtils.getModelLocation(manaCocktail, "_" + i);
+            GENERATED_1.create(overrideModel,
+                    TextureMapping.layer0(manaCocktail).put(LAYER1, overrideModel),
+                    consumer);
+
+            manaCocktailOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i * 0.01D));
+        }
+
+        GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(manaCocktail),
+                TextureMapping.layer0(manaCocktail).put(LAYER1, TextureMapping.getItemTexture(manaCocktail, "_0")),
+                manaCocktailOverrides,
+                consumer);
+
+        items.remove(manaCocktail);
+
+        OverrideHolder infiniteWineOverrides = new OverrideHolder();
+        for (int i = 1; i <= 12; i++) {
+            int modelSuffix = i;
+            if (i== 1 || i == 2 || i == 3) modelSuffix = 3;
+            else if (i == 4 || i == 5) modelSuffix = 5;
+            else if (i == 6 || i == 7) modelSuffix = 7;
+            else if (i == 8 || i == 9) modelSuffix = 9;
+            else if (i == 10 || i == 11) modelSuffix = 11;
+
+            ResourceLocation overrideModel = ModelLocationUtils.getModelLocation(infiniteWine, "_" + modelSuffix);
+            if (i == modelSuffix) {
+                if (i != 12) {
+                    GENERATED_1.create(overrideModel,
+                            TextureMapping.layer0(infiniteWine).put(LAYER1, overrideModel),
+                            consumer);
+                } else {
+                    GENERATED_0.create(overrideModel,
+                            TextureMapping.layer0(infiniteWine),
+                            consumer);
+                }
+
+
+                infiniteWineOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i * 0.01D));
+            }
+        }
+
+        GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(infiniteWine),
+                TextureMapping.layer0(infiniteWine).put(LAYER1, TextureMapping.getItemTexture(infiniteWine, "_0")),
+                infiniteWineOverrides,
+                consumer);
+
+        items.remove(infiniteWine);
+
+        OverrideHolder holyWaterGrenadeOverrides = new OverrideHolder();
+
+        GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(holyWaterGrenade),
+                TextureMapping.layer0(holyWaterGrenade).put(LAYER1, TextureMapping.getItemTexture(holyWaterGrenade, "_cover")),
+                holyWaterGrenadeOverrides,
+                consumer);
+
+        items.remove(holyWaterGrenade);
+
+        OverrideHolder voidArchivesOverrides = new OverrideHolder();
+        int index = 1;
+        for (var variant : ExtraBotanyAPI.instance().getVoidArchivesVariants().entrySet()) {
+            String key = variant.getKey();
+            ResourceLocation overrideModel = ModelLocationUtils.getModelLocation(voidArchives, "_" + key);
+
+            if (key.equals(VoidArchivesVariant.DEFAULT.getId())) {
+                continue;
+            }
+            if (key.equals(Excalibur.INSTANCE.getId())) {
+                HANDHELD_0.create(overrideModel,
+                        TextureMapping.layer0(excalibur),
+                        consumer);
+            }
+            if (key.equals(FruitOfGrisaia.INSTANCE.getId())) {
+                GENERATED_0.create(overrideModel, TextureMapping.layer0(BotaniaItems.infiniteFruit), consumer);
+            }
+            if (key.equals(Camera.INSTANCE.getId())) {
+                GENERATED_0.create(overrideModel, TextureMapping.layer0(camera), consumer);
+            }
+            if (key.equals(Failnaught.INSTANCE.getId())) {
+                GENERATED_0.create(overrideModel, TextureMapping.layer0(failnaught), consumer);
+            }
+            if (key.equals(InfiniteWine.INSTANCE.getId())) {
+                GENERATED_0.create(overrideModel, TextureMapping.layer0(infiniteWine), consumer);
+            }
+
+            voidArchivesOverrides.add(overrideModel, Pair.of(prefix("variant"), (double) index * 0.01D));
+            index++;
+        }
+
+        GENERATED_OVERRIDES.create(ModelLocationUtils.getModelLocation(voidArchives),
+                TextureMapping.layer0(voidArchives),
+                voidArchivesOverrides,
+                consumer);
+
+        items.remove(voidArchives);
     }
     @NotNull
     @Override

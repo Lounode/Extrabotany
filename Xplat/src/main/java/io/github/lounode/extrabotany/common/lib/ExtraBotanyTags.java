@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.common.lib;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
@@ -28,11 +29,15 @@ public class ExtraBotanyTags {
         public static final TagKey<Item> HAMMERS = tag("hammers");
         public static final TagKey<Item> PEDESTALS = tag("pedestals");
         public static final TagKey<Item> REWARD_BAGS = tag("reward_bags");
+        public static final TagKey<Item> MANA_POOLS = tag("botania", "mana_pools");
 
 
 
         private static TagKey<Item> tag(String name) {
             return TagKey.create(Registries.ITEM, prefix(name));
+        }
+        private static TagKey<Item> tag(String namespace, String name) {
+            return TagKey.create(Registries.ITEM, ResourceLocation.tryBuild(namespace, name));
         }
     }
 
@@ -42,9 +47,14 @@ public class ExtraBotanyTags {
         public static final TagKey<Block> BLOCKS_SHADOWIUM = tag("shadowium_blocks");
         public static final TagKey<Block> BLOCKS_AERIALITE = tag("aerialite_blocks");
         public static final TagKey<Block> PEDESTALS = tag("pedestals");
+        public static final TagKey<Block> MANA_POOLS = tag("botania", "mana_pools");
 
         private static TagKey<Block> tag(String name) {
             return TagKey.create(Registries.BLOCK, prefix(name));
+        }
+
+        private static TagKey<Block> tag(String namespace, String name) {
+            return TagKey.create(Registries.BLOCK, ResourceLocation.tryBuild(namespace, name));
         }
     }
 

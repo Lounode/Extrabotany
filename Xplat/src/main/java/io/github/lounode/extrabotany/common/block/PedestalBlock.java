@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -57,7 +58,10 @@ public class PedestalBlock extends BotaniaWaterloggedBlock implements EntityBloc
     protected PedestalBlock(Variant v, BlockBehaviour.Properties builder) {
         super(builder);
         this.variant = v;
-        this.registerDefaultState(this.stateDefinition.any().setValue(HAS_ITEM, Boolean.FALSE));
+        this.registerDefaultState(this.defaultBlockState()
+                .setValue(HAS_ITEM, false)
+                .setValue(BlockStateProperties.WATERLOGGED, false)
+        );
     }
 
     @NotNull

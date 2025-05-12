@@ -51,6 +51,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 
         this.copy(ExtraBotanyTags.Blocks.PEDESTALS, ExtraBotanyTags.Items.PEDESTALS);
+        this.copy(ExtraBotanyTags.Blocks.MANA_POOLS, ExtraBotanyTags.Items.MANA_POOLS);
 
         this.tag(ExtraBotanyTags.Items.REWARD_BAGS).add(REWARD_BAGS);
 

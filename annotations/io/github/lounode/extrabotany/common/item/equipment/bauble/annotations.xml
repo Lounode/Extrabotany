@@ -1,0 +1,17 @@
+<root>
+    <item name='io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem boolean isBarVisible(net.minecraft.world.item.ItemStack) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem int getBarColor(net.minecraft.world.item.ItemStack) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem int getBarWidth(net.minecraft.world.item.ItemStack) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem net.minecraft.world.InteractionResult useOn(net.minecraft.world.item.context.UseOnContext)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem net.minecraft.world.InteractionResult useOn(net.minecraft.world.item.context.UseOnContext) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

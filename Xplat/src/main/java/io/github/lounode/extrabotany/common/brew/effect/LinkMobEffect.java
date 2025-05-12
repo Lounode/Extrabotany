@@ -4,6 +4,7 @@ import io.github.lounode.eventwrapper.event.entity.living.LivingHurtEventWrapper
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
@@ -16,7 +17,7 @@ public class LinkMobEffect extends MobEffect {
     private static final float BASE_RATIO = 0.2F;
     private static final float PER_LEVEL_BONUS = 0.2F;
     //private static final int MAX_LINK_ENTITY = 10;
-    protected LinkMobEffect(MobEffectCategory category, int color) {
+    public LinkMobEffect(MobEffectCategory category, int color) {
         super(category, color);
     }
 

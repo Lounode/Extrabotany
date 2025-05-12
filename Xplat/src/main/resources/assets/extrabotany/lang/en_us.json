@@ -142,6 +142,11 @@
   "item.extrabotany.pandoras_box": "潘多拉魔盒",
   "item.extrabotany.gaia_quartz": "盖亚石英",
   "item.extrabotany.elementium_quartz": "源质石英",
+  "item.extrabotany.mana_glass_bottle": "魔力玻璃瓶",
+  "item.extrabotany.mana_cocktail": "秘制%s鸡尾酒 (%s)",
+  "item.extrabotany.mana_cocktail.default": "魔力鸡尾酒",
+  "item.extrabotany.infinite_wine": "无限%s酒 (%s)",
+  "item.extrabotany.holy_water_grenade": "%s圣水手雷",
   
   "message.extrabotany.actionbar.mana_left": "Mana: %s",
   "message.extrabotany.chat.bad_struct": "无论你多么努力地尝试将%1$s送入信标之中，什么事都没有发生。也许你摆放的仪式结构有问题。",
@@ -160,6 +165,14 @@
   "tooltip.extrabotany.camera": "能够使用念写程度的能力",
   "tooltip.extrabotany.excalibur": "吾王剑锋所指 吾等心之所向",
   "tooltip.extrabotany.failnaught": "百发百中",
+  "tooltip.extrabotany.nature_orb.energy": "自然之息：%s",
+  "tooltip.extrabotany.nature_orb.tier1": "魔力的加护",
+  "tooltip.extrabotany.nature_orb.tier2": "再生的加护",
+  "tooltip.extrabotany.nature_orb.tier3": "森罗的加护",
+  "tooltip.extrabotany.buff_for_enemy": "对敌方",
+  "tooltip.extrabotany.buff_for_self": "对己方",
+  
+  "extrabotany.brew.mana_cocktail": "魔力",
   
   "extrabotany.wings.herrscher": "Wings: Herrscher",
   "extrabotany.wings.steampunk": "Wings: Steampunk",

@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.api;
 
 import io.github.lounode.extrabotany.api.item.CoreOfTheVoidVariant;
+import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
@@ -102,9 +103,15 @@ public interface ExtraBotanyAPI {
         return INSTANCE;
     }
 
-    default void registerCOVVariant(CoreOfTheVoidVariant variant) {}
+    default void registerCOVVariant(CoreOfTheVoidVariant variant) {};
+    default void registerVoidArchivesVariant(VoidArchivesVariant variant) {};
 
-    default Map<String ,CoreOfTheVoidVariant> getCOVVariants() {
+    default Map<String, CoreOfTheVoidVariant> getCOVVariants() {
         return new HashMap<>();
     }
+
+    default Map<String, VoidArchivesVariant> getVoidArchivesVariants() {
+        return new HashMap<>();
+    }
+
 }

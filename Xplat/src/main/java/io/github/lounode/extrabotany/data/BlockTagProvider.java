@@ -10,6 +10,7 @@ import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -41,6 +42,12 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
         tag(ExtraBotanyTags.Blocks.BLOCKS_SHADOWIUM).add(shadowiumBlock);
 
         tag(ExtraBotanyTags.Blocks.PEDESTALS).add(ALL_PEDESTALS);
+        tag(ExtraBotanyTags.Blocks.MANA_POOLS).add(
+                BotaniaBlocks.manaPool,
+                BotaniaBlocks.creativePool,
+                BotaniaBlocks.dilutedPool,
+                BotaniaBlocks.fabulousPool
+        );
 
         registerMiningTags();
     }

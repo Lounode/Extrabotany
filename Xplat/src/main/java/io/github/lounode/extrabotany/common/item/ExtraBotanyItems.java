@@ -1,5 +1,9 @@
 package io.github.lounode.extrabotany.common.item;
 
+import io.github.lounode.extrabotany.common.item.brew.HolyWaterGrenadeItem;
+import io.github.lounode.extrabotany.common.item.brew.InfiniteWineItem;
+import io.github.lounode.extrabotany.common.item.brew.ManaCocktailItem;
+import io.github.lounode.extrabotany.common.item.brew.ManaGlassBottleItem;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
 import io.github.lounode.extrabotany.common.item.equipment.shield.ManasteelShieldItem;
@@ -9,6 +13,7 @@ import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.RheinHamm
 import io.github.lounode.extrabotany.common.item.material.BossBattleItem;
 import io.github.lounode.extrabotany.common.item.material.HammerTiers;
 import io.github.lounode.extrabotany.common.item.relic.*;
+import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
 import io.github.lounode.extrabotany.data.recipes.WandOfTheForestExtendRecipe;
@@ -35,12 +40,12 @@ public final class ExtraBotanyItems {
     //Mana Item
     public static final Item zadkiel = make(prefix(LibItemNames.ZADKIEL), new ZadkielItem(unstackable()));
     public static final Item manaReader = make(prefix(LibItemNames.MANA_READER), new ManaReaderItem(unstackable()));
-    public static final Item natureOrb = make(prefix(LibItemNames.NATURE_ORB), new NatureOrbItem(unstackable()));
+    public static final Item natureOrb = make(prefix(LibItemNames.NATURE_ORB), new NatureOrbItem(unstackable().rarity(Rarity.UNCOMMON)));
     public static final Item featherOfJingwei = make(prefix(LibItemNames.FEATHER_OF_JINGWEI), new FeatherOfJingweiItem(unstackable()));
     public static final Item magicFinger = make(prefix(LibItemNames.MAGIC_FINGER), new MagicFingerItem(unstackable()));
     public static final Item walkingCane = make(prefix(LibItemNames.WALKING_CANE), new WalkingCaneItem(unstackable()));
     public static final Item coreOfTheVoid = make(prefix(LibItemNames.CORE_OF_THE_VOID), new CoreOfTheVoidItem(unstackable().rarity(Rarity.UNCOMMON)));
-    public static final Item voidArchives = make(prefix(LibItemNames.VOID_ARCHIVES), new Item(unstackable().rarity(Rarity.EPIC)));
+    public static final Item voidArchives = make(prefix(LibItemNames.VOID_ARCHIVES), new VoidArchivesItem(unstackable().rarity(Rarity.EPIC)));
 
     //Hammer
     public static final Item manasteelHammer = make(prefix(LibItemNames.MANASTEEL_HAMMER),
@@ -65,6 +70,13 @@ public final class ExtraBotanyItems {
     public static final Item manasteelShield = make(prefix(LibItemNames.MANASTEEL_SHIELD),
             new ManasteelShieldItem(unstackable().durability(BotaniaAPI.instance().getManasteelItemTier().getUses())));
 
+    //Relic
+    public static final Item manaRingMaster = make(prefix(LibItemNames.MANA_RING_MASTER), new MasterBandOfManaItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
+    public static final Item camera = make(prefix(LibItemNames.CAMERA), new CameraItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
+    public static final Item failnaught = make(prefix(LibItemNames.FAILNAUGHT), new FailnaughtItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
+    public static final Item excalibur = make(prefix(LibItemNames.EXCALIBUR), new ExcaliburItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
+
+
     //Material
     public static final Item orichalcos = make(prefix(LibItemNames.ORICHALCOS), new Item(defaultBuilder().rarity(Rarity.EPIC).fireResistant()));
     public static final Item photonium = make(prefix(LibItemNames.PHOTONIUM), new Item(defaultBuilder()));
@@ -81,7 +93,7 @@ public final class ExtraBotanyItems {
     public static final Item gildedPotato = make(prefix(LibItemNames.GILDED_POTATO), new Item(defaultBuilder()));
     public static final Item gildedPotatoMashed = make(prefix(LibItemNames.GILDED_POTATO_MASHED), new Item(defaultBuilder()));
     public static final Item heroMedal = make(prefix(LibItemNames.HERO_MEDAL), new BossBattleItem(defaultBuilder().rarity(Rarity.UNCOMMON)));//OT
-    public static final Item challengeTicket = make(prefix(LibItemNames.CHALLENGE_TICKET), new BossBattleItem(defaultBuilder()));//OT
+    public static final Item challengeTicket = make(prefix(LibItemNames.CHALLENGE_TICKET), new BossBattleItem(defaultBuilder()));
     public static final Item nightmareFuel = make(prefix(LibItemNames.NIGHTMARE_FUEL), new NightmareFuelItem(defaultBuilder()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0.3F).alwaysEat()
                     .effect(new MobEffectInstance(MobEffects.HARM, 1, 1), 1.0F)
@@ -92,7 +104,7 @@ public final class ExtraBotanyItems {
                     .build()
             )
     ));
-    public static final Item spiritFuel = make(prefix(LibItemNames.SPIRIT_FUEL), new Item(defaultBuilder()
+    public static final Item spiritFuel = make(prefix(LibItemNames.SPIRIT_FUEL), new SpiritFuelItem(defaultBuilder()
             .food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3F).alwaysEat()
                     .effect(new MobEffectInstance(MobEffects.HEAL, 1, 1), 1.0F)
                     .effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500, 1), 1.0F)
@@ -103,6 +115,7 @@ public final class ExtraBotanyItems {
             )
     ));
     public static final Item spiritFragment = make(prefix(LibItemNames.SPIRIT_FRAGMENT), new Item(defaultBuilder()));
+    public static final Item manaGlassBottle = make(prefix(LibItemNames.MANA_GLASS_BOTTLE), new ManaGlassBottleItem(defaultBuilder()));
 
     public static final Item theChaos = make(prefix(LibItemNames.THE_CHAOS), new Item(defaultBuilder()));
     public static final Item theOrigin = make(prefix(LibItemNames.THE_ORIGIN), new Item(defaultBuilder()));
@@ -116,12 +129,11 @@ public final class ExtraBotanyItems {
     public static final Item nineAndThreeQuartersRewardBag = make(prefix(LibItemNames.NINE_AND_THREE_QUARTERS_REWARD_BAG), new RewardBagItem(defaultBuilder(), prefix("nine_and_three_quarters")));
     public static final Item pandorasBox = make(prefix(LibItemNames.PANDORAS_BOX), new PandorasBoxItem(unstackable().rarity(Rarity.UNCOMMON), prefix("pandoras_box")));
 
+    //Brews
+    public static final Item manaCocktail = make(prefix(LibItemNames.MANA_COCKTAIL), new ManaCocktailItem(unstackable().craftRemainder(manaGlassBottle), 8, 32, () -> manaGlassBottle));
+    public static final Item infiniteWine = make(prefix(LibItemNames.INFINITE_WINE), new InfiniteWineItem(unstackable().rarity(Rarity.RARE).craftRemainder(manaGlassBottle), 12, 18, () -> manaGlassBottle));
+    public static final Item holyWaterGrenade = make(prefix(LibItemNames.HOLY_WATER_GRENADE), new HolyWaterGrenadeItem(stackTo16()));
 
-    //Relic
-    public static final Item manaRingMaster = make(prefix(LibItemNames.MANA_RING_MASTER), new MasterBandOfManaItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
-    public static final Item camera = make(prefix(LibItemNames.CAMERA), new CameraItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
-    public static final Item failnaught = make(prefix(LibItemNames.FAILNAUGHT), new FailnaughtItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
-    public static final Item excalibur = make(prefix(LibItemNames.EXCALIBUR), new ExcaliburItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
 
     //For tags
     public static final Item[] REWARD_BAGS = {

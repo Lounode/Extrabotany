@@ -1,6 +1,6 @@
 package io.github.lounode.extrabotany.mixin;
 
-import io.github.lounode.extrabotany.common.brew.effect.ExtraBotanyMobEffects;
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

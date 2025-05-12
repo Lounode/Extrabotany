@@ -1,0 +1,50 @@
+<root>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem net.minecraft.world.InteractionResult useOn(net.minecraft.world.item.context.UseOnContext)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand)'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand) 1'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem net.minecraft.world.InteractionResultHolder&lt;net.minecraft.world.item.ItemStack&gt; use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem net.minecraft.world.item.ItemStack getDefaultInstance()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem net.minecraft.world.item.ItemStack getItem()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem void appendHoverText(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, java.util.List&lt;net.minecraft.network.chat.Component&gt;, net.minecraft.world.item.TooltipFlag) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem void appendHoverText(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, java.util.List&lt;net.minecraft.network.chat.Component&gt;, net.minecraft.world.item.TooltipFlag) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem void appendHoverText(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, java.util.List&lt;net.minecraft.network.chat.Component&gt;, net.minecraft.world.item.TooltipFlag) 3'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem void inventoryTick(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.entity.Entity, int, boolean) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem void inventoryTick(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.entity.Entity, int, boolean) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem void onDestroyed(net.minecraft.world.entity.item.ItemEntity) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem void onUseTick(net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity, net.minecraft.world.item.ItemStack, int) 0'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem void onUseTick(net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity, net.minecraft.world.item.ItemStack, int) 1'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+    <item name='io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem void onUseTick(net.minecraft.world.level.Level, net.minecraft.world.entity.LivingEntity, net.minecraft.world.item.ItemStack, int) 2'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>

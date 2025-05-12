@@ -13,4 +13,5 @@ public class LibEntityNames {
     public static final ResourceLocation SKULL_LANDMINE_BLUE = prefix("skull_landmine_blue");
     public static final ResourceLocation SKULL_LANDMINE_RED = prefix("skull_landmine_red");
     public static final ResourceLocation SKULL_LANDMINE_GREEN = prefix("skull_landmine_green");
+    public static final ResourceLocation HOLY_WATER_GRENADE = prefix("holy_water_grenade");
 }

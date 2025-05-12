@@ -56,8 +56,13 @@ repositories {
     maven { url = uri("https://jitpack.io") }
     maven {
         name = "lounode"
+        url = "https://maven.lounode.top/snapshots"
+    }
+    maven {
+        name = "lounode"
         url = "https://maven.lounode.top/releases"
     }
+
 }
 
 legacyForge {
@@ -232,12 +237,23 @@ publishing {
     }
     repositories {
         if (System.getenv("GITHUB_ACTIONS") != null) {
-            maven {
-                name = "lounode"
-                url = "https://maven.lounode.top/releases"
-                credentials {
-                    username = System.getenv("MAVEN_USERNAME")
-                    password = System.getenv("MAVEN_TOKEN")
+            if (System.getenv().RELEASE_MODE == null) {
+                maven {
+                    name = "lounode"
+                    url = "https://maven.lounode.top/snapshots"
+                    credentials {
+                        username = System.getenv("MAVEN_USERNAME")
+                        password = System.getenv("MAVEN_TOKEN")
+                    }
+                }
+            } else {
+                maven {
+                    name = "lounode"
+                    url = "https://maven.lounode.top/releases"
+                    credentials {
+                        username = System.getenv("MAVEN_USERNAME")
+                        password = System.getenv("MAVEN_TOKEN")
+                    }
                 }
             }
         } else {

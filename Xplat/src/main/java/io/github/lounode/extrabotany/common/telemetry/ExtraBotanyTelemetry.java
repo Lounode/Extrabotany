@@ -1,6 +1,10 @@
 package io.github.lounode.extrabotany.common.telemetry;
 
 import com.google.gson.JsonObject;
+import io.github.lounode.eventwrapper.event.server.ServerStartedEventWrapper;
+import io.github.lounode.eventwrapper.event.server.ServerStoppingEventWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 import io.github.lounode.extrabotany.common.entity.gaia.GaiaIII;
 import io.github.lounode.extrabotany.common.entity.gaia.GaiaIIIAI;
@@ -14,7 +18,7 @@ import net.minecraft.world.Difficulty;
 
 import java.util.UUID;
 
-
+@EventBusSubscriberWrapper
 public class ExtraBotanyTelemetry {
     private static ExtraBotanyTelemetry INSTANCE;
     public static ExtraBotanyTelemetry getInstance() {
@@ -43,8 +47,9 @@ public class ExtraBotanyTelemetry {
         this.deviceSessionProperties = builder.build();
     }
 
-
-    public static void onServerStarted(MinecraftServer server) {
+    @SubscribeEventWrapper
+    public static void onServerStarted(ServerStartedEventWrapper event) {
+        var server = event.getServer();
         boolean enableTelemetry = ExtraBotanyConfig.common().enableTelemetry();
         if (!enableTelemetry) {
             return;
@@ -77,7 +82,8 @@ public class ExtraBotanyTelemetry {
         getInstance().metricsNew.start();
     }
 
-    public static void onServerStopping(MinecraftServer server) {
+    @SubscribeEventWrapper
+    public static void onServerStopping(ServerStoppingEventWrapper event) {
         var metricsNew = getInstance().metricsNew;
         if (metricsNew != null) {
             metricsNew.shutdown();

@@ -1,6 +1,6 @@
 package io.github.lounode.extrabotany.common.item.equipment.tool;
 
-import io.github.lounode.extrabotany.common.brew.effect.ExtraBotanyMobEffects;
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
