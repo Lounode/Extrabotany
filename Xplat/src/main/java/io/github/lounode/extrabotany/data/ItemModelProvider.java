@@ -34,21 +34,21 @@ public class ItemModelProvider implements DataProvider {
     private static final TextureSlot LAYER1 = TextureSlotAccessor.make("layer1");
     private static final TextureSlot LAYER2 = TextureSlotAccessor.make("layer2");
     private static final TextureSlot LAYER3 = TextureSlotAccessor.make("layer3");
-    private static final ModelTemplate GENERATED_0 = new ModelTemplate(Optional.of(new ResourceLocation("item/generated")), Optional.empty(), TextureSlot.LAYER0);
-    private static final ModelTemplate GENERATED_1 = new ModelTemplate(Optional.of(new ResourceLocation("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
-    private static final ModelTemplate GENERATED_2 = new ModelTemplate(Optional.of(new ResourceLocation("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2);
-    private static final ModelTemplate HANDHELD_0 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0);
-    private static final ModelTemplate HANDHELD_1 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
-    private static final ModelTemplate HANDHELD_3 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2, LAYER3);
+    private static final ModelTemplate GENERATED_0 = new ModelTemplate(Optional.of(ResourceLocation.tryParse("item/generated")), Optional.empty(), TextureSlot.LAYER0);
+    private static final ModelTemplate GENERATED_1 = new ModelTemplate(Optional.of(ResourceLocation.tryParse("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
+    private static final ModelTemplate GENERATED_2 = new ModelTemplate(Optional.of(ResourceLocation.tryParse("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2);
+    private static final ModelTemplate HANDHELD_0 = new ModelTemplate(Optional.of(ResourceLocation.tryParse("item/handheld")), Optional.empty(), TextureSlot.LAYER0);
+    private static final ModelTemplate HANDHELD_1 = new ModelTemplate(Optional.of(ResourceLocation.tryParse("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
+    private static final ModelTemplate HANDHELD_3 = new ModelTemplate(Optional.of(ResourceLocation.tryParse("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2, LAYER3);
     private static final ModelTemplate WALL_INVENTORY = new ModelTemplate(Optional.of(prefix("block/shapes/wall_inventory")), Optional.empty(), TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.WALL);
     private static final ModelTemplate WALL_INVENTORY_CHECKERED = new ModelTemplate(Optional.of(prefix("block/shapes/wall_inventory_checkered")), Optional.empty(), TextureSlot.NORTH, TextureSlot.SIDE);
     private static final TextureSlot OUTSIDE = TextureSlotAccessor.make("outside");
     private static final TextureSlot CORE = TextureSlotAccessor.make("core");
     private static final ModelTemplate SPREADER = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_item")), Optional.empty(), TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, OUTSIDE, CORE);
-    private static final ModelWithOverrides GENERATED_OVERRIDES = new ModelWithOverrides(new ResourceLocation("item/generated"), TextureSlot.LAYER0);
-    private static final ModelWithOverrides GENERATED_OVERRIDES_1 = new ModelWithOverrides(new ResourceLocation("item/generated"), TextureSlot.LAYER0, LAYER1);
-    private static final ModelWithOverrides HANDHELD_OVERRIDES = new ModelWithOverrides(new ResourceLocation("item/handheld"), TextureSlot.LAYER0);
-    private static final ModelWithOverrides HANDHELD_OVERRIDES_2 = new ModelWithOverrides(new ResourceLocation("item/handheld"), TextureSlot.LAYER0, LAYER1, LAYER2);
+    private static final ModelWithOverrides GENERATED_OVERRIDES = new ModelWithOverrides(ResourceLocation.tryParse("item/generated"), TextureSlot.LAYER0);
+    private static final ModelWithOverrides GENERATED_OVERRIDES_1 = new ModelWithOverrides(ResourceLocation.tryParse("item/generated"), TextureSlot.LAYER0, LAYER1);
+    private static final ModelWithOverrides HANDHELD_OVERRIDES = new ModelWithOverrides(ResourceLocation.tryParse("item/handheld"), TextureSlot.LAYER0);
+    private static final ModelWithOverrides HANDHELD_OVERRIDES_2 = new ModelWithOverrides(ResourceLocation.tryParse("item/handheld"), TextureSlot.LAYER0, LAYER1, LAYER2);
 
     private final PackOutput packOutput;
 
@@ -112,11 +112,11 @@ public class ItemModelProvider implements DataProvider {
         OverrideHolder infiniteWineOverrides = new OverrideHolder();
         for (int i = 1; i <= 12; i++) {
             int modelSuffix = i;
-            if (i== 1 || i == 2 || i == 3) modelSuffix = 3;
-            else if (i == 4 || i == 5) modelSuffix = 5;
-            else if (i == 6 || i == 7) modelSuffix = 7;
-            else if (i == 8 || i == 9) modelSuffix = 9;
-            else if (i == 10 || i == 11) modelSuffix = 11;
+            if (i== 1 || i == 2 || i == 3){ modelSuffix = 3;}
+            else if (i == 4 || i == 5){ modelSuffix = 5;}
+            else if (i == 6 || i == 7){ modelSuffix = 7;}
+            else if (i == 8 || i == 9){ modelSuffix = 9;}
+            else if (i == 10 || i == 11){ modelSuffix = 11;}
 
             ResourceLocation overrideModel = ModelLocationUtils.getModelLocation(infiniteWine, "_" + modelSuffix);
             if (i == modelSuffix) {

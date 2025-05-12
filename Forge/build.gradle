@@ -4,7 +4,7 @@ plugins {
     id 'net.neoforged.moddev.legacyforge' version '2.0.78'
 }
 
-archivesBaseName =  mod_id + "-" + "forge"
+base.archivesName = mod_id + "-" + "forge"
 version = "${minecraft_version}-${mod_version}"
 
 if (System.getenv().RELEASE_MODE != "1") {
@@ -34,14 +34,14 @@ repositories {
     }
     maven {
         name = "Unascribed"
-        url "https://repo.unascribed.com" // for ears
+        url = "https://repo.unascribed.com" // for ears
         content {
             includeGroup "com.unascribed"
         }
     }
     maven { // CURSE
-        name "CurseMaven"
-        url "https://www.cursemaven.com/"
+        name = "CurseMaven"
+        url = "https://www.cursemaven.com/"
         content {
             includeGroup "curse.maven"
         }
@@ -53,7 +53,7 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
-    maven { url = uri("https://jitpack.io") }
+    maven { url = "https://jitpack.io" }
     maven {
         name = "lounode"
         url = "https://maven.lounode.top/snapshots"
@@ -139,6 +139,7 @@ dependencies {
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
     compileOnly "com.demonwav.mcdev:annotations:2.1.0"
     compileOnly 'org.jetbrains:annotations:24.0.1'
+    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 }
 
 configurations.configureEach {
@@ -222,9 +223,9 @@ task apiJar(type: Jar, dependsOn: classes) {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId mod_group_id
-            artifactId project.archivesBaseName
-            version project.version
+            groupId = mod_group_id
+            artifactId = base.archivesName.get()
+            version = project.version
             artifact jar
             artifact sourcesJar
             artifact apiJar

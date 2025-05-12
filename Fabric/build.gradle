@@ -1,10 +1,10 @@
 plugins {
-    id('java')
+    id 'java'
     id 'fabric-loom' version '1.10-SNAPSHOT'
     id 'maven-publish'
 }
 
-archivesBaseName =  mod_id + "-" + "fabric"
+base.archivesName = mod_id + "-" + "fabric"
 version = "${minecraft_version}-${mod_version}"
 
 if (System.getenv().RELEASE_MODE != "1") {
@@ -86,14 +86,14 @@ repositories {
         url = "https://mod-buildcraft.com/maven"
     }
     maven {
-        name "entity reach"
-        url "https://maven.jamieswhiteshirt.com/libs-release/"
+        name = "entity reach"
+        url = "https://maven.jamieswhiteshirt.com/libs-release/"
     }
     maven {
-        url "https://jitpack.io" // for step height eam
+        url = "https://jitpack.io" // for step height eam
     }
     maven {
-        url "https://maven.shedaniel.me/" // for rei
+        url = "https://maven.shedaniel.me/" // for rei
     }
     maven {
         name = "ParchmentMC"
@@ -101,7 +101,7 @@ repositories {
     }
     maven {
         name = "Unascribed"
-        url "https://repo.unascribed.com" // for ears
+        url = "https://repo.unascribed.com" // for ears
         content {
             includeGroup "com.unascribed"
         }
@@ -118,7 +118,7 @@ repositories {
         url = "https://maven.minecraftforge.net"
     }
     maven {
-        url "https://cursemaven.com"
+        url = "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
@@ -165,6 +165,7 @@ dependencies {
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
     compileOnly "com.demonwav.mcdev:annotations:2.1.0"
     compileOnly 'org.jetbrains:annotations:24.0.1'
+    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
     modImplementation("dev.emi:trinkets:3.7.0") { transitive = false }
 
@@ -243,9 +244,9 @@ afterEvaluate {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId mod_group_id
-            artifactId project.archivesBaseName
-            version project.version
+            groupId = mod_group_id
+            artifactId = base.archivesName.get()
+            version = project.version
             from components.java
         }
     }

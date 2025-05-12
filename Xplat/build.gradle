@@ -1,9 +1,9 @@
 plugins {
-    id('java')
+    id 'java'
     id 'net.neoforged.moddev.legacyforge' version '2.0.78'
 }
 
-archivesBaseName =  mod_id + "-" + "common"
+base.archivesName = mod_id + "-" + "common"
 version = "${minecraft_version}-${mod_version}"
 if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
@@ -30,7 +30,7 @@ repositories {
     }
     maven {
         name = "Unascribed"
-        url "https://repo.unascribed.com" // for ears
+        url = "https://repo.unascribed.com" // for ears
         content {
             includeGroup "com.unascribed"
         }
@@ -42,7 +42,7 @@ repositories {
         }
     }
     maven {
-        url "https://jitpack.io" // for step height eam
+        url = "https://jitpack.io" // for step height eam
     }
     maven {
         name = "lounode"
@@ -68,6 +68,7 @@ dependencies {
 
     implementation "com.demonwav.mcdev:annotations:2.1.0"
     compileOnly 'org.jetbrains:annotations:24.0.1'
+    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
     //compileOnly("io.github.lounode.eventwrapper:eventwrapper-common:1.20.1-1.0.0-SNAPSHOT")
     //compileOnly "com.github.Lounode.EventWrapper:eventwrapper-common:1.20.1-SNAPSHOT"
@@ -119,9 +120,9 @@ legacyForge.ideSyncTask generateModMetadataXplat
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId mod_group_id
-            artifactId project.archivesBaseName
-            version project.version
+            groupId = mod_group_id
+            artifactId = base.archivesName.get()
+            version = project.version
             from components.java
         }
     }
