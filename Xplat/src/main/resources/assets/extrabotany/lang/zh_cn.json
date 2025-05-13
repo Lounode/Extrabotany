@@ -92,6 +92,7 @@
   "entity.extrabotany.skull_landmine_blue": "蓝色盖亚陷阱",
   "entity.extrabotany.skull_landmine_red": "红色盖亚陷阱",
   "entity.extrabotany.skull_landmine_green": "绿色盖亚陷阱",
+  "entity.extrabotany.holy_water_grenade": "圣水手雷",
   
   "item.extrabotany.aerialite_ingot": "天空锭",
   "item.extrabotany.orichalcos_ingot": "奥利哈钢",
@@ -174,6 +175,11 @@
   "tooltip.extrabotany.buff_for_self": "对己方：",
   
   "extrabotany.brew.mana_cocktail": "魔力",
+  "extrabotany.brew.revolution": "革命",
+  "extrabotany.brew.shield": "龟壳",
+  "extrabotany.brew.all_in_one": "一体",
+  "extrabotany.brew.deadpool": "死侍",
+  "extrabotany.brew.floating": "漂浮",
   
   "extrabotany.wings.herrscher": "翅膀：律者",
   "extrabotany.wings.steampunk": "翅膀：蒸汽朋克",

@@ -77,9 +77,7 @@ public class ItemModelProvider implements DataProvider {
         return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
     }
     private void registerItemBlocks(Set<BlockItem> itemBlocks, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
-        itemBlocks.forEach(i -> {
-            consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(ModelLocationUtils.getModelLocation(i.getBlock())));
-        });
+        itemBlocks.forEach(i -> consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(ModelLocationUtils.getModelLocation(i.getBlock()))));
     }
     private static void registerItems(Set<Item> items, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
         //Manual items
@@ -172,10 +170,12 @@ public class ItemModelProvider implements DataProvider {
                 GENERATED_0.create(overrideModel, TextureMapping.layer0(camera), consumer);
             }
             if (key.equals(Failnaught.INSTANCE.getId())) {
-                GENERATED_0.create(overrideModel, TextureMapping.layer0(failnaught), consumer);
+                overrideModel = ModelLocationUtils.getModelLocation(failnaught);
             }
             if (key.equals(InfiniteWine.INSTANCE.getId())) {
-                GENERATED_0.create(overrideModel, TextureMapping.layer0(infiniteWine), consumer);
+                GENERATED_1.create(overrideModel,
+                        TextureMapping.layer0(infiniteWine).put(LAYER1, ModelLocationUtils.getModelLocation(infiniteWine, "_" + 0)),
+                        consumer);
             }
 
             voidArchivesOverrides.add(overrideModel, Pair.of(prefix("variant"), (double) index * 0.01D));

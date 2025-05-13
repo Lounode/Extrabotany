@@ -10,6 +10,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -59,11 +60,6 @@ public class PedestalsRecipe implements PedestalRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
-        return null;
-    }
-
-    @Override
     public Ingredient getSmashTools() {
         return smashTools;
     }
@@ -86,6 +82,17 @@ public class PedestalsRecipe implements PedestalRecipe {
     @Override
     public int getExp() {
         return exp;
+    }
+
+    @NotNull
+    @Override
+    public RecipeType<? extends PedestalRecipe> getType() {
+        return ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE;
+    }
+
+    @Override
+    public RecipeSerializer<?> getSerializer() {
+        return ExtraBotanyRecipeTypes.PEDESTAL_SMASH_SERIALIZER;
     }
 
     public static class Serializer implements RecipeSerializer<PedestalsRecipe> {

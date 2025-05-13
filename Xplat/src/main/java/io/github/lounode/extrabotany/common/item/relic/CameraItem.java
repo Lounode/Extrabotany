@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -59,6 +60,15 @@ public class CameraItem extends RelicItem {
     //车万女仆联动
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+        if (
+                relic == null ||
+                !relic.isRightPlayer(player) ||
+                !ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_PER_USE, false)
+        ) {
+            return InteractionResultHolder.pass(stack);
+        }
 
         player.playNotifySound(ExtraBotanySounds.CAMERA_FOCUS, SoundSource.PLAYERS, .3F, SoundEventUtil.randomPitch(world));
         return ItemUtils.startUsingInstantly(world, player, hand);
@@ -70,7 +80,9 @@ public class CameraItem extends RelicItem {
             return;
         }
 
-        executeCapture(world, player, player.getUsedItemHand());
+        if (executeCapture(world, player, player.getUsedItemHand()).getResult() == InteractionResult.SUCCESS) {
+            player.getCooldowns().addCooldown(this, 20 * 8);
+        }
     }
     @Override
     public int getUseDuration(ItemStack stack) {
@@ -81,7 +93,7 @@ public class CameraItem extends RelicItem {
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.SPYGLASS;
     }
-    public InteractionResultHolder<ItemStack> executeCapture(Level world, Player player, InteractionHand hand) {
+    public static InteractionResultHolder<ItemStack> executeCapture(Level world, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         var relic = XplatAbstractions.INSTANCE.findRelic(stack);
         if (
@@ -111,10 +123,8 @@ public class CameraItem extends RelicItem {
                 projectile.remove(Entity.RemovalReason.DISCARDED);
             }
 
-            //player.getCooldowns().addCooldown(this, 20);
-            player.getCooldowns().addCooldown(this, 20 * 8);
-
             world.playSound(null, player.getOnPos(), ExtraBotanySounds.CAMERA_USE, SoundSource.PLAYERS);
+            return InteractionResultHolder.success(stack);
         }
         return InteractionResultHolder.pass(player.getItemInHand(hand));
     }
@@ -124,6 +134,7 @@ public class CameraItem extends RelicItem {
         if (!(entity instanceof Player player)) {
             return;
         }
+        super.inventoryTick(stack, world, entity, slot, selected);
         ItemStack usingItem = player.getUseItem();
 
         if (usingItem.isEmpty() || !(usingItem.getItem() instanceof CameraItem)) {
@@ -147,8 +158,6 @@ public class CameraItem extends RelicItem {
                     true
             ));
         }
-
-        super.inventoryTick(stack, world, entity, slot, selected);
     }
 
     public static void renderAABBBorder(Level level, AABB bounds) {

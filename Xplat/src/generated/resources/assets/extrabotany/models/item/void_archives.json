@@ -20,7 +20,7 @@
       }
     },
     {
-      "model": "extrabotany:item/void_archives_failnaught",
+      "model": "extrabotany:item/failnaught",
       "predicate": {
         "extrabotany:variant": 0.04
       }

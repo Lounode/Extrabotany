@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.client.renderer;
 
+import io.github.lounode.extrabotany.common.brew.BrewUtil;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
@@ -7,7 +8,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.item.equipment.bauble.TaintedBloodPendantItem;
@@ -34,7 +34,7 @@ public class ColorHandler {
                 return -1;
             }
 
-            Brew brew = ((BrewItem) s.getItem()).getBrew(s);
+            Brew brew = BrewUtil.getBrew(s);
             if (brew == BotaniaBrews.fallbackBrew) {
                 return s.getItem() instanceof TaintedBloodPendantItem ? 0xC6000E : 0x989898;
             }
@@ -48,6 +48,11 @@ public class ColorHandler {
             int b = Math.max(0, Math.min(255, (color & 0xFF) + add));
 
             return r << 16 | g << 8 | b;
-        }, ExtraBotanyItems.manaCocktail, ExtraBotanyItems.infiniteWine, ExtraBotanyItems.holyWaterGrenade);
+        },
+                ExtraBotanyItems.manaCocktail,
+                ExtraBotanyItems.infiniteWine,
+                ExtraBotanyItems.holyWaterGrenade,
+                ExtraBotanyItems.voidArchives
+        );
     }
 }

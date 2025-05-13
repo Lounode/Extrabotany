@@ -7,6 +7,8 @@ import io.github.lounode.eventwrapper.event.entity.player.PlayerEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
+import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
+import io.github.lounode.extrabotany.common.item.relic.void_archives.variants.Camera;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -55,7 +57,7 @@ public final class HUD {
         float f = minecraft.getDeltaFrameTime();
         scopeScale = Mth.lerp(0.5F * f, scopeScale, 1.125F);
         if (minecraft.options.getCameraType().isFirstPerson()) {
-            if (minecraft.player.isUsingItem() && minecraft.player.getUseItem().getItem() instanceof CameraItem) {
+            if (shouldRenderCameraGUI()) {
                 profiler.push("camera-hud");
                 CameraItem.Hud.renderSpyglassOverlay(gui, scopeScale);
                 profiler.pop();
@@ -138,6 +140,19 @@ public final class HUD {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    private boolean shouldRenderCameraGUI() {
+        ItemStack useItem = minecraft.player.getUseItem();
+        if (useItem.getItem() instanceof CameraItem) {
+            return true;
+        }
+        if (useItem.getItem() instanceof VoidArchivesItem item) {
+            if (VoidArchivesItem.getVariant(useItem).getId().equals(Camera.INSTANCE.getId())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public static HUD getInstance() {
         return INSTANCE;

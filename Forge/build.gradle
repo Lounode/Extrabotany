@@ -86,6 +86,7 @@ legacyForge {
             server()
             systemProperty('forge.logging.console.level', 'debug')
             systemProperty('metrics_debug', 'true')
+            programArgument('--nogui')
             jvmArgument("-XX:+AllowEnhancedClassRedefinition")
         }
 

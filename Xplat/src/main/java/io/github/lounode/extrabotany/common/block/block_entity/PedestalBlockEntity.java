@@ -38,7 +38,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -271,75 +270,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 
         return new AbstractMap.SimpleEntry<>(InteractionResult.CONSUME, swingOffHand);
     }
-    public InteractionResult handleSmash(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        ItemStack mainHandItem = player.getMainHandItem();
-        ItemStack offHandItem = player.getOffhandItem();
-        boolean useOffHand = false;
-        if (!isEmpty()) {
-            boolean denyInteraction = false;
-            for (Recipe<?> r : ExtraBotanyRecipeTypes.getRecipes(level, ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE).values()) {
-                if (!(r instanceof PedestalRecipe recipe)) {
-                    continue;
-                }
-                if (!recipe.getSmashTools().test(mainHandItem) && !recipe.getSmashTools().test(offHandItem)) {
-                    continue;
-                } else {
-                    denyInteraction = true;
-                }
-                if (!recipe.getInput().test(this.getInsideItem())) {
-                    if (ItemStack.isSameItemSameTags(recipe.getOutput(), this.getInsideItem())) {
-                        ItemStack stack = extractPedestal();
-                        if (player.addItem(stack)) {
-                            level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
-                                    ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
-                        } else {
-                            Containers.dropItemStack(world, player.getX(), player.getY(), player.getZ(), stack);
-                        }
-                    }
-                    continue;
-                }
 
-                if (recipe.getSmashTools().test(mainHandItem)) {
-                    mainHandItem.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-                } else if (recipe.getSmashTools().test(offHandItem)) {
-                    offHandItem.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(InteractionHand.OFF_HAND));
-                    useOffHand = true;
-                }
-
-
-                this.strikes++;
-                if (!level.isClientSide()) {
-                    PlayerHelper.grantCriterion((ServerPlayer) player, prefix("main/" + LibAdvancementNames.GOODTEK), "code_triggered");
-                }
-
-                if (strikes < recipe.getStrike()) {
-                    level.playSound(null, pos, SoundEvents.STONE_HIT, SoundSource.PLAYERS, .8f,
-                            ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
-                    continue;
-                }
-
-                ItemStack output = recipe.getOutput();
-                this.setInsideItem(output);
-                level.playSound(null, pos, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, .8F,
-                        ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
-                if (!level.isClientSide()) {
-                    createExperience((ServerLevel) level, player.position(), recipe.getExp());
-                }
-                break;
-            }
-
-            if (denyInteraction) {
-                if (useOffHand) {
-                    player.swing(InteractionHand.OFF_HAND);
-                } else {
-                    player.swing(InteractionHand.MAIN_HAND);
-                }
-                return InteractionResult.CONSUME_PARTIAL;
-
-            }
-        }
-        return InteractionResult.CONSUME;
-    }
     public Map.Entry<InteractionResult, Boolean> handleReversePlaceItem(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         boolean swingOffHand = false;
         if (isEmpty()) {
@@ -402,60 +333,6 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
     private void playSound() {
         level.playSound(null, worldPosition, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
                 ((level.random.nextFloat() - level.random.nextFloat()) * .7f + 1) * 2);
-    }
-
-    public InteractionResult handlePlaceItem(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        ItemStack mainHandItem = player.getMainHandItem();
-        ItemStack offHandItem = player.getOffhandItem();
-        if (isEmpty()) {
-            boolean reversePriority = false;
-            if(!mainHandItem.isEmpty()) {
-                for (Recipe<?> r : ExtraBotanyRecipeTypes.getRecipes(level, ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE).values()) {
-                    if (!(r instanceof PedestalRecipe recipe)) {
-                        continue;
-                    }
-                    if (recipe.getSmashTools().test(mainHandItem)) {
-                        reversePriority = true;
-                        break;
-                    }
-                }
-            }
-            if(reversePriority) {
-                if (!offHandItem.isEmpty()) {
-                    insertPedestal(offHandItem);
-                    level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
-                            ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
-                    player.swing(InteractionHand.OFF_HAND);
-                } else if (!mainHandItem.isEmpty()) {
-                    insertPedestal(mainHandItem);
-                    level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
-                            ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
-                    player.swing(InteractionHand.MAIN_HAND);
-                }
-            } else {
-                if (!mainHandItem.isEmpty()) {
-                    insertPedestal(mainHandItem);
-                    level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
-                            ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
-                    player.swing(InteractionHand.MAIN_HAND);
-                } else if (!offHandItem.isEmpty()) {
-                    insertPedestal(offHandItem);
-                    level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
-                            ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
-                    player.swing(InteractionHand.OFF_HAND);
-                }
-            }
-            return InteractionResult.CONSUME;
-        } else {
-            ItemStack stack = extractPedestal();
-            if (player.addItem(stack)) {
-                level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
-                        ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
-            } else {
-                Containers.dropItemStack(world, player.getX(), player.getY(), player.getZ(), stack);
-            }
-            return InteractionResult.SUCCESS;
-        }
     }
 
     private static void createExperience(ServerLevel world, Vec3 pos, int amount) {
@@ -527,11 +404,6 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
     private void markUpdated() {
         this.setChanged();
         this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
-    }
-
-    @Override
-    public int getContainerSize() {
-        return 0;
     }
 
     @Override
@@ -635,6 +507,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
         this.tier = tier;
     }
 
+    @Override
     public int getTier() {
         return this.tier;
     }
@@ -713,10 +586,12 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
         }
     }
 
+    @Override
     public int getStrikes() {
         return strikes;
     }
 
+    @Override
     public void setStrikes(int strikes) {
         this.strikes = strikes;
     }
@@ -739,11 +614,11 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 
     @Override
     public boolean canPlaceItemThroughFace(int i, ItemStack itemStack, @Nullable Direction direction) {
-        return false;
+        return this.getInsideItem().isEmpty();
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int index, @NotNull ItemStack stack, @Nullable Direction direction) {
+    public boolean canTakeItemThroughFace(int index, ItemStack stack, @Nullable Direction direction) {
         return this.strikes == FINISH_CRAFT_STRIKE_FLAG;
     }
 

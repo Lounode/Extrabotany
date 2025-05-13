@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.item.Relic;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.relic.RelicImpl;
@@ -34,6 +35,7 @@ import java.util.Map;
 public class VoidArchivesItem extends Item implements CustomCreativeTabContents {
 
     private static final String TAG_VARIANT = "variant";
+    public static final int KEEP_VARIANT_REQUIRE = 500;
 
     public VoidArchivesItem(Properties properties) {
         super(properties);
@@ -75,6 +77,10 @@ public class VoidArchivesItem extends Item implements CustomCreativeTabContents 
             var relic = XplatAbstractions.INSTANCE.findRelic(stack);
             if (relic != null) {
                 relic.tickBinding(player);
+            }
+            if (getVariant(stack) != VoidArchivesVariant.DEFAULT &&
+                    !ManaItemHandler.instance().requestManaExactForTool(stack, player, getKeepVariantRequire() , true)) {
+                setVariant(stack, VoidArchivesVariant.DEFAULT);
             }
         }
         super.inventoryTick(stack, level, entity, slotId, isSelected);
@@ -128,6 +134,10 @@ public class VoidArchivesItem extends Item implements CustomCreativeTabContents 
         var defaultStack = new ItemStack(ExtraBotanyItems.voidArchives);
         ItemNBTHelper.setString(defaultStack, TAG_VARIANT, VoidArchivesVariant.DEFAULT.getId());
         return defaultStack;
+    }
+
+    public int getKeepVariantRequire() {
+        return KEEP_VARIANT_REQUIRE;
     }
 
     @Override

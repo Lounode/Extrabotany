@@ -4,6 +4,7 @@ import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
+import io.github.lounode.extrabotany.common.item.relic.void_archives.variants.Failnaught;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
@@ -28,6 +29,26 @@ public class ExtraBotanyItemProperties {
         };
         consumer.accept(ExtraBotanyItems.failnaught, ResourceLocation.tryParse("pulling"), pulling);
         consumer.accept(ExtraBotanyItems.failnaught, ResourceLocation.tryParse("pull"), pull);
+
+        ClampedItemPropertyFunction pulling2 = (stack, worldIn, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
+        ClampedItemPropertyFunction pull2 = (stack, worldIn, entity, seed) -> {
+            if (entity == null) {
+                return 0.0F;
+            } else {
+
+                var variant = VoidArchivesItem.getVariant(stack);
+                if (!(variant instanceof Failnaught failnaught)) {
+                    return 0.0F;
+                }
+
+                return entity.getUseItem() != stack
+                        ? 0.0F
+                        : (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * failnaught.chargeVelocityMultiplier(stack, entity) / 20.0F;
+            }
+        };
+
+        consumer.accept(ExtraBotanyItems.voidArchives, ResourceLocation.tryParse("pulling"), pulling2);
+        consumer.accept(ExtraBotanyItems.voidArchives, ResourceLocation.tryParse("pull"), pull2);
 
         ClampedItemPropertyFunction brewGetter = (stack, world, entity, seed) -> {
             BaseBrewItem item = ((BaseBrewItem) stack.getItem());
