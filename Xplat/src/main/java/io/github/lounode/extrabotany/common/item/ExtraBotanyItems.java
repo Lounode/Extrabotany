@@ -156,7 +156,7 @@ public final class ExtraBotanyItems {
             failnaught
     };
     public static final Item[] MANA_USING_ITEM = {
-            camera, failnaught, excalibur, featherOfJingwei, magicFinger, coreOfTheVoid, voidArchives
+            camera, failnaught, excalibur, featherOfJingwei, magicFinger, coreOfTheVoid, voidArchives, walkingCane
     };
 
     public static final Item[] REPLICATOR_BLACKLIST = {

@@ -2,6 +2,9 @@ package io.github.lounode.extrabotany.common.item;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+import io.github.lounode.extrabotany.common.util.SoundEventUtil;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -47,10 +50,6 @@ public class WalkingCaneItem extends Item implements Vanishable {
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
-        //TODO 音效
-        if (level.isClientSide()) {
-            return;
-        }
         if (!(entityLiving instanceof Player player)) {
             return;
         }
@@ -61,6 +60,10 @@ public class WalkingCaneItem extends Item implements Vanishable {
             player.setSprinting(true);
 
             player.addDeltaMovement(getAdditionDeltaMovement(player, time));
+
+            if (level.isClientSide()) {
+                player.playNotifySound(ExtraBotanySounds.WALKING_CANE_USE, SoundSource.PLAYERS, 1.0F, SoundEventUtil.randomPitch(level));
+            }
 
             player.getCooldowns().addCooldown(this, getCooldownTicks());
         }

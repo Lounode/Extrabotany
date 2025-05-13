@@ -21,6 +21,7 @@ public class ExtraBotanySounds {
     public static final SoundEvent PLAYER_BACKFIRE = makeSoundEvent("entity.player.hurt_backfire");
     public static final SoundEvent REWARD_BAG_OPEN = makeSoundEvent("item.reward_bag.open");
     public static final SoundEvent PANDORAS_BOX_OPEN = makeSoundEvent("item.pandoras_box.open");
+    public static final SoundEvent WALKING_CANE_USE = makeSoundEvent("item.walking_cane.use");
 
     public static final SoundEvent MUSIC_GAIA3 = makeSoundEvent("music.gaia3");
 

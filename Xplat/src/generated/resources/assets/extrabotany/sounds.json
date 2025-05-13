@@ -74,6 +74,15 @@
     ],
     "subtitle": "subtitles.extrabotany:item.reward_bag.open"
   },
+  "item.walking_cane.use": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "entity.fishing_bobber.retrieve"
+      }
+    ],
+    "subtitle": "subtitles.extrabotany:item.walking_cane.use"
+  },
   "music.gaia3": {
     "sounds": [
       {

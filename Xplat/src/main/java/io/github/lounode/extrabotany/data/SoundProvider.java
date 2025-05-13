@@ -89,6 +89,14 @@ public class SoundProvider extends SoundDefinitionsProvider {
                 )
         );
 
+        take(soundEvents, WALKING_CANE_USE);
+        this.add(WALKING_CANE_USE, SoundDefinitionsProvider.definition()
+                .subtitle(title(WALKING_CANE_USE))
+                .with(
+                        SoundDefinitionsProvider.sound(SoundEvents.FISHING_BOBBER_RETRIEVE.getLocation(), SoundDefinition.SoundType.EVENT)
+                )
+        );
+
         for (SoundEvent soundEvent : soundEvents) {
             this.add(soundEvent, defaultDefinition(soundEvent));
         }

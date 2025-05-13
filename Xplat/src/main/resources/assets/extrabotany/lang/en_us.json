@@ -162,6 +162,9 @@
   "subtitles.extrabotany:entity.player.hurt_backfire": "玩家：遭受反噬",
   "subtitles.extrabotany:item.reward_bag.open": "Reward Bag open",
   "subtitles.extrabotany:item.pandoras_box.open": "Pandora's Box open",
+  "subtitles.extrabotany:item.walking_cane.use": "弹跳",
+  
+  "subtitles.extrabotany:": "",
   
   "tooltip.extrabotany.camera": "能够使用念写程度的能力",
   "tooltip.extrabotany.excalibur": "吾王剑锋所指 吾等心之所向",
