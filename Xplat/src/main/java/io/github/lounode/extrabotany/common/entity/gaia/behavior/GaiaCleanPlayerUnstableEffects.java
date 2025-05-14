@@ -2,19 +2,16 @@ package io.github.lounode.extrabotany.common.entity.gaia.behavior;
 
 import com.google.common.collect.ImmutableMap;
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
-import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GaiaCleanPlayerUnstableEffects <E extends Gaia> extends Behavior<E> {
 
@@ -38,18 +35,13 @@ public class GaiaCleanPlayerUnstableEffects <E extends Gaia> extends Behavior<E>
     }
 
     protected void clearUnstablePotions(Player player) {
-        Set<MobEffect> effectsToRemove = new HashSet<>();
-        for (var effectInstance : player.getActiveEffects()) {
-            if (effectInstance.getDuration() < 160 && effectInstance.isAmbient() && effectInstance.getEffect().getCategory() != MobEffectCategory.HARMFUL) {
-                effectsToRemove.add(effectInstance.getEffect());
-            }
-        }
+        List<MobEffectInstance> effects = player.getActiveEffects().stream()
+                .filter(effectInstance -> effectInstance.getDuration() < 160)
+                .filter(MobEffectInstance::isAmbient)
+                .filter(effect -> effect.getEffect().getCategory() != MobEffectCategory.HARMFUL)
+                .toList();
 
-        for (var effect : effectsToRemove) {
-            player.removeEffect(effect);
-            ((ServerLevel) player.level()).getChunkSource().broadcastAndSend(player,
-                    new ClientboundRemoveMobEffectPacket(player.getId(), effect));
-        }
+        effects.forEach(e -> player.removeEffect(e.getEffect()));
     }
 
     protected List<Player> getPlayers(Gaia gaia) {

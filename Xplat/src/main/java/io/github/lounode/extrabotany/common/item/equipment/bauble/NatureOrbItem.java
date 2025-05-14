@@ -30,7 +30,6 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -185,18 +184,13 @@ public class NatureOrbItem extends BaubleItem implements CustomCreativeTabConten
     }
 
     public static int clearHarmfulPotion(LivingEntity entity) {
-        Iterator<MobEffectInstance> it = entity.getActiveEffects().iterator();
+        List<MobEffectInstance> effects = entity.getActiveEffects().stream()
+                .filter(effect -> effect.getEffect().getCategory() == MobEffectCategory.HARMFUL)
+                .toList();
 
-        int removeCount = 0;
-        while (it.hasNext()) {
-            MobEffectInstance effect = it.next();
-            if (effect.getEffect().getCategory() == MobEffectCategory.HARMFUL) {
-                entity.removeEffect(effect.getEffect());
-                removeCount++;
-            }
-        }
+        effects.forEach(e -> entity.removeEffect(e.getEffect()));
 
-        return removeCount;
+        return effects.size();
     }
 
     public int getSpawnGaiaCost() {

@@ -25,7 +25,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -51,7 +50,9 @@ import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @EventBusSubscriberWrapper
 public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabContents {
@@ -338,24 +339,16 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
     }
     //Harmful potion remove
     protected void tryRemoveHarmfulPotion(ItemStack stack, LivingEntity entity) {
-        var effects = entity.getActiveEffectsMap();
+        List<MobEffectInstance> effects = entity.getActiveEffects().stream()
+                .filter(effect -> effect.getEffect().getCategory() == MobEffectCategory.HARMFUL)
+                .toList();
 
-        Iterator<Map.Entry<MobEffect, MobEffectInstance>> iterator = effects.entrySet().iterator();
-        while (iterator.hasNext()) {
-            var effect = iterator.next();
-            var type = effect.getKey();
-
-            if (type.getCategory() != MobEffectCategory.HARMFUL) {
-                continue;
-            }
-
-            if (entity instanceof Player player &&
-                    !(player.isCreative() || player.isSpectator()) &&
-                    !(ManaItemHandler.instance().requestManaExactForTool(stack, player, getCureCost(), true))) {
-                return;
-            }
-
-            entity.removeEffect(type);
+        if (
+                !effects.isEmpty() &&
+                entity instanceof Player player &&
+                ManaItemHandler.instance().requestManaExactForTool(stack, player, getCureCost(), true)
+        ) {
+            effects.forEach(e -> entity.removeEffect(e.getEffect()));
         }
     }
     //TODO 立即生效药水效果截断
