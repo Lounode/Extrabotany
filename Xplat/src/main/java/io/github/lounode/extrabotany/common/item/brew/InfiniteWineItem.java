@@ -1,13 +1,21 @@
 package io.github.lounode.extrabotany.common.item.brew;
 
+import com.google.common.collect.Lists;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -21,12 +29,15 @@ import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class InfiniteWineItem extends BaseBrewItem {
 
     public static final int UPDATE_MODULO = 4000;
     private static final int MANA_PER_REGEN = 12_000;
+    public static final int AMPLIFIER_ADDITION = 1;
+    public static final float DURATION_MULTIPLIER = 0.5F;
 
     public InfiniteWineItem(Properties builder, int swigs, int drinkSpeed, Supplier<Item> baseItem) {
         super(builder, swigs, drinkSpeed, baseItem);
@@ -47,9 +58,9 @@ public class InfiniteWineItem extends BaseBrewItem {
     public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, Level world, LivingEntity living) {
         if (!world.isClientSide) {
             for (MobEffectInstance effect : getBrew(stack).getPotionEffects(stack)) {
-                MobEffectInstance newEffect = new MobEffectInstance(effect.getEffect(), effect.getDuration(), effect.getAmplifier(), true, true);
+                MobEffectInstance newEffect = new MobEffectInstance(effect.getEffect(), (int) ((float) effect.getDuration() * getDurationMultiplier()), effect.getAmplifier() + getAmplifierAddition(), true, true);
                 if (effect.getEffect().isInstantenous()) {
-                    effect.getEffect().applyInstantenousEffect(living, living, living, newEffect.getAmplifier(), 1F);
+                    effect.getEffect().applyInstantenousEffect(living, living, living, newEffect.getAmplifier() + getAmplifierAddition(), 1F);
                 } else {
                     living.addEffect(newEffect);
                 }
@@ -75,7 +86,7 @@ public class InfiniteWineItem extends BaseBrewItem {
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags) {
         RelicImpl.addDefaultTooltip(stack, tooltip);
-        super.appendHoverText(stack, world, tooltip, flags);
+        addPotionTooltip(getBrew(stack).getPotionEffects(stack), tooltip, (float) (1.0D + getDurationMultiplier()), getAmplifierAddition());
     }
 
     @Override
@@ -102,5 +113,67 @@ public class InfiniteWineItem extends BaseBrewItem {
 
     public int getManaPerRegen() {
         return MANA_PER_REGEN;
+    }
+
+    public int getAmplifierAddition() {
+        return AMPLIFIER_ADDITION;
+    }
+
+    public float getDurationMultiplier() {
+        return DURATION_MULTIPLIER;
+    }
+
+    public static void addPotionTooltip(List<MobEffectInstance> list, List<Component> lores, float durationFactor, int amplifierAddition) {
+        List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
+        if (list.isEmpty()) {
+            lores.add(Component.translatable("effect.none").withStyle(ChatFormatting.GRAY));
+        } else {
+            for(MobEffectInstance effectinstance : list) {
+                MutableComponent iformattabletextcomponent = Component.translatable(effectinstance.getDescriptionId());
+                MobEffect effect = effectinstance.getEffect();
+                Map<Attribute, AttributeModifier> map = effect.getAttributeModifiers();
+                if (!map.isEmpty()) {
+                    for(Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
+                        AttributeModifier attributemodifier = entry.getValue();
+                        AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), effect.getAttributeModifierValue(effectinstance.getAmplifier() + amplifierAddition, attributemodifier), attributemodifier.getOperation());
+                        list1.add(new Pair<>(entry.getKey(), attributemodifier1));
+                    }
+                }
+
+                if (effectinstance.getAmplifier() + amplifierAddition > 0) {
+                    iformattabletextcomponent = Component.translatable("potion.withAmplifier", new Object[]{iformattabletextcomponent, Component.translatable("potion.potency." + (effectinstance.getAmplifier() + amplifierAddition))});
+                }
+
+                if (effectinstance.getDuration() > 20) {
+                    iformattabletextcomponent = Component.translatable("potion.withDuration", new Object[]{iformattabletextcomponent, MobEffectUtil.formatDuration(effectinstance, durationFactor)});
+                }
+
+                lores.add(iformattabletextcomponent.withStyle(effect.getCategory().getTooltipFormatting()));
+            }
+        }
+
+        if (!list1.isEmpty()) {
+            lores.add(Component.empty());
+            lores.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
+
+            for(Pair<Attribute, AttributeModifier> pair : list1) {
+                AttributeModifier attributemodifier2 = (AttributeModifier)pair.getSecond();
+                double d0 = attributemodifier2.getAmount();
+                double d1;
+                if (attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
+                    d1 = attributemodifier2.getAmount();
+                } else {
+                    d1 = attributemodifier2.getAmount() * (double)100.0F;
+                }
+
+                if (d0 > (double)0.0F) {
+                    lores.add(Component.translatable("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(), new Object[]{ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(((Attribute)pair.getFirst()).getDescriptionId())}).withStyle(ChatFormatting.BLUE));
+                } else if (d0 < (double)0.0F) {
+                    d1 *= (double)-1.0F;
+                    lores.add(Component.translatable("attribute.modifier.take." + attributemodifier2.getOperation().toValue(), new Object[]{ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(((Attribute)pair.getFirst()).getDescriptionId())}).withStyle(ChatFormatting.RED));
+                }
+            }
+        }
+
     }
 }
