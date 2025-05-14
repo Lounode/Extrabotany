@@ -66,11 +66,11 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
     public static void attackEntity(AttackEntityEventWrapper event) {
         Player player = event.getEntity();
         if (!player.level().isClientSide && player.getMainHandItem().getItem() instanceof ExcaliburItem) {
-            trySpawnBurst(player);
+            trySpawnBurst(player, player.getAttackStrengthScale(0F));
         }
     }
 
-    public static void trySpawnBurst(Player player) {
+    public static void trySpawnBurst(Player player, float attackStrength) {
         ItemStack stack = player.getMainHandItem();
         if (!stack.is(ExtraBotanyItems.excalibur)) {
             return;
@@ -82,12 +82,9 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
         ) {
             return;
         }
-        trySpawnBurstUnsafe(player);
+        trySpawnBurstUnsafe(player, attackStrength);
     }
 
-    public static void trySpawnBurstUnsafe(Player player) {
-        trySpawnBurstUnsafe(player, player.getAttackStrengthScale(0F));
-    }
 
     public static void trySpawnBurstUnsafe(Player player, float attackStrength) {
         if (

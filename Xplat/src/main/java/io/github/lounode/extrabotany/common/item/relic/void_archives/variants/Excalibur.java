@@ -45,11 +45,11 @@ public class Excalibur implements VoidArchivesVariant {
     public static void attackEntity(AttackEntityEventWrapper event) {
         Player player = event.getEntity();
         if (!player.level().isClientSide && player.getMainHandItem().getItem() instanceof VoidArchivesItem) {
-            INSTANCE.trySpawnBurst(player);
+            INSTANCE.trySpawnBurst(player, player.getAttackStrengthScale(0F));
         }
     }
 
-    public void trySpawnBurst(Player player) {
+    public void trySpawnBurst(Player player, float attackStrengthScale) {
         ItemStack stack = player.getMainHandItem();
         if (!(stack.getItem() instanceof VoidArchivesItem)) {
             return;
@@ -62,7 +62,7 @@ public class Excalibur implements VoidArchivesVariant {
         }
         if (
                 player.isSpectator() ||
-                player.getAttackStrengthScale(0F) != 1
+                attackStrengthScale != 1
         ) {
             return;
         }
