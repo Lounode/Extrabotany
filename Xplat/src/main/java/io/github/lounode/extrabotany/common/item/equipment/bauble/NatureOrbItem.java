@@ -30,7 +30,6 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -186,15 +185,13 @@ public class NatureOrbItem extends BaubleItem implements CustomCreativeTabConten
     }
 
     public static int clearHarmfulPotion(LivingEntity entity) {
-        Collection<MobEffectInstance> effects = entity.getActiveEffects();
-        Iterator<MobEffectInstance> it = effects.iterator();
+        Iterator<MobEffectInstance> it = entity.getActiveEffects().iterator();
 
         int removeCount = 0;
         while (it.hasNext()) {
             MobEffectInstance effect = it.next();
             if (effect.getEffect().getCategory() == MobEffectCategory.HARMFUL) {
                 entity.removeEffect(effect.getEffect());
-                it.remove();
                 removeCount++;
             }
         }
