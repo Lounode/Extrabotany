@@ -70,11 +70,14 @@ import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.pr
 public class ForgeCommonInitializer
 {
     private static final Logger LOGGER = LogUtils.getLogger();
-    public ForgeCommonInitializer(FMLJavaModLoadingContext context)
+    public ForgeCommonInitializer()
     {
+        ModLoadingContext context = ModLoadingContext.get();
+        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         coreInit(context);
-        registryInit(context);
-        context.getModEventBus().addListener(this::commonSetup);
+        registryInit(modBus);
+        modBus.addListener(this::commonSetup);
     }
 
     public void commonSetup(FMLCommonSetupEvent evt) {
@@ -91,9 +94,7 @@ public class ForgeCommonInitializer
         ForgeExtrabotanyConfig.setup(context);
     }
 
-    private void registryInit(FMLJavaModLoadingContext context) {
-        IEventBus modEventBus = context.getModEventBus();
-
+    private void registryInit(IEventBus modEventBus) {
         bind(modEventBus, Registries.SOUND_EVENT, ExtraBotanySounds::init);
         //Block&ItemBlock&Items
         bind(modEventBus, Registries.BLOCK, ExtraBotanyBlocks::registerBlocks);

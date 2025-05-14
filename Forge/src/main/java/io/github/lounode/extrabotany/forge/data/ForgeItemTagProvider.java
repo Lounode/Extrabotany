@@ -73,11 +73,11 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
     }
 
     private static TagKey<Item> accessory(String name) {
-        return ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", name));
+        return ItemTags.create(ResourceLocation.tryBuild("curios", name));
     }
 
     private static TagKey<Item> forge(String name) {
-        return ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", name));
+        return ItemTags.create(ResourceLocation.tryBuild("forge", name));
     }
 
     private void copyToSameName(TagKey<Block> source) {

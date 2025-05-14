@@ -128,7 +128,7 @@ dependencies {
     modCompileOnly("top.theillusivec4.curios:curios-forge:${curios_version}:api")
     modRuntimeOnly("top.theillusivec4.curios:curios-forge:${curios_version}")
 
-    modRuntimeOnly ("curse.maven:nbtedit-reborn-678133:5984630")
+    modRuntimeOnly ("maven.modrinth:nbtedit-reborn:x45wpz18")
     modRuntimeOnly ("maven.modrinth:just-enough-resources-jer:1.4.0.247")
 
     //modImplementation("com.github.Lounode.EventWrapper:eventwrapper-forge:1.20.1-SNAPSHOT")

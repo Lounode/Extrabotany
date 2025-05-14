@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.common.block;
 
+import io.github.lounode.extrabotany.api.block.PedestalVariant;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
 import io.github.lounode.extrabotany.common.block.block_entity.PedestalBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -49,13 +50,13 @@ public class PedestalBlock extends BotaniaWaterloggedBlock implements EntityBloc
             )
     );
 
-    public enum Variant {
+    public enum Variant implements PedestalVariant {
         LIVINGROCK,
     }
-    public final Variant variant;
+    public final PedestalVariant variant;
     public static final BooleanProperty HAS_ITEM = BooleanProperty.create("has_item");
 
-    protected PedestalBlock(Variant v, BlockBehaviour.Properties builder) {
+    protected PedestalBlock(PedestalVariant v, BlockBehaviour.Properties builder) {
         super(builder);
         this.variant = v;
         this.registerDefaultState(this.defaultBlockState()

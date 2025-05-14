@@ -49,6 +49,11 @@ public class PedestalRecipeCategory implements IRecipeCategory<PedestalRecipe> {
     }
 
     @Override
+    public IDrawable getBackground() {
+        return background;
+    }
+
+    @Override
     public int getWidth() {
         return 142;
     }
