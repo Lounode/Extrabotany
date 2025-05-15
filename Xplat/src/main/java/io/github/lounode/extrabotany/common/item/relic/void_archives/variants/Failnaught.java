@@ -1,8 +1,10 @@
 package io.github.lounode.extrabotany.common.item.relic.void_archives.variants;
 
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
+import io.github.lounode.extrabotany.common.entity.MagicArrowEntity;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -16,6 +18,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.entity.ManaBurstEntity;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class Failnaught implements VoidArchivesVariant {
@@ -110,13 +113,8 @@ public class Failnaught implements VoidArchivesVariant {
         }
     }
 
-    public static ManaBurstEntity getBurst(Player player, ItemStack stack, int mana, int tier) {
-        ManaBurstEntity burst = new ManaBurstEntity(player){
-            @Override
-            public boolean shouldBeSaved() {
-                return false;
-            }
-        };
+    public ManaBurstEntity getBurst(Player player, ItemStack stack, int mana, int tier) {
+        MagicArrowEntity burst = new MagicArrowEntity(player);
 
         float motionModifier = 7F;
 
@@ -128,8 +126,25 @@ public class Failnaught implements VoidArchivesVariant {
         burst.setDeltaMovement(burst.getDeltaMovement().scale(motionModifier));
 
         ItemStack lens = new ItemStack(ExtraBotanyItems.failnaught);
+        ListTag enchants = ItemNBTHelper.getList(stack, "Enchantments", ListTag.TAG_COMPOUND, true);
+        if (enchants != null) {
+            ItemNBTHelper.setList(lens, "Enchantments", enchants.copy());
+        }
 
         burst.setSourceLens(lens);
+
+        float chargeProcess = getChargeProcess(stack, player);
+        float tierProcess = getProcessInTier(chargeProcess);
+
+        float baseDamage = 10;
+        int powerLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, stack);
+        if (powerLevel > 0 &&
+                ManaItemHandler.instance().requestManaExactForTool(stack, player, 50 * powerLevel, true)) {
+            baseDamage = baseDamage + 0.5f + 0.5f * powerLevel;
+        }
+        float damage = baseDamage * (tier * tierProcess);
+
+        burst.setDamage(damage);
         return burst;
     }
 
