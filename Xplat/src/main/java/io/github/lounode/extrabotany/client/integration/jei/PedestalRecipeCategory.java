@@ -49,6 +49,7 @@ public class PedestalRecipeCategory implements IRecipeCategory<PedestalRecipe> {
     }
 
     @Override
+    @SuppressWarnings("removal")
     public IDrawable getBackground() {
         return background;
     }
