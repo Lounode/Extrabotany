@@ -126,14 +126,14 @@ public class InfiniteWineItem extends BaseBrewItem {
     public static void addPotionTooltip(List<MobEffectInstance> list, List<Component> lores, float durationFactor, int amplifierAddition) {
         List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
         if (list.isEmpty()) {
-            lores.add(Component.translatable("effect.none").withStyle(ChatFormatting.GRAY));
+            lores.add((Component.translatable("effect.none")).withStyle(ChatFormatting.GRAY));
         } else {
-            for(MobEffectInstance effectinstance : list) {
+            for (MobEffectInstance effectinstance : list) {
                 MutableComponent iformattabletextcomponent = Component.translatable(effectinstance.getDescriptionId());
                 MobEffect effect = effectinstance.getEffect();
                 Map<Attribute, AttributeModifier> map = effect.getAttributeModifiers();
                 if (!map.isEmpty()) {
-                    for(Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
+                    for (Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
                         AttributeModifier attributemodifier = entry.getValue();
                         AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), effect.getAttributeModifierValue(effectinstance.getAmplifier() + amplifierAddition, attributemodifier), attributemodifier.getOperation());
                         list1.add(new Pair<>(entry.getKey(), attributemodifier1));
@@ -141,11 +141,11 @@ public class InfiniteWineItem extends BaseBrewItem {
                 }
 
                 if (effectinstance.getAmplifier() + amplifierAddition > 0) {
-                    iformattabletextcomponent = Component.translatable("potion.withAmplifier", new Object[]{iformattabletextcomponent, Component.translatable("potion.potency." + (effectinstance.getAmplifier() + amplifierAddition))});
+                    iformattabletextcomponent = Component.translatable("potion.withAmplifier", iformattabletextcomponent, Component.translatable("potion.potency." + effectinstance.getAmplifier() + amplifierAddition));
                 }
 
                 if (effectinstance.getDuration() > 20) {
-                    iformattabletextcomponent = Component.translatable("potion.withDuration", new Object[]{iformattabletextcomponent, MobEffectUtil.formatDuration(effectinstance, durationFactor)});
+                    iformattabletextcomponent = Component.translatable("potion.withDuration", iformattabletextcomponent, MobEffectUtil.formatDuration(effectinstance, durationFactor));
                 }
 
                 lores.add(iformattabletextcomponent.withStyle(effect.getCategory().getTooltipFormatting()));
@@ -154,26 +154,25 @@ public class InfiniteWineItem extends BaseBrewItem {
 
         if (!list1.isEmpty()) {
             lores.add(Component.empty());
-            lores.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
+            lores.add((Component.translatable("potion.whenDrank")).withStyle(ChatFormatting.DARK_PURPLE));
 
-            for(Pair<Attribute, AttributeModifier> pair : list1) {
-                AttributeModifier attributemodifier2 = (AttributeModifier)pair.getSecond();
+            for (Pair<Attribute, AttributeModifier> pair : list1) {
+                AttributeModifier attributemodifier2 = pair.getSecond();
                 double d0 = attributemodifier2.getAmount();
                 double d1;
                 if (attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
                     d1 = attributemodifier2.getAmount();
                 } else {
-                    d1 = attributemodifier2.getAmount() * (double)100.0F;
+                    d1 = attributemodifier2.getAmount() * 100.0D;
                 }
 
-                if (d0 > (double)0.0F) {
-                    lores.add(Component.translatable("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(), new Object[]{ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(((Attribute)pair.getFirst()).getDescriptionId())}).withStyle(ChatFormatting.BLUE));
-                } else if (d0 < (double)0.0F) {
-                    d1 *= (double)-1.0F;
-                    lores.add(Component.translatable("attribute.modifier.take." + attributemodifier2.getOperation().toValue(), new Object[]{ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(((Attribute)pair.getFirst()).getDescriptionId())}).withStyle(ChatFormatting.RED));
+                if (d0 > 0.0D) {
+                    lores.add((Component.translatable("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
+                } else if (d0 < 0.0D) {
+                    d1 = d1 * -1.0D;
+                    lores.add((Component.translatable("attribute.modifier.take." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.RED));
                 }
             }
         }
-
     }
 }
