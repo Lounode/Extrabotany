@@ -1,5 +1,7 @@
 package io.github.lounode.extrabotany.common.item.relic;
 
+import io.github.lounode.extrabotany.api.entity.EntityNbtHelper;
+import io.github.lounode.extrabotany.common.entity.MagicArrowEntity;
 import io.github.lounode.extrabotany.common.item.enchantment.ICustomEnchantable;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
@@ -40,6 +42,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static io.github.lounode.extrabotany.common.entity.MagicArrowEntity.TAG_DAMAGE;
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class FailnaughtItem extends LivingwoodBowItem implements LensEffectItem, ICustomEnchantable {
@@ -146,13 +149,8 @@ public class FailnaughtItem extends LivingwoodBowItem implements LensEffectItem,
         }
     }
 
-    public static ManaBurstEntity getBurst(Player player, ItemStack stack, int mana, int tier) {
-        ManaBurstEntity burst = new ManaBurstEntity(player){
-            @Override
-            public boolean shouldBeSaved() {
-                return false;
-            }
-        };
+    public ManaBurstEntity getBurst(Player player, ItemStack stack, int mana, int tier) {
+        MagicArrowEntity burst = new MagicArrowEntity(player);
 
         float motionModifier = 7F;
 
@@ -164,6 +162,19 @@ public class FailnaughtItem extends LivingwoodBowItem implements LensEffectItem,
         burst.setDeltaMovement(burst.getDeltaMovement().scale(motionModifier));
 
         burst.setSourceLens(stack.copy());
+
+        float chargeProcess = getChargeProcess(stack, player);
+        float tierProcess = getProcessInTier(chargeProcess);
+
+        float baseDamage = 10;
+        int powerLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, stack);
+        if (powerLevel > 0 &&
+                ManaItemHandler.instance().requestManaExactForTool(stack, player, 50 * powerLevel, true)) {
+            baseDamage = baseDamage + 0.5f + 0.5f * powerLevel;
+        }
+        float damage = baseDamage * (tier * tierProcess);
+
+        burst.setDamage(damage);
         return burst;
     }
 
@@ -206,14 +217,7 @@ public class FailnaughtItem extends LivingwoodBowItem implements LensEffectItem,
             }
             burst.setMana(mana - HIT_ENTITY_COST);
 
-            float baseDamage = 10;
-            int powerLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, stack);
-            if (powerLevel > 0 &&
-                    ManaItemHandler.instance().requestManaExactForTool(stack, player, 50 * powerLevel, true)) {
-                baseDamage = baseDamage + 0.5f + 0.5f * powerLevel;
-            }
-            float damage = baseDamage * (tier * tierProcess);
-
+            float damage = EntityNbtHelper.getNBT(entity).getFloat(TAG_DAMAGE);
             DamageSource source = player.damageSources().playerAttack(player);
             living.hurt(source, damage);
 
