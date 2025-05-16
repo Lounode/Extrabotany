@@ -225,6 +225,7 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
         registerForQuartz(consumer, LibItemNames.ELEMENTIUM_QUARTZ, ExtraBotanyItems.elementiumQuartz);
     }
 
+    @Override
     protected void registerForQuartz(Consumer<FinishedRecipe> consumer, String variant, ItemLike baseItem) {
         Block block = getBlockOrThrow(prefix(variant + "_block"));
         Block stairs = getBlockOrThrow(prefix(variant + LibBlockNames.STAIR_SUFFIX));
