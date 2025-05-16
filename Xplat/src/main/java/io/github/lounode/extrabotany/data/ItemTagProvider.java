@@ -48,10 +48,12 @@ public class ItemTagProvider extends ItemTagsProvider {
         //ManaUsingItem
         this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(ExtraBotanyItems.MANA_USING_ITEM);
         this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(HAMMERS);
+        this.tag(BotaniaTags.Items.TERRA_PICK_BLACKLIST).add(natureOrb);
 
 
         this.copy(ExtraBotanyTags.Blocks.PEDESTALS, ExtraBotanyTags.Items.PEDESTALS);
         this.copy(ExtraBotanyTags.Blocks.MANA_POOLS, ExtraBotanyTags.Items.MANA_POOLS);
+        this.copy(ExtraBotanyTags.Blocks.CHARGERS, ExtraBotanyTags.Items.CHARGERS);
 
         this.tag(ExtraBotanyTags.Items.REWARD_BAGS).add(REWARD_BAGS);
 

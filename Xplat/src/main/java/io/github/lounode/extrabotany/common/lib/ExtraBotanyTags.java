@@ -30,6 +30,7 @@ public class ExtraBotanyTags {
         public static final TagKey<Item> PEDESTALS = tag("pedestals");
         public static final TagKey<Item> REWARD_BAGS = tag("reward_bags");
         public static final TagKey<Item> MANA_POOLS = tag("botania", "mana_pools");
+        public static final TagKey<Item> CHARGERS = tag("chargers");
 
 
 
@@ -48,6 +49,7 @@ public class ExtraBotanyTags {
         public static final TagKey<Block> BLOCKS_AERIALITE = tag("aerialite_blocks");
         public static final TagKey<Block> PEDESTALS = tag("pedestals");
         public static final TagKey<Block> MANA_POOLS = tag("botania", "mana_pools");
+        public static final TagKey<Block> CHARGERS = tag("chargers");
 
         private static TagKey<Block> tag(String name) {
             return TagKey.create(Registries.BLOCK, prefix(name));
