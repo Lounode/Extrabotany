@@ -141,7 +141,7 @@ public class InfiniteWineItem extends BaseBrewItem {
                 }
 
                 if (effectinstance.getAmplifier() + amplifierAddition > 0) {
-                    iformattabletextcomponent = Component.translatable("potion.withAmplifier", iformattabletextcomponent, Component.translatable("potion.potency." + effectinstance.getAmplifier() + amplifierAddition));
+                    iformattabletextcomponent = Component.translatable("potion.withAmplifier", iformattabletextcomponent, Component.translatable("potion.potency." + (effectinstance.getAmplifier() + amplifierAddition)));
                 }
 
                 if (effectinstance.getDuration() > 20) {

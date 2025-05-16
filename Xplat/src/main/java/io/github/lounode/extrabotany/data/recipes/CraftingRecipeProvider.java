@@ -3,6 +3,7 @@ package io.github.lounode.extrabotany.data.recipes;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
+import io.github.lounode.extrabotany.common.lib.LibItemNames;
 import io.github.lounode.extrabotany.common.lib.ResourceLocationHelper;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.block.Block;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.data.recipes.WrapperResult;
 
 import java.util.function.Consumer;
@@ -34,6 +36,7 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
         registerTools(consumer);
         registerTrinkets(consumer);
         registerConversions(consumer);
+        registerDecor(consumer);
     }
     private void registerMain(Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ExtraBotanyItems.theChaos)
@@ -217,13 +220,76 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
 
     }
 
+    private void registerDecor(Consumer<FinishedRecipe> consumer) {
+        registerForQuartz(consumer, LibItemNames.GAIA_QUARTZ, ExtraBotanyItems.gaiaQuartz);
+        registerForQuartz(consumer, LibItemNames.ELEMENTIUM_QUARTZ, ExtraBotanyItems.elementiumQuartz);
+    }
+
+    protected void registerForQuartz(Consumer<FinishedRecipe> consumer, String variant, ItemLike baseItem) {
+        Block block = getBlockOrThrow(prefix(variant + "_block"));
+        Block stairs = getBlockOrThrow(prefix(variant + LibBlockNames.STAIR_SUFFIX));
+        Block slab = getBlockOrThrow(prefix(variant + LibBlockNames.SLAB_SUFFIX));
+        Block chiseled = getBlockOrThrow(prefix("chiseled_" + variant + "_block"));
+        Block bricks = getBlockOrThrow(prefix(variant + "_bricks"));
+        Block pillar = getBlockOrThrow(prefix(variant + "_pillar"));
+        Block smooth = getBlockOrThrow(prefix("smooth_" + variant));
+        Block smoothStairs = getBlockOrThrow(prefix( "smooth_" + variant + LibBlockNames.STAIR_SUFFIX));
+        Block smoothSlab = getBlockOrThrow(prefix( "smooth_" + variant + LibBlockNames.SLAB_SUFFIX));
+
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block)
+                .define('Q', baseItem)
+                .pattern("QQ")
+                .pattern("QQ")
+                .group("extrabotany:quartz_block")
+                .unlockedBy("has_item", conditionsFromItem(baseItem))
+                .save(consumer);
+        stairs(stairs, block).group("extrabotany:quartz_stairs").save(consumer);
+        slabShape(slab, block).group("extrabotany:quartz_slab").save(consumer);
+        chiseled(chiseled, slab).group("extrabotany:quartz_chiseled")
+                .unlockedBy("has_base_item", conditionsFromItem(block)).save(consumer);
+        brick(bricks, block).group("extrabotany:quartz_bricks").save(consumer);
+        pillar(pillar, block).group("extrabotany:quartz_pillar").save(consumer);
+        //smooth: see SmeltingProvider
+        stairs(smoothStairs, smooth).group("extrabotany:quartz_stairs").save(consumer);
+        slabShape(smoothSlab, smooth).group("extrabotany:quartz_slab").save(consumer);
+    }
+
     private void registerMisc(Consumer<FinishedRecipe> consumer) {
 
         //Pedestal
         pedestal(BotaniaBlocks.livingrock, ExtraBotanyBlocks.livingrockPedestal)
                 .unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
                 .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ExtraBotanyBlocks.manaCharger)
+                .define('R', BotaniaBlocks.livingrockSlab)
+                .define('S', BotaniaItems.livingwoodTwig)
+                .pattern("   ")
+                .pattern(" R ")
+                .pattern("S S")
+                .unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ExtraBotanyBlocks.dimensionCatalyst)
+                .define('R', BotaniaBlocks.livingrock)
+                .define('P', Items.ENDER_PEARL)
+                .define('C', BotaniaBlocks.alchemyCatalyst)
+                .define('S', ExtraBotanyItems.theChaos)
+                .define('Q', ExtraBotanyItems.elementiumQuartz)
+                .pattern("RPR")
+                .pattern("QCQ")
+                .pattern("RSR")
+                .unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.alchemyCatalyst))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ExtraBotanyItems.gaiaQuartz)
+                .define('T', BotaniaItems.terrasteelNugget)
+                .define('Q', Items.QUARTZ)
+                .pattern("QQQ")
+                .pattern("QTQ")
+                .pattern("QQQ")
+                .unlockedBy("has_item", conditionsFromItem(BotaniaItems.terrasteel))
+                .save(consumer);
     }
+
     protected ShapedRecipeBuilder hammer(ItemLike head, ItemLike handle, ItemLike hammer) {
         return ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, hammer)
                 .define('H', head)

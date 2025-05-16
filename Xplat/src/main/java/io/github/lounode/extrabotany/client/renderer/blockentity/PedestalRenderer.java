@@ -21,7 +21,7 @@ public class PedestalRenderer implements BlockEntityRenderer<PedestalBlockEntity
     }
     @Override
     public void render(PedestalBlockEntity pedestal, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
-        ItemStack itemStack = pedestal.getInsideItem();
+        ItemStack itemStack = pedestal.getItem();
         if (itemStack.isEmpty()) {
             return;
         }

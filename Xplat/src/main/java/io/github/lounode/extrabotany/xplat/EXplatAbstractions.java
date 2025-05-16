@@ -8,6 +8,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.ServiceUtil;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -17,6 +18,7 @@ public interface EXplatAbstractions extends XplatAbstractions {
     void sendToPlayer(ServerPlayer player, ExtrabotanyPacket packet);
     Packet<ClientGamePacketListener> toVanillaClientboundPacket(ExtrabotanyPacket packet);
 
+    @Nullable
     NatureEnergyItem findNatureEnergyItem(ItemStack stack);
     String getExtraBotanyVersion();
 

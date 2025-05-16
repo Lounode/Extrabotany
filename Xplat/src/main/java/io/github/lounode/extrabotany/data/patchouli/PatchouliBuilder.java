@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.data.patchouli;
 
 import com.demonwav.mcdev.annotations.Translatable;
+import io.github.lounode.extrabotany.common.lib.RegistryHelper;
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 import io.github.lounode.extrabotany.data.patchouli.page.IPatchouliPage;
 import net.minecraft.advancements.Advancement;
@@ -8,9 +9,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public class PatchouliBuilder {
@@ -20,6 +25,7 @@ public class PatchouliBuilder {
     private int sortNum;
     private ResourceLocation advancement;
     private final List<IPatchouliPage> pages = new ArrayList<>();
+    private final Map<ResourceLocation, Integer> extraRecipeMappings = new HashMap<>();
 
     public PatchouliBuilder(ResourceLocation category, @Translatable String name, ItemLike icon, int sortNum) {
         this.category = category;
@@ -62,8 +68,26 @@ public class PatchouliBuilder {
     }
 
     public void save(Consumer<PatchouliEntry> consumer, ResourceLocation id) {
-        consumer.accept(new PatchouliEntry(category, name, icon, pages, id, sortNum, advancement));
+        consumer.accept(new PatchouliEntry(category, name, icon, pages, id, sortNum, advancement, extraRecipeMappings));
     }
 
 
+    public PatchouliBuilder extraRecipeMapping(Item item, int pageNum) {
+        if (item == Items.AIR) {
+            return this;
+        }
+
+        ResourceLocation location = RegistryHelper.getRegistryName(item);
+        this.extraRecipeMappings.put(location, pageNum);
+        return this;
+    }
+
+    public PatchouliBuilder extraRecipeMapping(Block block, int pageNum) {
+        if (block == Blocks.AIR) {
+            return this;
+        }
+        ResourceLocation location = RegistryHelper.getRegistryName(block);
+        this.extraRecipeMappings.put(location, pageNum);
+        return this;
+    }
 }

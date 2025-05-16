@@ -1,6 +1,8 @@
 package io.github.lounode.extrabotany.common.block;
 
 import io.github.lounode.extrabotany.common.block.mana.DimensionCatalystBlock;
+import io.github.lounode.extrabotany.common.block.mana.ManaChargerBlock;
+import io.github.lounode.extrabotany.common.block.mana.PowerFrameBlock;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.LibBlockNames;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -28,6 +30,7 @@ public final class ExtraBotanyBlocks {
     public static final Block photoniumBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(orichalcosBlock).mapColor(MapColor.TERRACOTTA_WHITE));
     public static final Block shadowiumBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(orichalcosBlock).mapColor(MapColor.COLOR_BLACK));
     public static final Block aerialiteBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(orichalcosBlock).mapColor(MapColor.LAPIS));
+    public static final Block dimensionCatalyst = new DimensionCatalystBlock(BlockBehaviour.Properties.copy(BotaniaBlocks.livingrock));
     public static final Block livingrockPedestal = new PedestalBlock(PedestalBlock.Variant.LIVINGROCK, BlockBehaviour.Properties.of()
             .strength(3.5F)
             .sound(SoundType.STONE)
@@ -36,8 +39,10 @@ public final class ExtraBotanyBlocks {
             .mapColor(MapColor.TERRACOTTA_WHITE));
 
     public static final Block[] ALL_PEDESTALS = new Block[] {livingrockPedestal};
-
-    public static final Block dimensionCatalyst = new DimensionCatalystBlock(BlockBehaviour.Properties.copy(BotaniaBlocks.livingrock));
+    public static final Block powerFrame = new PowerFrameBlock(BlockBehaviour.Properties.copy(Blocks.SPAWNER));
+    public static final Block manaCharger = new ManaChargerBlock(BlockBehaviour.Properties.copy(BotaniaBlocks.livingwood)
+            .explosionResistance(1.0F)
+            .mapColor(MapColor.TERRACOTTA_WHITE));
 
     //Quartz
     public static final Block gaiaQuartzBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.COLOR_LIGHT_GREEN));
@@ -78,7 +83,8 @@ public final class ExtraBotanyBlocks {
 
         //Pedestal
         r.accept(livingrockPedestal, prefix(LibBlockNames.PEDESTAL_PREFIX + PedestalBlock.Variant.LIVINGROCK.name().toLowerCase(Locale.ROOT)));
-
+        r.accept(powerFrame, prefix(LibBlockNames.POWER_FRAME));
+        r.accept(manaCharger, prefix(LibBlockNames.MANA_CHARGER));
         r.accept(dimensionCatalyst, prefix(LibBlockNames.DIMENSION_CATALYST));
 
         r.accept(gaiaQuartzBlock, prefix(LibBlockNames.GAIA_QUARTZ + "_block"));
@@ -131,10 +137,12 @@ public final class ExtraBotanyBlocks {
         r.accept(new BlockItem(photoniumBlock, props), BuiltInRegistries.BLOCK.getKey(photoniumBlock));
         r.accept(new BlockItem(shadowiumBlock, props), BuiltInRegistries.BLOCK.getKey(shadowiumBlock));
         r.accept(new BlockItem(aerialiteBlock, props), BuiltInRegistries.BLOCK.getKey(aerialiteBlock));
-
-        r.accept(new BlockItem(livingrockPedestal, props), BuiltInRegistries.BLOCK.getKey(livingrockPedestal));
-
         r.accept(new BlockItem(dimensionCatalyst, props), BuiltInRegistries.BLOCK.getKey(dimensionCatalyst));
+        r.accept(new BlockItem(powerFrame, props), BuiltInRegistries.BLOCK.getKey(powerFrame));
+        r.accept(new BlockItem(livingrockPedestal, props), BuiltInRegistries.BLOCK.getKey(livingrockPedestal));
+        r.accept(new BlockItem(manaCharger, props), BuiltInRegistries.BLOCK.getKey(manaCharger));
+
+
 
 
 

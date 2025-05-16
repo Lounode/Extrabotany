@@ -31,6 +31,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
@@ -140,12 +141,16 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
             .where('M', BlockInWorld.hasState(BlockTagPredicate.forTag(ExtraBotanyTags.Blocks.MANA_POOLS)))
             .createPattern();
 
-    private final int FINISH_CRAFT_STRIKE_FLAG = -1;
+    public final int FINISH_CRAFT_STRIKE_FLAG = -1;
     private int strikes;
     private int tier;
     private Map<ItemStack, ItemFrame> automaticHammers = new HashMap<>();
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
-        super(ExtraBotanyBlockEntities.PEDESTAL, pos, state);
+        this(ExtraBotanyBlockEntities.PEDESTAL, pos, state);
+    }
+
+    public PedestalBlockEntity(BlockEntityType<? extends PedestalBlockEntity> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
         this.setStrikes(0);
     }
 
@@ -215,7 +220,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
                     denyInteraction = true;
                 }
 
-                if (!recipe.getInput().test(this.getInsideItem())) {
+                if (!recipe.getInput().test(this.getItem())) {
                     continue;
                 }
 
@@ -252,7 +257,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
                 }
 
                 ItemStack output = recipe.getOutput().copy();
-                this.setInsideItem(output);
+                this.setItem(output);
                 level.playSound(null, pos, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, .8F,
                         ((player.level().random.nextFloat() - player.level().random.nextFloat()) * .7f + 1) * 2);
                 if (!level.isClientSide()) {
@@ -341,20 +346,22 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 
     public void insertPedestal(ItemStack itemStack) {
         ItemStack stack = itemStack.split(1);
-        this.setInsideItem(stack);
+        this.setItem(stack);
     }
 
     public ItemStack extractPedestal() {
-        ItemStack stack = getInsideItem().copy();
-        this.setInsideItem(ItemStack.EMPTY);
+        ItemStack stack = getItem().copy();
+        this.setItem(ItemStack.EMPTY);
         return stack;
     }
 
-    public ItemStack getInsideItem() {
+    @Override
+    public ItemStack getItem() {
         return getItem(0);
     }
 
-    public void setInsideItem(ItemStack itemStack) {
+    @Override
+    public void setItem(ItemStack itemStack) {
         setItem(0, itemStack);
     }
 
@@ -396,25 +403,9 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
         return superItemStack;
     }
 
-    @Override
-    public ItemStack removeItemNoUpdate(int i) {
-        return null;
-    }
-
     private void markUpdated() {
         this.setChanged();
         this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
-    }
-
-    @Override
-    public boolean isEmpty() {
-        for (int i = 0; i < inventorySize(); i++) {
-            if (!getItemHandler().getItem(i).isEmpty()) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     //TODO 精神燃料自动化
@@ -428,7 +419,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
             self.updateTier();
         }
 
-        var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(self.getInsideItem());
+        var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(self.getItem());
         if (natureItem != null) {
             //Hot
             if (level.getGameTime() % 20 == 0) {
@@ -512,9 +503,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
         return this.tier;
     }
 
-    public static void clientTick(Level level, BlockPos worldPosition, BlockState state, PedestalBlockEntity self) {
-
-    }
+    public static void clientTick(Level level, BlockPos worldPosition, BlockState state, PedestalBlockEntity self) {}
 
     public boolean tryAutoSmash(ItemStack hammer) {
         for (Recipe<?> r : ExtraBotanyRecipeTypes.getRecipes(level, ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE).values()) {
@@ -524,8 +513,8 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
             if (!recipe.getSmashTools().test(hammer)) {
                 continue;
             }
-            if (!recipe.getInput().test(this.getInsideItem())) {
-                if (ItemStack.isSameItemSameTags(recipe.getOutput(), this.getInsideItem())) {
+            if (!recipe.getInput().test(this.getItem())) {
+                if (ItemStack.isSameItemSameTags(recipe.getOutput(), this.getItem())) {
                     return false;
                 }
                 continue;
@@ -546,7 +535,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
             }
 
             ItemStack output = recipe.getOutput().copy();
-            this.setInsideItem(output);
+            this.setItem(output);
             level.playSound(null, worldPosition, SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, .8F,
                     ((level.random.nextFloat() - level.random.nextFloat()) * .7f + 1) * 2);
             strikes = FINISH_CRAFT_STRIKE_FLAG;
@@ -614,7 +603,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 
     @Override
     public boolean canPlaceItemThroughFace(int i, ItemStack itemStack, @Nullable Direction direction) {
-        return this.getInsideItem().isEmpty();
+        return this.getItem().isEmpty();
     }
 
     @Override

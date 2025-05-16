@@ -6,6 +6,7 @@ import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import io.github.lounode.extrabotany.data.patchouli.PatchouliBuilder;
 import io.github.lounode.extrabotany.data.patchouli.PatchouliEntry;
 import io.github.lounode.extrabotany.data.patchouli.PatchouliProvider;
+import io.github.lounode.extrabotany.data.patchouli.page.botania.ElvenTradePage;
 import io.github.lounode.extrabotany.data.patchouli.page.botania.ManaInfusionPage;
 import io.github.lounode.extrabotany.data.patchouli.page.botania.RunicAltarPage;
 import io.github.lounode.extrabotany.data.patchouli.page.extrabotany.EatPage;
@@ -234,6 +235,61 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 
                 )
                 .save(consumer, id("reward_bags"));
+        PatchouliBuilder.entry(CATEGORY)
+                .withName("extrabotany.entry.mana_charger")
+                .withIcon(ExtraBotanyBlocks.manaCharger)
+                .pages(
+                        text("extrabotany.page.mana_charger0"),
+                        crafting(ExtraBotanyBlocks.manaCharger)
+                                .withText("extrabotany.page.mana_charger1")
+                )
+                .save(consumer, id("mana_charger"));
+        PatchouliBuilder.entry(CATEGORY)
+                .withName("extrabotany.entry.dimension_catalyst")
+                .withIcon(ExtraBotanyBlocks.dimensionCatalyst)
+                .pages(
+                        text("extrabotany.page.dimension_catalyst0"),
+                        crafting(ExtraBotanyBlocks.dimensionCatalyst).withText("extrabotany.page.dimension_catalyst11"),
+                        manaInfusion("apple_to_chorus_fruit").withText("extrabotany.page.dimension_catalyst1"),
+                        manaInfusion("blaze_rod_dupe").withText("extrabotany.page.dimension_catalyst2"),
+                        manaInfusion("cobblestone_to_nether_rack").withText("extrabotany.page.dimension_catalyst3"),
+                        manaInfusion("diamond_horse_armor_to_shulker_shell").withText("extrabotany.page.dimension_catalyst4"),
+                        manaInfusion("snowball_to_ender_pearl").withText("extrabotany.page.dimension_catalyst5"),
+                        manaInfusion("iron_ore_to_quartz_ore").withText("extrabotany.page.dimension_catalyst6"),
+                        manaInfusion("nether_star_to_totem_of_undying").withText("extrabotany.page.dimension_catalyst7"),
+                        manaInfusion("sand_to_soul_sand").withText("extrabotany.page.dimension_catalyst8"),
+                        manaInfusion("stone_to_end_stone").withText("extrabotany.page.dimension_catalyst9"),
+                        manaInfusion("the_origin_to_elytra").withText("extrabotany.page.dimension_catalyst10")
+                )
+                .save(consumer, id("dimension_catalyst"));
+        PatchouliBuilder.entry(CATEGORY)
+                .withName("extrabotany.entry.quartzs")
+                .withIcon(ExtraBotanyItems.gaiaQuartz)
+                .pages(
+                        text("extrabotany.page.quartzs0"),
+                        crafting(ExtraBotanyItems.gaiaQuartz).withText("extrabotany.page.quartzs1"),
+                        elvenTrade(ExtraBotanyItems.elementiumQuartz).withText("extrabotany.page.quartzs2")
+                )
+                .extraRecipeMapping(ExtraBotanyBlocks.gaiaQuartzBlock,1)
+                .extraRecipeMapping(ExtraBotanyBlocks.gaiaQuartzStairs,1)
+                .extraRecipeMapping(ExtraBotanyBlocks.gaiaQuartzSlab,1)
+                .extraRecipeMapping(ExtraBotanyBlocks.chiseledGaiaQuartzBlock,1)
+                .extraRecipeMapping(ExtraBotanyBlocks.gaiaQuartzBricks,1)
+                .extraRecipeMapping(ExtraBotanyBlocks.gaiaQuartzPillar,1)
+                .extraRecipeMapping(ExtraBotanyBlocks.smoothGaiaQuartz,1)
+                .extraRecipeMapping(ExtraBotanyBlocks.smoothGaiaQuartzStairs,1)
+                .extraRecipeMapping(ExtraBotanyBlocks.smoothGaiaQuartzSlab,1)
+
+                .extraRecipeMapping(ExtraBotanyBlocks.elementiumQuartzBlock,2)
+                .extraRecipeMapping(ExtraBotanyBlocks.elementiumQuartzStairs,2)
+                .extraRecipeMapping(ExtraBotanyBlocks.elementiumQuartzSlab,2)
+                .extraRecipeMapping(ExtraBotanyBlocks.chiseledElementiumQuartzBlock,2)
+                .extraRecipeMapping(ExtraBotanyBlocks.elementiumQuartzBricks,2)
+                .extraRecipeMapping(ExtraBotanyBlocks.elementiumQuartzPillar,2)
+                .extraRecipeMapping(ExtraBotanyBlocks.smoothElementiumQuartz,2)
+                .extraRecipeMapping(ExtraBotanyBlocks.smoothElementiumQuartzStairs,2)
+                .extraRecipeMapping(ExtraBotanyBlocks.smoothElementiumQuartzSlab,2)
+                .save(consumer, id("quartzs"));
     }
 
     private RunicAltarPage runicAlter(ItemLike item) {
@@ -252,6 +308,17 @@ public final class PatchouliBookProvider extends PatchouliProvider {
         ResourceLocation location = BuiltInRegistries.ITEM.getKey(item.asItem());
         ResourceLocation recipeLocation = location.withPrefix("mana_infusion/");
         return new ManaInfusionPage(recipeLocation.toString());
+    }
+
+    private ManaInfusionPage manaInfusion(String recipe) {
+        ResourceLocation resourceLocation = prefix("mana_infusion/" + recipe);
+        return new ManaInfusionPage(resourceLocation.toString());
+    }
+
+    private ElvenTradePage elvenTrade(ItemLike item) {
+        ResourceLocation location = BuiltInRegistries.ITEM.getKey(item.asItem());
+        ResourceLocation recipeLocation = location.withPrefix("elven_trade/");
+        return new ElvenTradePage(recipeLocation.toString());
     }
 
     private static ResourceLocation mainAdvancement(String name) {

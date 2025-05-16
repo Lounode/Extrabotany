@@ -12,6 +12,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import vazkii.botania.fabric.xplat.FabricXplatImpl;
 
 public class ExFabricXplatImpl extends FabricXplatImpl implements EXplatAbstractions {
@@ -25,6 +26,7 @@ public class ExFabricXplatImpl extends FabricXplatImpl implements EXplatAbstract
         return ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
     }
 
+    @Nullable
     @Override
     public NatureEnergyItem findNatureEnergyItem(ItemStack stack) {
         return ExtrabotanyFabricCapabilities.NATURE_ENERGY_ITEM.find(stack, Unit.INSTANCE);

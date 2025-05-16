@@ -10,4 +10,6 @@ public class LibBlockNames {
     public static final String DIMENSION_CATALYST = "dimension_catalyst";
     public static final String GAIA_QUARTZ = "gaia_quartz";
     public static final String ELEMENTIUM_QUARTZ = "elementium_quartz";
+    public static final String MANA_CHARGER = "mana_charger";
+    public static final String POWER_FRAME = "power_frame";
 }

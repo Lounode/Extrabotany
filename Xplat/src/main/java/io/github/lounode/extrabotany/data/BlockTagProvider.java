@@ -61,6 +61,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
         pickaxe.addAll(List.of(ALL_QUARTZ));
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(getModBlocks(pickaxe::contains));
+        tag(ExtraBotanyTags.Blocks.CHARGERS).add(powerFrame, manaCharger);
     }
 
     @NotNull

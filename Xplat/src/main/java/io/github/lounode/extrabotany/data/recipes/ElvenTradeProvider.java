@@ -2,15 +2,18 @@ package io.github.lounode.extrabotany.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +29,11 @@ public class ElvenTradeProvider extends ExtraBotanyRecipeProvider{
 
     @Override
     public void buildRecipes(Consumer<FinishedRecipe> consumer) {
+        consumer.accept(new FinishedElvenRecipe(id("elementium_quartz"), new ItemStack(ExtraBotanyItems.elementiumQuartz), Ingredient.of(BotaniaItems.manaQuartz), Ingredient.of(BotaniaItems.manaQuartz)));
+    }
 
+    protected static Ingredient ingr(ItemLike i) {
+        return Ingredient.of(i);
     }
 
     private static ResourceLocation id(String path) {

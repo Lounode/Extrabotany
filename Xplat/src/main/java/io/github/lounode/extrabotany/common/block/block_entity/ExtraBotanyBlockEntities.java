@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
-import static io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks.livingrockPedestal;
+import static io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks.*;
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class ExtraBotanyBlockEntities {
@@ -23,6 +23,10 @@ public class ExtraBotanyBlockEntities {
     public static final BlockEntityType<PedestalBlockEntity> PEDESTAL = type(prefix(LibBlockNames.PEDESTAL), PedestalBlockEntity::new,
             livingrockPedestal
     );
+    public static final BlockEntityType<ManaChargerBlockEntity> MANA_CHARGER =
+            type(prefix(LibBlockNames.MANA_CHARGER), ManaChargerBlockEntity::new, manaCharger);
+    public static final BlockEntityType<PowerFrameBlockEntity> POWER_FRAME =
+            type(prefix(LibBlockNames.POWER_FRAME), PowerFrameBlockEntity::new, powerFrame);
 
     private static <T extends BlockEntity> BlockEntityType<T> type(ResourceLocation id, BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
         var ret = XplatAbstractions.INSTANCE.createBlockEntityType(func, blocks);

@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.data;
 
+import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.PedestalBlock;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -39,6 +40,10 @@ public class BlockstateProvider extends vazkii.botania.data.BlockstateProvider {
         Set<Block> remainingBlocks = BuiltInRegistries.BLOCK.stream()
                 .filter(b -> LibMisc.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace()))
                 .collect(Collectors.toSet());
+
+        //ManaCharger
+        manualModel(remainingBlocks, ExtraBotanyBlocks.manaCharger);
+        manualModel(remainingBlocks, ExtraBotanyBlocks.powerFrame);
 
         //Pedestal
         var pedestalTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/pedestal")), Optional.empty(),
