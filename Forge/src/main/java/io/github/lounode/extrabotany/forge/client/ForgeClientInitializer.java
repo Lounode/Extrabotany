@@ -1,13 +1,17 @@
 package io.github.lounode.extrabotany.forge.client;
 
+import com.google.common.base.Suppliers;
 import io.github.lounode.extrabotany.client.ExtraBotanyItemProperties;
 import io.github.lounode.extrabotany.client.core.ExtraBotanyModels;
 import io.github.lounode.extrabotany.client.gui.HUD;
 import io.github.lounode.extrabotany.client.renderer.ColorHandler;
 import io.github.lounode.extrabotany.client.renderer.entity.EntityRenderers;
+import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
@@ -15,9 +19,19 @@ import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import vazkii.botania.api.BotaniaForgeClientCapabilities;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.forge.CapabilityUtil;
+
+import java.util.Collections;
+import java.util.IdentityHashMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeClientInitializer {
@@ -59,6 +73,28 @@ public class ForgeClientInitializer {
         });
 
          */
+        bus.addGenericListener(BlockEntity.class, ForgeClientInitializer::attachBeCapabilities);
+    }
+
+    private static final Supplier<Map<BlockEntityType<?>, Function<BlockEntity, WandHUD>>> WAND_HUD = Suppliers.memoize(() -> {
+        var ret = new IdentityHashMap<BlockEntityType<?>, Function<BlockEntity, WandHUD>>();
+        ExtrabotanyFlowerBlocks.registerWandHudCaps((factory, types) -> {
+            for (var type : types) {
+                ret.put(type, factory);
+            }
+        });
+
+        return Collections.unmodifiableMap(ret);
+    });
+
+    private static void attachBeCapabilities(AttachCapabilitiesEvent<BlockEntity> e) {
+        var be = e.getObject();
+
+        var makeWandHud = WAND_HUD.get().get(be.getType());
+        if (makeWandHud != null) {
+            e.addCapability(vazkii.botania.common.lib.ResourceLocationHelper.prefix("wand_hud"),
+                    CapabilityUtil.makeProvider(BotaniaForgeClientCapabilities.WAND_HUD, makeWandHud.apply(be)));
+        }
     }
 
     @SubscribeEvent

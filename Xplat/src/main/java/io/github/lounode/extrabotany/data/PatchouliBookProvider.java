@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.data;
 
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import io.github.lounode.extrabotany.data.patchouli.PatchouliBuilder;
@@ -8,6 +9,7 @@ import io.github.lounode.extrabotany.data.patchouli.PatchouliEntry;
 import io.github.lounode.extrabotany.data.patchouli.PatchouliProvider;
 import io.github.lounode.extrabotany.data.patchouli.page.botania.ElvenTradePage;
 import io.github.lounode.extrabotany.data.patchouli.page.botania.ManaInfusionPage;
+import io.github.lounode.extrabotany.data.patchouli.page.botania.PetalApothecaryPage;
 import io.github.lounode.extrabotany.data.patchouli.page.botania.RunicAltarPage;
 import io.github.lounode.extrabotany.data.patchouli.page.extrabotany.EatPage;
 import io.github.lounode.extrabotany.data.patchouli.page.extrabotany.PedestalPage;
@@ -290,12 +292,28 @@ public final class PatchouliBookProvider extends PatchouliProvider {
                 .extraRecipeMapping(ExtraBotanyBlocks.smoothElementiumQuartzStairs,2)
                 .extraRecipeMapping(ExtraBotanyBlocks.smoothElementiumQuartzSlab,2)
                 .save(consumer, id("quartzs"));
+        PatchouliBuilder.entry(CATEGORY)
+                .withName("extrabotany.entry.trade_orchid")
+                .withIcon(ExtrabotanyFlowerBlocks.tradeOrchid)
+                .pages(
+                        text("extrabotany.page.trade_orchid0"),
+                        petal(ExtrabotanyFlowerBlocks.tradeOrchid)
+                                .withText("extrabotany.page.trade_orchid1")
+                )
+                .extraRecipeMapping(ExtrabotanyFlowerBlocks.tradeOrchidFloating, 1)
+                .save(consumer, id("trade_orchid"));
     }
 
     private RunicAltarPage runicAlter(ItemLike item) {
         ResourceLocation location = BuiltInRegistries.ITEM.getKey(item.asItem());
         ResourceLocation recipeLocation = location.withPrefix("runic_altar/");
         return new RunicAltarPage(recipeLocation.toString());
+    }
+
+    private PetalApothecaryPage petal(ItemLike item) {
+        ResourceLocation location = BuiltInRegistries.ITEM.getKey(item.asItem());
+        ResourceLocation recipeLocation = location.withPrefix("petal_apothecary/");
+        return new PetalApothecaryPage(recipeLocation.toString());
     }
 
     private PedestalPage pedestal(ItemLike item) {

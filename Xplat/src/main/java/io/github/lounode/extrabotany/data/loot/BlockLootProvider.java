@@ -23,12 +23,14 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
+import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import org.jetbrains.annotations.NotNull;
 
@@ -93,6 +95,18 @@ public class BlockLootProvider implements DataProvider {
             output.add(DataProvider.saveStable(cache, Deserializers.createLootTableSerializer().create().toJsonTree(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path));
         }
         return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
+    }
+
+    protected static LootTable.Builder genCopyNbt(Block b, String... tags) {
+        LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b);
+        CopyNbtFunction.Builder func = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
+        for (String tag : tags) {
+            func = func.copy(tag, "BlockEntityTag." + tag);
+        }
+        LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
+                .when(ExplosionCondition.survivesExplosion())
+                .apply(func);
+        return LootTable.lootTable().withPool(pool);
     }
 
     protected static LootTable.Builder genRegular(Block b) {

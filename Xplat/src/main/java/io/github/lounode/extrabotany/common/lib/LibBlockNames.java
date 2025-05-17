@@ -1,5 +1,9 @@
 package io.github.lounode.extrabotany.common.lib;
 
+import net.minecraft.resources.ResourceLocation;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
+
 public class LibBlockNames {
     public static final String ORICHALCOS_BLOCK = "orichalcos_block";
     public static final String PHOTONIUM_BLOCK = "photonium_block";
@@ -12,4 +16,5 @@ public class LibBlockNames {
     public static final String ELEMENTIUM_QUARTZ = "elementium_quartz";
     public static final String MANA_CHARGER = "mana_charger";
     public static final String POWER_FRAME = "power_frame";
+    public static final ResourceLocation SUBTILE_TRADE_ORCHID = prefix("trade_orchid");
 }

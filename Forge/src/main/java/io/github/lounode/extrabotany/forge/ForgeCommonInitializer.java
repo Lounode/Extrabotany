@@ -8,6 +8,7 @@ import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
 import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
+import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
@@ -33,6 +34,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -84,6 +88,12 @@ public class ForgeCommonInitializer
         ForgePacketHandler.init();
         registerEvents();
 
+        evt.enqueueWork(() -> {
+            BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer = (resourceLocation, blockSupplier) -> ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(resourceLocation, blockSupplier);
+            ExtraBotanyBlocks.registerFlowerPotPlants(consumer);
+            ExtrabotanyFlowerBlocks.registerFlowerPotPlants(consumer);
+        });
+
         //Integration
         if (ModList.get().isLoaded("tconstruc")) {
             //modEventBus.addListener(this::registerTinkersMaterials);
@@ -101,6 +111,10 @@ public class ForgeCommonInitializer
         bindForItems(modEventBus, ExtraBotanyBlocks::registerItemBlocks);
         bind(modEventBus, Registries.BLOCK_ENTITY_TYPE, ExtraBotanyBlockEntities::registerTiles);
         bindForItems(modEventBus, ExtraBotanyItems::registerItems);
+
+        bind(modEventBus,Registries.BLOCK, ExtrabotanyFlowerBlocks::registerBlocks);
+        bindForItems(modEventBus, ExtrabotanyFlowerBlocks::registerItemBlocks);
+        bind(modEventBus, Registries.BLOCK_ENTITY_TYPE, ExtrabotanyFlowerBlocks::registerTEs);
 
         //GUI & Recipe
         bind(modEventBus, Registries.RECIPE_SERIALIZER, ExtraBotanyItems::registerRecipeSerializers);

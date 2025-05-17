@@ -6,6 +6,7 @@ import io.github.lounode.extrabotany.api.ExtrabotanyFabricCapabilities;
 import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
+import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
@@ -74,6 +75,10 @@ public class FabricCommonInitializer implements ModInitializer {
         ExtraBotanyBlocks.registerItemBlocks(boundForItem);
         ExtraBotanyBlockEntities.registerTiles(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
         ExtraBotanyItems.registerItems(boundForItem);
+
+        ExtrabotanyFlowerBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
+        ExtrabotanyFlowerBlocks.registerItemBlocks(boundForItem);
+        ExtrabotanyFlowerBlocks.registerTEs(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
 
         // GUI and Recipe
         ExtraBotanyItems.registerRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));

@@ -14,11 +14,13 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.decor.stairs.BotaniaStairBlock;
 
 import java.util.Locale;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 import static vazkii.botania.common.lib.LibBlockNames.SLAB_SUFFIX;
@@ -74,6 +76,10 @@ public final class ExtraBotanyBlocks {
             smoothElementiumQuartz, smoothElementiumQuartzStairs, smoothElementiumQuartzSlab
     };
 
+    public static FlowerPotBlock flowerPot(Block block, int lightLevel) {
+        BlockBehaviour.Properties properties = BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY);
+        return new FlowerPotBlock(block, lightLevel > 0 ? properties.lightLevel(blockState -> lightLevel) : properties);
+    }
 
     public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {
         r.accept(orichalcosBlock, prefix(LibBlockNames.ORICHALCOS_BLOCK));
@@ -142,9 +148,9 @@ public final class ExtraBotanyBlocks {
         r.accept(new BlockItem(livingrockPedestal, props), BuiltInRegistries.BLOCK.getKey(livingrockPedestal));
         r.accept(new BlockItem(manaCharger, props), BuiltInRegistries.BLOCK.getKey(manaCharger));
 
+    }
 
-
-
+    public static void registerFlowerPotPlants(BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer) {
 
     }
 }

@@ -8,9 +8,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.*;
 import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.BotaniaGrassBlock;
+import vazkii.botania.common.block.FloatingSpecialFlowerBlock;
+import vazkii.botania.common.block.decor.FloatingFlowerBlock;
+import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -20,6 +25,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
 import static io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks.*;
+import static io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks.tradeOrchid;
+import static io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks.tradeOrchidPotted;
 
 public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
     public static final Predicate<Block> EXTRABOTANY_BLOCK = b -> LibMisc.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace());
@@ -30,6 +37,19 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        tag(BlockTags.RAILS);
+        tag(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
+        tag(BlockTags.WOODEN_SLABS);
+        tag(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairBlock));
+        tag(BlockTags.WOODEN_STAIRS);
+        tag(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
+        tag(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
+        tag(BlockTags.WOODEN_FENCES);
+        tag(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
+        tag(BlockTags.DRAGON_IMMUNE);
+        tag(BlockTags.WITHER_IMMUNE);
+        tag(BlockTags.PLANKS);
+
         tag(BlockTags.BEACON_BASE_BLOCKS).add(
                 aerialiteBlock,
                 orichalcosBlock,
@@ -41,6 +61,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
         tag(ExtraBotanyTags.Blocks.BLOCKS_PHOTONIUM).add(photoniumBlock);
         tag(ExtraBotanyTags.Blocks.BLOCKS_SHADOWIUM).add(shadowiumBlock);
 
+
         tag(ExtraBotanyTags.Blocks.PEDESTALS).add(ALL_PEDESTALS);
         tag(ExtraBotanyTags.Blocks.MANA_POOLS).add(
                 BotaniaBlocks.manaPool,
@@ -48,20 +69,71 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
                 BotaniaBlocks.dilutedPool,
                 BotaniaBlocks.fabulousPool
         );
+        tag(ExtraBotanyTags.Blocks.CHARGERS).add(powerFrame, manaCharger);
+
+        tag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS);
+        tag(BotaniaTags.Blocks.MYSTICAL_FLOWERS);
+        tag(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS);
+        tag(BotaniaTags.Blocks.SHINY_FLOWERS);
+        tag(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
+        tag(BotaniaTags.Blocks.MISC_SPECIAL_FLOWERS);
+        tag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS).add(BuiltInRegistries.BLOCK.stream().filter(EXTRABOTANY_BLOCK)
+                .filter(b -> b instanceof FloatingSpecialFlowerBlock)
+                .sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+                .toArray(Block[]::new)
+        );
+        tag(BotaniaTags.Blocks.FLOATING_FLOWERS).add(BuiltInRegistries.BLOCK.stream().filter(EXTRABOTANY_BLOCK)
+                .filter(b -> b instanceof FloatingSpecialFlowerBlock)
+                .sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+                .toArray(Block[]::new)
+        );
+
+        Block[] generatingSpecialFlowers = {
+
+        };
+        tag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOWERS).add(generatingSpecialFlowers);
+
+        Block[] functionalSpecialFlowers = {
+                tradeOrchid
+        };
+        tag(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS).add(functionalSpecialFlowers);
+
+        tag(BotaniaTags.Blocks.SPECIAL_FLOWERS)
+                .add(generatingSpecialFlowers)
+                .add(functionalSpecialFlowers);
+
+        tag(BotaniaTags.Blocks.MINI_FLOWERS).add(
+                getModBlocks(b -> XplatAbstractions.INSTANCE.isSpecialFlowerBlock(b)
+                        && BuiltInRegistries.BLOCK.getKey(b).getPath().endsWith("_chibi"))
+        );
+
+        tag(BotaniaTags.Blocks.ENCHANTER_FLOWERS);
+
+        tag(BlockTags.FLOWER_POTS)
+
+                .add(
+                        //Func
+                        tradeOrchidPotted
+                );
 
         registerMiningTags();
     }
 
     private void registerMiningTags() {
+        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
+                getModBlocks(b -> b instanceof FloatingFlowerBlock || b instanceof BotaniaGrassBlock)
+        );
+
         Set<Block> pickaxe = new HashSet<>(Set.of(
                 aerialiteBlock, orichalcosBlock, photoniumBlock, shadowiumBlock,
-                dimensionCatalyst
+                dimensionCatalyst, powerFrame
         ));
         pickaxe.addAll(List.of(ALL_PEDESTALS));
         pickaxe.addAll(List.of(ALL_QUARTZ));
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(getModBlocks(pickaxe::contains));
-        tag(ExtraBotanyTags.Blocks.CHARGERS).add(powerFrame, manaCharger);
+        tag(BlockTags.MINEABLE_WITH_AXE).add(manaCharger);
+
     }
 
     @NotNull

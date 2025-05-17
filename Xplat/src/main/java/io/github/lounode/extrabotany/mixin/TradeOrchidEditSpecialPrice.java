@@ -1,0 +1,41 @@
+package io.github.lounode.extrabotany.mixin;
+
+import io.github.lounode.extrabotany.common.brew.effect.DiscountMobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.trading.MerchantOffer;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(Villager.class)
+public class TradeOrchidEditSpecialPrice {
+
+    @Inject(
+            method = "startTrading",
+            at = @At("HEAD")
+    )
+    private void onStartTrade(Player player, CallbackInfo ci) {
+        Villager self = (Villager) (Object) this;
+        var effects = self.getActiveEffects();
+
+        MobEffectInstance discountEffect = null;
+        for (var effect : effects) {
+            if (effect.getEffect() instanceof DiscountMobEffect) {
+                discountEffect = effect;
+            }
+        }
+
+        if (discountEffect != null) {
+            DiscountMobEffect effect = (DiscountMobEffect) discountEffect.getEffect();
+
+            for(MerchantOffer offer : self.getOffers()) {
+                int costA = offer.getBaseCostA().getCount();
+                int discount = effect.getDiscount(discountEffect, self, offer, player);
+                offer.setSpecialPriceDiff(discount);
+            }
+        }
+    }
+}

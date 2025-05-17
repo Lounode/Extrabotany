@@ -4,6 +4,7 @@ import io.github.lounode.extrabotany.client.renderer.blockentity.ManaChargerRend
 import io.github.lounode.extrabotany.client.renderer.blockentity.PedestalRenderer;
 import io.github.lounode.extrabotany.client.renderer.blockentity.PowerFrameRenderer;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
+import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import vazkii.botania.client.render.block_entity.SpecialFlowerBlockEntityRenderer;
 
 public final class EntityRenderers {
     public interface EntityRendererConsumer {
@@ -38,5 +40,6 @@ public final class EntityRenderers {
         consumer.register(ExtraBotanyBlockEntities.PEDESTAL, PedestalRenderer::new);
         consumer.register(ExtraBotanyBlockEntities.MANA_CHARGER, ManaChargerRenderer::new);
         consumer.register(ExtraBotanyBlockEntities.POWER_FRAME, PowerFrameRenderer::new);
+        consumer.register(ExtrabotanyFlowerBlocks.TRADE_ORCHID, SpecialFlowerBlockEntityRenderer::new);
     }
 }

@@ -5,6 +5,7 @@ import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
 import io.github.lounode.extrabotany.common.lib.ResourceLocationHelper;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -17,12 +18,16 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.FloatingSpecialFlowerBlock;
 import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.data.recipes.WrapperResult;
 
+import java.util.Comparator;
 import java.util.function.Consumer;
+
+import static io.github.lounode.extrabotany.data.BlockTagProvider.EXTRABOTANY_BLOCK;
 
 public class CraftingRecipeProvider extends vazkii.botania.data.recipes.CraftingRecipeProvider {
     public CraftingRecipeProvider(PackOutput packOutput) {
@@ -37,6 +42,7 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
         registerTrinkets(consumer);
         registerConversions(consumer);
         registerDecor(consumer);
+        registerFloatingFlowers(consumer);
     }
     private void registerMain(Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ExtraBotanyItems.theChaos)
@@ -289,6 +295,17 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
                 .pattern("QQQ")
                 .unlockedBy("has_item", conditionsFromItem(BotaniaItems.terrasteel))
                 .save(consumer);
+    }
+    private void registerFloatingFlowers(Consumer<FinishedRecipe> consumer) {
+        var floatings = BuiltInRegistries.BLOCK.stream().filter(EXTRABOTANY_BLOCK.and(b -> b instanceof FloatingSpecialFlowerBlock))
+                .sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+                .toArray(Block[]::new);
+
+        for (var block : floatings) {
+            ResourceLocation inputName = BuiltInRegistries.ITEM.getKey(block.asItem());
+            Item origin = this.getItemOrThrow(new ResourceLocation(inputName.getNamespace(), inputName.getPath().replace("floating_", "")));
+            createFloatingFlowerRecipe(consumer, origin);
+        }
     }
 
     protected ShapedRecipeBuilder hammer(ItemLike head, ItemLike handle, ItemLike hammer) {

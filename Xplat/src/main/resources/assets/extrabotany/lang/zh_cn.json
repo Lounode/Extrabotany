@@ -65,6 +65,11 @@
   "block.extrabotany.mana_charger": "魔力充能基座",
   "block.extrabotany.power_frame": "力量框架",
   
+  "block.extrabotany.trade_orchid": "商友兰",
+  "block.extrabotany.trade_orchid.reference": "不再需要打折机",
+  "block.extrabotany.potted_trade_orchid": "商友兰盆栽",
+  "block.extrabotany.floating_trade_orchid": "浮空商友兰",
+  
   
   "death.attack.extrabotany.link": "%1$s 对别人的痛苦感同身受",
   "death.attack.extrabotany.link.player": "%1$s 对 %2$s 的痛苦感同身受",
@@ -309,6 +314,9 @@
   "extrabotany.page.quartzs1": "似是故人来",
   "extrabotany.page.quartzs2": "材 质 更 新",
   
+  "extrabotany.entry.trade_orchid": "商友兰",
+  "extrabotany.page.trade_orchid0": "$(item)商友兰$()是商人的好友，它可以用$(thing)魔力$()让附近的村民交易打折，多个商友兰提供的折扣效果不会叠加。",
+  "extrabotany.page.trade_orchid1": "可以折上折吗？",
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""
