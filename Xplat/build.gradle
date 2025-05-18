@@ -59,7 +59,7 @@ dependencies {
     compileOnly "vazkii.patchouli:Patchouli-xplat:${patchouli_version}"
     compileOnly "vazkii.botania:Botania:${botania_version}-FORGE"
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-    compileOnly "io.github.lounode.eventwrapper:eventwrapper-common:${eventwrapper_version}"
+    compileOnly "io.github.lounode.eventwrapper:eventwrapper-common:${minecraft_version}-${eventwrapper_version}"
 
     //api "com.demonwav.mcdev:annotations:1.0"
     api "com.demonwav.mcdev:annotations:2.1.0"

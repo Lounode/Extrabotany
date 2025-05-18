@@ -151,7 +151,7 @@ dependencies {
     modImplementation "vazkii.patchouli:Patchouli:${patchouli_version}-FABRIC"
     modImplementation "vazkii.botania:Botania:${botania_version}-FABRIC"
     modCompileOnly 'com.unascribed:ears-api:1.4.5'
-    modImplementation "io.github.lounode.eventwrapper:eventwrapper-fabric:${eventwrapper_version}"
+    modImplementation "io.github.lounode.eventwrapper:eventwrapper-fabric:${minecraft_version}-${eventwrapper_version}"
 
     modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     modRuntimeOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"

@@ -126,7 +126,7 @@ dependencies {
     modCompileOnly("top.theillusivec4.curios:curios-forge:${curios_version}:api")
     modRuntimeOnly("top.theillusivec4.curios:curios-forge:${curios_version}")
     modCompileOnly('com.unascribed:ears-api:1.4.5')
-    modImplementation("io.github.lounode.eventwrapper:eventwrapper-forge:${eventwrapper_version}")
+    modImplementation("io.github.lounode.eventwrapper:eventwrapper-forge:${minecraft_version}-${eventwrapper_version}")
 
     modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
