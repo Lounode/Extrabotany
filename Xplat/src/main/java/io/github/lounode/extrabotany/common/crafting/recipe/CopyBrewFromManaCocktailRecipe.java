@@ -32,14 +32,17 @@ public class CopyBrewFromManaCocktailRecipe extends CopyBrewRecipe {
         private Serializer() {
         }
 
+        @Override
         public CopyBrewFromManaCocktailRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
             return new CopyBrewFromManaCocktailRecipe(SHAPELESS_RECIPE.fromJson(recipeId, json));
         }
 
+        @Override
         public CopyBrewFromManaCocktailRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
             return new CopyBrewFromManaCocktailRecipe(SHAPELESS_RECIPE.fromNetwork(recipeId, buffer));
         }
 
+        @Override
         public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull CopyBrewFromManaCocktailRecipe recipe) {
             SHAPELESS_RECIPE.toNetwork(buffer, recipe);
         }
