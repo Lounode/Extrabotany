@@ -11,59 +11,6 @@ if (System.getenv().RELEASE_MODE != "1") {
     version += '-SNAPSHOT'
 }
 
-
-loom {
-    accessWidenerPath = file("src/main/resources/extrabotany.accesswidener")
-    mixin.defaultRefmapName = "extrabotany.refmap.json"
-
-
-    runs {
-        client{
-            programArgs(["--username", "Dev", "--uuid", "4f201c25-b473-4c2c-959a-dea681f79c23"])
-            vmArg "-XX:+AllowEnhancedClassRedefinition"
-            vmArg "-Dmetrics_debug=true"
-        }
-        gameTest {
-            server()
-            vmArg "-Dfabric-api.gametest=1"
-        }
-
-        xplatDatagen {
-            client()
-            vmArg "-Dextrabotany.xplat_datagen=1"
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.modid=extrabotany"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("../Xplat/src/generated/resources")}"
-        }
-
-        fabricDatagen {
-            client()
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.modid=extrabotany"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
-        }
-
-        configureEach {
-            runDir "../run"
-            ideConfigGenerated(true)
-
-        }
-    }
-
-    mods {
-        extrabotany {
-            sourceSet(sourceSets.main)
-            sourceSet project(":Xplat").sourceSets.main
-        }
-    }
-}
-
-
-
-sourceSets.main.resources {
-    srcDir 'src/generated/resources'
-}
-
 repositories {
     maven {
         name = "Modmuss"
@@ -131,65 +78,91 @@ repositories {
         name = "lounode"
         url = "https://maven.lounode.top/releases"
     }
+}
 
+loom {
+    accessWidenerPath = file("src/main/resources/extrabotany.accesswidener")
+    mixin.defaultRefmapName = "extrabotany.refmap.json"
 
+    runs {
+        client{
+            vmArg "-XX:+AllowEnhancedClassRedefinition"
+            vmArg "-Dmetrics_debug=true"
+        }
+
+        gameTest {
+            server()
+            vmArg "-Dfabric-api.gametest=1"
+        }
+
+        xplatDatagen {
+            client()
+            vmArg "-Dextrabotany.xplat_datagen=1"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.modid=extrabotany"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("../Xplat/src/generated/resources")}"
+        }
+
+        fabricDatagen {
+            client()
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.modid=extrabotany"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+        }
+
+        configureEach {
+            runDir "../run"
+            ideConfigGenerated(true)
+
+            programArgs.addAll("--username", "Dev")
+            programArgs.addAll("--uuid", "4f201c25-b473-4c2c-959a-dea681f79c23")
+        }
+    }
+
+    mods {
+        extrabotany {
+            sourceSet(sourceSets.main)
+            sourceSet project(":Xplat").sourceSets.main
+        }
+    }
 }
 
 dependencies {
     implementation project(":Xplat")
-
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.20.1:2023.09.03@zip")
+        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${mapping_version}@zip")
     }
 
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
-
-    modImplementation "vazkii.patchouli:Patchouli:${patchouli_version}-FABRIC"
-    modImplementation "vazkii.botania:Botania:${botania_version}-FABRIC"
-
-    modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    modRuntimeOnly("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
-
-    //Libs
-
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
-
     // Don't include base and entity as Trinkets includes it already
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1"
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
-
-    compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
-    compileOnly "com.demonwav.mcdev:annotations:2.1.0"
-    compileOnly 'org.jetbrains:annotations:24.0.1'
-    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
-
-    modImplementation("dev.emi:trinkets:3.7.0") { transitive = false }
-
     modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.4.0"
     include "com.jamieswhiteshirt:reach-entity-attributes:2.4.0"
-
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
     include "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
-
     modCompileOnly 'teamreborn:energy:3.0.0'
 
+    modImplementation "vazkii.patchouli:Patchouli:${patchouli_version}-FABRIC"
+    modImplementation "vazkii.botania:Botania:${botania_version}-FABRIC"
     modCompileOnly 'com.unascribed:ears-api:1.4.5'
+    modImplementation "io.github.lounode.eventwrapper:eventwrapper-fabric:${eventwrapper_version}"
+
+    modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    modRuntimeOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+    modImplementation("dev.emi:trinkets:3.7.0") { transitive = false }
 
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
-
-    modImplementation "com.terraformersmc:modmenu:7.2.2"
-
-    //modImplementation("io.github.lounode.eventwrapper:eventwrapper-fabric:1.20.1-1.0.0-SNAPSHOT")
-    //modImplementation "com.github.Lounode.EventWrapper:eventwrapper-fabric:1.20.1-SNAPSHOT"
-    modImplementation "io.github.lounode.eventwrapper:eventwrapper-fabric:1.20.1-1.0.0-SNAPSHOT"
+    modRuntimeOnly "com.terraformersmc:modmenu:7.2.2"
 }
 
-configurations.configureEach {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
 }
 
 compileJava {
@@ -222,7 +195,8 @@ def generateModMetadataFabric = tasks.register('generateModMetadataFabric', Proc
             jei_version: jei_version, jei_version_range: jei_version_range,
             mantle_version: mantle_version, mantle_version_range: mantle_version_range,
             tinkers_version: tinkers_version, tinkers_version_range: tinkers_version_range,
-            top_version: top_version, top_version_range: top_version_range
+            top_version: top_version, top_version_range: top_version_range,
+            eventwrapper_version: eventwrapper_version, eventwrapper_version_range: eventwrapper_version_range,
     ]
     inputs.properties replaceProperties
     expand replaceProperties
@@ -239,7 +213,6 @@ afterEvaluate {
         dependsOn 'generateModMetadataFabric'
     }
 }
-
 
 publishing {
     publications {

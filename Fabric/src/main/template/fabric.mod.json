@@ -9,7 +9,13 @@
     "Lounode",
     "ExtraMeteorP(Original)"
   ],
-  "contact": {},
+  "contributors": [
+    "Uranium(Texture)"
+  ],
+  "contact": {
+    "issues": "https://github.com/Lounode/ExtraBotany/issues",
+    "sources": "https://github.com/lounode/ExtraBotany"
+  },
 
   "license": "${mod_license}",
   "icon": "${mod_logo}",
@@ -43,6 +49,6 @@
     "botania": ">=${botania_version}-FABRIC",
     "java": ">=17",
     "fabric-api": "*",
-    "eventwrapper": "*"
+    "eventwrapper": ">=${eventwrapper_version}"
   }
 }

@@ -1,20 +1,20 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
 license="${mod_license}"
-issueTrackerURL="https://github.com/lounode/ExtraBotanyReborn"
+issueTrackerURL="https://github.com/lounode/ExtraBotany/issues"
 
 [[mods]]
-modId="${mod_id}"
-version="${mod_version}"
-displayName="${mod_name}"
-#displayURL=""
-#updateJSONURL=""
-logoFile="${mod_logo}"
-#credits=""
-authors="${mod_authors}"
-description='''${mod_description}'''
+    modId="${mod_id}"
+    version="${mod_version}"
+    displayName="${mod_name}"
+    displayURL="https://github.com/lounode/ExtraBotany"
+    #updateJSONURL=""
+    logoFile="${mod_logo}"
+    credits="${mod_credits}"
+    authors="${mod_authors}"
+    description='''${mod_description}'''
 
-
+#Necessary
 [[dependencies."${mod_id}"]]
     modId="forge"
     mandatory=true
@@ -51,6 +51,13 @@ description='''${mod_description}'''
     side="BOTH"
 
 [[dependencies."${mod_id}"]]
+    modId="eventwrapper"
+    mandatory=true
+    versionRange="${eventwrapper_version_range}"
+    ordering="NONE"
+    side="BOTH"
+#Integration
+[[dependencies."${mod_id}"]]
     modId="jei"
     mandatory=false
     versionRange="${jei_version_range}"
@@ -75,12 +82,5 @@ description='''${mod_description}'''
     modId="theoneprobe"
     mandatory=false
     versionRange="${top_version_range}"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies."${mod_id}"]]
-    modId="eventwrapper"
-    mandatory=true
-    versionRange="[1.0.0,)"
     ordering="NONE"
     side="BOTH"

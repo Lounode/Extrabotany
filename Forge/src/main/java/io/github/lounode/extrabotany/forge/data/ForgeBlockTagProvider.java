@@ -21,6 +21,7 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
     public static final TagKey<Block> SHADOWIUM = forge("storage_blocks/shadowium");
     public static final TagKey<Block> AERIALITE = forge("storage_blocks/aerialite");
 
+    @SuppressWarnings("deprecated")
     public ForgeBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider,
                                  ExistingFileHelper existingFileHelper) {
         super(output, Registries.BLOCK, provider, (block) -> block.builtInRegistryHolder().key(), LibMisc.MOD_ID, existingFileHelper);
