@@ -1,6 +1,10 @@
 {
   "advancement": "botania:main/elf_portal_open",
   "category": "botania:extrabotanies",
+  "extra_recipe_mappings": {
+    "extrabotany:photonium_nugget": 2,
+    "extrabotany:shadowium_nugget": 3
+  },
   "icon": "extrabotany:shadowium_ingot",
   "name": "extrabotany.entry.yin_and_yang",
   "pages": [

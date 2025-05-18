@@ -62,6 +62,10 @@ repositories {
         name = "lounode"
         url = "https://maven.lounode.top/releases"
     }
+    maven { // Mantle
+        name = 'DVS1 Maven FS'
+        url = 'https://dvs1.progwml6.com/files/maven'
+    }
 
 }
 
@@ -127,6 +131,12 @@ dependencies {
 
     modCompileOnly("top.theillusivec4.curios:curios-forge:${curios_version}:api")
     modRuntimeOnly("top.theillusivec4.curios:curios-forge:${curios_version}")
+
+    modCompileOnly("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
+    modRuntimeOnly("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
+
+    modCompileOnly("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tinkers_version}")
+    modRuntimeOnly("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tinkers_version}")
 
     modRuntimeOnly ("maven.modrinth:nbtedit-reborn:x45wpz18")
     modRuntimeOnly ("maven.modrinth:just-enough-resources-jer:1.4.0.247")

@@ -120,10 +120,6 @@ public record ColorfulBossEventPacket(UUID id, Operation operation) implements E
             );
         }
 
-        static {
-            Operation.register("add", () -> CODEC);
-        }
-
         @Override
         public String getType() {
             return "add";
@@ -151,10 +147,6 @@ public record ColorfulBossEventPacket(UUID id, Operation operation) implements E
                 ).apply(instance, (type, uuid) -> new RemoveOperation(uuid))
         );
 
-        static {
-            Operation.register("remove", () -> CODEC);
-        }
-
         @Override
         public String getType() {
             return "remove";
@@ -178,10 +170,6 @@ public record ColorfulBossEventPacket(UUID id, Operation operation) implements E
                                 Codec.FLOAT.fieldOf("progress").forGetter(UpdateProgressOperation::progress))
                         .apply(instance, (type, progress) -> new UpdateProgressOperation(progress))
         );
-
-        static {
-            ColorfulBossEventPacket.Operation.register("update_progress", () -> CODEC);
-        }
 
         @Override
         public String getType() {
@@ -207,10 +195,6 @@ public record ColorfulBossEventPacket(UUID id, Operation operation) implements E
                 ).apply(instance, (type, name) -> new UpdateNameOperation(name))
         );
 
-        static {
-            Operation.register("update_name", () -> CODEC);
-        }
-
         @Override
         public Codec<? extends Operation> getCodec() {
             return CODEC;
@@ -234,10 +218,6 @@ public record ColorfulBossEventPacket(UUID id, Operation operation) implements E
                         BOSSBAR_OVERLAY_CODEC.fieldOf("overlay").forGetter(UpdateStyleOperation::overlay)
                 ).apply(instance, (type, color, overlay) -> new UpdateStyleOperation(color, overlay))
         );
-
-        static {
-            Operation.register("update_style", () -> CODEC);
-        }
 
         @Override
         public Codec<? extends Operation> getCodec() {
@@ -266,13 +246,9 @@ public record ColorfulBossEventPacket(UUID id, Operation operation) implements E
                 )
         );
 
-        static {
-            Operation.register("update_properties", () -> CODEC);
-        }
-
         @Override
         public Codec<? extends Operation> getCodec() {
-            return null;
+            return CODEC;
         }
 
         @Override

@@ -7,6 +7,7 @@ import io.github.lounode.extrabotany.common.entity.gaia.behavior.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.Swim;
 import net.minecraft.world.entity.schedule.Activity;
 
 public class GaiaIIIAI extends GaiaAI{
@@ -40,6 +41,13 @@ public class GaiaIIIAI extends GaiaAI{
         brain.setDefaultActivity(Activity.EMERGE);
         brain.useDefaultActivity();
         return brain;
+    }
+
+    protected static void initCoreActivity(Brain<? extends Gaia> brain) {
+        brain.addActivity(Activity.CORE, 0, ImmutableList.of(
+                new Swim(0.8F),
+                new GaiaDisarm<>()
+        ));
     }
 
     private static void initFightActivity(Brain<? extends Gaia> brain) {

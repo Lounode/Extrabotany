@@ -1,4 +1,4 @@
-package io.github.lounode.extrabotany.data.recipes;
+package io.github.lounode.extrabotany.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
 import net.minecraft.core.RegistryAccess;

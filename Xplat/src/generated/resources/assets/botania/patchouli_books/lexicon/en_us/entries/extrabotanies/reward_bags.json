@@ -33,9 +33,8 @@
       "text": "extrabotany.page.reward_bags4"
     },
     {
-      "type": "patchouli:spotlight",
-      "item": "extrabotany:nine_and_three_quarters_reward_bag",
-      "link_recipe": true,
+      "type": "patchouli:crafting",
+      "recipe": "extrabotany:nine_and_three_quarters_reward_bag",
       "text": "extrabotany.page.reward_bags5"
     }
   ]

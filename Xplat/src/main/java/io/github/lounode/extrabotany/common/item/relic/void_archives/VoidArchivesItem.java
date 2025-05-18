@@ -119,6 +119,10 @@ public class VoidArchivesItem extends Item implements CustomCreativeTabContents 
                 .getOrDefault(variantString, VoidArchivesVariant.DEFAULT);
     }
 
+    public static String getTagVariant(ItemStack stack) {
+        return ItemNBTHelper.getString(stack, TAG_VARIANT, VoidArchivesVariant.DEFAULT.getId());
+    }
+
     public static int getVariantIndex(ItemStack stack) {
         if (!(stack.getItem() instanceof VoidArchivesItem)) {
             return -1;

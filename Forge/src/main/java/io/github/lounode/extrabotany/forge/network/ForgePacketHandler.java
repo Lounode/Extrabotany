@@ -2,6 +2,7 @@ package io.github.lounode.extrabotany.forge.network;
 
 import io.github.lounode.extrabotany.client.gui.HUD;
 import io.github.lounode.extrabotany.network.clientbound.ColorfulBossEventPacket;
+import io.github.lounode.extrabotany.network.clientbound.GaiaBossEventPacket;
 import io.github.lounode.extrabotany.network.clientbound.ManaReaderPacket;
 import io.github.lounode.extrabotany.network.clientbound.SpawnGaiaPacket;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketExcalibur;
@@ -42,7 +43,20 @@ public class ForgePacketHandler {
                 makeClientBoundHandler(SpawnGaiaPacket.Handler::handle));
         CHANNEL.registerMessage(i++, ColorfulBossEventPacket.class, ColorfulBossEventPacket::encode, ColorfulBossEventPacket::decode,
                 makeClientBoundHandler((packet) -> HUD.getInstance().getBossOverlay().update(packet)));
+        registerOperation();
     }
+
+    private static void registerOperation() {
+        ColorfulBossEventPacket.Operation.register("add", () -> ColorfulBossEventPacket.AddOperation.CODEC);
+        ColorfulBossEventPacket.Operation.register("remove", () -> ColorfulBossEventPacket.RemoveOperation.CODEC);
+        ColorfulBossEventPacket.Operation.register("update_progress", () -> ColorfulBossEventPacket.UpdateProgressOperation.CODEC);
+        ColorfulBossEventPacket.Operation.register("update_name", () -> ColorfulBossEventPacket.UpdateNameOperation.CODEC);
+        ColorfulBossEventPacket.Operation.register("update_style", () -> ColorfulBossEventPacket.UpdateStyleOperation.CODEC);
+        ColorfulBossEventPacket.Operation.register("update_properties", () -> ColorfulBossEventPacket.UpdatePropertiesOperation.CODEC);
+        ColorfulBossEventPacket.Operation.register("update_player_count", () -> GaiaBossEventPacket.UpdatePlayerCountOperation.CODEC);
+        ColorfulBossEventPacket.Operation.register("update_grain_time", () -> GaiaBossEventPacket.UpdateGrainTimeOperation.CODEC);
+    }
+
     private static <T> BiConsumer<T, Supplier<NetworkEvent.Context>> makeServerBoundHandler(TriConsumer<T, MinecraftServer, ServerPlayer> handler) {
         return (m, ctx) -> {
             handler.accept(m, ctx.get().getSender().getServer(), ctx.get().getSender());

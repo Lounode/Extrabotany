@@ -2,10 +2,7 @@ package io.github.lounode.extrabotany.data.patchouli;
 
 import com.demonwav.mcdev.annotations.Translatable;
 import com.google.common.collect.Sets;
-import io.github.lounode.extrabotany.data.patchouli.page.patchouli.CraftingPage;
-import io.github.lounode.extrabotany.data.patchouli.page.patchouli.EmptyPage;
-import io.github.lounode.extrabotany.data.patchouli.page.patchouli.SpotlightPage;
-import io.github.lounode.extrabotany.data.patchouli.page.patchouli.TextPage;
+import io.github.lounode.extrabotany.data.patchouli.page.patchouli.*;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -63,6 +60,10 @@ public abstract class PatchouliProvider implements DataProvider {
 
     protected SpotlightPage spotlight(ItemLike itemLike) {
         return new SpotlightPage(itemLike).linkRecipe(true);
+    }
+
+    protected MultiBlockPage multiBlock(@Translatable String name, String[][] pattern) {
+        return new MultiBlockPage(name, pattern);
     }
 
     @NotNull

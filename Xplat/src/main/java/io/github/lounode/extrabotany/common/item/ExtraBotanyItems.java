@@ -1,5 +1,7 @@
 package io.github.lounode.extrabotany.common.item;
 
+import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFromManaCocktailRecipe;
+import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFormFlaskRecipe;
 import io.github.lounode.extrabotany.common.item.brew.HolyWaterGrenadeItem;
 import io.github.lounode.extrabotany.common.item.brew.InfiniteWineItem;
 import io.github.lounode.extrabotany.common.item.brew.ManaCocktailItem;
@@ -16,7 +18,7 @@ import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
-import io.github.lounode.extrabotany.data.recipes.WandOfTheForestExtendRecipe;
+import io.github.lounode.extrabotany.common.crafting.recipe.WandOfTheForestExtendRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -204,6 +206,8 @@ public final class ExtraBotanyItems {
 
     public static void registerRecipeSerializers(BiConsumer<RecipeSerializer<?>, ResourceLocation> r) {
         r.accept(WandOfTheForestExtendRecipe.SERIALIZER, prefix("wand_of_the_forest_extension"));
+        r.accept(CopyBrewFormFlaskRecipe.SERIALIZER, prefix("copy_brew_from_flask"));
+        r.accept(CopyBrewFromManaCocktailRecipe.SERIALIZER, prefix("copy_brew_from_mana_cocktail"));
     }
 
     public static void registerItems(BiConsumer<Item, ResourceLocation> r) {

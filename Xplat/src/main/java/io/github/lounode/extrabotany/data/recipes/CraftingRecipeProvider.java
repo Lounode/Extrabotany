@@ -1,6 +1,9 @@
 package io.github.lounode.extrabotany.data.recipes;
 
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFromManaCocktailRecipe;
+import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFormFlaskRecipe;
+import io.github.lounode.extrabotany.common.crafting.recipe.WandOfTheForestExtendRecipe;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
@@ -135,7 +138,17 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
                 .pattern("BHB")
                 .unlockedBy("has_item", conditionsFromItem(ExtraBotanyItems.heroMedal))
                 .save(consumer);
-
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ExtraBotanyItems.manaGlassBottle, 3)
+                .define('G', BotaniaBlocks.manaGlass)
+                .pattern("G G")
+                .pattern("G G")
+                .pattern(" G ")
+                .unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.manaGlass))
+                .save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ExtraBotanyItems.nineAndThreeQuartersRewardBag, 3)
+                .requires(BotaniaItems.dice)
+                .unlockedBy("has_item", conditionsFromItem(BotaniaItems.dice))
+                .save(consumer);
     }
     private void registerTools(Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.failnaught)
@@ -295,6 +308,27 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
                 .pattern("QQQ")
                 .unlockedBy("has_item", conditionsFromItem(BotaniaItems.terrasteel))
                 .save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ExtraBotanyItems.manaCocktail)
+                .requires(ExtraBotanyItems.manaCocktail)
+                .requires(BotaniaItems.brewFlask)
+                .unlockedBy("has_item", conditionsFromItem(BotaniaItems.brewFlask))
+                .save(WrapperResult.ofType(CopyBrewFormFlaskRecipe.SERIALIZER, consumer), prefix("mana_cocktail_change_brew"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ExtraBotanyItems.infiniteWine)
+                .requires(ExtraBotanyItems.manaCocktail)
+                .requires(ExtraBotanyItems.infiniteWine)
+                .unlockedBy("has_item", conditionsFromItem(ExtraBotanyItems.heroMedal))
+                .save(WrapperResult.ofType(CopyBrewFromManaCocktailRecipe.SERIALIZER, consumer), prefix("infinite_wine_change_brew"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ExtraBotanyItems.infiniteWine)
+                .requires(ExtraBotanyItems.manaCocktail)
+                .requires(ExtraBotanyItems.heroMedal)
+                .unlockedBy("has_item", conditionsFromItem(ExtraBotanyItems.heroMedal))
+                .save(WrapperResult.ofType(CopyBrewFromManaCocktailRecipe.SERIALIZER, consumer), prefix("infinite_wine"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ExtraBotanyItems.holyWaterGrenade)
+                .requires(ExtraBotanyItems.manaCocktail)
+                .requires(Items.POPPED_CHORUS_FRUIT)
+                .unlockedBy("has_item", conditionsFromItem(ExtraBotanyItems.manaCocktail))
+                .save(WrapperResult.ofType(CopyBrewFromManaCocktailRecipe.SERIALIZER, consumer), prefix("holy_water_grenade"));
+
     }
     private void registerFloatingFlowers(Consumer<FinishedRecipe> consumer) {
         var floatings = BuiltInRegistries.BLOCK.stream().filter(EXTRABOTANY_BLOCK.and(b -> b instanceof FloatingSpecialFlowerBlock))

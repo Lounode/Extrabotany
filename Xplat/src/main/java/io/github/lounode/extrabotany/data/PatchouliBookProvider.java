@@ -1,9 +1,11 @@
 package io.github.lounode.extrabotany.data;
 
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.block.block_entity.PedestalBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
+import io.github.lounode.extrabotany.common.lib.RegistryHelper;
 import io.github.lounode.extrabotany.data.patchouli.PatchouliBuilder;
 import io.github.lounode.extrabotany.data.patchouli.PatchouliEntry;
 import io.github.lounode.extrabotany.data.patchouli.PatchouliProvider;
@@ -18,6 +20,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.nio.file.Path;
 import java.util.function.Consumer;
@@ -175,6 +178,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
                         text("extrabotany.page.core_of_the_void1")
 
                 )
+                .extraRecipeMapping(ExtraBotanyItems.coreOfTheVoid, 0)
                 .save(consumer, id("core_of_the_void"));
         PatchouliBuilder.entry(CATEGORY)
                 .withName("extrabotany.entry.gaia_3rd")
@@ -201,6 +205,8 @@ public final class PatchouliBookProvider extends PatchouliProvider {
                         runicAlter(ExtraBotanyItems.shadowium)
                                 .withText("extrabotany.page.yin_and_yang3")
                 )
+                .extraRecipeMapping(ExtraBotanyItems.photoniumNugget,2)
+                .extraRecipeMapping(ExtraBotanyItems.shadowiumNugget,3)
                 .save(consumer, id("yin_and_yang"));
         PatchouliBuilder.entry(CATEGORY)
                 .withName("extrabotany.entry.pandoras_box")
@@ -232,7 +238,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
                                 .withText("extrabotany.page.reward_bags3"),
                         spotlight(ExtraBotanyItems.vierRewardBag)
                                 .withText("extrabotany.page.reward_bags4"),
-                        spotlight(ExtraBotanyItems.nineAndThreeQuartersRewardBag)
+                        crafting(ExtraBotanyItems.nineAndThreeQuartersRewardBag)
                                 .withText("extrabotany.page.reward_bags5")
 
                 )
@@ -302,6 +308,34 @@ public final class PatchouliBookProvider extends PatchouliProvider {
                 )
                 .extraRecipeMapping(ExtrabotanyFlowerBlocks.tradeOrchidFloating, 1)
                 .save(consumer, id("trade_orchid"));
+        PatchouliBuilder.entry(CATEGORY)
+                .withName("extrabotany.entry.nature_orb")
+                .withIcon(ExtraBotanyItems.natureOrb)
+                .pages(
+                        text("extrabotany.page.nature_orb0"),
+                        text("extrabotany.page.nature_orb1"),
+                        crafting(ExtraBotanyItems.natureOrb).withText("extrabotany.page.nature_orb2"),
+                        text("extrabotany.page.nature_orb3"),
+                        multiBlock("extrabotany.multiblock.nature_pedestal_tier1", PedestalBlockEntity.TIER1_PATTERN)
+                                .withMapping("P", RegistryHelper.getRegistryName(BotaniaBlocks.naturaPylon).toString())
+                                .withMapping("0", RegistryHelper.getRegistryName(ExtraBotanyBlocks.livingrockPedestal).toString()),
+                        multiBlock("extrabotany.multiblock.nature_pedestal_tier2", PedestalBlockEntity.TIER2_PATTERN)
+                                .withMapping("P", RegistryHelper.getRegistryName(BotaniaBlocks.naturaPylon).toString())
+                                .withMapping("0", RegistryHelper.getRegistryName(ExtraBotanyBlocks.livingrockPedestal).toString())
+                                .withMapping("S", RegistryHelper.getRegistryName(BotaniaBlocks.shimmerrock).toString())
+                                .withMapping("M", RegistryHelper.getRegistryName(BotaniaBlocks.manaPool).toString())
+                )
+                .withAdvancement(botaniaAdvancement("terrasteel_pickup"))
+                .save(consumer, id("nature_orb"));
+        PatchouliBuilder.entry(CATEGORY)
+                .withName("extrabotany.entry.mana_cocktail")
+                .withIcon(ExtraBotanyItems.manaCocktail)
+                .pages(
+                        text("extrabotany.page.mana_cocktail0"),
+                        crafting(ExtraBotanyItems.manaGlassBottle).withText("extrabotany.page.mana_cocktail1")
+                )
+                .extraRecipeMapping(ExtraBotanyItems.manaCocktail, 0)
+                .save(consumer, id("mana_cocktail"));
     }
 
     private RunicAltarPage runicAlter(ItemLike item) {
@@ -341,6 +375,10 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 
     private static ResourceLocation mainAdvancement(String name) {
         return prefix("main/" + name);
+    }
+
+    private static ResourceLocation botaniaAdvancement(String name) {
+        return ResourceLocation.tryBuild("botania", name).withPrefix("main/");
     }
 
     private ResourceLocation id(String fileName) {

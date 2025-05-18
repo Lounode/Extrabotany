@@ -317,6 +317,15 @@
   "extrabotany.page.trade_orchid0": "$(item)商友兰$()是商人的好友，它可以用$(thing)魔力$()让附近的村民交易打折，多个商友兰提供的折扣效果不会叠加。",
   "extrabotany.page.trade_orchid1": "可以折上折吗？",
   
+  "extrabotany.entry.nature_orb": "自然蕴息宝珠",
+  "extrabotany.page.nature_orb0": "$(item)自然蕴息宝珠$()可以储存$(thing)自然之息$()，利用自然的力量来守护携带者。$(br2)同时将根据内含$(thing)自然之息$()的多少获得相应的加护。",
+  "extrabotany.page.nature_orb1": "$(li)$(b)$(t: 100,000自然之息)魔力的加护$()：能产出少量魔力。$(li)$(c)$(t: 300,000自然之息)再生的加护$()：会加快生命恢复。$(li)$(a)$(t: 400,000自然之息)森罗的加护$()：自动清除负面状态。$(br2)手持或佩戴$(item)自然蕴息宝珠$()时，$(k:sneak)$(k:use)多方块结构完整的盖亚仪式$(item)信标$()，此时会消耗$(t: 200,000自然之息)一定量$()的$(thing)自然之息$()，等同于使用$(item)挑战券$()召唤一次$(thing)盖亚守护者$()。",
+  "extrabotany.page.nature_orb2": "森罗万象",
+  "extrabotany.page.nature_orb3": "为了给它充能，你需要搭建一个$(thing)自然祭坛$()的多方块结构来获取$(thing)自然之息$()。$(br2)多方块结构具有两种等级，高级的结构获取$(thing)自然之息$()的效率也更高。$(br2)高级结构中的$(item)魔力池$()蕴含的$(thing)魔力$()可以加速$(thing)自然之息$()的获取速度。",
+  
+  "extrabotany.multiblock.nature_pedestal_tier1": "自然祭坛",
+  "extrabotany.multiblock.nature_pedestal_tier2": "自然祭坛（高级）",
+  
   "extrabotany.entry.": "",
   "extrabotany.page.": ""
 }

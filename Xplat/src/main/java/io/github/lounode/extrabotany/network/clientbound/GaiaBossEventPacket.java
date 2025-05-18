@@ -24,10 +24,6 @@ public class GaiaBossEventPacket {
                         .apply(instance, (type, count) -> new UpdatePlayerCountOperation(count))
         );
 
-        static {
-            ColorfulBossEventPacket.Operation.register("update_player_count", () -> CODEC);
-        }
-
         @Override
         public String getType() {
             return "update_player_count";

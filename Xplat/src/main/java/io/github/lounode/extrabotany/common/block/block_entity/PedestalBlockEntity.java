@@ -66,7 +66,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 
                     "P___P",
                     "_____",
-                    "__B__",
+                    "__0__",
                     "_____",
                     "P___P",
             }
@@ -86,7 +86,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
                     "M_____M",
                     "_P___P_",
                     "_______",
-                    "___B___",
+                    "___0___",
                     "_______",
                     "_P___P_",
                     "M_____M",
@@ -107,17 +107,18 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
         return PatchouliAPI.get().makeMultiblock(
                 TIER1_PATTERN,
                 'P', BotaniaBlocks.naturaPylon,
-                'B', pedestal
+                '0', pedestal
         );
     });
 
     public static final Supplier<IMultiblock> TIER_2_PATCHOULI = Suppliers.memoize(() -> {
         var pedestal = PatchouliAPI.get().tagMatcher(ExtraBotanyTags.Blocks.PEDESTALS);
         var manaPool = PatchouliAPI.get().tagMatcher(ExtraBotanyTags.Blocks.MANA_POOLS);
+        var any = PatchouliAPI.get().anyMatcher();
         return PatchouliAPI.get().makeMultiblock(
                 TIER2_PATTERN,
                 'P', BotaniaBlocks.naturaPylon,
-                'B', pedestal,
+                '0', pedestal,
                 'S', BotaniaBlocks.shimmerrock,
                 'M', manaPool
         );
@@ -126,7 +127,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
     public static final Predicate<BlockInWorld>[][][] TIER_1_PATTERN = BlockPatternExtendBuilder.start()
             .aisle(TIER1_PATTERN[0])
             .where('_', BlockInWorld.hasState(BlockStatePredicate.ANY))
-            .where('B', BlockInWorld.hasState(BlockTagPredicate.forTag(ExtraBotanyTags.Blocks.PEDESTALS)))
+            .where('0', BlockInWorld.hasState(BlockTagPredicate.forTag(ExtraBotanyTags.Blocks.PEDESTALS)))
             .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(BotaniaBlocks.naturaPylon)))
             .createPattern();
 
@@ -135,7 +136,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
             .aisle(TIER2_PATTERN[1])
             .aisle(TIER2_PATTERN[2])
             .where('_', BlockInWorld.hasState(BlockStatePredicate.ANY))
-            .where('B', BlockInWorld.hasState(BlockTagPredicate.forTag(ExtraBotanyTags.Blocks.PEDESTALS)))
+            .where('0', BlockInWorld.hasState(BlockTagPredicate.forTag(ExtraBotanyTags.Blocks.PEDESTALS)))
             .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(BotaniaBlocks.naturaPylon)))
             .where('S', BlockInWorld.hasState(BlockStatePredicate.forBlock(BotaniaBlocks.shimmerrock)))
             .where('M', BlockInWorld.hasState(BlockTagPredicate.forTag(ExtraBotanyTags.Blocks.MANA_POOLS)))

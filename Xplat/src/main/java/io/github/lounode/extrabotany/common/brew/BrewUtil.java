@@ -18,6 +18,11 @@ public class BrewUtil {
         return BotaniaAPI.instance().getBrewRegistry().get(ResourceLocation.tryParse(key));
     }
 
+    public static void setBrew(ItemStack stack, Brew brew) {
+        ResourceLocation id = BotaniaAPI.instance().getBrewRegistry().getKey(brew);
+        ItemNBTHelper.setString(stack, TAG_BREW_KEY, id.toString());
+    }
+
     public static boolean hasInstantEffects(Brew brew) {
         if (!getPotionEffects(brew).isEmpty()) {
             for (MobEffectInstance mobeffectinstance : getPotionEffects(brew)) {

@@ -1,13 +1,17 @@
 package io.github.lounode.extrabotany.client.integration.jei;
 
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
+import io.github.lounode.extrabotany.client.integration.jei.crafing.CopyBrewFormFlaskRecipeWrapper;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
+import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFormFlaskRecipe;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
+import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -19,6 +23,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.recipe.OrechidRecipe;
+import vazkii.botania.common.item.brew.BaseBrewItem;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,6 +36,37 @@ import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.pr
 public class JEIExtraBotanyPlugin implements IModPlugin {
     private static final ResourceLocation ID = prefix("main");
 
+    @Override
+    public void registerItemSubtypes(@NotNull ISubtypeRegistration registry) {
+        IIngredientSubtypeInterpreter<ItemStack> interpreter = (stack, ctx) -> BaseBrewItem.getSubtype(stack);
+        /*registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.manaCocktail, interpreter);
+        registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.infiniteWine, interpreter);
+        registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.holyWaterGrenade, interpreter);
+
+
+        registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.manaRingMaster, (stack, ctx) -> {
+            int mana = XplatAbstractions.INSTANCE.findManaItem(stack).getMana();
+            return String.valueOf(mana);
+        });
+        registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.natureOrb, (stack, ctx) -> {
+            long energy = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack).getEnergy();
+            return String.valueOf(energy);
+        });
+
+         */
+
+        registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.coreOfTheVoid,
+                (stack, ctx) -> CoreOfTheVoidItem.getVariant(stack));
+        /*
+        registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.voidArchives,
+                (stack, ctx) -> VoidArchivesItem.getTagVariant(stack));
+                (FlugelTiara
+         */
+    }
+    @Override
+    public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
+        registration.getCraftingCategory().addCategoryExtension(CopyBrewFormFlaskRecipe.class, CopyBrewFormFlaskRecipeWrapper::new);
+    }
 
     @Override
     public ResourceLocation getPluginUid() {
