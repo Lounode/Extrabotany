@@ -82,6 +82,9 @@ legacyForge {
             systemProperty('forge.logging.console.level', 'debug')
             systemProperty('metrics_debug', 'true')
             jvmArgument("-XX:+AllowEnhancedClassRedefinition")
+
+            programArguments.addAll("--username", "Dev")
+            programArguments.addAll("--uuid", "4f201c25-b473-4c2c-959a-dea681f79c23")
         }
 
         server {
@@ -90,6 +93,9 @@ legacyForge {
             systemProperty('metrics_debug', 'true')
             programArgument('--nogui')
             jvmArgument("-XX:+AllowEnhancedClassRedefinition")
+
+            programArguments.addAll("--username", "Dev")
+            programArguments.addAll("--uuid", "4f201c25-b473-4c2c-959a-dea681f79c23")
         }
 
         data {
@@ -103,9 +109,6 @@ legacyForge {
         configureEach {
             gameDirectory = file('../run/')
             systemProperty('fml.earlyprogresswindow', 'false')
-
-            programArguments.addAll("--username", "Dev")
-            programArguments.addAll("--uuid", "4f201c25-b473-4c2c-959a-dea681f79c23")
         }
     }
 
