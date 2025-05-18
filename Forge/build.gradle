@@ -133,10 +133,10 @@ dependencies {
 
     modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-    modCompileOnly("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
-    modRuntimeOnly("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
-    modCompileOnly("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tinkers_version}")
-    modRuntimeOnly("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tinkers_version}")
+    //modCompileOnly("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
+    //modRuntimeOnly("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
+    //modCompileOnly("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tinkers_version}")
+    //modRuntimeOnly("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tinkers_version}")
 
     modRuntimeOnly("maven.modrinth:nbtedit-reborn:x45wpz18")
     modRuntimeOnly("maven.modrinth:just-enough-resources-jer:1.4.0.247")
