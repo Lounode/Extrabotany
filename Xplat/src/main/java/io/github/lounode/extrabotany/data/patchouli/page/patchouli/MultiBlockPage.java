@@ -5,10 +5,10 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.resources.ResourceLocation;
 
+import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 
 public class MultiBlockPage extends AbstractPage<MultiBlockPage> {
 	List<Mapping> mappings = new ArrayList<>();

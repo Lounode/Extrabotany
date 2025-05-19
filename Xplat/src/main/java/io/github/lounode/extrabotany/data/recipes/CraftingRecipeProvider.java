@@ -20,11 +20,6 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.data.recipes.WrapperResult;
 
-import java.util.Comparator;
-import java.util.function.Consumer;
-
-import static io.github.lounode.extrabotany.data.BlockTagProvider.EXTRABOTANY_BLOCK;
-
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFormFlaskRecipe;
 import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFromManaCocktailRecipe;
@@ -33,6 +28,11 @@ import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
 import io.github.lounode.extrabotany.common.lib.ResourceLocationHelper;
+
+import java.util.Comparator;
+import java.util.function.Consumer;
+
+import static io.github.lounode.extrabotany.data.BlockTagProvider.EXTRABOTANY_BLOCK;
 
 public class CraftingRecipeProvider extends vazkii.botania.data.recipes.CraftingRecipeProvider {
 	public CraftingRecipeProvider(PackOutput packOutput) {

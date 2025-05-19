@@ -8,12 +8,6 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 import vazkii.botania.network.TriConsumer;
 
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.client.gui.HUD;
 import io.github.lounode.extrabotany.network.clientbound.ColorfulBossEventPacket;
 import io.github.lounode.extrabotany.network.clientbound.GaiaBossEventPacket;
@@ -22,6 +16,12 @@ import io.github.lounode.extrabotany.network.clientbound.SpawnGaiaPacket;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketExcalibur;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketJingwei;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketVoidArchives;
+
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class ForgePacketHandler {
 	public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(

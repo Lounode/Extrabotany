@@ -3,9 +3,9 @@ package io.github.lounode.extrabotany.client.gui;
 import net.minecraft.client.gui.components.LerpingBossEvent;
 import net.minecraft.network.chat.Component;
 
-import java.util.UUID;
-
 import io.github.lounode.extrabotany.common.bossevents.GaiaBossEvent;
+
+import java.util.UUID;
 
 public class GaiaLerpingBossEvent extends LerpingBossEvent implements GaiaBossEvent {
 	private int playerCount;

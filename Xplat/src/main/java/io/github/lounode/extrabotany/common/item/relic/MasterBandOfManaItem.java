@@ -23,10 +23,10 @@ import vazkii.botania.common.item.relic.RelicBaubleItem;
 import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger;
+
 import java.util.List;
 import java.util.Optional;
-
-import io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger;
 
 public class MasterBandOfManaItem extends RelicBaubleItem implements CustomCreativeTabContents {
 	protected static final long MAX_MANA = Long.MAX_VALUE;

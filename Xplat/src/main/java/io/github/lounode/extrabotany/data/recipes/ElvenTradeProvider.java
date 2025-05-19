@@ -17,14 +17,14 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 
 public class ElvenTradeProvider extends ExtraBotanyRecipeProvider {
 	public ElvenTradeProvider(PackOutput packOutput) {

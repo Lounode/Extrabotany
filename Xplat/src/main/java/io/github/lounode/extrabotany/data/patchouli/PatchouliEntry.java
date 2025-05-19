@@ -7,12 +7,12 @@ import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
+import io.github.lounode.extrabotany.data.patchouli.page.IPatchouliPage;
+
 import java.util.List;
 import java.util.Map;
 
 import static io.github.lounode.extrabotany.common.lib.RegistryHelper.getRegistryName;
-
-import io.github.lounode.extrabotany.data.patchouli.page.IPatchouliPage;
 
 public class PatchouliEntry {
 	JsonObject object = new JsonObject();

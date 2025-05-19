@@ -22,10 +22,6 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.List;
-
 import io.github.lounode.eventwrapper.event.entity.player.PlayerEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.Dist;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
@@ -34,6 +30,10 @@ import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.variants.Camera;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.List;
 
 @EventBusSubscriberWrapper
 @OnlyIn(Dist.CLIENT)

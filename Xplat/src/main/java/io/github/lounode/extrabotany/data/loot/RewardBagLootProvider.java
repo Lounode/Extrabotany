@@ -10,7 +10,6 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import vazkii.botania.common.item.BotaniaItems;
 
-
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 

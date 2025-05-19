@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
 
-
 import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
 
 public final class ExtrabotanyFabricCapabilities {

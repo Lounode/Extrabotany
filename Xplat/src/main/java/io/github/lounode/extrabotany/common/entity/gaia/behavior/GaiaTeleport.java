@@ -16,7 +16,6 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.MathHelper;
 
-
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 

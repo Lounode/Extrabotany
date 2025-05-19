@@ -13,10 +13,10 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 
-import java.util.List;
-
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.entity.gaia.behavior.*;
+
+import java.util.List;
 
 public class GaiaAI {
 

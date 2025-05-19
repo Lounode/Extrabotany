@@ -13,13 +13,13 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.helper.ItemNBTHelper;
 
-import java.util.function.Consumer;
-
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
+
+import java.util.function.Consumer;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class PedestalRecipeProvider extends ExtraBotanyRecipeProvider {
 	public PedestalRecipeProvider(PackOutput packOutput) {

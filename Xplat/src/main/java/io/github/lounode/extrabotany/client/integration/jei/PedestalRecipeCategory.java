@@ -22,7 +22,6 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.lib.LibMisc;

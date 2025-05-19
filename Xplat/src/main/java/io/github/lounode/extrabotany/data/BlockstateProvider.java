@@ -1,9 +1,5 @@
 package io.github.lounode.extrabotany.data;
 
-import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
-import io.github.lounode.extrabotany.common.block.PedestalBlock;
-import io.github.lounode.extrabotany.common.lib.LibMisc;
-import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.models.model.ModelTemplate;
@@ -14,9 +10,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
+
 import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.mixin.BlockModelGeneratorsAccessor;
+
+import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.block.PedestalBlock;
+import io.github.lounode.extrabotany.common.lib.LibMisc;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import java.util.HashSet;
 import java.util.Optional;

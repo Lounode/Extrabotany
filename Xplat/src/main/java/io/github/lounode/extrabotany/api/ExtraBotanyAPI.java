@@ -13,11 +13,11 @@ import org.slf4j.LoggerFactory;
 
 import vazkii.botania.api.ServiceUtil;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import io.github.lounode.extrabotany.api.item.CoreOfTheVoidVariant;
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public interface ExtraBotanyAPI {
 	String MODID = "extrabotany";

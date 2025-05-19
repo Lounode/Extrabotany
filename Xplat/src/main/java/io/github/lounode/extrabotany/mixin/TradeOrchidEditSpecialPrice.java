@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-
 import io.github.lounode.extrabotany.common.brew.effect.DiscountMobEffect;
 
 @Mixin(Villager.class)

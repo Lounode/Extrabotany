@@ -26,11 +26,11 @@ import vazkii.botania.common.block.block_entity.mana.BellowsBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.xplat.BotaniaConfig;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.github.lounode.extrabotany.api.block.Charger;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ChargerBlockEntity extends ExposedSimpleInventoryBlockEntity implements Charger {
 

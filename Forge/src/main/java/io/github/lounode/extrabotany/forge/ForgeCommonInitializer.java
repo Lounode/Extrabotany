@@ -42,16 +42,6 @@ import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.api.ExtraBotaniaRegistries;
 import io.github.lounode.extrabotany.api.ExtrabotanyForgeCapabilities;
 import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
@@ -73,6 +63,16 @@ import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidIte
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.forge.network.ForgePacketHandler;
+
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 @Mod(LibMisc.MOD_ID)
 public class ForgeCommonInitializer {

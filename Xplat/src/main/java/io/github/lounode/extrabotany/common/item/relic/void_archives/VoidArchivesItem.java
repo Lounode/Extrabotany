@@ -26,14 +26,14 @@ import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.variants.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class VoidArchivesItem extends Item implements CustomCreativeTabContents {
 

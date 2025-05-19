@@ -8,15 +8,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.BossEvent;
 
+import io.github.lounode.extrabotany.common.bossevents.ComponentCodec;
+import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.common.bossevents.ComponentCodec;
-import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
 
 public record ColorfulBossEventPacket(UUID id, Operation operation) implements ExtrabotanyPacket {
 

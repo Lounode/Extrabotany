@@ -13,13 +13,13 @@ import net.minecraft.world.level.ServerLevelAccessor;
 
 import vazkii.botania.common.entity.PixieEntity;
 
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
+import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.lounode.extrabotany.common.entity.gaia.behavior.GaiaTeleport.TELEPORT_DELAY;
-
-import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
-import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 
 public class GaiaSpawnPixies<E extends Gaia> extends Behavior<E> {
 

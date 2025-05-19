@@ -3,7 +3,6 @@ package io.github.lounode.extrabotany.data.patchouli.page.patchouli;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 
-
 import io.github.lounode.extrabotany.common.lib.RegistryHelper;
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 

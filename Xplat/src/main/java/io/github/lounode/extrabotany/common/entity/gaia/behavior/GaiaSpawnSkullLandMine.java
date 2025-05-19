@@ -6,12 +6,12 @@ import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.List;
-
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.entity.SkullLandMineEntity;
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
+
+import java.util.List;
 
 public class GaiaSpawnSkullLandMine<E extends Gaia> extends GaiaSpawnLandMine<E> {
 	public static final List<WeightedEntry.Wrapper<EntityType<? extends SkullLandMineEntity>>> TYPES_POOL = List.of(

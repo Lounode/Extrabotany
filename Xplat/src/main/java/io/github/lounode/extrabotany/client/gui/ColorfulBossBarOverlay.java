@@ -17,12 +17,12 @@ import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 
-import java.util.Map;
-import java.util.UUID;
-
 import io.github.lounode.extrabotany.common.bossevents.GaiaBossEvent;
 import io.github.lounode.extrabotany.network.clientbound.ColorfulBossEventPacket;
 import io.github.lounode.extrabotany.network.clientbound.GaiaBossEventPacket;
+
+import java.util.Map;
+import java.util.UUID;
 
 public class ColorfulBossBarOverlay {
 

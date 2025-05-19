@@ -10,10 +10,10 @@ import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 
-import java.util.List;
-
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
+
+import java.util.List;
 
 public class PedestalSmashProcessor implements IComponentProcessor {
 	private PedestalRecipe recipe;

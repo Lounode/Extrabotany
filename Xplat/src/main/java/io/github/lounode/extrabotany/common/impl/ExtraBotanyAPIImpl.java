@@ -1,11 +1,11 @@
 package io.github.lounode.extrabotany.common.impl;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.api.item.CoreOfTheVoidVariant;
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ExtraBotanyAPIImpl implements ExtraBotanyAPI {
 	private final Map<String, CoreOfTheVoidVariant> covVariants = new LinkedHashMap<>();

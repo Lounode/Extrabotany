@@ -10,7 +10,6 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Swim;
 import net.minecraft.world.entity.schedule.Activity;
 
-
 import io.github.lounode.extrabotany.common.entity.gaia.behavior.*;
 
 public class GaiaIIIAI extends GaiaAI {

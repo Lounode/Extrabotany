@@ -41,14 +41,6 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
-import java.util.*;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.api.block.Pedestal;
 import io.github.lounode.extrabotany.api.gaia.BlockPatternExtend;
 import io.github.lounode.extrabotany.api.gaia.BlockPatternExtendBuilder;
@@ -59,6 +51,14 @@ import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
+
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity implements Pedestal {
 	public static final BlockPos[] POOL_LOCATIONS = {

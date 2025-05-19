@@ -2,6 +2,10 @@ package io.github.lounode.extrabotany.fabric;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
+import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
+import io.github.lounode.extrabotany.common.lib.LibMisc;
+import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.UUID;
@@ -15,9 +19,6 @@ import io.github.fablabsmc.fablabs.api.fiber.v1.serialization.FiberSerialization
 import io.github.fablabsmc.fablabs.api.fiber.v1.serialization.JanksonValueSerializer;
 import io.github.fablabsmc.fablabs.api.fiber.v1.tree.ConfigTree;
 import io.github.fablabsmc.fablabs.api.fiber.v1.tree.PropertyMirror;
-import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
-import io.github.lounode.extrabotany.common.lib.LibMisc;
-import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 public class FabricExtraBotanyConfig {
 	private static final Client CLIENT = new Client();

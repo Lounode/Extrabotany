@@ -34,13 +34,13 @@ import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 
+import io.github.lounode.extrabotany.common.entity.HolyWaterGrenadeEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.common.entity.HolyWaterGrenadeEntity;
 
 public class HolyWaterGrenadeItem extends Item implements BrewItem, CustomCreativeTabContents {
 

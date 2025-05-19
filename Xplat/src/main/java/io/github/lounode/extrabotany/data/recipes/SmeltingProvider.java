@@ -6,12 +6,12 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.item.crafting.Ingredient;
 
+import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+
 import java.util.function.Consumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 import static vazkii.botania.data.recipes.CraftingRecipeProvider.conditionsFromItem;
-
-import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 
 public class SmeltingProvider extends ExtraBotanyRecipeProvider {
 	public SmeltingProvider(PackOutput packOutput) {

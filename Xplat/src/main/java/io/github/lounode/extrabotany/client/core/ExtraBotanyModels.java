@@ -5,12 +5,12 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 
+import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
-
-import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 
 public class ExtraBotanyModels {
 	public static final ExtraBotanyModels INSTANCE = new ExtraBotanyModels();

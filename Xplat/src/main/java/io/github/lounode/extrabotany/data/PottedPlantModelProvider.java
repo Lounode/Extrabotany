@@ -19,13 +19,13 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.lib.LibBlockNames;
 
+import io.github.lounode.extrabotany.common.lib.LibMisc;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.common.lib.LibMisc;
 
 public class PottedPlantModelProvider implements DataProvider {
 

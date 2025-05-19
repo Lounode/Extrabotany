@@ -1,8 +1,9 @@
 #Organize Import Order
 #Sat Mar 07 20:20:06 CET 2020
-11=\#
-10=java
-9=javax
+12=\#
+11=java
+10=javax
+9=io.github.lounode
 8=vazkii
 7=top
 6=org

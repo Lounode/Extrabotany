@@ -12,11 +12,11 @@ import net.minecraft.world.level.ItemLike;
 
 import vazkii.botania.common.item.BotaniaItems;
 
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+
 import java.util.function.Consumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 
 public class SmithingRecipeProvider extends ExtraBotanyRecipeProvider {
 	public SmithingRecipeProvider(PackOutput packOutput) {

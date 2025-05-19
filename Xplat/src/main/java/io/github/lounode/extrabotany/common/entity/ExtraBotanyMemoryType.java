@@ -5,14 +5,14 @@ import com.mojang.serialization.Codec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
+import io.github.lounode.extrabotany.common.lib.LibMemoryNames;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.common.lib.LibMemoryNames;
 
 public class ExtraBotanyMemoryType {
 	public static final Map<ResourceLocation, MemoryModuleType<?>> ALL = new LinkedHashMap<>();

@@ -21,13 +21,6 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
 import io.github.lounode.extrabotany.client.integration.jei.crafing.CopyBrewFormFlaskRecipeWrapper;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
@@ -35,6 +28,13 @@ import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFormFlaskRecipe;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 @JeiPlugin
 public class JEIExtraBotanyPlugin implements IModPlugin {

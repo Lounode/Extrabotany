@@ -16,11 +16,11 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import io.github.lounode.extrabotany.network.clientbound.ManaReaderPacket;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class ManaReaderItem extends Item {
 	private static final int ADVANCE_REQUIRE = 1000;

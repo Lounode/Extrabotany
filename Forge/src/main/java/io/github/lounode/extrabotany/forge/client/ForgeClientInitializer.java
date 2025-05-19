@@ -23,12 +23,6 @@ import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.forge.CapabilityUtil;
 
-import java.util.Collections;
-import java.util.IdentityHashMap;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
 import io.github.lounode.extrabotany.client.ExtraBotanyItemProperties;
 import io.github.lounode.extrabotany.client.core.ExtraBotanyModels;
 import io.github.lounode.extrabotany.client.gui.HUD;
@@ -37,6 +31,12 @@ import io.github.lounode.extrabotany.client.renderer.ColorHandler;
 import io.github.lounode.extrabotany.client.renderer.entity.EntityRenderers;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
+
+import java.util.Collections;
+import java.util.IdentityHashMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeClientInitializer {

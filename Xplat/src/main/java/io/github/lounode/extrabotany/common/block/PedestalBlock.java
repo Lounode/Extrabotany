@@ -28,7 +28,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 
-
 import io.github.lounode.extrabotany.api.block.PedestalVariant;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
 import io.github.lounode.extrabotany.common.block.block_entity.PedestalBlockEntity;

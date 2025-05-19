@@ -6,11 +6,11 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.api.gaia.GaiaArena;
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public record SpawnGaiaPacket(ClientboundAddEntityPacket inner, Gaia.GaiaSpawnData data) implements ExtrabotanyPacket {
 

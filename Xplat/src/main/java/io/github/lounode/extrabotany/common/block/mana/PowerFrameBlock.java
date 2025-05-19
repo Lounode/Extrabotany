@@ -18,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.BotaniaBlock;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 
-
 import io.github.lounode.extrabotany.api.block.Charger;
 import io.github.lounode.extrabotany.common.block.block_entity.ChargerBlockEntity;
 import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;

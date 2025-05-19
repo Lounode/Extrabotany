@@ -5,9 +5,9 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Collections;
-
 import io.github.lounode.extrabotany.common.lib.LibMisc;
+
+import java.util.Collections;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ForgeDatagenInitializer {

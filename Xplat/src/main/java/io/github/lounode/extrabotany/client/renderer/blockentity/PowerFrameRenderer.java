@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-
 import io.github.lounode.extrabotany.common.block.block_entity.PowerFrameBlockEntity;
 
 public class PowerFrameRenderer implements BlockEntityRenderer<PowerFrameBlockEntity> {

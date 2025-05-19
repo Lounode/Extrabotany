@@ -17,7 +17,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
 
 public class PedestalsRecipe implements PedestalRecipe {

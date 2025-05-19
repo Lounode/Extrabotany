@@ -10,15 +10,15 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
+import io.github.lounode.extrabotany.common.lib.RegistryHelper;
+import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
+import io.github.lounode.extrabotany.data.patchouli.page.IPatchouliPage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
-import io.github.lounode.extrabotany.common.lib.RegistryHelper;
-import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
-import io.github.lounode.extrabotany.data.patchouli.page.IPatchouliPage;
 
 public class PatchouliBuilder {
 	private final ResourceLocation category;

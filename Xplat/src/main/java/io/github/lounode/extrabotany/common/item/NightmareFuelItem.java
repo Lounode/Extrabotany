@@ -14,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 
-
 import io.github.lounode.eventwrapper.event.furnace.FurnaceFuelBurnTimeEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;

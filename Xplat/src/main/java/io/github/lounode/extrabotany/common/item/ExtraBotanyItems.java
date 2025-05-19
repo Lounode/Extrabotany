@@ -11,12 +11,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.function.BiConsumer;
-
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFormFlaskRecipe;
 import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFromManaCocktailRecipe;
 import io.github.lounode.extrabotany.common.crafting.recipe.WandOfTheForestExtendRecipe;
@@ -36,6 +30,12 @@ import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public final class ExtraBotanyItems {
 	public static final Map<ResourceLocation, Item> ALL = new LinkedHashMap<>();

@@ -7,8 +7,6 @@ import net.minecraft.Util;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.Difficulty;
 
-import java.util.UUID;
-
 import io.github.lounode.eventwrapper.event.server.ServerStartedEventWrapper;
 import io.github.lounode.eventwrapper.event.server.ServerStoppingEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
@@ -19,6 +17,8 @@ import io.github.lounode.extrabotany.common.entity.gaia.GaiaIIIAI;
 import io.github.lounode.extrabotany.common.telemetry.charts.SimplePie;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
+
+import java.util.UUID;
 
 @EventBusSubscriberWrapper
 public class ExtraBotanyTelemetry {

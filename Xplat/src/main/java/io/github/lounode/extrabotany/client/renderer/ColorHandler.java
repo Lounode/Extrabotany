@@ -11,7 +11,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.item.equipment.bauble.TaintedBloodPendantItem;
 
-
 import io.github.lounode.extrabotany.common.brew.BrewUtil;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 

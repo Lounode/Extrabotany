@@ -15,13 +15,13 @@ import net.minecraft.world.level.block.Block;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 
-import java.util.concurrent.CompletableFuture;
-
-import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.*;
-
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
+
+import java.util.concurrent.CompletableFuture;
+
+import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.*;
 
 public class ItemTagProvider extends ItemTagsProvider {
 	public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {

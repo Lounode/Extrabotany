@@ -2,7 +2,6 @@ package io.github.lounode.extrabotany.client.core.proxy;
 
 import net.minecraft.world.entity.LivingEntity;
 
-
 import io.github.lounode.extrabotany.client.core.handler.BossBarHandler;
 import io.github.lounode.extrabotany.common.proxy.Proxy;
 

@@ -7,13 +7,13 @@ import net.minecraft.world.level.ItemLike;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.network.TriConsumer;
 
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.variants.Failnaught;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class ExtraBotanyItemProperties {
 	public static void init(TriConsumer<ItemLike, ResourceLocation, ClampedItemPropertyFunction> consumer) {

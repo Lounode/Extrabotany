@@ -13,10 +13,10 @@ import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 
-import java.util.function.Supplier;
-
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+
+import java.util.function.Supplier;
 
 public class ManaCocktailItem extends BaseBrewItem {
 

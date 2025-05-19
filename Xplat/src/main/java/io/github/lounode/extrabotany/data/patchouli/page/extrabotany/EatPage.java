@@ -5,9 +5,9 @@ import com.demonwav.mcdev.annotations.Translatable;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 
-import static io.github.lounode.extrabotany.common.lib.RegistryHelper.getRegistryName;
-
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
+
+import static io.github.lounode.extrabotany.common.lib.RegistryHelper.getRegistryName;
 
 public class EatPage extends AbstractPage<EatPage> {
 

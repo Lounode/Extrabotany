@@ -17,6 +17,9 @@ import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
+import io.github.lounode.extrabotany.common.lib.LibMisc;
+
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -27,9 +30,6 @@ import java.util.function.Predicate;
 import static io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks.*;
 import static io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks.tradeOrchid;
 import static io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks.tradeOrchidPotted;
-
-import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
-import io.github.lounode.extrabotany.common.lib.LibMisc;
 
 public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	public static final Predicate<Block> EXTRABOTANY_BLOCK = b -> LibMisc.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace());

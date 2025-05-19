@@ -19,7 +19,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 
-
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 
 public class ManaGlassBottleItem extends Item implements CustomCreativeTabContents {

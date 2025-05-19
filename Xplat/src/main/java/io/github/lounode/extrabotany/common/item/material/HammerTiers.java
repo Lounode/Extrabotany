@@ -6,9 +6,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import vazkii.botania.common.item.BotaniaItems;
 
-import java.util.function.Supplier;
-
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+
+import java.util.function.Supplier;
 
 public enum HammerTiers implements Tier {
 	MANASTEEL(300, 6.2F, 2, 3, 20, () -> BotaniaItems.manaSteel),

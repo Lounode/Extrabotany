@@ -12,10 +12,10 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 
-import java.util.List;
-
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
+
+import java.util.List;
 
 public class TradeOrchidBlockEntity extends FunctionalFlowerBlockEntity {
 

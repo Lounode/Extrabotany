@@ -34,6 +34,8 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import org.jetbrains.annotations.NotNull;
 
+import io.github.lounode.extrabotany.common.lib.LibMisc;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,8 +43,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
-
-import io.github.lounode.extrabotany.common.lib.LibMisc;
 
 public class BlockLootProvider implements DataProvider {
 	private static final LootItemCondition.Builder SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item()

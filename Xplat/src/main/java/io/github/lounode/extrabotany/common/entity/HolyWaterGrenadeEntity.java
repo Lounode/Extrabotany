@@ -18,12 +18,12 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.brew.Brew;
 
+import io.github.lounode.extrabotany.common.brew.BrewUtil;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+
 import javax.annotation.Nullable;
 
 import java.util.List;
-
-import io.github.lounode.extrabotany.common.brew.BrewUtil;
-import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 
 public class HolyWaterGrenadeEntity extends ThrownPotion {
 

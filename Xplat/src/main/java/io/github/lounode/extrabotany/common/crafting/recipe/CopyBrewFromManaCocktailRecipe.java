@@ -10,7 +10,6 @@ import net.minecraft.world.item.crafting.ShapelessRecipe;
 
 import org.jetbrains.annotations.NotNull;
 
-
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 
 public class CopyBrewFromManaCocktailRecipe extends CopyBrewRecipe {

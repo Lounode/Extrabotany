@@ -21,10 +21,6 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.function.BiConsumer;
-
 import io.github.lounode.eventwrapper.fabric.AutoEventSubscriberRegistryFabric;
 import io.github.lounode.extrabotany.api.ExtraBotaniaRegistries;
 import io.github.lounode.extrabotany.api.ExtrabotanyFabricCapabilities;
@@ -46,6 +42,10 @@ import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidIte
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.function.BiConsumer;
 
 public class FabricCommonInitializer implements ModInitializer {
 	//private static final Registry<Brew> BREW_REGISTRY = FabricRegistryBuilder.createDefaulted(BotaniaRegistries.BREWS, prefix("fallback")).buildAndRegister();

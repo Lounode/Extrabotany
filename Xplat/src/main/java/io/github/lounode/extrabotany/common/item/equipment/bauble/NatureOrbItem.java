@@ -24,8 +24,6 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 
-import java.util.List;
-
 import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
@@ -33,6 +31,8 @@ import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
 import io.github.lounode.extrabotany.common.entity.gaia.GaiaIII;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
+
+import java.util.List;
 
 @EventBusSubscriberWrapper
 public class NatureOrbItem extends BaubleItem implements CustomCreativeTabContents {

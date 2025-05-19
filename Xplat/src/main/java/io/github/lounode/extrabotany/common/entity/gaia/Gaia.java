@@ -53,10 +53,6 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 
-import java.util.*;
-
-import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
-
 import io.github.lounode.extrabotany.api.gaia.GaiaArena;
 import io.github.lounode.extrabotany.common.bossevents.ServerGaiaBossEvent;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
@@ -64,6 +60,10 @@ import io.github.lounode.extrabotany.common.proxy.Proxy;
 import io.github.lounode.extrabotany.common.telemetry.ExtraBotanyTelemetry;
 import io.github.lounode.extrabotany.network.clientbound.SpawnGaiaPacket;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
+
+import java.util.*;
+
+import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
 
 public class Gaia extends Monster {
 

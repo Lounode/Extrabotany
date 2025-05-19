@@ -19,10 +19,10 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 
-import java.util.UUID;
-
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.common.util.SoundEventUtil;
+
+import java.util.UUID;
 
 public class WalkingCaneItem extends Item implements Vanishable {
 	private static final int MANA_PER_USE = 40;

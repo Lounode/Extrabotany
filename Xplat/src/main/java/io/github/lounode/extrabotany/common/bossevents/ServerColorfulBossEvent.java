@@ -9,11 +9,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 
-import java.util.Set;
-import java.util.function.Function;
-
 import io.github.lounode.extrabotany.network.clientbound.ColorfulBossEventPacket;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
+
+import java.util.Set;
+import java.util.function.Function;
 
 public class ServerColorfulBossEvent extends ColorfulBossEvent {
 

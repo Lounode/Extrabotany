@@ -6,10 +6,10 @@ import net.minecraft.tags.BlockTags;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
+import io.github.lounode.extrabotany.data.BlockTagProvider;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
-import io.github.lounode.extrabotany.data.BlockTagProvider;
 
 public class FabricBlockTagProvider extends BlockTagProvider {
 

@@ -23,9 +23,9 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.List;
-
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
+
+import java.util.List;
 
 public interface VoidArchivesVariant {
 	VoidArchivesVariant DEFAULT = () -> "default";

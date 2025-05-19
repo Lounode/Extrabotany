@@ -10,7 +10,6 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.entity.ManaBurstEntity;
 
-
 import io.github.lounode.eventwrapper.event.entity.player.AttackEntityEventWrapper;
 import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;

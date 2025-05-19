@@ -15,14 +15,14 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.BotaniaItems;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import io.github.lounode.extrabotany.common.brew.BrewUtil;
 import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewRecipe;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.brew.ManaCocktailItem;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class CopyBrewFormFlaskRecipeWrapper implements ICraftingCategoryExtension {
 

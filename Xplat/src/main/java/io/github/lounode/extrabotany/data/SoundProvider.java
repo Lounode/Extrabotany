@@ -8,14 +8,14 @@ import net.minecraft.sounds.SoundEvents;
 
 import vazkii.botania.common.handler.BotaniaSounds;
 
+import io.github.lounode.extrabotany.common.lib.LibMisc;
+import io.github.lounode.extrabotany.data.sound.SoundDefinition;
+import io.github.lounode.extrabotany.data.sound.SoundDefinitionsProvider;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds.*;
-
-import io.github.lounode.extrabotany.common.lib.LibMisc;
-import io.github.lounode.extrabotany.data.sound.SoundDefinition;
-import io.github.lounode.extrabotany.data.sound.SoundDefinitionsProvider;
 
 public class SoundProvider extends SoundDefinitionsProvider {
 

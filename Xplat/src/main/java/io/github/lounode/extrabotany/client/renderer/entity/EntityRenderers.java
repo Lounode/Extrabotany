@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import vazkii.botania.client.render.block_entity.SpecialFlowerBlockEntityRenderer;
 
-
 import io.github.lounode.extrabotany.client.renderer.blockentity.ManaChargerRenderer;
 import io.github.lounode.extrabotany.client.renderer.blockentity.PedestalRenderer;
 import io.github.lounode.extrabotany.client.renderer.blockentity.PowerFrameRenderer;

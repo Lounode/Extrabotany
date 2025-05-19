@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.item.ItemProperties;
 
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
 
-
 import io.github.lounode.extrabotany.client.ExtraBotanyItemProperties;
 import io.github.lounode.extrabotany.client.core.ExtraBotanyModels;
 import io.github.lounode.extrabotany.client.gui.HUD;

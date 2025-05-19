@@ -2,7 +2,6 @@ package io.github.lounode.extrabotany.data.patchouli.page.patchouli;
 
 import net.minecraft.resources.ResourceLocation;
 
-
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 
 public class EmptyPage extends AbstractPage<EmptyPage> {

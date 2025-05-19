@@ -8,9 +8,6 @@ import net.minecraft.server.level.ServerPlayer;
 
 import vazkii.botania.network.TriConsumer;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-
 import io.github.lounode.extrabotany.client.gui.HUD;
 import io.github.lounode.extrabotany.network.clientbound.ColorfulBossEventPacket;
 import io.github.lounode.extrabotany.network.clientbound.GaiaBossEventPacket;
@@ -19,6 +16,9 @@ import io.github.lounode.extrabotany.network.clientbound.SpawnGaiaPacket;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketExcalibur;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketJingwei;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketVoidArchives;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class FabricPacketHandler {
 	private FabricPacketHandler() {}

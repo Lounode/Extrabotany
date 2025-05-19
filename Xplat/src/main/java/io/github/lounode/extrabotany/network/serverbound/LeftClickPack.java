@@ -5,7 +5,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
-
 import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
 
 public abstract class LeftClickPack implements ExtrabotanyPacket {

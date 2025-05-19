@@ -25,13 +25,13 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.List;
-
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
 import io.github.lounode.extrabotany.common.brew.BrewUtil;
 import io.github.lounode.extrabotany.common.lib.LibBrewNames;
+
+import java.util.List;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class InfiniteWine implements VoidArchivesVariant, BrewItem {
 

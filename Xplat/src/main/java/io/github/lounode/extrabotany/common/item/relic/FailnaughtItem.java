@@ -35,18 +35,18 @@ import vazkii.botania.common.item.equipment.tool.bow.LivingwoodBowItem;
 import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import io.github.lounode.extrabotany.api.entity.EntityNbtHelper;
+import io.github.lounode.extrabotany.common.entity.MagicArrowEntity;
+import io.github.lounode.extrabotany.common.item.enchantment.ICustomEnchantable;
+import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
+import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
 import static io.github.lounode.extrabotany.common.entity.MagicArrowEntity.TAG_DAMAGE;
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.api.entity.EntityNbtHelper;
-import io.github.lounode.extrabotany.common.entity.MagicArrowEntity;
-import io.github.lounode.extrabotany.common.item.enchantment.ICustomEnchantable;
-import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
-import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 
 public class FailnaughtItem extends LivingwoodBowItem implements LensEffectItem, ICustomEnchantable {
 	private static final float ADVANCEMENT_REQUIRE = 100.0F;

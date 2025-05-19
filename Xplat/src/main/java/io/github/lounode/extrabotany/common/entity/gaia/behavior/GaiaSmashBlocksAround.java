@@ -14,10 +14,10 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.lib.BotaniaTags;
 
+import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
+
 import java.util.Arrays;
 import java.util.List;
-
-import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 
 public class GaiaSmashBlocksAround<E extends Gaia> extends Behavior<E> {
 

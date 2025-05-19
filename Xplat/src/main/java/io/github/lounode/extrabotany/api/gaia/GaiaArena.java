@@ -40,18 +40,18 @@ import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.Proxy;
 
+import io.github.lounode.extrabotany.common.entity.MagicLandMineEntity;
+import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
+import io.github.lounode.extrabotany.common.lib.RegistryHelper;
+import io.github.lounode.extrabotany.common.telemetry.ExtraBotanyTelemetry;
+import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
 import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
-
-import io.github.lounode.extrabotany.common.entity.MagicLandMineEntity;
-import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
-import io.github.lounode.extrabotany.common.lib.RegistryHelper;
-import io.github.lounode.extrabotany.common.telemetry.ExtraBotanyTelemetry;
-import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 public class GaiaArena {
 	public static final Codec<GaiaArena> CODEC = RecordCodecBuilder.create(instance -> instance.group(

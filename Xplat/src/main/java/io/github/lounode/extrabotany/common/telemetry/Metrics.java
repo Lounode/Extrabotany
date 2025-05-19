@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.github.lounode.extrabotany.common.telemetry.charts.Chart;
+
 import javax.net.ssl.HttpsURLConnection;
 
 import java.io.*;
@@ -16,8 +18,6 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.zip.GZIPOutputStream;
-
-import io.github.lounode.extrabotany.common.telemetry.charts.Chart;
 
 public class Metrics {
 	private static final Logger LOGGER = LoggerFactory.getLogger("Metrics");

@@ -11,7 +11,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-
 import io.github.lounode.extrabotany.common.block.block_entity.PedestalBlockEntity;
 
 public class PedestalRenderer implements BlockEntityRenderer<PedestalBlockEntity> {

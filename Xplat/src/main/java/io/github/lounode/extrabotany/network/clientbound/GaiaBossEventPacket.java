@@ -5,9 +5,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.world.BossEvent;
 
-import java.util.UUID;
-
 import io.github.lounode.extrabotany.common.bossevents.GaiaBossEvent;
+
+import java.util.UUID;
 
 public class GaiaBossEventPacket {
 	public static ColorfulBossEventPacket createPlayersPacket(BossEvent event) {

@@ -5,9 +5,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class LeftClickPacketJingwei extends LeftClickPack {
 	public static final LeftClickPacketJingwei INSTANCE = new LeftClickPacketJingwei();

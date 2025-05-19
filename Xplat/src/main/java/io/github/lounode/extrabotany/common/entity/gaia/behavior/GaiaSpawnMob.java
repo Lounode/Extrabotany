@@ -21,12 +21,12 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.common.entity.PixieEntity;
 import vazkii.botania.common.item.BotaniaItems;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 import io.github.lounode.extrabotany.common.entity.gaia.GaiaAI;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GaiaSpawnMob<E extends Gaia> extends Behavior<E> {
 

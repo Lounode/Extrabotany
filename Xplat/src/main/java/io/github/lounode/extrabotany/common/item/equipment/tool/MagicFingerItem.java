@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 
-
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 
 public class MagicFingerItem extends Item {

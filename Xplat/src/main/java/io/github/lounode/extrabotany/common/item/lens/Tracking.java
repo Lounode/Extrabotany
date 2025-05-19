@@ -15,10 +15,10 @@ import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.lens.Lens;
 
-import java.util.Comparator;
-
 import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
 import io.github.lounode.extrabotany.common.item.material.ItemTiers;
+
+import java.util.Comparator;
 
 public class Tracking extends Lens {
 	public static final double SEARCH_TARGET_RADIUS = 5.0D;

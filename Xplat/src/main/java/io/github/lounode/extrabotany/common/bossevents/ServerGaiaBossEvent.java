@@ -3,7 +3,6 @@ package io.github.lounode.extrabotany.common.bossevents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
-
 import io.github.lounode.extrabotany.network.clientbound.GaiaBossEventPacket;
 
 public class ServerGaiaBossEvent extends ServerColorfulBossEvent implements GaiaBossEvent {

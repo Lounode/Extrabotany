@@ -7,7 +7,6 @@ import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 
-
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 
 public class GaiaEmerging<E extends Gaia> extends Behavior<E> {

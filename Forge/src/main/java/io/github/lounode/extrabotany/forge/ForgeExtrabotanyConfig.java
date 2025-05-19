@@ -11,10 +11,10 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.UUID;
-
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
+
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ForgeExtrabotanyConfig {

@@ -8,7 +8,6 @@ import net.minecraft.world.entity.ai.behavior.Behavior;
 import vazkii.botania.common.entity.MagicMissileEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 
-
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 
 public class GaiaSpawnMissile<E extends Gaia> extends Behavior<E> {

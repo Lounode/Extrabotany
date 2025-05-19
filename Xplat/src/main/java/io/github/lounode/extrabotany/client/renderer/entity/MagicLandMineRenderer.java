@@ -16,7 +16,6 @@ import org.joml.Matrix4f;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 
-
 import io.github.lounode.extrabotany.common.entity.MagicLandMineEntity;
 
 public class MagicLandMineRenderer extends EntityRenderer<MagicLandMineEntity> {

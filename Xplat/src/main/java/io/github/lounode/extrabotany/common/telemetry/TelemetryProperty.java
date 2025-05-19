@@ -9,14 +9,14 @@ import it.unimi.dsi.fastutil.longs.LongList;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.util.StringRepresentable;
 
+import io.github.lounode.extrabotany.common.telemetry.events.GaiaBattleResult;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions.ModLoaderType;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import io.github.lounode.extrabotany.common.telemetry.events.GaiaBattleResult;
-import io.github.lounode.extrabotany.xplat.EXplatAbstractions.ModLoaderType;
 
 public record TelemetryProperty<T> (String id, String exportKey, Codec<T> codec, Exporter<T> exporter) {
 

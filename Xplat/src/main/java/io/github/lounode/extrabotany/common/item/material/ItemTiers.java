@@ -4,9 +4,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.function.Supplier;
-
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+
+import java.util.function.Supplier;
 
 public enum ItemTiers implements Tier {
 	EXCALIBUR(2031, 9.0F, 4, 4, 30, () -> ExtraBotanyItems.dasRheingold);

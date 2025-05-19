@@ -22,10 +22,10 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.common.helper.PlayerHelper;
 
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class AuraFireEntity extends ThrowableProjectile {
 	private static final String TAG_GRAVITY = "gravity";

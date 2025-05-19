@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.brew.BotaniaBrews;
 
-
 import io.github.lounode.extrabotany.common.brew.BrewUtil;
 
 public abstract class CopyBrewRecipe extends ShapelessRecipe {

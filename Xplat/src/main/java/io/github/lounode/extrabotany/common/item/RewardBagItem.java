@@ -19,10 +19,10 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import vazkii.botania.common.helper.ItemNBTHelper;
 
-import java.util.List;
-
 import io.github.lounode.extrabotany.api.item.RewardBag;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+
+import java.util.List;
 
 public class RewardBagItem extends Item implements RewardBag {
 

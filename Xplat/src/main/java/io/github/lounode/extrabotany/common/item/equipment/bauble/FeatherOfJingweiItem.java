@@ -9,7 +9,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 
-
 import io.github.lounode.eventwrapper.event.entity.player.AttackEntityEventWrapper;
 import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;

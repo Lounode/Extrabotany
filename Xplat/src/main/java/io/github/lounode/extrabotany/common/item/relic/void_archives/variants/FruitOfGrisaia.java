@@ -14,7 +14,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.mixin.LivingEntityAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
-
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
 
 public class FruitOfGrisaia implements VoidArchivesVariant {

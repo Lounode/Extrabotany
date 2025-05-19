@@ -22,13 +22,13 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
 
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
 import io.github.lounode.extrabotany.common.lib.LibBlockNames;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
+
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 public class ExtrabotanyFlowerBlocks {
 

@@ -10,15 +10,14 @@ import net.minecraftforge.network.PacketDistributor;
 
 import vazkii.botania.forge.xplat.ForgeXplatImpl;
 
-import javax.annotation.Nullable;
-
-
 import io.github.lounode.extrabotany.api.ExtrabotanyForgeCapabilities;
 import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.forge.network.ForgePacketHandler;
 import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
+
+import javax.annotation.Nullable;
 
 public class ExForgeXplatImpl extends ForgeXplatImpl implements EXplatAbstractions {
 	@Override

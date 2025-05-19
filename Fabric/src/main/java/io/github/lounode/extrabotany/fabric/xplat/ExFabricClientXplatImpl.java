@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
 import vazkii.botania.fabric.client.FabricClientXplatImpl;
 
-
 import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
 import io.github.lounode.extrabotany.xplat.ExClientXplatAbstractions;
 

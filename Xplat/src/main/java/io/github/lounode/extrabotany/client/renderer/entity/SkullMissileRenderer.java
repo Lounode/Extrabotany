@@ -11,9 +11,9 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.common.entity.SkullMissileEntity;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class SkullMissileRenderer extends EntityRenderer<SkullMissileEntity> {
 	private static final ResourceLocation DEFAULT_SKULL = prefix("textures/entity/skull_missile/skull_missile.png");

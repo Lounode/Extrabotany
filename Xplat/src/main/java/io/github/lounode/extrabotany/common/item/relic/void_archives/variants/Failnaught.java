@@ -18,7 +18,6 @@ import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
-
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
 import io.github.lounode.extrabotany.common.entity.MagicArrowEntity;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;

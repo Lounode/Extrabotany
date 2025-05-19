@@ -10,10 +10,10 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.player.Player;
 
+import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 
 public class GaiaCleanPlayerUnstableEffects<E extends Gaia> extends Behavior<E> {
 

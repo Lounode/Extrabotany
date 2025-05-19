@@ -5,9 +5,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import vazkii.botania.common.item.BotaniaItems;
 
-import java.util.function.Consumer;
-
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
+
+import java.util.function.Consumer;
 
 public class PetalApothecaryProvider extends vazkii.botania.data.recipes.PetalApothecaryProvider {
 	public PetalApothecaryProvider(PackOutput packOutput) {

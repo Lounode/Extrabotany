@@ -30,11 +30,11 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.handler.BotaniaSounds;
 
-import java.util.List;
-
 import io.github.lounode.extrabotany.api.gaia.GaiaArena;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+
+import java.util.List;
 
 public class GaiaIII extends Gaia {
 	public static final float ARENA_RANGE = 15F;

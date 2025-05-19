@@ -10,15 +10,15 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static io.github.lounode.extrabotany.common.entity.gaia.behavior.GaiaTeleport.TELEPORT_DELAY;
-
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.entity.MagicLandMineEntity;
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static io.github.lounode.extrabotany.common.entity.gaia.behavior.GaiaTeleport.TELEPORT_DELAY;
 
 public class GaiaSpawnLandMine<E extends Gaia> extends Behavior<E> {
 

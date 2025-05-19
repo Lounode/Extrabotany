@@ -2,7 +2,6 @@ package io.github.lounode.extrabotany.api.block;
 
 import net.minecraft.world.item.ItemStack;
 
-
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 public interface Charger {

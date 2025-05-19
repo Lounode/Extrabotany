@@ -14,12 +14,6 @@ import net.minecraft.world.level.ItemLike;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.item.BotaniaItems;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
-
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger;
 import io.github.lounode.extrabotany.common.advancements.MinMaxBoundsExtension;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
@@ -28,6 +22,12 @@ import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider {
 	public static net.minecraft.data.advancements.AdvancementProvider create(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {

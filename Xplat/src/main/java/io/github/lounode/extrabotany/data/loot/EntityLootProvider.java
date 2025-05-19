@@ -11,12 +11,12 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import vazkii.botania.common.loot.EnableRelics;
 import vazkii.botania.common.loot.RealPlayerCondition;
 
-import java.util.stream.Stream;
-
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.common.loot.ExtendBindUUID;
+
+import java.util.stream.Stream;
 
 public class EntityLootProvider extends EntityLootSubProviderFix {
 	public EntityLootProvider() {

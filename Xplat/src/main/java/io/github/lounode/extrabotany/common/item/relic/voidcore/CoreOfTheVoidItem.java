@@ -37,10 +37,6 @@ import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import io.github.lounode.eventwrapper.event.entity.living.*;
 import io.github.lounode.eventwrapper.event.entity.player.PlayerEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
@@ -56,6 +52,10 @@ import io.github.lounode.extrabotany.common.item.relic.voidcore.variants.Jim;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.variants.Steampunk;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.common.util.SoundEventUtil;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @EventBusSubscriberWrapper
 public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabContents {

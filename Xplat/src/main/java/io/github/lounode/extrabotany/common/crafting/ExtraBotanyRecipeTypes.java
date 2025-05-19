@@ -10,10 +10,10 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.mixin.RecipeManagerAccessor;
 
+import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
+
 import java.util.Map;
 import java.util.function.BiConsumer;
-
-import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
 
 public class ExtraBotanyRecipeTypes {
 	public static final RecipeType<PedestalRecipe> PEDESTAL_SMASH_TYPE = new ModRecipeType<>();

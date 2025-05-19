@@ -21,6 +21,12 @@ import vazkii.botania.data.util.ModelWithOverrides;
 import vazkii.botania.data.util.OverrideHolder;
 import vazkii.botania.mixin.TextureSlotAccessor;
 
+import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
+import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
+import io.github.lounode.extrabotany.common.item.relic.void_archives.variants.*;
+import io.github.lounode.extrabotany.common.lib.LibMisc;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
+
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
@@ -31,12 +37,6 @@ import java.util.stream.Collectors;
 import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.*;
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 import static vazkii.botania.data.ItemModelProvider.takeAll;
-
-import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
-import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
-import io.github.lounode.extrabotany.common.item.relic.void_archives.variants.*;
-import io.github.lounode.extrabotany.common.lib.LibMisc;
-import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 public class ItemModelProvider implements DataProvider {
 	private static final TextureSlot LAYER1 = TextureSlotAccessor.make("layer1");

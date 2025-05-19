@@ -10,9 +10,9 @@ import net.minecraft.world.level.block.TallFlowerBlock;
 import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 
-import java.util.function.BiConsumer;
-
 import io.github.lounode.extrabotany.common.lib.LibMisc;
+
+import java.util.function.BiConsumer;
 
 public final class BlockRenderLayers {
 	public static boolean skipPlatformBlocks;

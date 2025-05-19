@@ -13,7 +13,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.ServiceUtil;
 import vazkii.botania.xplat.XplatAbstractions;
 
-
 import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
 import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
 

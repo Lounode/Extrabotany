@@ -7,11 +7,6 @@ import net.minecraft.world.level.ItemLike;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 
-import java.nio.file.Path;
-import java.util.function.Consumer;
-
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.PedestalBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
@@ -28,6 +23,11 @@ import io.github.lounode.extrabotany.data.patchouli.page.botania.RunicAltarPage;
 import io.github.lounode.extrabotany.data.patchouli.page.extrabotany.EatPage;
 import io.github.lounode.extrabotany.data.patchouli.page.extrabotany.PedestalPage;
 import io.github.lounode.extrabotany.data.patchouli.page.extrabotany.SmithingPage;
+
+import java.nio.file.Path;
+import java.util.function.Consumer;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public final class PatchouliBookProvider extends PatchouliProvider {
 	private static final ResourceLocation CATEGORY = ResourceLocation.tryParse("botania:extrabotanies");

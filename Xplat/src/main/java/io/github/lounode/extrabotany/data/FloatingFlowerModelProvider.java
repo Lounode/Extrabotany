@@ -14,13 +14,13 @@ import net.minecraft.world.level.block.Block;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
+import io.github.lounode.extrabotany.common.lib.LibMisc;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.common.lib.LibMisc;
 
 public class FloatingFlowerModelProvider implements DataProvider {
 

@@ -7,12 +7,12 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 
 import vazkii.botania.api.brew.Brew;
 
+import io.github.lounode.extrabotany.common.lib.LibBrewNames;
+
 import java.util.Arrays;
 import java.util.function.BiConsumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.common.lib.LibBrewNames;
 
 public class ExtraBotanyBrews {
 

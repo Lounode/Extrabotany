@@ -19,12 +19,12 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredientHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
+import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+
 import java.util.function.Consumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
-import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 
 public class ManaInfusionProvider extends ExtraBotanyRecipeProvider {
 	public ManaInfusionProvider(PackOutput packOutput) {

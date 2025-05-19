@@ -36,10 +36,6 @@ import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.common.item.relic.RelicItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.List;
-
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.eventwrapper.event.entity.player.ItemCooldownFinishEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
@@ -47,6 +43,10 @@ import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.common.util.SoundEventUtil;
+
+import java.util.List;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 @EventBusSubscriberWrapper
 public class CameraItem extends RelicItem {

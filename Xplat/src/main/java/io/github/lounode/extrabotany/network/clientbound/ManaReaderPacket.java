@@ -5,9 +5,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.network.ExtrabotanyPacket;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public record ManaReaderPacket(int mana) implements ExtrabotanyPacket {
 	public static final ResourceLocation ID = prefix("mrd");

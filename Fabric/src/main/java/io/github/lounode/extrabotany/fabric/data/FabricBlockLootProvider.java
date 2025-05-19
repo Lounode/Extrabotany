@@ -9,13 +9,13 @@ import net.minecraft.world.level.storage.loot.Deserializers;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
+import io.github.lounode.extrabotany.common.lib.LibMisc;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
-import io.github.lounode.extrabotany.common.lib.LibMisc;
 
 public class FabricBlockLootProvider implements DataProvider {
 	private final PackOutput.PathProvider pathProvider;

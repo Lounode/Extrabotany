@@ -34,10 +34,6 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelSwordItem;
 import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
-
 import io.github.lounode.eventwrapper.event.entity.player.AttackEntityEventWrapper;
 import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
@@ -48,6 +44,10 @@ import io.github.lounode.extrabotany.common.item.material.ItemTiers;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketExcalibur;
 import io.github.lounode.extrabotany.xplat.ExClientXplatAbstractions;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.UUID;
 
 @EventBusSubscriberWrapper
 public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem {

@@ -4,7 +4,6 @@ import net.minecraft.world.entity.LivingEntity;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
-
 import io.github.lounode.extrabotany.client.core.proxy.ClientProxy;
 
 public interface Proxy extends vazkii.botania.common.proxy.Proxy {

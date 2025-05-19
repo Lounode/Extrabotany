@@ -14,12 +14,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
+import io.github.lounode.extrabotany.api.item.CoreOfTheVoidVariant;
+
 import java.util.Map;
 import java.util.function.Consumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.api.item.CoreOfTheVoidVariant;
 
 public class Herrscher implements CoreOfTheVoidVariant {
 	private static final String ID = "herrscher";

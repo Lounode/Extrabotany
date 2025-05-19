@@ -16,12 +16,12 @@ import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 
+import io.github.lounode.extrabotany.api.gaia.ColorfulBossBar;
+
 import java.util.Collections;
 import java.util.OptionalInt;
 import java.util.Set;
 import java.util.WeakHashMap;
-
-import io.github.lounode.extrabotany.api.gaia.ColorfulBossBar;
 
 public final class BossBarHandler {
 

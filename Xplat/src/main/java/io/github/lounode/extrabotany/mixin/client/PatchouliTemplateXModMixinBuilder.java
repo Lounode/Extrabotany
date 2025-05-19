@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vazkii.patchouli.client.book.BookContentsBuilder;
 import vazkii.patchouli.client.book.template.BookTemplate;
 
-import java.util.function.Supplier;
-
 import io.github.lounode.extrabotany.common.util.PatchouliUtil;
+
+import java.util.function.Supplier;
 
 @Mixin(BookContentsBuilder.class)
 public class PatchouliTemplateXModMixinBuilder {

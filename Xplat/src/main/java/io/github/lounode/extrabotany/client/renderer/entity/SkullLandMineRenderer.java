@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-
 import io.github.lounode.extrabotany.common.entity.SkullLandMineEntity;
 
 public class SkullLandMineRenderer extends EntityRenderer<SkullLandMineEntity> {

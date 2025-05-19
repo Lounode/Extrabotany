@@ -14,13 +14,13 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-import java.util.List;
-
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.common.util.SoundEventUtil;
+
+import java.util.List;
 
 public class Camera implements VoidArchivesVariant {
 

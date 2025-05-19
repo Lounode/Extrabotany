@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
+import io.github.lounode.extrabotany.common.lib.LibBlockNames;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -16,8 +18,6 @@ import java.util.function.BiFunction;
 
 import static io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks.*;
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.common.lib.LibBlockNames;
 
 public class ExtraBotanyBlockEntities {
 	private static final Map<ResourceLocation, BlockEntityType<?>> ALL = new HashMap<>();

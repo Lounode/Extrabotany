@@ -12,7 +12,6 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.fabric.xplat.FabricXplatImpl;
 
-
 import io.github.lounode.extrabotany.api.ExtrabotanyFabricCapabilities;
 import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
 import io.github.lounode.extrabotany.common.lib.LibMisc;

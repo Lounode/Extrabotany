@@ -4,7 +4,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 
-
 import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
 
 public final class ExtrabotanyForgeCapabilities {

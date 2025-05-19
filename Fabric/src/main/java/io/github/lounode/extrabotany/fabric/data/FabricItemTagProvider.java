@@ -10,11 +10,11 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
+import io.github.lounode.extrabotany.data.ItemTagProvider;
+
 import java.util.concurrent.CompletableFuture;
 
 import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.*;
-
-import io.github.lounode.extrabotany.data.ItemTagProvider;
 
 public class FabricItemTagProvider extends ItemTagProvider {
 	public FabricItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {

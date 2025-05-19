@@ -7,7 +7,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.patchouli.common.book.BookRegistry;
 
-
 import io.github.lounode.extrabotany.common.util.PatchouliUtil;
 
 @Mixin(BookRegistry.class)

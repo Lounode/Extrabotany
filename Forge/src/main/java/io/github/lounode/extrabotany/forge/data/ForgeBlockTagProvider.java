@@ -10,10 +10,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import java.util.concurrent.CompletableFuture;
-
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
+
+import java.util.concurrent.CompletableFuture;
 
 public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	public static final TagKey<Block> MANASTEEL = forge("storage_blocks/manasteel");

@@ -12,11 +12,11 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.client.fx.WispParticleData;
 
+import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
+
 import java.util.List;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
-import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 public abstract class SkullLandMineEntity extends MagicLandMineEntity {
 	private static final ResourceLocation DEFAULT_SKULL = prefix("textures/entity/skull_missile/skull_missile.png");

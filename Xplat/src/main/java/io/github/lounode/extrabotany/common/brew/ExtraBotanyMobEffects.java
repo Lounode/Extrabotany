@@ -6,15 +6,15 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
-import java.util.function.BiConsumer;
-
-import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
-
 import io.github.lounode.extrabotany.common.brew.effect.DiscountMobEffect;
 import io.github.lounode.extrabotany.common.brew.effect.HealReverseMobEffect;
 import io.github.lounode.extrabotany.common.brew.effect.ImmobilizeMobEffect;
 import io.github.lounode.extrabotany.common.brew.effect.LinkMobEffect;
 import io.github.lounode.extrabotany.common.lib.LibPotionNames;
+
+import java.util.function.BiConsumer;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class ExtraBotanyMobEffects {
 	public static final MobEffect IMMOBILIZE = new ImmobilizeMobEffect(MobEffectCategory.HARMFUL, 9154528)

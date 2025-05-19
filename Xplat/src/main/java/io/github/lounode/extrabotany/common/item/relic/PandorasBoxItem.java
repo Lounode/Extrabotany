@@ -20,10 +20,10 @@ import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.List;
-
 import io.github.lounode.extrabotany.common.item.RewardBagItem;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+
+import java.util.List;
 
 public class PandorasBoxItem extends RewardBagItem {
 	public PandorasBoxItem(Properties properties, ResourceLocation lootTable) {

@@ -9,13 +9,13 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
+import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.lounode.extrabotany.api.gaia.GaiaArena.checkFeasibility;
-
-import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
-import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 public class GaiaDisarm<E extends Gaia> extends Behavior<E> {
 

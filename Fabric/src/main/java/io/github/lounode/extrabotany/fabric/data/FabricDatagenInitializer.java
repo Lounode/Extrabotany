@@ -10,17 +10,17 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
-import java.util.List;
-import java.util.Set;
-
-import static io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes.*;
-
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.data.*;
 import io.github.lounode.extrabotany.data.loot.BlockLootProvider;
 import io.github.lounode.extrabotany.data.loot.EntityLootProvider;
 import io.github.lounode.extrabotany.data.loot.RewardBagLootProvider;
 import io.github.lounode.extrabotany.data.recipes.*;
+
+import java.util.List;
+import java.util.Set;
+
+import static io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes.*;
 
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	@Override
