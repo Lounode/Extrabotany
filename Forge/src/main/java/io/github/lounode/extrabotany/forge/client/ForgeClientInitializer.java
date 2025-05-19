@@ -8,7 +8,9 @@ import io.github.lounode.extrabotany.client.renderer.ColorHandler;
 import io.github.lounode.extrabotany.client.renderer.entity.EntityRenderers;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
+import io.github.lounode.extrabotany.client.renderer.BlockRenderLayers;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -38,6 +40,9 @@ public class ForgeClientInitializer {
     public static HUD hud;
     @SubscribeEvent
     public static void clientInit(FMLClientSetupEvent evt) {
+        BlockRenderLayers.skipPlatformBlocks = true; // platforms can use standard rendering on Forge
+        BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
+
         var bus = MinecraftForge.EVENT_BUS;
         hud = new HUD(Minecraft.getInstance());
         /*

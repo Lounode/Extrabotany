@@ -25,6 +25,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefixBotania;
 import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
 import static net.minecraft.data.models.model.TextureMapping.getBlockTexture;
 
@@ -153,7 +154,7 @@ public class BlockstateProvider extends vazkii.botania.data.BlockstateProvider {
 
          */
         Predicate<Block> flowers = EXplatAbstractions.INSTANCE::isSpecialFlowerBlock;
-        ModelTemplate crossTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cross")), Optional.empty(), TextureSlot.CROSS);
+        ModelTemplate crossTemplate = new ModelTemplate(Optional.of(prefixBotania("block/shapes/cross")), Optional.empty(), TextureSlot.CROSS);
         takeAll(remainingBlocks, flowers).forEach(b -> {
             singleVariantBlockState(b, crossTemplate.create(b, TextureMapping.cross(b), this.modelOutput));
         });

@@ -1,5 +1,5 @@
 {
-  "parent": "extrabotany:block/shapes/cross",
+  "parent": "botania:block/shapes/cross",
   "textures": {
     "cross": "extrabotany:block/trade_orchid"
   }
