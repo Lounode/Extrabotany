@@ -1,10 +1,7 @@
 package io.github.lounode.extrabotany.common.entity.gaia.behavior;
 
 import com.google.common.collect.ImmutableMap;
-import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
-import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
-import io.github.lounode.extrabotany.common.entity.MagicLandMineEntity;
-import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.Brain;
@@ -18,62 +15,67 @@ import java.util.List;
 
 import static io.github.lounode.extrabotany.common.entity.gaia.behavior.GaiaTeleport.TELEPORT_DELAY;
 
-public class GaiaSpawnLandMine <E extends Gaia> extends Behavior<E> {
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
+import io.github.lounode.extrabotany.common.entity.MagicLandMineEntity;
+import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 
-    public static final int LANDMINE_COUNTS = 6;
+public class GaiaSpawnLandMine<E extends Gaia> extends Behavior<E> {
 
-    public GaiaSpawnLandMine() {
-        super(ImmutableMap.of(
-                MemoryModuleType.NEAREST_PLAYERS, MemoryStatus.VALUE_PRESENT,
-                ExtraBotanyMemoryType.LANDMINE_COUNT, MemoryStatus.REGISTERED,
-                ExtraBotanyMemoryType.TELEPORT_DELAY, MemoryStatus.REGISTERED
-        ));
-    }
+	public static final int LANDMINE_COUNTS = 6;
 
-    public static void initMemories(Brain<? extends Gaia> brain, int mineCount) {
-        brain.setMemory(ExtraBotanyMemoryType.LANDMINE_COUNT, mineCount);
-    }
+	public GaiaSpawnLandMine() {
+		super(ImmutableMap.of(
+				MemoryModuleType.NEAREST_PLAYERS, MemoryStatus.VALUE_PRESENT,
+				ExtraBotanyMemoryType.LANDMINE_COUNT, MemoryStatus.REGISTERED,
+				ExtraBotanyMemoryType.TELEPORT_DELAY, MemoryStatus.REGISTERED
+		));
+	}
 
-    @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, E gaia) {
-        return getTeleportDelay(gaia) == 0;
-    }
+	public static void initMemories(Brain<? extends Gaia> brain, int mineCount) {
+		brain.setMemory(ExtraBotanyMemoryType.LANDMINE_COUNT, mineCount);
+	}
 
-    @Override
-    protected void start(ServerLevel level, E gaia, long gameTime) {
-        spawnLandMines(gaia);
-    }
+	@Override
+	protected boolean checkExtraStartConditions(ServerLevel level, E gaia) {
+		return getTeleportDelay(gaia) == 0;
+	}
 
-    protected void spawnLandMines(Gaia gaia) {
-        int count = getLandMineCount(gaia);
-        BlockPos source = gaia.getHome().pos();
-        List<Player> players = getPlayers(gaia);
+	@Override
+	protected void start(ServerLevel level, E gaia, long gameTime) {
+		spawnLandMines(gaia);
+	}
 
-        if (players.isEmpty()) {
-            return;
-        }
+	protected void spawnLandMines(Gaia gaia) {
+		int count = getLandMineCount(gaia);
+		BlockPos source = gaia.getHome().pos();
+		List<Player> players = getPlayers(gaia);
 
-        for (int i = 0; i < count; i++) {
-            int x = source.getX() - 10 + gaia.getRandom().nextInt(20);
-            int y = (int) players.get(gaia.getRandom().nextInt(players.size())).getY();
-            int z = source.getZ() - 10 + gaia.getRandom().nextInt(20);
+		if (players.isEmpty()) {
+			return;
+		}
 
-            MagicLandMineEntity landmine = ExtraBotanyEntityType.MAGIC_LANDMINE.create(gaia.level());
-            landmine.setPos(x + 0.5, y, z + 0.5);
-            landmine.setOwner(gaia);
-            gaia.level().addFreshEntity(landmine);
-        }
-    }
+		for (int i = 0; i < count; i++) {
+			int x = source.getX() - 10 + gaia.getRandom().nextInt(20);
+			int y = (int) players.get(gaia.getRandom().nextInt(players.size())).getY();
+			int z = source.getZ() - 10 + gaia.getRandom().nextInt(20);
 
-    protected int getTeleportDelay(Gaia gaia) {
-        return gaia.getBrain().getMemory(ExtraBotanyMemoryType.TELEPORT_DELAY).orElse(TELEPORT_DELAY);
-    }
+			MagicLandMineEntity landmine = ExtraBotanyEntityType.MAGIC_LANDMINE.create(gaia.level());
+			landmine.setPos(x + 0.5, y, z + 0.5);
+			landmine.setOwner(gaia);
+			gaia.level().addFreshEntity(landmine);
+		}
+	}
 
-    protected int getLandMineCount(Gaia gaia) {
-        return gaia.getBrain().getMemory(ExtraBotanyMemoryType.LANDMINE_COUNT).orElse(LANDMINE_COUNTS);
-    }
+	protected int getTeleportDelay(Gaia gaia) {
+		return gaia.getBrain().getMemory(ExtraBotanyMemoryType.TELEPORT_DELAY).orElse(TELEPORT_DELAY);
+	}
 
-    protected List<Player> getPlayers(Gaia gaia) {
-        return gaia.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).orElse(new ArrayList<>());
-    }
+	protected int getLandMineCount(Gaia gaia) {
+		return gaia.getBrain().getMemory(ExtraBotanyMemoryType.LANDMINE_COUNT).orElse(LANDMINE_COUNTS);
+	}
+
+	protected List<Player> getPlayers(Gaia gaia) {
+		return gaia.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).orElse(new ArrayList<>());
+	}
 }

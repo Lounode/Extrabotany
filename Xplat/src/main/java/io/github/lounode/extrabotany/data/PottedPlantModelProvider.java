@@ -2,7 +2,7 @@ package io.github.lounode.extrabotany.data;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.github.lounode.extrabotany.common.lib.LibMisc;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -14,7 +14,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerPotBlock;
+
 import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.ArrayList;
@@ -23,47 +25,49 @@ import java.util.concurrent.CompletableFuture;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
+import io.github.lounode.extrabotany.common.lib.LibMisc;
+
 public class PottedPlantModelProvider implements DataProvider {
 
-    private final PackOutput packOutput;
+	private final PackOutput packOutput;
 
-    public PottedPlantModelProvider(PackOutput packOutput) {
-        this.packOutput = packOutput;
-    }
+	public PottedPlantModelProvider(PackOutput packOutput) {
+		this.packOutput = packOutput;
+	}
 
-    @Override
-    public CompletableFuture<?> run(CachedOutput cache) {
-        List<Tuple<String, JsonElement>> jsons = new ArrayList<>();
-        for (Block b : BuiltInRegistries.BLOCK) {
-            ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(b);
-            if (LibMisc.MOD_ID.equals(blockId.getNamespace()) && b instanceof FlowerPotBlock) {
-                String name = blockId.getPath();
-                String nonPotted = name.replace(LibBlockNames.POTTED_PREFIX, "").replace("_motif", "");
+	@Override
+	public CompletableFuture<?> run(CachedOutput cache) {
+		List<Tuple<String, JsonElement>> jsons = new ArrayList<>();
+		for (Block b : BuiltInRegistries.BLOCK) {
+			ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(b);
+			if (LibMisc.MOD_ID.equals(blockId.getNamespace()) && b instanceof FlowerPotBlock) {
+				String name = blockId.getPath();
+				String nonPotted = name.replace(LibBlockNames.POTTED_PREFIX, "").replace("_motif", "");
 
-                JsonObject obj = new JsonObject();
-                obj.addProperty("parent", "minecraft:block/flower_pot_cross");
-                JsonObject textures = new JsonObject();
-                textures.addProperty("plant", LibMisc.MOD_ID + ":" + "block/" + nonPotted);
-                obj.add("textures", textures);
-                jsons.add(new Tuple<>(name, obj));
-            }
-        }
-        List<CompletableFuture<?>> output = new ArrayList<>();
-        PackOutput.PathProvider blocks = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/block");
-        for (Tuple<String, JsonElement> pair : jsons) {
-            output.add(DataProvider.saveStable(cache, pair.getB(), blocks.json(prefix(pair.getA()))));
-        }
+				JsonObject obj = new JsonObject();
+				obj.addProperty("parent", "minecraft:block/flower_pot_cross");
+				JsonObject textures = new JsonObject();
+				textures.addProperty("plant", LibMisc.MOD_ID + ":" + "block/" + nonPotted);
+				obj.add("textures", textures);
+				jsons.add(new Tuple<>(name, obj));
+			}
+		}
+		List<CompletableFuture<?>> output = new ArrayList<>();
+		PackOutput.PathProvider blocks = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/block");
+		for (Tuple<String, JsonElement> pair : jsons) {
+			output.add(DataProvider.saveStable(cache, pair.getB(), blocks.json(prefix(pair.getA()))));
+		}
 
-        return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
-    }
+		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
+	}
 
-    static MultiVariantGenerator createSimpleBlock(Block block, ResourceLocation resourceLocation) {
-        return MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, resourceLocation));
-    }
+	static MultiVariantGenerator createSimpleBlock(Block block, ResourceLocation resourceLocation) {
+		return MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, resourceLocation));
+	}
 
-    @NotNull
-    @Override
-    public String getName() {
-        return "Extrabotany potted plant models";
-    }
+	@NotNull
+	@Override
+	public String getName() {
+		return "Extrabotany potted plant models";
+	}
 }

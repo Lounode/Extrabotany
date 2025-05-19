@@ -3,9 +3,7 @@ package io.github.lounode.extrabotany.client.gui;
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import io.github.lounode.extrabotany.common.bossevents.GaiaBossEvent;
-import io.github.lounode.extrabotany.network.clientbound.ColorfulBossEventPacket;
-import io.github.lounode.extrabotany.network.clientbound.GaiaBossEventPacket;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.LerpingBossEvent;
@@ -14,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
@@ -21,231 +20,234 @@ import vazkii.botania.client.lib.ResourcesLib;
 import java.util.Map;
 import java.util.UUID;
 
+import io.github.lounode.extrabotany.common.bossevents.GaiaBossEvent;
+import io.github.lounode.extrabotany.network.clientbound.ColorfulBossEventPacket;
+import io.github.lounode.extrabotany.network.clientbound.GaiaBossEventPacket;
+
 public class ColorfulBossBarOverlay {
 
-    public static final ResourceLocation BAR_TEXTURE = ResourceLocation.tryParse(ResourcesLib.GUI_BOSS_BAR);
-    private static final ResourceLocation GUI_BARS_LOCATION = ResourceLocation.tryParse("textures/gui/bars.png");
-    private static final int BAR_WIDTH = 182;
-    private static final int BAR_HEIGHT = 5;
-    private static final int OVERLAY_OFFSET = 80;
-    private final Minecraft minecraft;
-    final Map<UUID, GaiaLerpingBossEvent> events = Maps.newLinkedHashMap();
+	public static final ResourceLocation BAR_TEXTURE = ResourceLocation.tryParse(ResourcesLib.GUI_BOSS_BAR);
+	private static final ResourceLocation GUI_BARS_LOCATION = ResourceLocation.tryParse("textures/gui/bars.png");
+	private static final int BAR_WIDTH = 182;
+	private static final int BAR_HEIGHT = 5;
+	private static final int OVERLAY_OFFSET = 80;
+	private final Minecraft minecraft;
+	final Map<UUID, GaiaLerpingBossEvent> events = Maps.newLinkedHashMap();
 
-    public ColorfulBossBarOverlay(Minecraft minecraft) {
-        this.minecraft = minecraft;
-    }
+	public ColorfulBossBarOverlay(Minecraft minecraft) {
+		this.minecraft = minecraft;
+	}
 
-    public void render(GuiGraphics gui) {
-        if (this.events.isEmpty()) {
-            return;
-        }
+	public void render(GuiGraphics gui) {
+		if (this.events.isEmpty()) {
+			return;
+		}
 
-        int guiWidth = gui.guiWidth();
-        int x = guiWidth / 2 - 91;
-        int y = 12;
+		int guiWidth = gui.guiWidth();
+		int x = guiWidth / 2 - 91;
+		int y = 12;
 
-        for(var event : this.events.values()) {
-            /*
+		for (var event : this.events.values()) {
+			/*
+			
+			drawBar(guiGraphics, x, y, event);
+			Component component = event.getName();
+			int l = this.minecraft.font.width(component);
+			int textX = guiWidth / 2 - l / 2;
+			int textY = y - 9;
+			guiGraphics.drawString(this.minecraft.font, component, textX, textY, 16777215);
+			//guiGraphics.drawString(this.minecraft.font, component, textX, textY, component.getStyle() == Style.EMPTY ? event.getColor().getFormatting().getColor() : component.getStyle().getColor().getValue());
+			int px = x + 160;
+			int py = y + 12;
+			drawPlayerCount(event.getPlayerCount(), guiGraphics, px, py);
+			y += 19;
+			if (y >= guiGraphics.guiHeight() / 3) {
+				break;
+			}
+			
+			*/
 
-            drawBar(guiGraphics, x, y, event);
-            Component component = event.getName();
-            int l = this.minecraft.font.width(component);
-            int textX = guiWidth / 2 - l / 2;
-            int textY = y - 9;
-            guiGraphics.drawString(this.minecraft.font, component, textX, textY, 16777215);
-            //guiGraphics.drawString(this.minecraft.font, component, textX, textY, component.getStyle() == Style.EMPTY ? event.getColor().getFormatting().getColor() : component.getStyle().getColor().getValue());
-            int px = x + 160;
-            int py = y + 12;
-            drawPlayerCount(event.getPlayerCount(), guiGraphics, px, py);
-            y += 19;
-            if (y >= guiGraphics.guiHeight() / 3) {
-                break;
-            }
+			// todo boss_bar.png has textures for different colors, respect bossEvent's getColor()?
+			int frameU = 0, frameV = 0;
+			int frameWidth = 185, frameHeight = 15;
 
-             */
+			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
-            // todo boss_bar.png has textures for different colors, respect bossEvent's getColor()?
-            int frameU = 0, frameV = 0;
-            int frameWidth = 185, frameHeight = 15;
+			//Name
+			Component name = event.getName();
+			int centerX = minecraft.getWindow().getGuiScaledWidth() / 2;
+			gui.drawCenteredString(minecraft.font, name, centerX, y - 10, 0xA2018C);
 
+			int healthU = 0, healthV = frameV + frameHeight;
+			int healthWidth = 181, healthHeight = 7;
+			int healthX = x + (frameWidth - healthWidth) / 2;
+			int healthY = y + (frameHeight - healthHeight) / 2;
 
-            RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+			//BossBar
+			RenderHelper.drawTexturedModalRect(gui, BAR_TEXTURE, x, y, frameU, frameV,
+					frameWidth, frameHeight);
+			drawHealthBar(gui, event, healthX, healthY, healthU, healthV,
+					(int) (healthWidth * event.getProgress()), healthHeight);
 
-            //Name
-            Component name = event.getName();
-            int centerX = minecraft.getWindow().getGuiScaledWidth() / 2;
-            gui.drawCenteredString(minecraft.font, name, centerX, y - 10, 0xA2018C);
+			//y += frameHeight;
 
-            int healthU = 0, healthV = frameV + frameHeight;
-            int healthWidth = 181, healthHeight = 7;
-            int healthX = x + (frameWidth - healthWidth) / 2;
-            int healthY = y + (frameHeight - healthHeight) / 2;
+			//PlayerCount
+			int px = x + 160;
+			int py = y + 12;
+			if (event.displayPlayerCount()) {
+				drawPlayerCount(event.getPlayerCount(), gui, px, py);
 
-            //BossBar
-            RenderHelper.drawTexturedModalRect(gui, BAR_TEXTURE, x, y, frameU, frameV,
-                    frameWidth, frameHeight);
-            drawHealthBar(gui, event, healthX, healthY, healthU, healthV,
-                    (int) (healthWidth * event.getProgress()), healthHeight);
+			}
 
-            //y += frameHeight;
+			y += (frameHeight * 2);
 
-            //PlayerCount
-            int px = x + 160;
-            int py = y + 12;
-            if (event.displayPlayerCount()) {
-                drawPlayerCount(event.getPlayerCount(), gui, px, py);
+			if (y >= gui.guiHeight() / 3) {
+				break;
+			}
+		}
+	}
 
-            }
+	public static void drawPlayerCount(int playerCount, GuiGraphics gui, int x, int y) {
+		PoseStack ps = gui.pose();
+		ps.pushPose();
 
-            y+= (frameHeight * 2);
+		Minecraft mc = Minecraft.getInstance();
+		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
+		gui.renderItem(stack, x, y);
 
-            if (y >= gui.guiHeight() / 3) {
-                break;
-            }
-        }
-    }
+		gui.drawString(mc.font, Integer.toString(playerCount), x + 15, y + 4, 0xFFFFFF);
+		ps.popPose();
+	}
 
-    public static void drawPlayerCount(int playerCount, GuiGraphics gui, int x, int y) {
-        PoseStack ps = gui.pose();
-        ps.pushPose();
+	public static void drawBar(GuiGraphics guiGraphics, int x, int y, BossEvent bossEvent) {
+		drawBar(guiGraphics, x, y, bossEvent, BAR_WIDTH, 0);
+		int i = (int) (bossEvent.getProgress() * 183.0F);
+		if (i > 0) {
+			drawBar(guiGraphics, x, y, bossEvent, i, BAR_HEIGHT);
+		}
 
-        Minecraft mc = Minecraft.getInstance();
-        ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-        gui.renderItem(stack, x, y);
+	}
 
-        gui.drawString(mc.font, Integer.toString(playerCount), x + 15, y + 4, 0xFFFFFF);
-        ps.popPose();
-    }
+	public static void drawBar(GuiGraphics guiGraphics, int x, int y, BossEvent bossEvent, int width, int height) {
+		guiGraphics.blit(GUI_BARS_LOCATION, x, y, 0, bossEvent.getColor().ordinal() * 5 * 2 + height, width, 5);
+		if (bossEvent.getOverlay() != BossEvent.BossBarOverlay.PROGRESS) {
+			RenderSystem.enableBlend();
+			guiGraphics.blit(GUI_BARS_LOCATION, x, y, 0, OVERLAY_OFFSET + (bossEvent.getOverlay().ordinal() - 1) * 5 * 2 + height, width, 5);
+			RenderSystem.disableBlend();
+		}
+	}
 
-    public static void drawBar(GuiGraphics guiGraphics, int x, int y, BossEvent bossEvent) {
-        drawBar(guiGraphics, x, y, bossEvent, BAR_WIDTH, 0);
-        int i = (int)(bossEvent.getProgress() * 183.0F);
-        if (i > 0) {
-            drawBar(guiGraphics, x, y, bossEvent, i, BAR_HEIGHT);
-        }
+	public static void drawHealthBar(GuiGraphics gui, GaiaBossEvent bossEvent, int x, int y, int u, int v, int w, int h) {
+		BossEvent event = (BossEvent) bossEvent;
+		var shader = CoreShaders.dopplegangerBar();
+		if (shader != null) {
+			float grainIntensity = bossEvent.getGrainIntensity();
+			shader.safeGetUniform("BotaniaGrainIntensity").set(grainIntensity);
+			shader.safeGetUniform("BotaniaHpFract").set(event.getProgress());
+		}
 
-    }
+		float minU = u / 256.0F;
+		float maxU = (u + w) / 256.0F;
+		float minV = v / 256.0F;
+		float maxV = (v + h) / 256.0F;
 
-    public static void drawBar(GuiGraphics guiGraphics, int x, int y, BossEvent bossEvent, int width, int height) {
-        guiGraphics.blit(GUI_BARS_LOCATION, x, y, 0, bossEvent.getColor().ordinal() * 5 * 2 + height, width, 5);
-        if (bossEvent.getOverlay() != BossEvent.BossBarOverlay.PROGRESS) {
-            RenderSystem.enableBlend();
-            guiGraphics.blit(GUI_BARS_LOCATION, x, y, 0, OVERLAY_OFFSET + (bossEvent.getOverlay().ordinal() - 1) * 5 * 2 + height, width, 5);
-            RenderSystem.disableBlend();
-        }
-    }
+		var matrix = gui.pose().last().pose();
+		RenderSystem.setShader(CoreShaders::dopplegangerBar);
+		BufferBuilder builder = Tesselator.getInstance().getBuilder();
+		builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		builder.vertex(matrix, x, y + h, 0).uv(minU, maxV).endVertex();
+		builder.vertex(matrix, x + w, y + h, 0).uv(maxU, maxV).endVertex();
+		builder.vertex(matrix, x + w, y, 0).uv(maxU, minV).endVertex();
+		builder.vertex(matrix, x, y, 0).uv(minU, minV).endVertex();
+		Tesselator.getInstance().end();
+	}
 
-    public static void drawHealthBar(GuiGraphics gui, GaiaBossEvent bossEvent, int x, int y, int u, int v,  int w, int h) {
-        BossEvent event =  (BossEvent) bossEvent;
-        var shader = CoreShaders.dopplegangerBar();
-        if (shader != null) {
-            float grainIntensity = bossEvent.getGrainIntensity();
-            shader.safeGetUniform("BotaniaGrainIntensity").set(grainIntensity);
-            shader.safeGetUniform("BotaniaHpFract").set(event.getProgress());
-        }
+	public void update(ColorfulBossEventPacket packet) {
+		packet.dispatch(new GaiaBossEventPacket.Handler() {
+			@Override
+			public void updatePlayerCount(UUID uuid, int playerCount) {
+				ColorfulBossBarOverlay.this.events.get(uuid).setPlayerCount(playerCount);
+			}
 
-        float minU = u / 256.0F;
-        float maxU = (u + w) / 256.0F;
-        float minV = v / 256.0F;
-        float maxV = (v + h) / 256.0F;
+			@Override
+			public void updateGrainTime(UUID uuid, int time) {
+				ColorfulBossBarOverlay.this.events.get(uuid).setGrainTime(time);
+			}
 
-        var matrix = gui.pose().last().pose();
-        RenderSystem.setShader(CoreShaders::dopplegangerBar);
-        BufferBuilder builder = Tesselator.getInstance().getBuilder();
-        builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        builder.vertex(matrix, x, y + h, 0).uv(minU, maxV).endVertex();
-        builder.vertex(matrix, x + w, y + h, 0).uv(maxU, maxV).endVertex();
-        builder.vertex(matrix, x + w, y, 0).uv(maxU, minV).endVertex();
-        builder.vertex(matrix, x, y, 0).uv(minU, minV).endVertex();
-        Tesselator.getInstance().end();
-    }
+			@Override
+			public void add(UUID uuid, Component name, float progress, BossEvent.BossBarColor bossBarColor, BossEvent.BossBarOverlay overlay, boolean darkenScreen, boolean playMusic, boolean createWorldFog) {
+				ColorfulBossBarOverlay.this.events.put(uuid, new GaiaLerpingBossEvent(uuid, name, progress, bossBarColor, overlay, darkenScreen, playMusic, createWorldFog));
+			}
 
-    public void update(ColorfulBossEventPacket packet) {
-        packet.dispatch(new GaiaBossEventPacket.Handler() {
-            @Override
-            public void updatePlayerCount(UUID uuid, int playerCount) {
-                ColorfulBossBarOverlay.this.events.get(uuid).setPlayerCount(playerCount);
-            }
+			@Override
+			public void remove(UUID uuid) {
+				ColorfulBossBarOverlay.this.events.remove(uuid);
+			}
 
-            @Override
-            public void updateGrainTime(UUID uuid, int time) {
-                ColorfulBossBarOverlay.this.events.get(uuid).setGrainTime(time);
-            }
+			@Override
+			public void updateProgress(UUID uuid, float progress) {
+				ColorfulBossBarOverlay.this.events.get(uuid).setProgress(progress);
+			}
 
-            @Override
-            public void add(UUID uuid, Component name, float progress, BossEvent.BossBarColor bossBarColor, BossEvent.BossBarOverlay overlay, boolean darkenScreen, boolean playMusic, boolean createWorldFog) {
-                ColorfulBossBarOverlay.this.events.put(uuid, new GaiaLerpingBossEvent(uuid, name, progress, bossBarColor, overlay, darkenScreen, playMusic, createWorldFog));
-            }
+			@Override
+			public void updateName(UUID uuid, Component name) {
+				ColorfulBossBarOverlay.this.events.get(uuid).setName(name);
+			}
 
-            @Override
-            public void remove(UUID uuid) {
-                ColorfulBossBarOverlay.this.events.remove(uuid);
-            }
+			@Override
+			public void updateStyle(UUID uuid, BossEvent.BossBarColor bossBarColor, BossEvent.BossBarOverlay overlay) {
+				LerpingBossEvent lerpingbossevent = ColorfulBossBarOverlay.this.events.get(uuid);
+				lerpingbossevent.setColor(bossBarColor);
+				lerpingbossevent.setOverlay(overlay);
+			}
 
-            @Override
-            public void updateProgress(UUID uuid, float progress) {
-                ColorfulBossBarOverlay.this.events.get(uuid).setProgress(progress);
-            }
+			@Override
+			public void updateProperties(UUID uuid, boolean darkenScreen, boolean playMusic, boolean createWorldFog) {
+				LerpingBossEvent lerpingbossevent = ColorfulBossBarOverlay.this.events.get(uuid);
+				lerpingbossevent.setDarkenScreen(darkenScreen);
+				lerpingbossevent.setPlayBossMusic(playMusic);
+				lerpingbossevent.setCreateWorldFog(createWorldFog);
+			}
+		});
+	}
 
-            @Override
-            public void updateName(UUID uuid, Component name) {
-                ColorfulBossBarOverlay.this.events.get(uuid).setName(name);
-            }
+	public void reset() {
+		this.events.clear();
+	}
 
-            @Override
-            public void updateStyle(UUID uuid, BossEvent.BossBarColor bossBarColor, BossEvent.BossBarOverlay overlay) {
-                LerpingBossEvent lerpingbossevent = ColorfulBossBarOverlay.this.events.get(uuid);
-                lerpingbossevent.setColor(bossBarColor);
-                lerpingbossevent.setOverlay(overlay);
-            }
+	public boolean shouldPlayMusic() {
+		if (!this.events.isEmpty()) {
+			for (BossEvent bossevent : this.events.values()) {
+				if (bossevent.shouldPlayBossMusic()) {
+					return true;
+				}
+			}
+		}
 
-            @Override
-            public void updateProperties(UUID uuid, boolean darkenScreen, boolean playMusic, boolean createWorldFog) {
-                LerpingBossEvent lerpingbossevent = ColorfulBossBarOverlay.this.events.get(uuid);
-                lerpingbossevent.setDarkenScreen(darkenScreen);
-                lerpingbossevent.setPlayBossMusic(playMusic);
-                lerpingbossevent.setCreateWorldFog(createWorldFog);
-            }
-        });
-    }
+		return false;
+	}
 
-    public void reset() {
-        this.events.clear();
-    }
+	public boolean shouldDarkenScreen() {
+		if (!this.events.isEmpty()) {
+			for (BossEvent bossevent : this.events.values()) {
+				if (bossevent.shouldDarkenScreen()) {
+					return true;
+				}
+			}
+		}
 
-    public boolean shouldPlayMusic() {
-        if (!this.events.isEmpty()) {
-            for(BossEvent bossevent : this.events.values()) {
-                if (bossevent.shouldPlayBossMusic()) {
-                    return true;
-                }
-            }
-        }
+		return false;
+	}
 
-        return false;
-    }
+	public boolean shouldCreateWorldFog() {
+		if (!this.events.isEmpty()) {
+			for (BossEvent bossevent : this.events.values()) {
+				if (bossevent.shouldCreateWorldFog()) {
+					return true;
+				}
+			}
+		}
 
-    public boolean shouldDarkenScreen() {
-        if (!this.events.isEmpty()) {
-            for(BossEvent bossevent : this.events.values()) {
-                if (bossevent.shouldDarkenScreen()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public boolean shouldCreateWorldFog() {
-        if (!this.events.isEmpty()) {
-            for(BossEvent bossevent : this.events.values()) {
-                if (bossevent.shouldCreateWorldFog()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
+		return false;
+	}
 }

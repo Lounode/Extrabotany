@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
@@ -14,65 +15,65 @@ import vazkii.patchouli.mixin.AccessorSmithingTrimRecipe;
 import java.util.List;
 
 public class SmithingProcessor implements IComponentProcessor {
-    SmithingRecipe recipe;
-    @Override
-    public void setup(Level level, IVariableProvider variables) {
-        ResourceLocation id = ResourceLocation.tryParse(variables.get("recipe").asString());
-        this.recipe = PatchouliUtils.getRecipe(level, RecipeType.SMITHING, id);
-    }
+	SmithingRecipe recipe;
 
-    @Override
-    public IVariable process(Level level, String key) {
-        if (recipe == null) {
-            return null;
-        }
-        return switch (key) {
-            case "base" -> PatchouliUtils.interweaveIngredients(List.of(getBase(recipe)));
-            case "template" -> PatchouliUtils.interweaveIngredients(List.of(getTemplate(recipe)));
-            case "addition" -> PatchouliUtils.interweaveIngredients(List.of(getAddition(recipe)));
-            case "output" -> IVariable.from(getRecipeOutput(level, recipe));
-            case "symbol" -> IVariable.from(recipe.getToastSymbol());
-            case "heading" -> IVariable.from(getRecipeOutput(level, recipe).getHoverName());
-            default -> null;
-        };
-    }
+	@Override
+	public void setup(Level level, IVariableProvider variables) {
+		ResourceLocation id = ResourceLocation.tryParse(variables.get("recipe").asString());
+		this.recipe = PatchouliUtils.getRecipe(level, RecipeType.SMITHING, id);
+	}
 
-    private Ingredient getBase(SmithingRecipe recipe) {
-        if (recipe instanceof SmithingTrimRecipe) {
-            return ((AccessorSmithingTrimRecipe) recipe).getBase();
-        }
-        if (recipe instanceof SmithingTransformRecipe) {
-            return ((AccessorSmithingTransformRecipe) recipe).getBase();
-        }
-        return Ingredient.EMPTY;
-    }
+	@Override
+	public IVariable process(Level level, String key) {
+		if (recipe == null) {
+			return null;
+		}
+		return switch (key) {
+			case "base" -> PatchouliUtils.interweaveIngredients(List.of(getBase(recipe)));
+			case "template" -> PatchouliUtils.interweaveIngredients(List.of(getTemplate(recipe)));
+			case "addition" -> PatchouliUtils.interweaveIngredients(List.of(getAddition(recipe)));
+			case "output" -> IVariable.from(getRecipeOutput(level, recipe));
+			case "symbol" -> IVariable.from(recipe.getToastSymbol());
+			case "heading" -> IVariable.from(getRecipeOutput(level, recipe).getHoverName());
+			default -> null;
+		};
+	}
 
-    private Ingredient getAddition(SmithingRecipe recipe) {
-        if (recipe instanceof SmithingTrimRecipe) {
-            return ((AccessorSmithingTrimRecipe) recipe).getAddition();
-        }
-        if (recipe instanceof SmithingTransformRecipe) {
-            return ((AccessorSmithingTransformRecipe) recipe).getAddition();
-        }
-        return Ingredient.EMPTY;
-    }
+	private Ingredient getBase(SmithingRecipe recipe) {
+		if (recipe instanceof SmithingTrimRecipe) {
+			return ((AccessorSmithingTrimRecipe) recipe).getBase();
+		}
+		if (recipe instanceof SmithingTransformRecipe) {
+			return ((AccessorSmithingTransformRecipe) recipe).getBase();
+		}
+		return Ingredient.EMPTY;
+	}
 
-    private Ingredient getTemplate(SmithingRecipe recipe) {
-        if (recipe instanceof SmithingTrimRecipe) {
-            return ((AccessorSmithingTrimRecipe) recipe).getTemplate();
-        }
-        if (recipe instanceof SmithingTransformRecipe) {
-            return ((AccessorSmithingTransformRecipe) recipe).getTemplate();
-        }
-        return Ingredient.EMPTY;
-    }
+	private Ingredient getAddition(SmithingRecipe recipe) {
+		if (recipe instanceof SmithingTrimRecipe) {
+			return ((AccessorSmithingTrimRecipe) recipe).getAddition();
+		}
+		if (recipe instanceof SmithingTransformRecipe) {
+			return ((AccessorSmithingTransformRecipe) recipe).getAddition();
+		}
+		return Ingredient.EMPTY;
+	}
 
+	private Ingredient getTemplate(SmithingRecipe recipe) {
+		if (recipe instanceof SmithingTrimRecipe) {
+			return ((AccessorSmithingTrimRecipe) recipe).getTemplate();
+		}
+		if (recipe instanceof SmithingTransformRecipe) {
+			return ((AccessorSmithingTransformRecipe) recipe).getTemplate();
+		}
+		return Ingredient.EMPTY;
+	}
 
-    protected ItemStack getRecipeOutput(Level level, SmithingRecipe recipe) {
-        if (recipe == null || level == null) {
-            return ItemStack.EMPTY;
-        }
+	protected ItemStack getRecipeOutput(Level level, SmithingRecipe recipe) {
+		if (recipe == null || level == null) {
+			return ItemStack.EMPTY;
+		}
 
-        return recipe.getResultItem(level.registryAccess());
-    }
+		return recipe.getResultItem(level.registryAccess());
+	}
 }

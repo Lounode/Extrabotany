@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.api.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.resources.model.BakedModel;
@@ -13,9 +14,9 @@ import java.util.function.Consumer;
 
 public interface CoreOfTheVoidVariant {
 
-    String getId();
+	String getId();
 
-    void onModelInit(Map<ResourceLocation, Consumer<BakedModel>> consumer);
+	void onModelInit(Map<ResourceLocation, Consumer<BakedModel>> consumer);
 
-    void render(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch);
+	void render(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch);
 }

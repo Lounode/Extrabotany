@@ -8,7 +8,7 @@ subprojects {
     apply plugin: 'idea'
     apply plugin: 'maven-publish'
     apply plugin: 'pmd'
-    //apply plugin: "com.diffplug.spotless"
+    apply plugin: "com.diffplug.spotless"
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
     java.withSourcesJar()
 
@@ -47,17 +47,15 @@ subprojects {
 
         exclude ".cache"
     }
-    /*
+
     spotless {
         enforceCheck = false // workaround around jenkins having wrong line endings in some files
         // we explicitly check in github actions builds
         java {
             indentWithTabs()
-            //eclipse().configFile rootProject.file('spotless/eclipseformat.xml')
+            eclipse().configFile rootProject.file('spotless/eclipseformat.xml')
             removeUnusedImports()
-            //importOrderFile rootProject.file('spotless/eclipse.importorder')
+            importOrderFile rootProject.file('spotless/eclipse.importorder')
         }
     }
-
-     */
 }

@@ -2,7 +2,7 @@ package io.github.lounode.extrabotany.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -10,7 +10,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+
 import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
@@ -22,80 +24,82 @@ import java.util.function.Consumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
-public class ElvenTradeProvider extends ExtraBotanyRecipeProvider{
-    public ElvenTradeProvider(PackOutput packOutput) {
-        super(packOutput);
-    }
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 
-    @Override
-    public void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        consumer.accept(new FinishedElvenRecipe(id("elementium_quartz"), new ItemStack(ExtraBotanyItems.elementiumQuartz), Ingredient.of(BotaniaItems.manaQuartz), Ingredient.of(BotaniaItems.manaQuartz)));
-    }
+public class ElvenTradeProvider extends ExtraBotanyRecipeProvider {
+	public ElvenTradeProvider(PackOutput packOutput) {
+		super(packOutput);
+	}
 
-    protected static Ingredient ingr(ItemLike i) {
-        return Ingredient.of(i);
-    }
+	@Override
+	public void buildRecipes(Consumer<FinishedRecipe> consumer) {
+		consumer.accept(new FinishedElvenRecipe(id("elementium_quartz"), new ItemStack(ExtraBotanyItems.elementiumQuartz), Ingredient.of(BotaniaItems.manaQuartz), Ingredient.of(BotaniaItems.manaQuartz)));
+	}
 
-    private static ResourceLocation id(String path) {
-        return prefix("elven_trade/" + path);
-    }
+	protected static Ingredient ingr(ItemLike i) {
+		return Ingredient.of(i);
+	}
 
-    @Override
-    public String getName() {
-        return "ExtraBotany elven trade recipes";
-    }
+	private static ResourceLocation id(String path) {
+		return prefix("elven_trade/" + path);
+	}
 
-    protected static class FinishedElvenRecipe implements FinishedRecipe {
-        private final ResourceLocation id;
-        private final List<Ingredient> inputs;
-        private final List<ItemStack> outputs;
+	@Override
+	public String getName() {
+		return "ExtraBotany elven trade recipes";
+	}
 
-        public FinishedElvenRecipe(ResourceLocation id, ItemStack output, Ingredient... inputs) {
-            this(id, Arrays.asList(inputs), Collections.singletonList(output));
-        }
+	protected static class FinishedElvenRecipe implements FinishedRecipe {
+		private final ResourceLocation id;
+		private final List<Ingredient> inputs;
+		private final List<ItemStack> outputs;
 
-        protected FinishedElvenRecipe(ResourceLocation id, List<Ingredient> inputs, List<ItemStack> outputs) {
-            this.id = id;
-            this.inputs = inputs;
-            this.outputs = outputs;
-        }
+		public FinishedElvenRecipe(ResourceLocation id, ItemStack output, Ingredient... inputs) {
+			this(id, Arrays.asList(inputs), Collections.singletonList(output));
+		}
 
-        @Override
-        public void serializeRecipeData(JsonObject json) {
-            JsonArray in = new JsonArray();
-            for (Ingredient ingr : inputs) {
-                in.add(ingr.toJson());
-            }
+		protected FinishedElvenRecipe(ResourceLocation id, List<Ingredient> inputs, List<ItemStack> outputs) {
+			this.id = id;
+			this.inputs = inputs;
+			this.outputs = outputs;
+		}
 
-            JsonArray out = new JsonArray();
-            for (ItemStack s : outputs) {
-                out.add(ItemNBTHelper.serializeStack(s));
-            }
+		@Override
+		public void serializeRecipeData(JsonObject json) {
+			JsonArray in = new JsonArray();
+			for (Ingredient ingr : inputs) {
+				in.add(ingr.toJson());
+			}
 
-            json.add("ingredients", in);
-            json.add("output", out);
-        }
+			JsonArray out = new JsonArray();
+			for (ItemStack s : outputs) {
+				out.add(ItemNBTHelper.serializeStack(s));
+			}
 
-        @Override
-        public ResourceLocation getId() {
-            return id;
-        }
+			json.add("ingredients", in);
+			json.add("output", out);
+		}
 
-        @Override
-        public RecipeSerializer<?> getType() {
-            return BotaniaRecipeTypes.ELVEN_TRADE_SERIALIZER;
-        }
+		@Override
+		public ResourceLocation getId() {
+			return id;
+		}
 
-        @Nullable
-        @Override
-        public JsonObject serializeAdvancement() {
-            return null;
-        }
+		@Override
+		public RecipeSerializer<?> getType() {
+			return BotaniaRecipeTypes.ELVEN_TRADE_SERIALIZER;
+		}
 
-        @Nullable
-        @Override
-        public ResourceLocation getAdvancementId() {
-            return null;
-        }
-    }
+		@Nullable
+		@Override
+		public JsonObject serializeAdvancement() {
+			return null;
+		}
+
+		@Nullable
+		@Override
+		public ResourceLocation getAdvancementId() {
+			return null;
+		}
+	}
 }

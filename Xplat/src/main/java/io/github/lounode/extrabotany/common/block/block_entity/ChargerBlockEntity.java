@@ -1,7 +1,5 @@
 package io.github.lounode.extrabotany.common.block.block_entity;
 
-import io.github.lounode.extrabotany.api.block.Charger;
-import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -18,7 +16,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+
 import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
@@ -29,178 +29,179 @@ import vazkii.botania.xplat.BotaniaConfig;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.lounode.extrabotany.api.block.Charger;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
+
 public abstract class ChargerBlockEntity extends ExposedSimpleInventoryBlockEntity implements Charger {
 
-    public ChargerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
-    }
+	public ChargerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
+	}
 
-    @Override
-    protected SimpleContainer createItemHandler() {
-        return new SimpleContainer(1){
-            @Override
-            public int getMaxStackSize() {
-                return 1;
-            }
-        };
-    }
+	@Override
+	protected SimpleContainer createItemHandler() {
+		return new SimpleContainer(1) {
+			@Override
+			public int getMaxStackSize() {
+				return 1;
+			}
+		};
+	}
 
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (isEmpty()) {
-            ItemStack stack = player.getItemInHand(hand);
-            if (!isValidItem(stack)) {
-                return InteractionResult.PASS;
-            }
-            ItemStack put = stack.split(1);
-            setItem(put);
-            return InteractionResult.SUCCESS;
-        } else {
-            ItemStack get = getItem().copy();
-            setItem(ItemStack.EMPTY);
-            if (player.addItem(get)) {
-                playSound();
-            } else {
-                Containers.dropItemStack(world, player.getX(), player.getY(), player.getZ(), get);
-            }
-            return InteractionResult.SUCCESS;
-        }
-    }
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		if (isEmpty()) {
+			ItemStack stack = player.getItemInHand(hand);
+			if (!isValidItem(stack)) {
+				return InteractionResult.PASS;
+			}
+			ItemStack put = stack.split(1);
+			setItem(put);
+			return InteractionResult.SUCCESS;
+		} else {
+			ItemStack get = getItem().copy();
+			setItem(ItemStack.EMPTY);
+			if (player.addItem(get)) {
+				playSound();
+			} else {
+				Containers.dropItemStack(world, player.getX(), player.getY(), player.getZ(), get);
+			}
+			return InteractionResult.SUCCESS;
+		}
+	}
 
+	public static void serverTick(Level level, BlockPos pos, BlockState state, ChargerBlockEntity self) {
+		if (level.getGameTime() % 10 == 0) {
+			self.setChanged();
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
+		}
 
+		var pool = self.getPool();
+		if (pool == null) {
+			return;
+		}
 
-    public static void serverTick(Level level, BlockPos pos, BlockState state, ChargerBlockEntity self) {
-        if (level.getGameTime() % 10 == 0) {
-            self.setChanged();
-            VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
-        }
+		BlockPos poolPos = pool.getBlockPos();
 
-        var pool = self.getPool();
-        if (pool == null) {
-            return;
-        }
+		ManaItem mana = EXplatAbstractions.INSTANCE.findManaItem(self.getItem());
+		if (mana == null || (!mana.canReceiveManaFromPool(pool) && !mana.canExportManaToPool(pool))) {
+			return;
+		}
+		boolean didSomething = false;
 
-        BlockPos poolPos = pool.getBlockPos();
+		var bellows = self.getBellows(level, poolPos, pool);
 
-        ManaItem mana = EXplatAbstractions.INSTANCE.findManaItem(self.getItem());
-        if (mana == null || (!mana.canReceiveManaFromPool(pool) && !mana.canExportManaToPool(pool))) {
-            return;
-        }
-        boolean didSomething = false;
+		int bellowCount = bellows.size();
+		int transferRate = 1000 * (bellowCount + 1);
 
-        var bellows = self.getBellows(level, poolPos, pool);
+		if (pool.isOutputtingPower() && mana.canReceiveManaFromPool(pool)) {
 
-        int bellowCount = bellows.size();
-        int transferRate = 1000 * (bellowCount + 1);
+			int output = pool.getCurrentMana();
+			output = Math.min(output, mana.getMaxMana() - mana.getMana());
+			output = Math.min(output, transferRate);
 
-        if (pool.isOutputtingPower() && mana.canReceiveManaFromPool(pool)) {
+			if (output > 0) {
+				didSomething = true;
+				mana.addMana(output);
+				pool.receiveMana(-output);
+			}
 
-            int output = pool.getCurrentMana();
-            output = Math.min(output, mana.getMaxMana() - mana.getMana());
-            output = Math.min(output, transferRate);
+		} else if (mana.canExportManaToPool(pool)) {
 
-            if (output > 0) {
-                didSomething = true;
-                mana.addMana(output);
-                pool.receiveMana(-output);
-            }
+			int input = mana.getMana();
+			input = Math.min(input, pool.getMaxMana() - pool.getCurrentMana());
+			input = Math.min(input, transferRate);
 
-        } else if (mana.canExportManaToPool(pool)) {
+			if (input > 0) {
+				didSomething = true;
+				mana.addMana(-input);
+				pool.receiveMana(input);
+			}
 
-            int input = mana.getMana();
-            input = Math.min(input, pool.getMaxMana() - pool.getCurrentMana());
-            input = Math.min(input, transferRate);
+		}
 
-            if (input > 0) {
-                didSomething = true;
-                mana.addMana(-input);
-                pool.receiveMana(input);
-            }
+		if (didSomething) {
+			if (level.getGameTime() % 10 == 0 && BotaniaConfig.common().chargingAnimationEnabled()) {
+				self.chargeParticles();
+			}
 
-        }
+			for (var bellow : bellows) {
+				bellow.setActive(true);
+			}
+		}
+	}
 
-        if (didSomething) {
-            if (level.getGameTime() % 10 == 0 && BotaniaConfig.common().chargingAnimationEnabled()) {
-                self.chargeParticles();
-            }
+	public static void clientTick(Level level, BlockPos pos, BlockState state, ChargerBlockEntity self) {
+		if (level.getGameTime() % 10 == 0 && BotaniaConfig.common().chargingAnimationEnabled()) {
 
-            for (var bellow : bellows) {
-                bellow.setActive(true);
-            }
-        }
-    }
+		}
+	}
 
-    public static void clientTick(Level level, BlockPos pos, BlockState state, ChargerBlockEntity self) {
-        if (level.getGameTime() % 10 == 0 && BotaniaConfig.common().chargingAnimationEnabled()) {
+	public void chargeParticles() {
+		var pool = getPool();
+		if (pool == null) {
+			return;
+		}
 
-        }
-    }
+		BlockPos poolPos = pool.getBlockPos();
 
-    public void chargeParticles() {
-        var pool = getPool();
-        if (pool == null) {
-            return;
-        }
+		level.blockEvent(poolPos, level.getBlockState(poolPos).getBlock(), pool.isOutputtingPower() ? 1 : 2,
+				encodeRelativeItemPosition(poolPos, worldPosition.getX() + 0.5F, worldPosition.getY(), worldPosition.getZ() + 0.5F));
+	}
 
-        BlockPos poolPos = pool.getBlockPos();
+	@Override
+	public void setItem(ItemStack stack) {
+		setItem(0, stack);
+	}
 
-        level.blockEvent(poolPos, level.getBlockState(poolPos).getBlock() , pool.isOutputtingPower() ? 1 : 2,
-                encodeRelativeItemPosition(poolPos, worldPosition.getX() + 0.5F, worldPosition.getY(), worldPosition.getZ() + 0.5F));
-    }
+	@Override
+	public ItemStack getItem() {
+		return getItem(0);
+	}
 
-    @Override
-    public void setItem(ItemStack stack) {
-        setItem(0, stack);
-    }
+	@Override
+	public float getChargeProcess() {
+		var mana = EXplatAbstractions.INSTANCE.findManaItem(getItem());
+		if (mana != null) {
+			return (float) ((double) mana.getMana() / (double) mana.getMaxMana());
+		}
+		return -1;
+	}
 
-    @Override
-    public ItemStack getItem() {
-        return getItem(0);
-    }
+	@Override
+	public boolean canPlaceItem(int index, ItemStack stack) {
+		return isValidItem(stack);
+	}
 
-    @Override
-    public float getChargeProcess() {
-        var mana = EXplatAbstractions.INSTANCE.findManaItem(getItem());
-        if (mana != null) {
-            return (float) ((double)mana.getMana() / (double)mana.getMaxMana());
-        }
-        return -1;
-    }
+	private void playSound() {
+		level.playSound(null, worldPosition, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
+				((level.random.nextFloat() - level.random.nextFloat()) * .7f + 1) * 2);
+	}
 
-    @Override
-    public boolean canPlaceItem(int index, ItemStack stack) {
-        return isValidItem(stack);
-    }
+	@Nullable
+	public abstract ManaPoolBlockEntity getPool();
 
-    private void playSound() {
-        level.playSound(null, worldPosition, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
-                ((level.random.nextFloat() - level.random.nextFloat()) * .7f + 1) * 2);
-    }
+	public List<BellowsBlockEntity> getBellows(Level level, BlockPos worldPosition, ManaPoolBlockEntity self) {
+		List<BellowsBlockEntity> bellows = new ArrayList<>();
 
-    @Nullable
-    public abstract ManaPoolBlockEntity getPool();
+		for (Direction dir : Direction.Plane.HORIZONTAL) {
+			BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
+			if (tile instanceof BellowsBlockEntity bellow) {
+				if (bellow.getLinkedTile() == self) {
+					bellows.add(bellow);
+				}
+			}
+		}
 
-    public List<BellowsBlockEntity> getBellows(Level level, BlockPos worldPosition, ManaPoolBlockEntity self) {
-        List<BellowsBlockEntity> bellows = new ArrayList<>();
+		return bellows;
+	}
 
-        for(Direction dir : Direction.Plane.HORIZONTAL) {
-            BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
-            if (tile instanceof BellowsBlockEntity bellow) {
-                if (bellow.getLinkedTile() == self) {
-                    bellows.add(bellow);
-                }
-            }
-        }
-
-        return bellows;
-    }
-
-    private static int encodeRelativeItemPosition(BlockPos worldPosition, double x, double y, double z) {
-        double relX = Mth.clamp(x - (double)worldPosition.getX(),0.0F, 1.0F);
-        double relY = Mth.clamp((double)0.125F + (double)0.875F * (y - (double)worldPosition.getY()), 0.125F, 0.9);
-        double relZ = Mth.clamp(z - (double)worldPosition.getZ(), 0.0F, 1.0F);
-        int compressedX = (int)Math.round((double)7.0F * relX);
-        int compressedY = 4 - Mth.ceillog2(14 - (int)((double)14.0F * relY));
-        int compressedZ = (int)Math.round((double)7.0F * relZ);
-        return compressedX | compressedY << 3 | compressedZ << 5;
-    }
+	private static int encodeRelativeItemPosition(BlockPos worldPosition, double x, double y, double z) {
+		double relX = Mth.clamp(x - (double) worldPosition.getX(), 0.0F, 1.0F);
+		double relY = Mth.clamp((double) 0.125F + (double) 0.875F * (y - (double) worldPosition.getY()), 0.125F, 0.9);
+		double relZ = Mth.clamp(z - (double) worldPosition.getZ(), 0.0F, 1.0F);
+		int compressedX = (int) Math.round((double) 7.0F * relX);
+		int compressedY = 4 - Mth.ceillog2(14 - (int) ((double) 14.0F * relY));
+		int compressedZ = (int) Math.round((double) 7.0F * relZ);
+		return compressedX | compressedY << 3 | compressedZ << 5;
+	}
 }

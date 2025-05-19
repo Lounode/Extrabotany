@@ -18,35 +18,36 @@ import static io.github.lounode.extrabotany.common.lib.ExtraBotanyTags.DamageTyp
 import static net.minecraft.tags.DamageTypeTags.*;
 
 public class DamageTypeTagProvider extends TagsProvider<DamageType> {
-    Map<ResourceKey<DamageType>, List<TagKey<DamageType>>> map = new LinkedHashMap<>();
-    public DamageTypeTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(packOutput, Registries.DAMAGE_TYPE, lookupProvider);
-        map.put(EXCALIBUR_BEAM_DAMAGE, List.of(
-                PEACE_AMULET_AVAILABLE, BYPASSES_ARMOR, BYPASSES_SHIELD
-        ));
-        map.put(LINK_DAMAGE, List.of(
-                NO_IMPACT, WITCH_RESISTANT_TO
-        ));
-        map.put(JINGWEI_PUNCH_DAMAGE, List.of(
-                PEACE_AMULET_AVAILABLE, IS_FIRE
-        ));
-        map.put(REVERSE_HEAL_DAMAGE, List.of(
-                BYPASSES_ARMOR, BYPASSES_SHIELD, BYPASSES_RESISTANCE, BYPASSES_EFFECTS, BYPASSES_ENCHANTMENTS,
-                NO_IMPACT, WITCH_RESISTANT_TO
-        ));
-        map.put(BACKFIRE_DAMAGE, List.of(
-                BYPASSES_ARMOR, BYPASSES_SHIELD, BYPASSES_RESISTANCE, BYPASSES_EFFECTS, BYPASSES_ENCHANTMENTS,
-                NO_IMPACT, WITCH_RESISTANT_TO
-        ));
-    }
+	Map<ResourceKey<DamageType>, List<TagKey<DamageType>>> map = new LinkedHashMap<>();
 
-    @Override
-    protected void addTags(HolderLookup.Provider provider) {
-        for (var entry : map.entrySet()) {
-            ResourceKey<DamageType> damageType = entry.getKey();
-            for (TagKey<DamageType> tag : entry.getValue()) {
-                this.tag(tag).add(damageType);
-            }
-        }
-    }
+	public DamageTypeTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, Registries.DAMAGE_TYPE, lookupProvider);
+		map.put(EXCALIBUR_BEAM_DAMAGE, List.of(
+				PEACE_AMULET_AVAILABLE, BYPASSES_ARMOR, BYPASSES_SHIELD
+		));
+		map.put(LINK_DAMAGE, List.of(
+				NO_IMPACT, WITCH_RESISTANT_TO
+		));
+		map.put(JINGWEI_PUNCH_DAMAGE, List.of(
+				PEACE_AMULET_AVAILABLE, IS_FIRE
+		));
+		map.put(REVERSE_HEAL_DAMAGE, List.of(
+				BYPASSES_ARMOR, BYPASSES_SHIELD, BYPASSES_RESISTANCE, BYPASSES_EFFECTS, BYPASSES_ENCHANTMENTS,
+				NO_IMPACT, WITCH_RESISTANT_TO
+		));
+		map.put(BACKFIRE_DAMAGE, List.of(
+				BYPASSES_ARMOR, BYPASSES_SHIELD, BYPASSES_RESISTANCE, BYPASSES_EFFECTS, BYPASSES_ENCHANTMENTS,
+				NO_IMPACT, WITCH_RESISTANT_TO
+		));
+	}
+
+	@Override
+	protected void addTags(HolderLookup.Provider provider) {
+		for (var entry : map.entrySet()) {
+			ResourceKey<DamageType> damageType = entry.getKey();
+			for (TagKey<DamageType> tag : entry.getValue()) {
+				this.tag(tag).add(damageType);
+			}
+		}
+	}
 }

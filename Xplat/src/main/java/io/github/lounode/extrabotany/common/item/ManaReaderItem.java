@@ -1,8 +1,5 @@
 package io.github.lounode.extrabotany.common.item;
 
-import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
-import io.github.lounode.extrabotany.network.clientbound.ManaReaderPacket;
-import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -12,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -20,60 +18,63 @@ import vazkii.botania.common.helper.PlayerHelper;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
+import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
+import io.github.lounode.extrabotany.network.clientbound.ManaReaderPacket;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
+
 public class ManaReaderItem extends Item {
-    private static final int ADVANCE_REQUIRE = 1000;
-    public ManaReaderItem(Properties properties) {
-        super(properties);
-    }
+	private static final int ADVANCE_REQUIRE = 1000;
 
-    @Override
-    public InteractionResult useOn(UseOnContext ctx) {
-        Player player = ctx.getPlayer();
-        if (player == null) {
-            return InteractionResult.PASS;
-        }
-        Level world = ctx.getLevel();
-        BlockPos pos = ctx.getClickedPos();
-        BlockEntity tile = world.getBlockEntity(pos);
-        if (!canReadMana(tile)) {
-            return InteractionResult.PASS;
-        }
-        if (world.isClientSide) {
-            player.playSound(BotaniaSounds.ding, 0.6F, 0.1F + world.random.nextFloat() * 0.5F);
-            return InteractionResult.SUCCESS;
-        }
+	public ManaReaderItem(Properties properties) {
+		super(properties);
+	}
 
-        int manaValue = tryReadMana(tile);
-        if (manaValue < 0) {
-            return InteractionResult.SUCCESS;
-        }
-        EXplatAbstractions.INSTANCE.sendToPlayer((ServerPlayer) player, new ManaReaderPacket(manaValue));
+	@Override
+	public InteractionResult useOn(UseOnContext ctx) {
+		Player player = ctx.getPlayer();
+		if (player == null) {
+			return InteractionResult.PASS;
+		}
+		Level world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
+		BlockEntity tile = world.getBlockEntity(pos);
+		if (!canReadMana(tile)) {
+			return InteractionResult.PASS;
+		}
+		if (world.isClientSide) {
+			player.playSound(BotaniaSounds.ding, 0.6F, 0.1F + world.random.nextFloat() * 0.5F);
+			return InteractionResult.SUCCESS;
+		}
 
-        ItemStack stack = ctx.getItemInHand();
-        int currentCount = ItemNBTHelper.getInt(stack, "count", 0) + 1;
-        ItemNBTHelper.setInt(stack, "count", currentCount);
+		int manaValue = tryReadMana(tile);
+		if (manaValue < 0) {
+			return InteractionResult.SUCCESS;
+		}
+		EXplatAbstractions.INSTANCE.sendToPlayer((ServerPlayer) player, new ManaReaderPacket(manaValue));
 
-        if (currentCount >= ADVANCE_REQUIRE) {
-            PlayerHelper.grantCriterion((ServerPlayer) player, prefix("main/" + LibAdvancementNames.SENBON_ZAKURA), "code_triggered");
-        }
+		ItemStack stack = ctx.getItemInHand();
+		int currentCount = ItemNBTHelper.getInt(stack, "count", 0) + 1;
+		ItemNBTHelper.setInt(stack, "count", currentCount);
 
+		if (currentCount >= ADVANCE_REQUIRE) {
+			PlayerHelper.grantCriterion((ServerPlayer) player, prefix("main/" + LibAdvancementNames.SENBON_ZAKURA), "code_triggered");
+		}
 
-        return InteractionResult.SUCCESS;
-    }
+		return InteractionResult.SUCCESS;
+	}
 
-    public static boolean canReadMana(BlockEntity tile) {
-        return tile instanceof ManaReceiver || tile instanceof GeneratingFlowerBlockEntity;
-    }
-    public static int tryReadMana(BlockEntity tile) {
-        int mana = -1;
-        if (tile instanceof ManaReceiver receiver ) {
-            mana = receiver.getCurrentMana();
-        } else if (tile instanceof GeneratingFlowerBlockEntity genFlower) {
-            mana = genFlower.getMana();
-        }
+	public static boolean canReadMana(BlockEntity tile) {
+		return tile instanceof ManaReceiver || tile instanceof GeneratingFlowerBlockEntity;
+	}
 
-        return mana;
-    }
+	public static int tryReadMana(BlockEntity tile) {
+		int mana = -1;
+		if (tile instanceof ManaReceiver receiver) {
+			mana = receiver.getCurrentMana();
+		} else if (tile instanceof GeneratingFlowerBlockEntity genFlower) {
+			mana = genFlower.getMana();
+		}
+
+		return mana;
+	}
 }
-
-

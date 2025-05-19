@@ -1,6 +1,5 @@
 package io.github.lounode.extrabotany.api.item;
 
-import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -19,87 +18,94 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 
+import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
+
 public interface VoidArchivesVariant {
-    VoidArchivesVariant DEFAULT = () -> "default";
+	VoidArchivesVariant DEFAULT = () -> "default";
 
-    String getId();
-    default void onActive(ItemStack stack) {}
-    default void onInactive(ItemStack stack) {}
-    default boolean isActive(ItemStack stack) {
-        return VoidArchivesItem.getVariant(stack).getId().equals(getId());
-    }
+	String getId();
 
-    default boolean isMaster(ItemStack stack, Player player) {
-        var relic = XplatAbstractions.INSTANCE.findRelic(stack);
-        return relic != null && relic.isRightPlayer(player);
-    }
+	default void onActive(ItemStack stack) {}
 
-    default InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-        return InteractionResultHolder.fail(stack);
-    }
-    default void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {}
+	default void onInactive(ItemStack stack) {}
 
-    default void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {}
+	default boolean isActive(ItemStack stack) {
+		return VoidArchivesItem.getVariant(stack).getId().equals(getId());
+	}
 
-    default void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {}
+	default boolean isMaster(ItemStack stack, Player player) {
+		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+		return relic != null && relic.isRightPlayer(player);
+	}
 
-    default void onDestroyed(ItemEntity itemEntity) {}
+	default InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
+		return InteractionResultHolder.fail(stack);
+	}
 
-    default InteractionResult useOn(UseOnContext context) {
-        return InteractionResult.PASS;
-    }
+	default void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {}
 
-    default float getDestroySpeed(ItemStack stack, BlockState state) {
-        return 1.0F;
-    }
+	default void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {}
 
-    default ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
-        return stack;
-    }
+	default void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {}
 
-    default boolean overrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player) {
-        return false;
-    }
+	default void onDestroyed(ItemEntity itemEntity) {}
 
-    default boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack other, Slot slot, ClickAction action, Player player, SlotAccess access) {
-        return false;
-    }
+	default InteractionResult useOn(UseOnContext context) {
+		return InteractionResult.PASS;
+	}
 
-    default boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        return false;
-    }
+	default float getDestroySpeed(ItemStack stack, BlockState state) {
+		return 1.0F;
+	}
 
-    default boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity miningEntity) {
-        return false;
-    }
+	default ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
+		return stack;
+	}
 
-    default InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity interactionTarget, InteractionHand usedHand) {
-        return InteractionResult.PASS;
-    }
+	default boolean overrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player) {
+		return false;
+	}
 
-    default Component getName(ItemStack stack) {
-        return Component.translatable("item.extrabotany.void_archives");
-    }
+	default boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack other, Slot slot, ClickAction action, Player player, SlotAccess access) {
+		return false;
+	}
 
-   default UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.NONE;
-    }
+	default boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+		return false;
+	}
 
-    default int getUseDuration(ItemStack stack) {
-        return 0;
-    }
+	default boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity miningEntity) {
+		return false;
+	}
 
-    default void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
-    }
+	default InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity interactionTarget, InteractionHand usedHand) {
+		return InteractionResult.PASS;
+	}
 
-    default boolean useOnRelease(ItemStack stack) {
-        return false;
-    }
+	default Component getName(ItemStack stack) {
+		return Component.translatable("item.extrabotany.void_archives");
+	}
+
+	default UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.NONE;
+	}
+
+	default int getUseDuration(ItemStack stack) {
+		return 0;
+	}
+
+	default void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {}
+
+	default boolean useOnRelease(ItemStack stack) {
+		return false;
+	}
 
 }

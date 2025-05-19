@@ -1,7 +1,7 @@
 package io.github.lounode.extrabotany.common.entity.gaia.behavior;
 
 import com.google.common.collect.ImmutableMap;
-import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
+
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -13,38 +13,40 @@ import net.minecraft.world.entity.player.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GaiaCleanPlayerUnstableEffects <E extends Gaia> extends Behavior<E> {
+import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 
-    public GaiaCleanPlayerUnstableEffects() {
-        super(ImmutableMap.of(
-                MemoryModuleType.NEAREST_PLAYERS, MemoryStatus.VALUE_PRESENT
-        ));
-    }
+public class GaiaCleanPlayerUnstableEffects<E extends Gaia> extends Behavior<E> {
 
-    @Override
-    protected boolean canStillUse(ServerLevel level, E entity, long gameTime) {
-        return true;
-    }
+	public GaiaCleanPlayerUnstableEffects() {
+		super(ImmutableMap.of(
+				MemoryModuleType.NEAREST_PLAYERS, MemoryStatus.VALUE_PRESENT
+		));
+	}
 
-    @Override
-    protected void tick(ServerLevel level, E gaia, long gameTime) {
-        List<Player> players = getPlayers(gaia);
-        for (Player player : players) {
-            clearUnstablePotions(player);
-        }
-    }
+	@Override
+	protected boolean canStillUse(ServerLevel level, E entity, long gameTime) {
+		return true;
+	}
 
-    protected void clearUnstablePotions(Player player) {
-        List<MobEffectInstance> effects = player.getActiveEffects().stream()
-                .filter(effectInstance -> effectInstance.getDuration() < 160)
-                .filter(MobEffectInstance::isAmbient)
-                .filter(effect -> effect.getEffect().getCategory() != MobEffectCategory.HARMFUL)
-                .toList();
+	@Override
+	protected void tick(ServerLevel level, E gaia, long gameTime) {
+		List<Player> players = getPlayers(gaia);
+		for (Player player : players) {
+			clearUnstablePotions(player);
+		}
+	}
 
-        effects.forEach(e -> player.removeEffect(e.getEffect()));
-    }
+	protected void clearUnstablePotions(Player player) {
+		List<MobEffectInstance> effects = player.getActiveEffects().stream()
+				.filter(effectInstance -> effectInstance.getDuration() < 160)
+				.filter(MobEffectInstance::isAmbient)
+				.filter(effect -> effect.getEffect().getCategory() != MobEffectCategory.HARMFUL)
+				.toList();
 
-    protected List<Player> getPlayers(Gaia gaia) {
-        return gaia.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).orElse(new ArrayList<>());
-    }
+		effects.forEach(e -> player.removeEffect(e.getEffect()));
+	}
+
+	protected List<Player> getPlayers(Gaia gaia) {
+		return gaia.getBrain().getMemory(MemoryModuleType.NEAREST_PLAYERS).orElse(new ArrayList<>());
+	}
 }

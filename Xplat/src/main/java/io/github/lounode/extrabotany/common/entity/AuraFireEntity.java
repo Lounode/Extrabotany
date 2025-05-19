@@ -1,7 +1,5 @@
 package io.github.lounode.extrabotany.common.entity;
 
-import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
-import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -21,182 +19,189 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+
 import vazkii.botania.common.helper.PlayerHelper;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
+import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
+import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
+
 public class AuraFireEntity extends ThrowableProjectile {
-    private static final String TAG_GRAVITY = "gravity";
-    private static final String TAG_TICKS_EXISTED = "ticksExisted";
-    private static final String TAG_MAX_LIVING_TIME = "maxLivingTime";
+	private static final String TAG_GRAVITY = "gravity";
+	private static final String TAG_TICKS_EXISTED = "ticksExisted";
+	private static final String TAG_MAX_LIVING_TIME = "maxLivingTime";
 
-    private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(AuraFireEntity.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Integer> MAX_LIVING_TIME = SynchedEntityData.defineId(AuraFireEntity.class, EntityDataSerializers.INT);
-    public static final float ADVANCEMENT_REQUIRE = 40;
-    private static final int LONG_LIVING = -1;
-    private static final float BASE_DAMAGE = 4.0F;
-    private static final float DAMAGE_ROUND = 1.0F;
-    private static final int ABSORPTION_MAX = 10;
-    private int _ticksExisted = 0;
-    public AuraFireEntity(EntityType<? extends AuraFireEntity> entityType, Level level) {
-        super(entityType, level);
-    }
+	private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(AuraFireEntity.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Integer> MAX_LIVING_TIME = SynchedEntityData.defineId(AuraFireEntity.class, EntityDataSerializers.INT);
+	public static final float ADVANCEMENT_REQUIRE = 40;
+	private static final int LONG_LIVING = -1;
+	private static final float BASE_DAMAGE = 4.0F;
+	private static final float DAMAGE_ROUND = 1.0F;
+	private static final int ABSORPTION_MAX = 10;
+	private int _ticksExisted = 0;
 
-    public AuraFireEntity(Level level, double x, double y, double z, float rotX, float rotY) {
-        super(ExtraBotanyEntityType.AURA_FIRE, x, y, z, level);
+	public AuraFireEntity(EntityType<? extends AuraFireEntity> entityType, Level level) {
+		super(entityType, level);
+	}
 
-        setRot(rotY, rotX);
-        setDeltaMovement(calculateVelocity(getXRot(), getYRot()));
-    }
+	public AuraFireEntity(Level level, double x, double y, double z, float rotX, float rotY) {
+		super(ExtraBotanyEntityType.AURA_FIRE, x, y, z, level);
 
-    public AuraFireEntity(LivingEntity shooter) {
-        super(ExtraBotanyEntityType.AURA_FIRE, shooter, shooter.level());
+		setRot(rotY, rotX);
+		setDeltaMovement(calculateVelocity(getXRot(), getYRot()));
+	}
 
-        setRot(shooter.getYRot() + 180, -shooter.getXRot());
-        setDeltaMovement(calculateVelocity(getXRot(), getYRot()));
-    }
+	public AuraFireEntity(LivingEntity shooter) {
+		super(ExtraBotanyEntityType.AURA_FIRE, shooter, shooter.level());
 
-    @Override
-    protected void defineSynchedData() {
-        entityData.define(GRAVITY, 0F);
-        entityData.define(MAX_LIVING_TIME, 80);
-    }
+		setRot(shooter.getYRot() + 180, -shooter.getXRot());
+		setDeltaMovement(calculateVelocity(getXRot(), getYRot()));
+	}
 
-    @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-        tag.putFloat(TAG_GRAVITY, getGravity());
-        tag.putInt(TAG_TICKS_EXISTED, getTicksExisted());
-        tag.putInt(TAG_MAX_LIVING_TIME, getMaxLivingTime());
-    }
+	@Override
+	protected void defineSynchedData() {
+		entityData.define(GRAVITY, 0F);
+		entityData.define(MAX_LIVING_TIME, 80);
+	}
 
-    @Override
-    public void readAdditionalSaveData(CompoundTag cmp) {
-        super.readAdditionalSaveData(cmp);
-        setTicksExisted(cmp.getInt(TAG_TICKS_EXISTED));
-        setMaxLivingTime(cmp.getInt(TAG_MAX_LIVING_TIME));
-        setGravity(cmp.getFloat(TAG_GRAVITY));
-    }
+	@Override
+	public void addAdditionalSaveData(CompoundTag tag) {
+		super.addAdditionalSaveData(tag);
+		tag.putFloat(TAG_GRAVITY, getGravity());
+		tag.putInt(TAG_TICKS_EXISTED, getTicksExisted());
+		tag.putInt(TAG_MAX_LIVING_TIME, getMaxLivingTime());
+	}
 
-    @Override
-    public void tick() {
-        setTicksExisted(getTicksExisted() + 1);
-        super.tick();
-        particles();
+	@Override
+	public void readAdditionalSaveData(CompoundTag cmp) {
+		super.readAdditionalSaveData(cmp);
+		setTicksExisted(cmp.getInt(TAG_TICKS_EXISTED));
+		setMaxLivingTime(cmp.getInt(TAG_MAX_LIVING_TIME));
+		setGravity(cmp.getFloat(TAG_GRAVITY));
+	}
 
-        if(level().isClientSide()) {
-            return;
-        }
+	@Override
+	public void tick() {
+		setTicksExisted(getTicksExisted() + 1);
+		super.tick();
+		particles();
 
-        if (getMaxLivingTime() != LONG_LIVING && getTicksExisted() > getMaxLivingTime()) {
-            discard();
-        }
+		if (level().isClientSide()) {
+			return;
+		}
 
-        Entity owner = getOwner();
+		if (getMaxLivingTime() != LONG_LIVING && getTicksExisted() > getMaxLivingTime()) {
+			discard();
+		}
 
-        AABB axis = new AABB(this.getX(), this.getY(), this.getZ(), this.xOld, this.yOld, this.zOld).inflate(DAMAGE_ROUND);
-        var entities = this.level().getEntitiesOfClass(LivingEntity.class, axis).stream()
-                .filter(e -> owner == null || e != owner)
-                .filter(e -> {
-                    if (owner instanceof Player player && e instanceof Player other) {
-                        return player.canHarmPlayer(other);
-                    }
-                    return true;
-                })
-                .filter(e -> e.hurtTime == 0)
-                .toList();
-        for (var entity : entities) {
-            float damage = BASE_DAMAGE;
-            if (owner instanceof LivingEntity livingOwner) {
-                damage += (float) livingOwner.getAttributeValue(Attributes.ATTACK_DAMAGE);
-            }
+		Entity owner = getOwner();
 
-            DamageSource source = createDamageSource(entity, owner);
+		AABB axis = new AABB(this.getX(), this.getY(), this.getZ(), this.xOld, this.yOld, this.zOld).inflate(DAMAGE_ROUND);
+		var entities = this.level().getEntitiesOfClass(LivingEntity.class, axis).stream()
+				.filter(e -> owner == null || e != owner)
+				.filter(e -> {
+					if (owner instanceof Player player && e instanceof Player other) {
+						return player.canHarmPlayer(other);
+					}
+					return true;
+				})
+				.filter(e -> e.hurtTime == 0)
+				.toList();
+		for (var entity : entities) {
+			float damage = BASE_DAMAGE;
+			if (owner instanceof LivingEntity livingOwner) {
+				damage += (float) livingOwner.getAttributeValue(Attributes.ATTACK_DAMAGE);
+			}
 
-            if (!entity.hurt(source, damage)) {
-                continue;
-            }
+			DamageSource source = createDamageSource(entity, owner);
 
-            handlePostDamage(owner, damage);
+			if (!entity.hurt(source, damage)) {
+				continue;
+			}
 
-            discard();
-            break;
-        }
-    }
-    private void handlePostDamage(Entity owner, float damage) {
-        if (!(owner instanceof ServerPlayer player)) {
-            return;
-        }
+			handlePostDamage(owner, damage);
 
-        player.setAbsorptionAmount(Math.min(ABSORPTION_MAX, player.getAbsorptionAmount() + 1F));
+			discard();
+			break;
+		}
+	}
 
-        if (damage >= ADVANCEMENT_REQUIRE) {
-            PlayerHelper.grantCriterion(player, prefix("main/" + LibAdvancementNames.ONE_PUNCH), "code_triggered");
-        }
-    }
-    private DamageSource createDamageSource(Entity target, Entity owner) {
-        return ExtraBotanyDamageTypes.Sources.jingweiDamage(target.level().registryAccess(), owner);
-    }
+	private void handlePostDamage(Entity owner, float damage) {
+		if (!(owner instanceof ServerPlayer player)) {
+			return;
+		}
 
-    protected void particles() {
-        if (!isAlive() || !level().isClientSide) {
-            return;
-        }
+		player.setAbsorptionAmount(Math.min(ABSORPTION_MAX, player.getAbsorptionAmount() + 1F));
 
-        for (int i = 1; i <= 5; i++) {
-            level().addParticle(ParticleTypes.FLAME,
-                    getX() + Math.random() * 0.4F - 0.2F,
-                    getY() + Math.random() * 0.4F - 0.2F,
-                    getZ() + Math.random() * 0.4F - 0.2F,
-                    0, 0, 0
-            );
-        }
-    }
+		if (damage >= ADVANCEMENT_REQUIRE) {
+			PlayerHelper.grantCriterion(player, prefix("main/" + LibAdvancementNames.ONE_PUNCH), "code_triggered");
+		}
+	}
 
-    public static Vec3 calculateVelocity(float xRot, float yRot) {
-        float f = 0.4F;
-        double mx = Mth.sin(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f / 2D;
-        double mz = -(Mth.cos(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f) / 2D;
-        double my = Mth.sin(xRot / 180.0F * (float) Math.PI) * f / 2D;
-        return new Vec3(mx, my, mz);
-    }
+	private DamageSource createDamageSource(Entity target, Entity owner) {
+		return ExtraBotanyDamageTypes.Sources.jingweiDamage(target.level().registryAccess(), owner);
+	}
 
-    public void setTicksExisted(int ticks) {
-        _ticksExisted = ticks;
-    }
+	protected void particles() {
+		if (!isAlive() || !level().isClientSide) {
+			return;
+		}
 
-    public int getTicksExisted() {
-        return _ticksExisted;
-    }
+		for (int i = 1; i <= 5; i++) {
+			level().addParticle(ParticleTypes.FLAME,
+					getX() + Math.random() * 0.4F - 0.2F,
+					getY() + Math.random() * 0.4F - 0.2F,
+					getZ() + Math.random() * 0.4F - 0.2F,
+					0, 0, 0
+			);
+		}
+	}
 
-    public void setGravity(float gravity) {
-        entityData.set(GRAVITY, gravity);
-    }
+	public static Vec3 calculateVelocity(float xRot, float yRot) {
+		float f = 0.4F;
+		double mx = Mth.sin(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f / 2D;
+		double mz = -(Mth.cos(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f) / 2D;
+		double my = Mth.sin(xRot / 180.0F * (float) Math.PI) * f / 2D;
+		return new Vec3(mx, my, mz);
+	}
 
-    @Override
-    protected float getGravity() {
-        return entityData.get(GRAVITY);
-    }
+	public void setTicksExisted(int ticks) {
+		_ticksExisted = ticks;
+	}
 
-    public void setMaxLivingTime(int time) {
-        entityData.set(MAX_LIVING_TIME, time);
-    }
+	public int getTicksExisted() {
+		return _ticksExisted;
+	}
 
-    public int getMaxLivingTime() {
-        return entityData.get(MAX_LIVING_TIME);
-    }
+	public void setGravity(float gravity) {
+		entityData.set(GRAVITY, gravity);
+	}
 
-    public void setLongLiving() {
-        entityData.set(MAX_LIVING_TIME, LONG_LIVING);
-    }
+	@Override
+	protected float getGravity() {
+		return entityData.get(GRAVITY);
+	}
 
-    @Override
-    public boolean isInLava() {
-        return false;
-    }
+	public void setMaxLivingTime(int time) {
+		entityData.set(MAX_LIVING_TIME, time);
+	}
 
-    @Override
-    public boolean updateFluidHeightAndDoFluidPushing(TagKey<Fluid> fluid, double mag) {
-        return false;
-    }
+	public int getMaxLivingTime() {
+		return entityData.get(MAX_LIVING_TIME);
+	}
+
+	public void setLongLiving() {
+		entityData.set(MAX_LIVING_TIME, LONG_LIVING);
+	}
+
+	@Override
+	public boolean isInLava() {
+		return false;
+	}
+
+	@Override
+	public boolean updateFluidHeightAndDoFluidPushing(TagKey<Fluid> fluid, double mag) {
+		return false;
+	}
 }

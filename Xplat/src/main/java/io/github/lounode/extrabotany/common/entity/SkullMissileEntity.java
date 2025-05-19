@@ -17,7 +17,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+
 import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.helper.VecHelper;
 
@@ -28,272 +30,269 @@ import java.util.function.Predicate;
 
 public class SkullMissileEntity extends ThrowableProjectile {
 
-    //public static final UUID DEFAULT_SKIN = UUID.fromString("4f201c25-b473-4c2c-959a-dea681f79c23");
-    public static final int MAX_LIVING_TIME = 100;
+	//public static final UUID DEFAULT_SKIN = UUID.fromString("4f201c25-b473-4c2c-959a-dea681f79c23");
+	public static final int MAX_LIVING_TIME = 100;
 
-    //private static final String TAG_SKIN = "Skin";
-    private static final String TAG_FIRE = "Fire";
-    private static final String TAG_TICKS_EXISTED = "ticksExisted";
-    private static final String TAG_TARGET = "Target";
+	//private static final String TAG_SKIN = "Skin";
+	private static final String TAG_FIRE = "Fire";
+	private static final String TAG_TICKS_EXISTED = "ticksExisted";
+	private static final String TAG_TARGET = "Target";
 
-    //private static final EntityDataAccessor<Optional<UUID>> SKIN = SynchedEntityData.defineId(SkullMissileEntity.class, EntityDataSerializers.OPTIONAL_UUID);
-    private boolean fire;
-    private int _ticksExisted = 0;
-    private double lockX, lockY = Integer.MIN_VALUE, lockZ;
+	//private static final EntityDataAccessor<Optional<UUID>> SKIN = SynchedEntityData.defineId(SkullMissileEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+	private boolean fire;
+	private int _ticksExisted = 0;
+	private double lockX, lockY = Integer.MIN_VALUE, lockZ;
 
-    @Nullable
-    private UUID targetUUID;
-    @Nullable
-    private Entity cachedTarget;
+	@Nullable
+	private UUID targetUUID;
+	@Nullable
+	private Entity cachedTarget;
 
-    public SkullMissileEntity(EntityType<? extends SkullMissileEntity> entityType, Level level) {
-        super(entityType, level);
-    }
+	public SkullMissileEntity(EntityType<? extends SkullMissileEntity> entityType, Level level) {
+		super(entityType, level);
+	}
 
-    public SkullMissileEntity(Level level, double x, double y, double z) {
-        super(ExtraBotanyEntityType.SKULL_MISSILE, x, y, z, level);
-    }
+	public SkullMissileEntity(Level level, double x, double y, double z) {
+		super(ExtraBotanyEntityType.SKULL_MISSILE, x, y, z, level);
+	}
 
-    public SkullMissileEntity(Level level, LivingEntity shooter) {
-        super(ExtraBotanyEntityType.SKULL_MISSILE, shooter, level);
-    }
+	public SkullMissileEntity(Level level, LivingEntity shooter) {
+		super(ExtraBotanyEntityType.SKULL_MISSILE, shooter, level);
+	}
 
-    @Override
-    public void tick() {
-        super.tick();
+	@Override
+	public void tick() {
+		super.tick();
 
-        particle();
+		particle();
 
-        if (level().isClientSide()) {
-            return;
-        }
+		if (level().isClientSide()) {
+			return;
+		}
 
-        if (getTarget().isEmpty() || getTicksExisted() > MAX_LIVING_TIME) {
-            discard();
-            return;
-        }
+		if (getTarget().isEmpty() || getTicksExisted() > MAX_LIVING_TIME) {
+			discard();
+			return;
+		}
 
+		getTarget().ifPresent(target -> {
+			if (lockY == Integer.MIN_VALUE) {
+				lockX = target.getX();
+				lockY = target.getY();
+				lockZ = target.getZ();
+			}
 
-        getTarget().ifPresent(target -> {
-            if (lockY == Integer.MIN_VALUE) {
-                lockX = target.getX();
-                lockY = target.getY();
-                lockZ = target.getZ();
-            }
+			Vec3 thisVec = VecHelper.fromEntityCenter(this);
+			Vec3 targetVec = new Vec3(lockX, lockY, lockZ);
 
-            Vec3 thisVec = VecHelper.fromEntityCenter(this);
-            Vec3 targetVec = new Vec3(lockX, lockY, lockZ);
+			Vec3 diffVec = targetVec.subtract(thisVec);
+			Vec3 motionVec = diffVec.normalize().scale(0.6);
 
-            Vec3 diffVec = targetVec.subtract(thisVec);
-            Vec3 motionVec = diffVec.normalize().scale(0.6);
+			this.setDeltaMovement(motionVec);
 
-            this.setDeltaMovement(motionVec);
+			if (getTicksExisted() < 10) {
+				setDeltaMovement(getDeltaMovement().x(), Math.abs(getDeltaMovement().y()), getDeltaMovement().z());
+			}
+		});
 
-            if (getTicksExisted() < 10) {
-                setDeltaMovement(getDeltaMovement().x(), Math.abs(getDeltaMovement().y()), getDeltaMovement().z());
-            }
-        });
+		setTicksExisted(getTicksExisted() + 1);
+	}
 
-        setTicksExisted(getTicksExisted() + 1);
-    }
+	public boolean findTarget() {
+		Optional<Entity> target = getTarget();
+		if (target.isPresent()) {
+			Entity entity = target.get();
+			if (entity.isAlive()) {
+				return true;
+			} else {
+				setTarget(null);
+			}
+		}
 
-    public boolean findTarget() {
-        Optional<Entity> target = getTarget();
-        if (target.isPresent()) {
-            Entity entity = target.get();
-            if (entity.isAlive()) {
-                return true;
-            } else {
-                setTarget(null);
-            }
-        }
+		double range = 15;
+		AABB bounds = new AABB(getOnPos()).inflate(range);
+		DamageSource source = this.getDamageSource();
+		Predicate<Entity> vulnerableTo = e -> !e.isInvulnerableTo(source);
+		List<? extends LivingEntity> entities;
 
+		entities = level().getEntitiesOfClass(Player.class, bounds,
+				EntitySelector.LIVING_ENTITY_STILL_ALIVE.and(vulnerableTo));
 
-        double range = 15;
-        AABB bounds = new AABB(getOnPos()).inflate(range);
-        DamageSource source = this.getDamageSource();
-        Predicate<Entity> vulnerableTo = e -> !e.isInvulnerableTo(source);
-        List<? extends LivingEntity> entities;
+		Entity found = null;
+		if (!entities.isEmpty()) {
+			found = entities.get(level().random.nextInt(entities.size()));
+			setTarget(found);
+		}
 
-        entities = level().getEntitiesOfClass(Player.class, bounds,
-                    EntitySelector.LIVING_ENTITY_STILL_ALIVE.and(vulnerableTo));
+		return found != null;
+	}
 
-        Entity found = null;
-        if (!entities.isEmpty()) {
-            found = entities.get(level().random.nextInt(entities.size()));
-            setTarget(found);
-        }
+	@Override
+	protected void onHitBlock(BlockHitResult hit) {
+		super.onHitBlock(hit);
+		if (level().isClientSide()) {
+			return;
+		}
 
-        return found != null;
-    }
+		BlockState state = level().getBlockState(hit.getBlockPos());
 
+		if (state.getBlock() instanceof BushBlock) {
+			return;
+		}
+		if (state.is(BlockTags.LEAVES)) {
+			return;
+		}
 
-    @Override
-    protected void onHitBlock(BlockHitResult hit) {
-        super.onHitBlock(hit);
-        if (level().isClientSide()) {
-            return;
-        }
+		discard();
+	}
 
-        BlockState state = level().getBlockState(hit.getBlockPos());
+	@Override
+	protected void onHitEntity(EntityHitResult hit) {
+		super.onHitEntity(hit);
+		if (level().isClientSide()) {
+			return;
+		}
 
-        if (state.getBlock() instanceof BushBlock) {
-            return;
-        }
-        if (state.is(BlockTags.LEAVES)) {
-            return;
-        }
+		getTarget().ifPresent(target -> {
+			if (hit.getEntity() == target) {
+				//TODO ConfigAble damage
+				target.hurt(getDamageSource(), 12);
+				discard();
+			}
+		});
 
-        discard();
-    }
+	}
 
-    @Override
-    protected void onHitEntity(EntityHitResult hit) {
-        super.onHitEntity(hit);
-        if (level().isClientSide()) {
-            return;
-        }
+	protected DamageSource getDamageSource() {
+		Entity owner = this.getOwner();
+		if (owner instanceof LivingEntity livingOwner) {
+			return owner instanceof Player playerOwner
+					? damageSources().playerAttack(playerOwner)
+					: damageSources().mobAttack(livingOwner);
+		} else {
+			return damageSources().generic();
+		}
+	}
 
-        getTarget().ifPresent(target -> {
-            if (hit.getEntity() == target) {
-                //TODO ConfigAble damage
-                target.hurt(getDamageSource(), 12);
-                discard();
-            }
-        });
+	public void setTarget(@Nullable Entity target) {
+		this.cachedTarget = target;
+		this.targetUUID = target == null ? null : target.getUUID();
+	}
 
-    }
+	public Optional<Entity> getTarget() {
+		if (this.cachedTarget != null && !this.cachedTarget.isRemoved()) {
+			return Optional.of(this.cachedTarget);
+		} else if (this.targetUUID != null && this.level() instanceof ServerLevel serverLevel) {
+			this.cachedTarget = serverLevel.getEntity(this.targetUUID);
+			return this.cachedTarget != null ? Optional.of(this.cachedTarget) : Optional.empty();
+		} else {
+			return Optional.empty();
+		}
+	}
 
-    protected DamageSource getDamageSource() {
-        Entity owner = this.getOwner();
-        if (owner instanceof LivingEntity livingOwner) {
-            return owner instanceof Player playerOwner
-                    ? damageSources().playerAttack(playerOwner)
-                    : damageSources().mobAttack(livingOwner);
-        } else {
-            return damageSources().generic();
-        }
-    }
+	protected void particle() {
+		if (!level().isClientSide()) {
+			return;
+		}
 
-    public void setTarget(@Nullable Entity target) {
-        this.cachedTarget = target;
-        this.targetUUID = target == null ? null : target.getUUID();
-    }
+		double lastTickPosX = this.xOld;
+		double lastTickPosY = this.yOld;
+		double lastTickPosZ = this.zOld;
 
-    public Optional<Entity> getTarget() {
-        if (this.cachedTarget != null && !this.cachedTarget.isRemoved()) {
-            return Optional.of(this.cachedTarget);
-        } else if (this.targetUUID != null && this.level() instanceof ServerLevel serverLevel) {
-            this.cachedTarget = serverLevel.getEntity(this.targetUUID);
-            return this.cachedTarget != null ? Optional.of(this.cachedTarget) : Optional.empty();
-        } else {
-            return Optional.empty();
-        }
-    }
+		Vec3 thisVec = VecHelper.fromEntityCenter(this);
+		Vec3 oldPos = new Vec3(lastTickPosX, lastTickPosY, lastTickPosZ);
 
-    protected void particle() {
-        if (!level().isClientSide()) {
-            return;
-        }
+		Vec3 diff = thisVec.subtract(oldPos);
+		Vec3 step = diff.normalize().scale(0.05);
+		int steps = (int) (diff.length() / step.length());
+		Vec3 particlePos = oldPos;
 
-        double lastTickPosX = this.xOld;
-        double lastTickPosY = this.yOld;
-        double lastTickPosZ = this.zOld;
+		SparkleParticleData data = SparkleParticleData.corrupt(0.8F, 1F, 0.0F, 1F, 2);
 
-        Vec3 thisVec = VecHelper.fromEntityCenter(this);
-        Vec3 oldPos = new Vec3(lastTickPosX, lastTickPosY, lastTickPosZ);
+		for (int i = 0; i < steps; i++) {
+			level().addParticle(data, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
 
-        Vec3 diff = thisVec.subtract(oldPos);
-        Vec3 step = diff.normalize().scale(0.05);
-        int steps = (int) (diff.length() / step.length());
-        Vec3 particlePos = oldPos;
+			if (level().random.nextInt(steps) <= 1) {
+				level().addParticle(data, particlePos.x + (Math.random() - 0.5) * 0.4, particlePos.y + (Math.random() - 0.5) * 0.4, particlePos.z + (Math.random() - 0.5) * 0.4, 0, 0, 0);
+			}
 
-        SparkleParticleData data = SparkleParticleData.corrupt(0.8F, 1F, 0.0F, 1F, 2);
+			particlePos = particlePos.add(step);
+		}
+	}
 
-        for (int i = 0; i < steps; i++) {
-            level().addParticle(data, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
+	@Override
+	protected void defineSynchedData() {
+		//this.entityData.define(SKIN, Optional.of(DEFAULT_SKIN));
+	}
 
-            if (level().random.nextInt(steps) <= 1) {
-                level().addParticle(data, particlePos.x + (Math.random() - 0.5) * 0.4, particlePos.y + (Math.random() - 0.5) * 0.4, particlePos.z + (Math.random() - 0.5) * 0.4, 0, 0, 0);
-            }
+	@Override
+	protected void addAdditionalSaveData(CompoundTag cmp) {
+		super.addAdditionalSaveData(cmp);
+		//cmp.putUUID(TAG_SKIN, this.getSkin());
+		cmp.putBoolean(TAG_FIRE, this.isFire());
+		cmp.putInt(TAG_TICKS_EXISTED, this.getTicksExisted());
 
-            particlePos = particlePos.add(step);
-        }
-    }
+		getTarget().ifPresent(target -> {
+			cmp.putUUID(TAG_TARGET, target.getUUID());
+		});
+	}
 
-    @Override
-    protected void defineSynchedData() {
-        //this.entityData.define(SKIN, Optional.of(DEFAULT_SKIN));
-    }
+	@Override
+	protected void readAdditionalSaveData(CompoundTag cmp) {
+		super.readAdditionalSaveData(cmp);
+		/*
+		if (cmp.hasUUID(TAG_SKIN)) {
+			this.setSkin(cmp.getUUID(TAG_SKIN));
+		}
+		*/
 
-    @Override
-    protected void addAdditionalSaveData(CompoundTag cmp) {
-        super.addAdditionalSaveData(cmp);
-        //cmp.putUUID(TAG_SKIN, this.getSkin());
-        cmp.putBoolean(TAG_FIRE, this.isFire());
-        cmp.putInt(TAG_TICKS_EXISTED, this.getTicksExisted());
+		this.setFire(cmp.getBoolean(TAG_FIRE));
+		this.setTicksExisted(cmp.getInt(TAG_TICKS_EXISTED));
 
-        getTarget().ifPresent(target -> {
-            cmp.putUUID(TAG_TARGET, target.getUUID());
-        });
-    }
+		if (cmp.hasUUID(TAG_TARGET)) {
+			this.targetUUID = cmp.getUUID(TAG_TARGET);
+			this.cachedTarget = null;
+		}
+	}
 
-    @Override
-    protected void readAdditionalSaveData(CompoundTag cmp) {
-        super.readAdditionalSaveData(cmp);
-        /*
-        if (cmp.hasUUID(TAG_SKIN)) {
-            this.setSkin(cmp.getUUID(TAG_SKIN));
-        }
-         */
+	public void setFire(boolean fire) {
+		this.fire = fire;
+	}
 
-        this.setFire(cmp.getBoolean(TAG_FIRE));
-        this.setTicksExisted(cmp.getInt(TAG_TICKS_EXISTED));
+	public boolean isFire() {
+		return fire;
+	}
+	/*
+	public UUID getSkin() {
+		return this.entityData.get(SKIN).orElse(DEFAULT_SKIN);
+	}
+	
+	public void setSkin(UUID uuid) {
+		this.entityData.set(SKIN, Optional.of(uuid));
+	}
+	
+	*/
 
-        if (cmp.hasUUID(TAG_TARGET)) {
-            this.targetUUID = cmp.getUUID(TAG_TARGET);
-            this.cachedTarget = null;
-        }
-    }
+	public void setTicksExisted(int ticks) {
+		_ticksExisted = ticks;
+	}
 
-    public void setFire(boolean fire) {
-        this.fire = fire;
-    }
+	public int getTicksExisted() {
+		return _ticksExisted;
+	}
 
-    public boolean isFire() {
-        return fire;
-    }
-    /*
-    public UUID getSkin() {
-        return this.entityData.get(SKIN).orElse(DEFAULT_SKIN);
-    }
+	@Override
+	public boolean canBeCollidedWith() {
+		return false;
+	}
 
-    public void setSkin(UUID uuid) {
-        this.entityData.set(SKIN, Optional.of(uuid));
-    }
+	@Override
+	public boolean isPushable() {
+		return false;
+	}
 
-     */
-
-    public void setTicksExisted(int ticks) {
-        _ticksExisted = ticks;
-    }
-
-    public int getTicksExisted() {
-        return _ticksExisted;
-    }
-
-    @Override
-    public boolean canBeCollidedWith() {
-        return false;
-    }
-
-    @Override
-    public boolean isPushable() {
-        return false;
-    }
-
-    @Override
-    public boolean isPushedByFluid() {
-        return false;
-    }
+	@Override
+	public boolean isPushedByFluid() {
+		return false;
+	}
 }

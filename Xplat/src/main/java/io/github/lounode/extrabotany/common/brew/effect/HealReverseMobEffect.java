@@ -1,27 +1,30 @@
 package io.github.lounode.extrabotany.common.brew.effect;
 
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
+
+
 import io.github.lounode.eventwrapper.event.entity.living.LivingHealEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.LivingEntity;
 
 @EventBusSubscriberWrapper
 public class HealReverseMobEffect extends MobEffect {
-    public HealReverseMobEffect(MobEffectCategory category, int color) {
-        super(category, color);
-    }
-    @SubscribeEventWrapper
-    private static void onLivingHeal(LivingHealEventWrapper event) {
-        LivingEntity entity = event.getEntity();
-        float amount = event.getAmount();
+	public HealReverseMobEffect(MobEffectCategory category, int color) {
+		super(category, color);
+	}
 
-        if (entity.hasEffect(ExtraBotanyMobEffects.HEAL_REVERSE)) {
-            entity.hurt(ExtraBotanyDamageTypes.Sources.reverseHealDamage(entity.level().registryAccess()), amount);
-            event.setAmount(0);
-        }
-    }
+	@SubscribeEventWrapper
+	private static void onLivingHeal(LivingHealEventWrapper event) {
+		LivingEntity entity = event.getEntity();
+		float amount = event.getAmount();
+
+		if (entity.hasEffect(ExtraBotanyMobEffects.HEAL_REVERSE)) {
+			entity.hurt(ExtraBotanyDamageTypes.Sources.reverseHealDamage(entity.level().registryAccess()), amount);
+			event.setAmount(0);
+		}
+	}
 }

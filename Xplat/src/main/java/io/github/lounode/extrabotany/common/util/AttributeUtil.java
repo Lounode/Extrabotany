@@ -13,44 +13,44 @@ import javax.annotation.Nullable;
 
 public class AttributeUtil {
 
-    public static void addAttributeModifier(ItemStack stack, Attribute attribute, AttributeModifier modifier, @Nullable EquipmentSlot slot) {
-        stack.getOrCreateTag();
-        if (!stack.getTag().contains("AttributeModifiers", Tag.TAG_LIST)) {
-            stack.getTag().put("AttributeModifiers", new ListTag());
-        }
+	public static void addAttributeModifier(ItemStack stack, Attribute attribute, AttributeModifier modifier, @Nullable EquipmentSlot slot) {
+		stack.getOrCreateTag();
+		if (!stack.getTag().contains("AttributeModifiers", Tag.TAG_LIST)) {
+			stack.getTag().put("AttributeModifiers", new ListTag());
+		}
 
-        ListTag listtag = stack.getTag().getList("AttributeModifiers", Tag.TAG_COMPOUND);
-        CompoundTag compoundtag = modifier.save();
-        compoundtag.putString("AttributeName", BuiltInRegistries.ATTRIBUTE.getKey(attribute).toString());
-        if (slot != null) {
-            compoundtag.putString("Slot", slot.getName());
-        }
+		ListTag listtag = stack.getTag().getList("AttributeModifiers", Tag.TAG_COMPOUND);
+		CompoundTag compoundtag = modifier.save();
+		compoundtag.putString("AttributeName", BuiltInRegistries.ATTRIBUTE.getKey(attribute).toString());
+		if (slot != null) {
+			compoundtag.putString("Slot", slot.getName());
+		}
 
-        listtag.add(compoundtag);
-    }
+		listtag.add(compoundtag);
+	}
 
-    public static void removeAttributeModifier(ItemStack stack, String modifierName) {
-        CompoundTag tag = stack.getTag();
-        if (tag == null || !tag.contains("AttributeModifiers", Tag.TAG_LIST)) {
-            return;
-        }
+	public static void removeAttributeModifier(ItemStack stack, String modifierName) {
+		CompoundTag tag = stack.getTag();
+		if (tag == null || !tag.contains("AttributeModifiers", Tag.TAG_LIST)) {
+			return;
+		}
 
-        ListTag modifiers = tag.getList("AttributeModifiers", Tag.TAG_COMPOUND);
-        ListTag newModifiers = new ListTag();
+		ListTag modifiers = tag.getList("AttributeModifiers", Tag.TAG_COMPOUND);
+		ListTag newModifiers = new ListTag();
 
-        for (Tag t : modifiers) {
-            CompoundTag modifier = (CompoundTag) t;
-            if (!modifier.getString("Name").equals(modifierName)) {
-                newModifiers.add(modifier);
-            }
-        }
+		for (Tag t : modifiers) {
+			CompoundTag modifier = (CompoundTag) t;
+			if (!modifier.getString("Name").equals(modifierName)) {
+				newModifiers.add(modifier);
+			}
+		}
 
-        if (newModifiers.size() != modifiers.size()) {
-            tag.put("AttributeModifiers", newModifiers);
-        }
+		if (newModifiers.size() != modifiers.size()) {
+			tag.put("AttributeModifiers", newModifiers);
+		}
 
-        if (newModifiers.isEmpty()) {
-            tag.remove("AttributeModifiers");
-        }
-    }
+		if (newModifiers.isEmpty()) {
+			tag.remove("AttributeModifiers");
+		}
+	}
 }

@@ -1,12 +1,5 @@
 package io.github.lounode.extrabotany.common.item.equipment.bauble;
 
-import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
-import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
-import io.github.lounode.extrabotany.common.entity.gaia.GaiaIII;
-import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
-import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -24,6 +17,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
+
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -32,235 +26,238 @@ import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 
 import java.util.List;
 
+import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
+import io.github.lounode.extrabotany.common.entity.gaia.GaiaIII;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 @EventBusSubscriberWrapper
 public class NatureOrbItem extends BaubleItem implements CustomCreativeTabContents {
 
-    public static final long MAX_ENERGY = 500_000;
-    public static final int SPAWN_GAIAIII_COST = 200_000;
-    public static final int TIER_1_ENERGY = 100_000;
-    public static final int TIER_2_ENERGY = 200_000;
-    public static final int TIER_3_ENERGY = 300_000;
-    public static final int TIER_4_ENERGY = 400_000;
-    public static final int MANA_GENERATE_ADDITION_PER_TIER = 1;
-    public static final int HEAL_DELAY = 60;
-    public static final float HEAL_AMOUNT = 1.0F;
-    public static final int REMOVE_HARMFUL_POTION_DELAY = 40;
-    public static final int REMOVE_HARMFUL_POTION_COST = 200;
+	public static final long MAX_ENERGY = 500_000;
+	public static final int SPAWN_GAIAIII_COST = 200_000;
+	public static final int TIER_1_ENERGY = 100_000;
+	public static final int TIER_2_ENERGY = 200_000;
+	public static final int TIER_3_ENERGY = 300_000;
+	public static final int TIER_4_ENERGY = 400_000;
+	public static final int MANA_GENERATE_ADDITION_PER_TIER = 1;
+	public static final int HEAL_DELAY = 60;
+	public static final float HEAL_AMOUNT = 1.0F;
+	public static final int REMOVE_HARMFUL_POTION_DELAY = 40;
+	public static final int REMOVE_HARMFUL_POTION_COST = 200;
 
-    private static final String TAG_ENERGY = "NatureEnergy";
+	private static final String TAG_ENERGY = "NatureEnergy";
 
+	public NatureOrbItem(Properties properties) {
+		super(properties);
+	}
 
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		output.accept(this);
 
-    public NatureOrbItem(Properties properties) {
-        super(properties);
-    }
+		ItemStack fullPower = new ItemStack(this);
+		setEnergy(fullPower, MAX_ENERGY);
+		output.accept(fullPower);
+	}
 
-    @Override
-    public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
-        output.accept(this);
+	@Override
+	public InteractionResult useOn(UseOnContext context) {
+		BlockPos pos = context.getClickedPos();
+		Level level = context.getLevel();
+		var tile = level.getBlockEntity(pos);
+		if (tile instanceof BeaconBlockEntity) {
+			return InteractionResult.CONSUME;
+		}
 
-        ItemStack fullPower = new ItemStack(this);
-        setEnergy(fullPower, MAX_ENERGY);
-        output.accept(fullPower);
-    }
-    @Override
-    public InteractionResult useOn(UseOnContext context) {
-        BlockPos pos = context.getClickedPos();
-        Level level = context.getLevel();
-        var tile = level.getBlockEntity(pos);
-        if (tile instanceof BeaconBlockEntity) {
-            return InteractionResult.CONSUME;
-        }
+		return super.useOn(context);
+	}
 
-        return super.useOn(context);
-    }
+	@SubscribeEventWrapper
+	public static void onPlayerInteract(PlayerInteractEventWrapper.RightClickBlock event) {
+		Player player = event.getEntity();
+		BlockPos pos = event.getPos();
+		ItemStack handItem = event.getItemStack();
+		ItemStack equipItem = EquipmentHandler.findOrEmpty(ExtraBotanyItems.natureOrb, player);
+		InteractionHand hand = event.getHand();
+		Level level = player.level();
+		var tile = level.getBlockEntity(pos);
 
+		if (!player.isShiftKeyDown()) {
+			return;
+		}
 
-    @SubscribeEventWrapper
-    public static void onPlayerInteract(PlayerInteractEventWrapper.RightClickBlock event) {
-        Player player = event.getEntity();
-        BlockPos pos = event.getPos();
-        ItemStack handItem = event.getItemStack();
-        ItemStack equipItem = EquipmentHandler.findOrEmpty(ExtraBotanyItems.natureOrb, player);
-        InteractionHand hand = event.getHand();
-        Level level = player.level();
-        var tile = level.getBlockEntity(pos);
+		ItemStack finalItem = handItem;
+		if (handItem.isEmpty() && hand == InteractionHand.OFF_HAND) {
+			finalItem = equipItem;
+		}
 
-        if (!player.isShiftKeyDown()) {
-            return;
-        }
+		if (tile instanceof BeaconBlockEntity && finalItem.getItem() instanceof NatureOrbItem orb) {
+			var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(finalItem);
+			if (natureItem == null || natureItem.getEnergy() < orb.getSpawnGaiaCost()) {
+				return;
+			}
 
-        ItemStack finalItem = handItem;
-        if (handItem.isEmpty() && hand == InteractionHand.OFF_HAND) {
-            finalItem = equipItem;
-        }
+			if (GaiaIII.spawn(player, finalItem, level, pos)) {
+				if (!level.isClientSide()) {
+					natureItem.addEnergy(-orb.getSpawnGaiaCost());
+					event.setCanceled(true);
+				}
 
-        if (tile instanceof BeaconBlockEntity && finalItem.getItem() instanceof NatureOrbItem orb) {
-            var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(finalItem);
-            if (natureItem == null || natureItem.getEnergy() < orb.getSpawnGaiaCost()) {
-                return;
-            }
+				player.swing(hand);
+			}
+		}
+	}
 
-            if (GaiaIII.spawn(player, finalItem, level, pos)) {
-                if (!level.isClientSide()) {
-                    natureItem.addEnergy( -orb.getSpawnGaiaCost());
-                    event.setCanceled(true);
-                }
+	@Override
+	public void onWornTick(ItemStack stack, LivingEntity entity) {
+		if (!(entity instanceof Player player)) {
+			return;
+		}
+		var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
+		if (natureItem == null) {
+			return;
+		}
 
-                player.swing(hand);
-            }
-        }
-    }
+		if (getTier(stack) >= 1) {
+			ManaItemHandler.instance().dispatchManaExact(stack, player, MANA_GENERATE_ADDITION_PER_TIER, true);
+		}
+		if (getTier(stack) >= 2) {
+			ManaItemHandler.instance().dispatchManaExact(stack, player, MANA_GENERATE_ADDITION_PER_TIER, true);
+		}
+		if (getTier(stack) >= 3) {
+			ManaItemHandler.instance().dispatchManaExact(stack, player, MANA_GENERATE_ADDITION_PER_TIER, true);
+			if (player.tickCount % HEAL_DELAY == 0) {
+				player.heal(HEAL_AMOUNT);
+			}
+		}
+		if (getTier(stack) >= 4) {
+			if (player.tickCount % REMOVE_HARMFUL_POTION_DELAY != 0) {
+				return;
+			}
+			int removeCount = clearHarmfulPotion(player);
+			if (removeCount > 0) {
+				natureItem.addEnergy((long) -REMOVE_HARMFUL_POTION_COST * removeCount);
+			}
 
-    @Override
-    public void onWornTick(ItemStack stack, LivingEntity entity) {
-        if (!(entity instanceof Player player)) {
-            return;
-        }
-        var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
-        if (natureItem == null) {
-            return;
-        }
+		}
+	}
 
-        if (getTier(stack) >= 1) {
-            ManaItemHandler.instance().dispatchManaExact(stack, player, MANA_GENERATE_ADDITION_PER_TIER, true);
-        }
-        if (getTier(stack) >= 2) {
-            ManaItemHandler.instance().dispatchManaExact(stack, player, MANA_GENERATE_ADDITION_PER_TIER, true);
-        }
-        if (getTier(stack) >= 3) {
-            ManaItemHandler.instance().dispatchManaExact(stack, player, MANA_GENERATE_ADDITION_PER_TIER, true);
-            if (player.tickCount % HEAL_DELAY == 0) {
-                player.heal(HEAL_AMOUNT);
-            }
-        }
-        if (getTier(stack) >= 4) {
-            if (player.tickCount % REMOVE_HARMFUL_POTION_DELAY != 0) {
-                return;
-            }
-            int removeCount = clearHarmfulPotion(player);
-            if (removeCount > 0) {
-                natureItem.addEnergy((long) -REMOVE_HARMFUL_POTION_COST * removeCount);
-            }
+	@Override
+	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, world, tooltip, flags);
+		var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
 
-        }
-    }
+		tooltip.add(Component.translatable("tooltip.extrabotany.nature_orb.tier1")
+				.withStyle(getTier(stack) >= 1 ? ChatFormatting.AQUA : ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("tooltip.extrabotany.nature_orb.tier2")
+				.withStyle(getTier(stack) >= 3 ? ChatFormatting.RED : ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("tooltip.extrabotany.nature_orb.tier3")
+				.withStyle(getTier(stack) >= 4 ? ChatFormatting.GREEN : ChatFormatting.GRAY));
+		tooltip.add(Component.empty());
+		tooltip.add(Component.translatable("tooltip.extrabotany.nature_orb.energy", natureItem.getEnergy() + "/" + natureItem.getMaxEnergy())
+				.withStyle(ChatFormatting.GRAY));
+	}
 
-    @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
-        super.appendHoverText(stack, world, tooltip, flags);
-        var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
+	public static int getTier(ItemStack stack) {
+		var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
+		if (natureItem == null) {
+			return -1;
+		}
 
+		long energy = natureItem.getEnergy();
+		if (energy > TIER_4_ENERGY) {
+			return 4;
+		} else if (energy > TIER_3_ENERGY) {
+			return 3;
+		} else if (energy > TIER_2_ENERGY) {
+			return 2;
+		} else if (energy > TIER_1_ENERGY) {
+			return 1;
+		}
+		return 0;
+	}
 
-        tooltip.add(Component.translatable("tooltip.extrabotany.nature_orb.tier1")
-                .withStyle(getTier(stack) >= 1 ? ChatFormatting.AQUA : ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.extrabotany.nature_orb.tier2")
-                .withStyle(getTier(stack) >= 3 ? ChatFormatting.RED : ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.extrabotany.nature_orb.tier3")
-                .withStyle(getTier(stack) >= 4 ? ChatFormatting.GREEN : ChatFormatting.GRAY));
-        tooltip.add(Component.empty());
-        tooltip.add(Component.translatable("tooltip.extrabotany.nature_orb.energy", natureItem.getEnergy() + "/" + natureItem.getMaxEnergy())
-                .withStyle(ChatFormatting.GRAY));
-    }
+	public static int clearHarmfulPotion(LivingEntity entity) {
+		List<MobEffectInstance> effects = entity.getActiveEffects().stream()
+				.filter(effect -> effect.getEffect().getCategory() == MobEffectCategory.HARMFUL)
+				.toList();
 
-    public static int getTier(ItemStack stack) {
-        var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
-        if (natureItem == null) {
-            return -1;
-        }
+		effects.forEach(e -> entity.removeEffect(e.getEffect()));
 
-        long energy = natureItem.getEnergy();
-        if (energy > TIER_4_ENERGY) {
-            return 4;
-        } else if (energy > TIER_3_ENERGY) {
-            return 3;
-        } else if (energy > TIER_2_ENERGY) {
-            return 2;
-        } else if (energy > TIER_1_ENERGY) {
-            return 1;
-        }
-        return 0;
-    }
+		return effects.size();
+	}
 
-    public static int clearHarmfulPotion(LivingEntity entity) {
-        List<MobEffectInstance> effects = entity.getActiveEffects().stream()
-                .filter(effect -> effect.getEffect().getCategory() == MobEffectCategory.HARMFUL)
-                .toList();
+	public int getSpawnGaiaCost() {
+		return SPAWN_GAIAIII_COST;
+	}
 
-        effects.forEach(e -> entity.removeEffect(e.getEffect()));
+	protected static void setEnergy(ItemStack stack, long energy) {
+		if (energy > 0) {
+			ItemNBTHelper.setLong(stack, TAG_ENERGY, energy);
+		} else {
+			ItemNBTHelper.removeEntry(stack, TAG_ENERGY);
+		}
+	}
 
-        return effects.size();
-    }
+	@Override
+	public int getBarColor(ItemStack stack) {
+		var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
+		return Mth.hsvToRgb((natureItem.getEnergy() / (float) natureItem.getMaxEnergy()) / 3.0F, 1.0F, 1.0F);
+	}
 
-    public int getSpawnGaiaCost() {
-        return SPAWN_GAIAIII_COST;
-    }
+	@Override
+	public int getBarWidth(ItemStack stack) {
+		var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
+		return Math.round(13 * (natureItem.getEnergy() / (float) natureItem.getMaxEnergy()));
+	}
 
-    protected static void setEnergy(ItemStack stack, long energy) {
-        if (energy > 0) {
-            ItemNBTHelper.setLong(stack, TAG_ENERGY, energy);
-        } else {
-            ItemNBTHelper.removeEntry(stack, TAG_ENERGY);
-        }
-    }
+	@Override
+	public boolean isBarVisible(ItemStack stack) {
+		var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
+		return natureItem.getEnergy() < natureItem.getMaxEnergy();
+	}
 
-    @Override
-    public int getBarColor(ItemStack stack) {
-        var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
-        return Mth.hsvToRgb((natureItem.getEnergy() / (float) natureItem.getMaxEnergy()) / 3.0F, 1.0F, 1.0F);
-    }
+	public static class NatureEnergyImpl implements NatureEnergyItem {
 
-    @Override
-    public int getBarWidth(ItemStack stack) {
-        var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
-        return Math.round(13 * (natureItem.getEnergy() / (float) natureItem.getMaxEnergy()));
-    }
+		private final ItemStack stack;
 
-    @Override
-    public boolean isBarVisible(ItemStack stack) {
-        var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
-        return natureItem.getEnergy() < natureItem.getMaxEnergy();
-    }
+		public NatureEnergyImpl(ItemStack stack) {
+			this.stack = stack;
+		}
 
-    public static class NatureEnergyImpl implements NatureEnergyItem {
+		@Override
+		public long getEnergy() {
+			return ItemNBTHelper.getLong(stack, TAG_ENERGY, 0) * stack.getCount();
+		}
 
-        private final ItemStack stack;
+		@Override
+		public long getMaxEnergy() {
+			return MAX_ENERGY * stack.getCount();
+		}
 
-        public NatureEnergyImpl(ItemStack stack) {
-            this.stack = stack;
-        }
+		@Override
+		public boolean addEnergy(long energy) {
+			long current = getEnergy() / stack.getCount();
+			long maxSingle = getMaxEnergy() / stack.getCount();
 
-        @Override
-        public long getEnergy() {
-            return ItemNBTHelper.getLong(stack, TAG_ENERGY, 0) * stack.getCount();
-        }
+			long newEnergy;
+			if (energy > 0 && current > maxSingle - energy) {
+				newEnergy = maxSingle;
+			} else if (energy < 0 && current < -energy) {
+				newEnergy = 0;
+			} else {
+				newEnergy = current + energy;
+			}
 
-        @Override
-        public long getMaxEnergy() {
-            return MAX_ENERGY * stack.getCount();
-        }
+			newEnergy = Math.min(newEnergy, maxSingle);
+			newEnergy = Math.max(newEnergy, 0);
 
-        @Override
-        public boolean addEnergy(long energy) {
-            long current = getEnergy() / stack.getCount();
-            long maxSingle = getMaxEnergy() / stack.getCount();
-
-            long newEnergy;
-            if (energy > 0 && current > maxSingle - energy) {
-                newEnergy = maxSingle;
-            } else if (energy < 0 && current < -energy) {
-                newEnergy = 0;
-            } else {
-                newEnergy = current + energy;
-            }
-
-
-            newEnergy = Math.min(newEnergy, maxSingle);
-            newEnergy = Math.max(newEnergy, 0);
-
-            setEnergy(stack, newEnergy);
-            return newEnergy != current;
-        }
-    }
+			setEnergy(stack, newEnergy);
+			return newEnergy != current;
+		}
+	}
 }

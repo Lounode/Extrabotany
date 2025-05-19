@@ -1,9 +1,7 @@
 package io.github.lounode.extrabotany.common.entity.gaia;
 
 import com.mojang.serialization.Dynamic;
-import io.github.lounode.extrabotany.api.gaia.GaiaArena;
-import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
-import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -27,117 +25,124 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+
 import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.handler.BotaniaSounds;
 
 import java.util.List;
 
+import io.github.lounode.extrabotany.api.gaia.GaiaArena;
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
+import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+
 public class GaiaIII extends Gaia {
-    public static final float ARENA_RANGE = 15F;
-    public static final int ARENA_HEIGHT = 7;
-    public static final float MAX_HP = 600F;
-    private static final float DAMAGE_CAP = 30;
-    public GaiaIII(EntityType<? extends GaiaIII> type, Level world) {
-        super(type, world);
-        this.xpReward = 1000;
-    }
+	public static final float ARENA_RANGE = 15F;
+	public static final int ARENA_HEIGHT = 7;
+	public static final float MAX_HP = 600F;
+	private static final float DAMAGE_CAP = 30;
 
-    public GaiaIII(EntityType<? extends GaiaIII> type, Level world, BlockPos source) {
-        super(type, world, source);
-    }
+	public GaiaIII(EntityType<? extends GaiaIII> type, Level world) {
+		super(type, world);
+		this.xpReward = 1000;
+	}
 
-    public GaiaIII(Level world, BlockPos source) {
-        this(ExtraBotanyEntityType.GAIA_III, world, source);
-    }
+	public GaiaIII(EntityType<? extends GaiaIII> type, Level world, BlockPos source) {
+		super(type, world, source);
+	}
 
-    public static boolean spawn(Player player, ItemStack stack, Level world, BlockPos pos) {
-        GaiaArena arena = GaiaArena.of(GlobalPos.of(world.dimension(), pos), ARENA_RANGE, ARENA_HEIGHT);
-        if (!arena.checksModern(player, world, stack)) {
-            return false;
-        }
-        if (!arena.checkInventory(world)) {
-            if (!world.isClientSide()) {
-                player.sendSystemMessage(Component.translatable("message.extrabotany.chat.unsafe_inventory").withStyle(ChatFormatting.RED));
-            }
-            return false;
-        }
+	public GaiaIII(Level world, BlockPos source) {
+		this(ExtraBotanyEntityType.GAIA_III, world, source);
+	}
 
-        //all checks ok, spawn the boss
-        if (!world.isClientSide()) {
-            GaiaIII gaia = new GaiaIII(world, pos);
-            gaia.setArena(arena);
-            gaia.setPos(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
+	public static boolean spawn(Player player, ItemStack stack, Level world, BlockPos pos) {
+		GaiaArena arena = GaiaArena.of(GlobalPos.of(world.dimension(), pos), ARENA_RANGE, ARENA_HEIGHT);
+		if (!arena.checksModern(player, world, stack)) {
+			return false;
+		}
+		if (!arena.checkInventory(world)) {
+			if (!world.isClientSide()) {
+				player.sendSystemMessage(Component.translatable("message.extrabotany.chat.unsafe_inventory").withStyle(ChatFormatting.RED));
+			}
+			return false;
+		}
 
-            gaia.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, (long) GaiaIIIAI.EMERGE_TIME);
-            gaia.setInvulTime(GaiaIIIAI.EMERGE_TIME);
-            gaia.setHealth(1F);
-            gaia.bossEvent.setProgress(0.0F);
+		//all checks ok, spawn the boss
+		if (!world.isClientSide()) {
+			GaiaIII gaia = new GaiaIII(world, pos);
+			gaia.setArena(arena);
+			gaia.setPos(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
 
-            List<Player> playersAround = arena.getPlayersAround(world);
+			gaia.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, (long) GaiaIIIAI.EMERGE_TIME);
+			gaia.setInvulTime(GaiaIIIAI.EMERGE_TIME);
+			gaia.setHealth(1F);
+			gaia.bossEvent.setProgress(0.0F);
 
-            int playerCount = playersAround.size();
-            gaia.playerCount = playerCount;
-            gaia.bossEvent.setPlayerCount(playerCount);
+			List<Player> playersAround = arena.getPlayersAround(world);
 
-            float healthMultiplier = 1;
-            if (playerCount > 1) {
-                healthMultiplier += playerCount * 0.25F;
-            }
-            gaia.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MAX_HP * healthMultiplier);
-            gaia.getAttribute(Attributes.ARMOR).setBaseValue(30);
+			int playerCount = playersAround.size();
+			gaia.playerCount = playerCount;
+			gaia.bossEvent.setPlayerCount(playerCount);
 
-            gaia.playSound(BotaniaSounds.gaiaSummon, .1F, 1F);
-            gaia.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(gaia.blockPosition()), MobSpawnType.EVENT, null, null);
-            world.addFreshEntity(gaia);
+			float healthMultiplier = 1;
+			if (playerCount > 1) {
+				healthMultiplier += playerCount * 0.25F;
+			}
+			gaia.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MAX_HP * healthMultiplier);
+			gaia.getAttribute(Attributes.ARMOR).setBaseValue(30);
 
-            for (Player nearbyPlayer : playersAround) {
-                if (nearbyPlayer instanceof ServerPlayer serverPlayer) {
-                    CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, gaia);
-                }
-            }
-        }
-        return true;
-    }
+			gaia.playSound(BotaniaSounds.gaiaSummon, .1F, 1F);
+			gaia.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(gaia.blockPosition()), MobSpawnType.EVENT, null, null);
+			world.addFreshEntity(gaia);
 
-    public static AttributeSupplier.Builder createGaiaAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.4)
-                .add(Attributes.MAX_HEALTH, MAX_HP)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
-    }
+			for (Player nearbyPlayer : playersAround) {
+				if (nearbyPlayer instanceof ServerPlayer serverPlayer) {
+					CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, gaia);
+				}
+			}
+		}
+		return true;
+	}
 
-    @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
-        return GaiaIIIAI.makeBrain(this, dynamic);
-    }
+	public static AttributeSupplier.Builder createGaiaAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MOVEMENT_SPEED, 0.4)
+				.add(Attributes.MAX_HEALTH, MAX_HP)
+				.add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
+	}
 
-    @Override
-    protected void initMemories(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        GaiaIIIAI.initMemories(this, level.getLevel(), getHome().pos());
-    }
+	@Override
+	protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+		return GaiaIIIAI.makeBrain(this, dynamic);
+	}
 
-    @Override
-    protected void updateAI() {
-        GaiaIIIAI.updateActivity(this);
-    }
+	@Override
+	protected void initMemories(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+		GaiaIIIAI.initMemories(this, level.getLevel(), getHome().pos());
+	}
 
-    @Override
-    public ResourceLocation getDefaultLootTable() {
-        return this.getType().getDefaultLootTable();
-    }
+	@Override
+	protected void updateAI() {
+		GaiaIIIAI.updateActivity(this);
+	}
 
-    @Override
-    public float getDamageCap() {
-        return DAMAGE_CAP;
-    }
+	@Override
+	public ResourceLocation getDefaultLootTable() {
+		return this.getType().getDefaultLootTable();
+	}
 
-    @Override
-    public int getEmergeTime() {
-        return GaiaIIIAI.EMERGE_TIME;
-    }
+	@Override
+	public float getDamageCap() {
+		return DAMAGE_CAP;
+	}
 
-    @Override
-    public SoundEvent getBGM() {
-        return ExtraBotanySounds.MUSIC_GAIA3;
-    }
+	@Override
+	public int getEmergeTime() {
+		return GaiaIIIAI.EMERGE_TIME;
+	}
+
+	@Override
+	public SoundEvent getBGM() {
+		return ExtraBotanySounds.MUSIC_GAIA3;
+	}
 }

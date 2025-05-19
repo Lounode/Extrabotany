@@ -1,9 +1,5 @@
 package io.github.lounode.extrabotany.common.item.relic.void_archives.variants;
 
-import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
-import io.github.lounode.extrabotany.common.entity.MagicArrowEntity;
-import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
-import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -16,201 +12,201 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
+
+import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
+import io.github.lounode.extrabotany.common.entity.MagicArrowEntity;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+
 public class Failnaught implements VoidArchivesVariant {
 
-    public static Failnaught INSTANCE = new Failnaught();
-    private static final String ID = "failnaught";
+	public static Failnaught INSTANCE = new Failnaught();
+	private static final String ID = "failnaught";
 
-    public static final float[] TIER_PROCESS = {0, 0, 0.35F, 0.7F, 0.9F};
-    public static final int[] MANA_PER_USE_MAX = {0, 350, 500, 650, 800};
+	public static final float[] TIER_PROCESS = { 0, 0, 0.35F, 0.7F, 0.9F };
+	public static final int[] MANA_PER_USE_MAX = { 0, 350, 500, 650, 800 };
 
-    private static final float DEFAULT_CHARGE_SPEED = 0.25F;
-    private static final float QUICK_CHARGE_BONUS_PER_LEVEL = 0.1F;
-    public static final float MINIMUM_SHOOT_PROCESS = 0.1F;
+	private static final float DEFAULT_CHARGE_SPEED = 0.25F;
+	private static final float QUICK_CHARGE_BONUS_PER_LEVEL = 0.1F;
+	public static final float MINIMUM_SHOOT_PROCESS = 0.1F;
 
-    @Override
-    public String getId() {
-        return ID;
-    }
+	@Override
+	public String getId() {
+		return ID;
+	}
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        int multiShoutLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MULTISHOT, itemstack);
-        float chargeProgress = getChargeProcess(itemstack, player);
+	@Override
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+		ItemStack itemstack = player.getItemInHand(hand);
+		int multiShoutLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MULTISHOT, itemstack);
+		float chargeProgress = getChargeProcess(itemstack, player);
 
-        boolean flag = false;
+		boolean flag = false;
 
-        var relic = XplatAbstractions.INSTANCE.findRelic(itemstack);
-        if (
-                relic != null &&
-                        relic.isRightPlayer(player) &&
-                        ManaItemHandler.instance().requestManaExactForTool(itemstack, player,
-                                getManaForUse(chargeProgress) * (multiShoutLevel > 1 ? 3 : 1), false)
+		var relic = XplatAbstractions.INSTANCE.findRelic(itemstack);
+		if (relic != null &&
+				relic.isRightPlayer(player) &&
+				ManaItemHandler.instance().requestManaExactForTool(itemstack, player,
+						getManaForUse(chargeProgress) * (multiShoutLevel > 1 ? 3 : 1), false)
 
-        ) {
-            flag = true;
-        }
+		) {
+			flag = true;
+		}
 
-        if (!player.getAbilities().instabuild && !flag) {
-            return InteractionResultHolder.fail(itemstack);
-        } else {
-            player.startUsingItem(hand);
-            return InteractionResultHolder.consume(itemstack);
-        }
-    }
+		if (!player.getAbilities().instabuild && !flag) {
+			return InteractionResultHolder.fail(itemstack);
+		} else {
+			player.startUsingItem(hand);
+			return InteractionResultHolder.consume(itemstack);
+		}
+	}
 
-    @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
-        if (level.isClientSide()) {
-            return;
-        }
-        if (livingEntity instanceof Player player) {
-            float chargeProgress = getChargeProcess(stack, player);
+	@Override
+	public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
+		if (level.isClientSide()) {
+			return;
+		}
+		if (livingEntity instanceof Player player) {
+			float chargeProgress = getChargeProcess(stack, player);
 
-            int quickChargeLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, stack);
-            if (quickChargeLevel > 0) {
-                ManaItemHandler.instance().requestManaExactForTool(stack, player, 100 * quickChargeLevel, true);
-            }
+			int quickChargeLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, stack);
+			if (quickChargeLevel > 0) {
+				ManaItemHandler.instance().requestManaExactForTool(stack, player, 100 * quickChargeLevel, true);
+			}
 
-            if (chargeProgress < MINIMUM_SHOOT_PROCESS) {
-                return;
-            }
+			if (chargeProgress < MINIMUM_SHOOT_PROCESS) {
+				return;
+			}
 
-            int multiShoutLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MULTISHOT, stack);
-            var relic = XplatAbstractions.INSTANCE.findRelic(stack);
-            if (
-                    relic != null &&
-                            relic.isRightPlayer(player) &&
-                            (player.getAbilities().instabuild
-                                    ||
-                                    ManaItemHandler.instance().requestManaExactForTool(stack, player,
-                                            getManaForUse(chargeProgress) * (multiShoutLevel > 1 ? 3 : 1), true)
-                            )
-            ) {
-                int manaInBurst = getManaForUse(chargeProgress) * (multiShoutLevel > 1 ? 3 : 1);
+			int multiShoutLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MULTISHOT, stack);
+			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+			if (relic != null &&
+					relic.isRightPlayer(player) &&
+					(player.getAbilities().instabuild
+							||
+							ManaItemHandler.instance().requestManaExactForTool(stack, player,
+									getManaForUse(chargeProgress) * (multiShoutLevel > 1 ? 3 : 1), true))) {
+				int manaInBurst = getManaForUse(chargeProgress) * (multiShoutLevel > 1 ? 3 : 1);
 
-                float spreadAngle = 10.0f;
+				float spreadAngle = 10.0f;
 
-                for (int i = 0; i < (multiShoutLevel > 0 ? 3 : 1); i++) {
-                    ManaBurstEntity burst = getBurst(player, player.getMainHandItem(), manaInBurst, getTier(chargeProgress));
+				for (int i = 0; i < (multiShoutLevel > 0 ? 3 : 1); i++) {
+					ManaBurstEntity burst = getBurst(player, player.getMainHandItem(), manaInBurst, getTier(chargeProgress));
 
-                    if (multiShoutLevel > 0 && i > 0) {
-                        float angle = (i == 1 ? -spreadAngle : spreadAngle) * Mth.DEG_TO_RAD;
-                        burst.setDeltaMovement(burst.getDeltaMovement().yRot(angle));
-                    }
+					if (multiShoutLevel > 0 && i > 0) {
+						float angle = (i == 1 ? -spreadAngle : spreadAngle) * Mth.DEG_TO_RAD;
+						burst.setDeltaMovement(burst.getDeltaMovement().yRot(angle));
+					}
 
-                    player.level().addFreshEntity(burst);
-                }
+					player.level().addFreshEntity(burst);
+				}
 
-                player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ExtraBotanySounds.FAILNAUGHT_SHOOT, SoundSource.PLAYERS, 1F, 1F);
-            }
-        }
-    }
+				player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ExtraBotanySounds.FAILNAUGHT_SHOOT, SoundSource.PLAYERS, 1F, 1F);
+			}
+		}
+	}
 
-    public ManaBurstEntity getBurst(Player player, ItemStack stack, int mana, int tier) {
-        MagicArrowEntity burst = new MagicArrowEntity(player);
+	public ManaBurstEntity getBurst(Player player, ItemStack stack, int mana, int tier) {
+		MagicArrowEntity burst = new MagicArrowEntity(player);
 
-        float motionModifier = 7F;
+		float motionModifier = 7F;
 
-        burst.setColor(0x20FF20);
-        burst.setMana(mana);
-        burst.setStartingMana(mana);
-        burst.setManaLossPerTick(MANA_PER_USE_MAX[tier] / 87.5f);
-        burst.setGravity(0F);
-        burst.setDeltaMovement(burst.getDeltaMovement().scale(motionModifier));
+		burst.setColor(0x20FF20);
+		burst.setMana(mana);
+		burst.setStartingMana(mana);
+		burst.setManaLossPerTick(MANA_PER_USE_MAX[tier] / 87.5f);
+		burst.setGravity(0F);
+		burst.setDeltaMovement(burst.getDeltaMovement().scale(motionModifier));
 
-        ItemStack lens = new ItemStack(ExtraBotanyItems.failnaught);
-        ListTag enchants = ItemNBTHelper.getList(stack, "Enchantments", ListTag.TAG_COMPOUND, true);
-        if (enchants != null) {
-            ItemNBTHelper.setList(lens, "Enchantments", enchants.copy());
-        }
+		ItemStack lens = new ItemStack(ExtraBotanyItems.failnaught);
+		ListTag enchants = ItemNBTHelper.getList(stack, "Enchantments", ListTag.TAG_COMPOUND, true);
+		if (enchants != null) {
+			ItemNBTHelper.setList(lens, "Enchantments", enchants.copy());
+		}
 
-        burst.setSourceLens(lens);
+		burst.setSourceLens(lens);
 
-        float chargeProcess = getChargeProcess(stack, player);
-        float tierProcess = getProcessInTier(chargeProcess);
+		float chargeProcess = getChargeProcess(stack, player);
+		float tierProcess = getProcessInTier(chargeProcess);
 
-        float baseDamage = 10;
-        int powerLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, stack);
-        if (powerLevel > 0 &&
-                ManaItemHandler.instance().requestManaExactForTool(stack, player, 50 * powerLevel, true)) {
-            baseDamage = baseDamage + 0.5f + 0.5f * powerLevel;
-        }
-        float damage = baseDamage * (tier * tierProcess);
+		float baseDamage = 10;
+		int powerLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, stack);
+		if (powerLevel > 0 &&
+				ManaItemHandler.instance().requestManaExactForTool(stack, player, 50 * powerLevel, true)) {
+			baseDamage = baseDamage + 0.5f + 0.5f * powerLevel;
+		}
+		float damage = baseDamage * (tier * tierProcess);
 
-        burst.setDamage(damage);
-        return burst;
-    }
+		burst.setDamage(damage);
+		return burst;
+	}
 
-    public float getChargeProcess(ItemStack stack, LivingEntity entity) {
-        return Mth.clamp((getUseDuration(stack) - entity.getUseItemRemainingTicks()) * chargeVelocityMultiplier(stack, entity) / 20.0F, 0.0F, 1.0F);
-    }
+	public float getChargeProcess(ItemStack stack, LivingEntity entity) {
+		return Mth.clamp((getUseDuration(stack) - entity.getUseItemRemainingTicks()) * chargeVelocityMultiplier(stack, entity) / 20.0F, 0.0F, 1.0F);
+	}
 
-    public int getTier(float chargeProcess) {
-        chargeProcess = Mth.clamp(chargeProcess, 0.0f, 1.0f);
+	public int getTier(float chargeProcess) {
+		chargeProcess = Mth.clamp(chargeProcess, 0.0f, 1.0f);
 
-        if (chargeProcess < TIER_PROCESS[2]) {
-            return 1; // 0.0 - 0.35
-        }
-        else if (chargeProcess < TIER_PROCESS[3]) {
-            return 2; // 0.35 - 0.7
-        }
-        else if (chargeProcess < TIER_PROCESS[4]) {
-            return 3; // 0.7 - 0.9
-        }
-        else {
-            return 4; // 0.9 - 1.0
-        }
-    }
+		if (chargeProcess < TIER_PROCESS[2]) {
+			return 1; // 0.0 - 0.35
+		} else if (chargeProcess < TIER_PROCESS[3]) {
+			return 2; // 0.35 - 0.7
+		} else if (chargeProcess < TIER_PROCESS[4]) {
+			return 3; // 0.7 - 0.9
+		} else {
+			return 4; // 0.9 - 1.0
+		}
+	}
 
-    public float getProcessInTier(float chargeProcess) {
-        return switch (getTier(chargeProcess)) {
-            case 1 -> chargeProcess / TIER_PROCESS[2];
-            case 2 -> (chargeProcess - TIER_PROCESS[2]) / (TIER_PROCESS[3] - TIER_PROCESS[2]);
-            case 3 -> (chargeProcess - TIER_PROCESS[3]) / (TIER_PROCESS[4] - TIER_PROCESS[3]);
-            case 4 -> (chargeProcess - TIER_PROCESS[4]) / (1.0f - TIER_PROCESS[4]);
-            default -> 0;
-        };
-    }
+	public float getProcessInTier(float chargeProcess) {
+		return switch (getTier(chargeProcess)) {
+			case 1 -> chargeProcess / TIER_PROCESS[2];
+			case 2 -> (chargeProcess - TIER_PROCESS[2]) / (TIER_PROCESS[3] - TIER_PROCESS[2]);
+			case 3 -> (chargeProcess - TIER_PROCESS[3]) / (TIER_PROCESS[4] - TIER_PROCESS[3]);
+			case 4 -> (chargeProcess - TIER_PROCESS[4]) / (1.0f - TIER_PROCESS[4]);
+			default -> 0;
+		};
+	}
 
-    public int getManaForUse(float chargeProcess) {
-        chargeProcess = Mth.clamp(chargeProcess, 0.0f, 1.0f);
-        int tier = getTier(chargeProcess);
-        float tierProcess = getProcessInTier(chargeProcess);
+	public int getManaForUse(float chargeProcess) {
+		chargeProcess = Mth.clamp(chargeProcess, 0.0f, 1.0f);
+		int tier = getTier(chargeProcess);
+		float tierProcess = getProcessInTier(chargeProcess);
 
-        return switch (tier) {
-            case 1 -> (int) (MANA_PER_USE_MAX[1] * tierProcess);
-            case 2 -> (int) (MANA_PER_USE_MAX[1] + (MANA_PER_USE_MAX[2] - MANA_PER_USE_MAX[1]) * tierProcess);
-            case 3 -> (int) (MANA_PER_USE_MAX[2] + (MANA_PER_USE_MAX[3] - MANA_PER_USE_MAX[2]) * tierProcess);
-            case 4 -> (int) (MANA_PER_USE_MAX[3] + (MANA_PER_USE_MAX[4] - MANA_PER_USE_MAX[3]) * tierProcess);
-            default -> 0;
-        };
-    }
+		return switch (tier) {
+			case 1 -> (int) (MANA_PER_USE_MAX[1] * tierProcess);
+			case 2 -> (int) (MANA_PER_USE_MAX[1] + (MANA_PER_USE_MAX[2] - MANA_PER_USE_MAX[1]) * tierProcess);
+			case 3 -> (int) (MANA_PER_USE_MAX[2] + (MANA_PER_USE_MAX[3] - MANA_PER_USE_MAX[2]) * tierProcess);
+			case 4 -> (int) (MANA_PER_USE_MAX[3] + (MANA_PER_USE_MAX[4] - MANA_PER_USE_MAX[3]) * tierProcess);
+			default -> 0;
+		};
+	}
 
-    public float chargeVelocityMultiplier(ItemStack itemStack, LivingEntity livingEntity) {
-        if (livingEntity instanceof Player player){
-            int quickChargeLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, itemStack);
-            if (ManaItemHandler.instance().requestManaExactForTool(itemStack, player, 100 * quickChargeLevel, false)) {
-                return DEFAULT_CHARGE_SPEED + QUICK_CHARGE_BONUS_PER_LEVEL * quickChargeLevel;
-            }
-        }
+	public float chargeVelocityMultiplier(ItemStack itemStack, LivingEntity livingEntity) {
+		if (livingEntity instanceof Player player) {
+			int quickChargeLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, itemStack);
+			if (ManaItemHandler.instance().requestManaExactForTool(itemStack, player, 100 * quickChargeLevel, false)) {
+				return DEFAULT_CHARGE_SPEED + QUICK_CHARGE_BONUS_PER_LEVEL * quickChargeLevel;
+			}
+		}
 
-        return DEFAULT_CHARGE_SPEED;
-    }
+		return DEFAULT_CHARGE_SPEED;
+	}
 
-    @Override
-    public int getUseDuration(ItemStack stack) {
-        return 72000;
-    }
+	@Override
+	public int getUseDuration(ItemStack stack) {
+		return 72000;
+	}
 
-    @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.BOW;
-    }
+	@Override
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.BOW;
+	}
 }

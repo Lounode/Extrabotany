@@ -1,18 +1,17 @@
 package io.github.lounode.extrabotany.client.integration.jei.crafing;
 
-import io.github.lounode.extrabotany.common.brew.BrewUtil;
-import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewRecipe;
-import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
-import io.github.lounode.extrabotany.common.item.brew.ManaCocktailItem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.ICraftingGridHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -20,57 +19,62 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import io.github.lounode.extrabotany.common.brew.BrewUtil;
+import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewRecipe;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.brew.ManaCocktailItem;
+
 public class CopyBrewFormFlaskRecipeWrapper implements ICraftingCategoryExtension {
 
-    private final ResourceLocation name;
+	private final ResourceLocation name;
 
-    public CopyBrewFormFlaskRecipeWrapper(CopyBrewRecipe recipe) {
-        this.name = recipe.getId();
-    }
+	public CopyBrewFormFlaskRecipeWrapper(CopyBrewRecipe recipe) {
+		this.name = recipe.getId();
+	}
 
-    @Nullable
-    @Override
-    public ResourceLocation getRegistryName() {
-        return name;
-    }
+	@Nullable
+	@Override
+	public ResourceLocation getRegistryName() {
+		return name;
+	}
 
-    @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, ICraftingGridHelper helper, IFocusGroup focusGroup) {
-        ItemStack cocktail = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
-                .filter(f -> f.getTypedValue().getIngredient().getItem() == ExtraBotanyItems.manaCocktail)
-                .map(f -> f.getTypedValue().getIngredient())
-                .findFirst().orElse(null);
+	@Override
+	public void setRecipe(IRecipeLayoutBuilder builder, ICraftingGridHelper helper, IFocusGroup focusGroup) {
+		ItemStack cocktail = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
+				.filter(f -> f.getTypedValue().getIngredient().getItem() == ExtraBotanyItems.manaCocktail)
+				.map(f -> f.getTypedValue().getIngredient())
+				.findFirst().orElse(null);
 
-        ItemStack flask = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
-                .filter(f -> f.getTypedValue().getIngredient().getItem() == BotaniaItems.brewFlask)
-                .map(f -> f.getTypedValue().getIngredient())
-                .findFirst().orElse(null);
+		ItemStack flask = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
+				.filter(f -> f.getTypedValue().getIngredient().getItem() == BotaniaItems.brewFlask)
+				.map(f -> f.getTypedValue().getIngredient())
+				.findFirst().orElse(null);
 
-        List<List<ItemStack>> inputs = new ArrayList<>();
+		List<List<ItemStack>> inputs = new ArrayList<>();
 
-        inputs.add(Collections.singletonList(
-                cocktail != null ? cocktail.copy() : ManaCocktailItem.getDefaultCocktail()
-        ));
+		inputs.add(Collections.singletonList(
+				cocktail != null ? cocktail.copy() : ManaCocktailItem.getDefaultCocktail()
+		));
 
-        List<ItemStack> flasks = new ArrayList<>();
-        if (flask != null) {
-            flasks.add(flask.copy());
-        } else {
-            BotaniaAPI.instance().getBrewRegistry().forEach(brew -> {
-                ItemStack flaskStack = new ItemStack(BotaniaItems.brewFlask);
-                BrewUtil.setBrew(flaskStack, brew);
-                flasks.add(flaskStack);
-            });
-        }
-        inputs.add(flasks);
+		List<ItemStack> flasks = new ArrayList<>();
+		if (flask != null) {
+			flasks.add(flask.copy());
+		} else {
+			BotaniaAPI.instance().getBrewRegistry().forEach(brew -> {
+				ItemStack flaskStack = new ItemStack(BotaniaItems.brewFlask);
+				BrewUtil.setBrew(flaskStack, brew);
+				flasks.add(flaskStack);
+			});
+		}
+		inputs.add(flasks);
 
-        helper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK, inputs, 0, 0);
+		helper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK, inputs, 0, 0);
 
-        ItemStack output = new ItemStack(ExtraBotanyItems.manaCocktail);
-        if (flask != null) {
-            BrewUtil.setBrew(output, BrewUtil.getBrew(flask));
-        }
+		ItemStack output = new ItemStack(ExtraBotanyItems.manaCocktail);
+		if (flask != null) {
+			BrewUtil.setBrew(output, BrewUtil.getBrew(flask));
+		}
 
-        helper.createAndSetOutputs(builder, VanillaTypes.ITEM_STACK, List.of(output));
-    }
+		helper.createAndSetOutputs(builder, VanillaTypes.ITEM_STACK, List.of(output));
+	}
 }

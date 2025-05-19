@@ -1,7 +1,7 @@
 package io.github.lounode.extrabotany.common.entity.gaia.behavior;
 
 import com.google.common.collect.ImmutableMap;
-import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -11,74 +11,76 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
 import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class GaiaSmashBlocksAround <E extends Gaia> extends Behavior<E> {
+import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 
-    protected static final TagKey<Block> BLACKLIST = BotaniaTags.Blocks.GAIA_BREAK_BLACKLIST;
-    protected static final List<ResourceLocation> CHEATY_BLOCKS = Arrays.asList(
-            ResourceLocation.tryBuild("openblocks", "beartrap"),
-            ResourceLocation.tryBuild("thaumictinkerer", "magnet")
-    );
+public class GaiaSmashBlocksAround<E extends Gaia> extends Behavior<E> {
 
-    public GaiaSmashBlocksAround() {
-        super(ImmutableMap.of(
+	protected static final TagKey<Block> BLACKLIST = BotaniaTags.Blocks.GAIA_BREAK_BLACKLIST;
+	protected static final List<ResourceLocation> CHEATY_BLOCKS = Arrays.asList(
+			ResourceLocation.tryBuild("openblocks", "beartrap"),
+			ResourceLocation.tryBuild("thaumictinkerer", "magnet")
+	);
 
-        ));
-    }
+	public GaiaSmashBlocksAround() {
+		super(ImmutableMap.of(
 
-    @Override
-    protected boolean canStillUse(ServerLevel level, E entity, long gameTime) {
-        return true;
-    }
+		));
+	}
 
-    @Override
-    protected void tick(ServerLevel level, E gaia, long gameTime) {
-        smashBlocksAround(gaia, Mth.floor(gaia.getX()), Mth.floor(gaia.getY()), Mth.floor(gaia.getZ()), 1);
-    }
+	@Override
+	protected boolean canStillUse(ServerLevel level, E entity, long gameTime) {
+		return true;
+	}
 
-    protected void smashBlocksAround(Gaia gaia, int centerX, int centerY, int centerZ, int radius) {
-        for (int dx = -radius; dx <= radius; dx++) {
-            for (int dy = -radius; dy <= radius + 1; dy++) {
-                for (int dz = -radius; dz <= radius; dz++) {
-                    int x = centerX + dx;
-                    int y = centerY + dy;
-                    int z = centerZ + dz;
+	@Override
+	protected void tick(ServerLevel level, E gaia, long gameTime) {
+		smashBlocksAround(gaia, Mth.floor(gaia.getX()), Mth.floor(gaia.getY()), Mth.floor(gaia.getZ()), 1);
+	}
 
-                    BlockPos pos = new BlockPos(x, y, z);
-                    BlockState state = gaia.level().getBlockState(pos);
-                    Block block = state.getBlock();
+	protected void smashBlocksAround(Gaia gaia, int centerX, int centerY, int centerZ, int radius) {
+		for (int dx = -radius; dx <= radius; dx++) {
+			for (int dy = -radius; dy <= radius + 1; dy++) {
+				for (int dz = -radius; dz <= radius; dz++) {
+					int x = centerX + dx;
+					int y = centerY + dy;
+					int z = centerZ + dz;
 
-                    if (state.getDestroySpeed(gaia.level(), pos) == -1) {
-                        continue;
-                    }
+					BlockPos pos = new BlockPos(x, y, z);
+					BlockState state = gaia.level().getBlockState(pos);
+					Block block = state.getBlock();
 
-                    if (CHEATY_BLOCKS.contains(BuiltInRegistries.BLOCK.getKey(block))) {
-                        gaia.level().destroyBlock(pos, true);
-                        continue;
-                    }
+					if (state.getDestroySpeed(gaia.level(), pos) == -1) {
+						continue;
+					}
 
-                    //don't break blacklisted blocks
-                    if (state.is(BLACKLIST)) {
-                        continue;
-                    }
-                    //don't break the floor
-                    if (y < gaia.getHome().pos().getY()) {
-                        continue;
-                    }
-                    //don't break blocks in pylon columns
-                    if (Math.abs(gaia.getHome().pos().getX() - x) == 4 && Math.abs(gaia.getHome().pos().getZ() - z) == 4) {
-                        continue;
-                    }
+					if (CHEATY_BLOCKS.contains(BuiltInRegistries.BLOCK.getKey(block))) {
+						gaia.level().destroyBlock(pos, true);
+						continue;
+					}
 
-                    gaia.level().destroyBlock(pos, true);
-                }
-            }
-        }
-    }
+					//don't break blacklisted blocks
+					if (state.is(BLACKLIST)) {
+						continue;
+					}
+					//don't break the floor
+					if (y < gaia.getHome().pos().getY()) {
+						continue;
+					}
+					//don't break blocks in pylon columns
+					if (Math.abs(gaia.getHome().pos().getX() - x) == 4 && Math.abs(gaia.getHome().pos().getZ() - z) == 4) {
+						continue;
+					}
 
+					gaia.level().destroyBlock(pos, true);
+				}
+			}
+		}
+	}
 
 }

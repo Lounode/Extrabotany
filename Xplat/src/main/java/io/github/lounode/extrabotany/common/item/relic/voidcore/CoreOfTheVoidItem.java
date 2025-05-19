@@ -3,21 +3,7 @@ package io.github.lounode.extrabotany.common.item.relic.voidcore;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.github.lounode.eventwrapper.event.entity.living.*;
-import io.github.lounode.eventwrapper.event.entity.player.PlayerEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
-import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
-import io.github.lounode.extrabotany.api.item.CoreOfTheVoidVariant;
-import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
-import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
-import io.github.lounode.extrabotany.common.item.relic.voidcore.variants.Flandre;
-import io.github.lounode.extrabotany.common.item.relic.voidcore.variants.Herrscher;
-import io.github.lounode.extrabotany.common.item.relic.voidcore.variants.Jim;
-import io.github.lounode.extrabotany.common.item.relic.voidcore.variants.Steampunk;
-import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
-import io.github.lounode.extrabotany.common.util.SoundEventUtil;
+
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.RegistryAccess;
@@ -38,6 +24,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
@@ -54,320 +41,329 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import io.github.lounode.eventwrapper.event.entity.living.*;
+import io.github.lounode.eventwrapper.event.entity.player.PlayerEventWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.EventWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
+import io.github.lounode.extrabotany.api.item.CoreOfTheVoidVariant;
+import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.relic.voidcore.variants.Flandre;
+import io.github.lounode.extrabotany.common.item.relic.voidcore.variants.Herrscher;
+import io.github.lounode.extrabotany.common.item.relic.voidcore.variants.Jim;
+import io.github.lounode.extrabotany.common.item.relic.voidcore.variants.Steampunk;
+import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+import io.github.lounode.extrabotany.common.util.SoundEventUtil;
+
 @EventBusSubscriberWrapper
 public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabContents {
 
-    private static final String TAG_VARIANT = "variant";
+	private static final String TAG_VARIANT = "variant";
 
-    private static final int FLY_COST = 100;
-    private static final int CURE_COST = 200;
-    private static final int BACKFIRE_THRESHOLD = 100;
-    private static final float BACKFIRE_DAMAGE = 2.0F;
+	private static final int FLY_COST = 100;
+	private static final int CURE_COST = 200;
+	private static final int BACKFIRE_THRESHOLD = 100;
+	private static final float BACKFIRE_DAMAGE = 2.0F;
 
-    private static final List<String> playersWithFlight = Collections.synchronizedList(new ArrayList<>());
+	private static final List<String> playersWithFlight = Collections.synchronizedList(new ArrayList<>());
 
-    public CoreOfTheVoidItem(Properties properties) {
-        super(properties);
-        ExtraBotanyAPI.instance().registerCOVVariant(new Herrscher());
-        ExtraBotanyAPI.instance().registerCOVVariant(new Flandre());
-        ExtraBotanyAPI.instance().registerCOVVariant(new Jim());
-        ExtraBotanyAPI.instance().registerCOVVariant(new Steampunk());
-        Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
-    }
+	public CoreOfTheVoidItem(Properties properties) {
+		super(properties);
+		ExtraBotanyAPI.instance().registerCOVVariant(new Herrscher());
+		ExtraBotanyAPI.instance().registerCOVVariant(new Flandre());
+		ExtraBotanyAPI.instance().registerCOVVariant(new Jim());
+		ExtraBotanyAPI.instance().registerCOVVariant(new Steampunk());
+		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+	}
 
-    @Override
-    public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
-        var variants = ExtraBotanyAPI.instance().getCOVVariants();
-        for(var variant : variants.values()) {
-            ItemStack stack = new ItemStack(this);
-            ItemNBTHelper.setString(stack, TAG_VARIANT, variant.getId());
-            output.accept(stack);
-        }
-    }
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		var variants = ExtraBotanyAPI.instance().getCOVVariants();
+		for (var variant : variants.values()) {
+			ItemStack stack = new ItemStack(this);
+			ItemNBTHelper.setString(stack, TAG_VARIANT, variant.getId());
+			output.accept(stack);
+		}
+	}
 
-    @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
-        super.appendHoverText(stack, world, tooltip, flags);
-        RelicImpl.addDefaultTooltip(stack, tooltip);
-        tooltip.add(Component.translatable("extrabotany.wings." + getVariant(stack)));
-    }
-    @SubscribeEventWrapper
-    public static void updatePlayerFlyStatus(LivingEventWrapper.LivingTickEvent event) {
-        if (!(event.getEntity() instanceof Player player)) {
-            return;
-        }
-        ItemStack tiara = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, player);
+	@Override
+	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, world, tooltip, flags);
+		RelicImpl.addDefaultTooltip(stack, tooltip);
+		tooltip.add(Component.translatable("extrabotany.wings." + getVariant(stack)));
+	}
 
-        if (playersWithFlight.contains(playerStr(player))) {
-            if (shouldPlayerHaveFlight(player)) {
-                player.getAbilities().mayfly = true;
-                if (player.getAbilities().flying) {
-                    if (!player.level().isClientSide) {
-                        if (!player.isCreative() && !player.isSpectator()) {
-                            ManaItemHandler.instance().requestManaExact(tiara, player, getFlyCost(), true);
-                        }
-                    }
-                }
-            } else {
-                if (!player.isSpectator() && !player.getAbilities().instabuild) {
-                    player.getAbilities().mayfly = false;
-                    player.getAbilities().flying = false;
-                    player.getAbilities().invulnerable = false;
-                }
-                playersWithFlight.remove(playerStr(player));
-            }
-        } else if (shouldPlayerHaveFlight(player)) {
-            playersWithFlight.add(playerStr(player));
-            player.getAbilities().mayfly = true;
-        }
-    }
+	@SubscribeEventWrapper
+	public static void updatePlayerFlyStatus(LivingEventWrapper.LivingTickEvent event) {
+		if (!(event.getEntity() instanceof Player player)) {
+			return;
+		}
+		ItemStack tiara = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, player);
 
-    @Override
-    public void onWornTick(ItemStack stack, LivingEntity entity) {
-        if (entity.level().isClientSide()) {
-            return;
-        }
+		if (playersWithFlight.contains(playerStr(player))) {
+			if (shouldPlayerHaveFlight(player)) {
+				player.getAbilities().mayfly = true;
+				if (player.getAbilities().flying) {
+					if (!player.level().isClientSide) {
+						if (!player.isCreative() && !player.isSpectator()) {
+							ManaItemHandler.instance().requestManaExact(tiara, player, getFlyCost(), true);
+						}
+					}
+				}
+			} else {
+				if (!player.isSpectator() && !player.getAbilities().instabuild) {
+					player.getAbilities().mayfly = false;
+					player.getAbilities().flying = false;
+					player.getAbilities().invulnerable = false;
+				}
+				playersWithFlight.remove(playerStr(player));
+			}
+		} else if (shouldPlayerHaveFlight(player)) {
+			playersWithFlight.add(playerStr(player));
+			player.getAbilities().mayfly = true;
+		}
+	}
 
-        if (shouldBackFire(stack, entity) && entity.tickCount % 10 == 0) {
+	@Override
+	public void onWornTick(ItemStack stack, LivingEntity entity) {
+		if (entity.level().isClientSide()) {
+			return;
+		}
 
-            if (entity.hurt(damageSource(entity.level().registryAccess()), getBackfireDamage()) &&
-                    entity instanceof Player player) {
-                player.playNotifySound(ExtraBotanySounds.PLAYER_BACKFIRE, SoundSource.PLAYERS, 1, SoundEventUtil.randomPitch(player.level()));
-            }
-            return;
-        }
+		if (shouldBackFire(stack, entity) && entity.tickCount % 10 == 0) {
 
-        tryRemoveHarmfulPotion(stack, entity);
-    }
-    @SubscribeEventWrapper
-    public static void playerLoggedOut(PlayerEventWrapper.PlayerLoggedOutEvent event) {
-        String username = event.getEntity().getGameProfile().getName();
-        playersWithFlight.remove(username + ":false");
-        playersWithFlight.remove(username + ":true");
-    }
+			if (entity.hurt(damageSource(entity.level().registryAccess()), getBackfireDamage()) &&
+					entity instanceof Player player) {
+				player.playNotifySound(ExtraBotanySounds.PLAYER_BACKFIRE, SoundSource.PLAYERS, 1, SoundEventUtil.randomPitch(player.level()));
+			}
+			return;
+		}
 
+		tryRemoveHarmfulPotion(stack, entity);
+	}
 
-    private static boolean shouldPlayerHaveFlight(Player player) {
-        ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, player);
-        if (!armor.isEmpty()) {
-            var relic = XplatAbstractions.INSTANCE.findRelic(armor);
-            if (
-                    relic == null ||
-                    !relic.isRightPlayer(player) ||
-                    !ManaItemHandler.instance().requestManaExact(armor, player, getFlyCost(), false)
+	@SubscribeEventWrapper
+	public static void playerLoggedOut(PlayerEventWrapper.PlayerLoggedOutEvent event) {
+		String username = event.getEntity().getGameProfile().getName();
+		playersWithFlight.remove(username + ":false");
+		playersWithFlight.remove(username + ":true");
+	}
 
-            ) {
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
+	private static boolean shouldPlayerHaveFlight(Player player) {
+		ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, player);
+		if (!armor.isEmpty()) {
+			var relic = XplatAbstractions.INSTANCE.findRelic(armor);
+			if (relic == null ||
+					!relic.isRightPlayer(player) ||
+					!ManaItemHandler.instance().requestManaExact(armor, player, getFlyCost(), false)
 
-    private static String playerStr(Player player) {
-        return player.getGameProfile().getName() + ":" + player.level().isClientSide;
-    }
+			) {
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
 
-    public static boolean shouldBackFire(ItemStack stack, LivingEntity entity) {
-        if (
-                entity instanceof Player player &&
-                !(player.isCreative() || player.isSpectator()) &&
-                !ManaItemHandler.instance().requestManaExactForTool(stack, player, getBackfireThreshold(), false)) {
-            return true;
-        }
-        return false;
-    }
+	private static String playerStr(Player player) {
+		return player.getGameProfile().getName() + ":" + player.level().isClientSide;
+	}
 
-    public static int getFlyCost() {
-        return FLY_COST;
-    }
+	public static boolean shouldBackFire(ItemStack stack, LivingEntity entity) {
+		if (entity instanceof Player player &&
+				!(player.isCreative() || player.isSpectator()) &&
+				!ManaItemHandler.instance().requestManaExactForTool(stack, player, getBackfireThreshold(), false)) {
+			return true;
+		}
+		return false;
+	}
 
-    public static int getCureCost() {
-        return CURE_COST;
-    }
+	public static int getFlyCost() {
+		return FLY_COST;
+	}
 
-    public static int getBackfireThreshold() {
-        return BACKFIRE_THRESHOLD;
-    }
+	public static int getCureCost() {
+		return CURE_COST;
+	}
 
-    public float getBackfireDamage() {
-        return BACKFIRE_DAMAGE;
-    }
+	public static int getBackfireThreshold() {
+		return BACKFIRE_THRESHOLD;
+	}
 
-    public static String getVariant(ItemStack stack) {
-        return ItemNBTHelper.getString(stack, TAG_VARIANT, "herrscher");
-    }
+	public float getBackfireDamage() {
+		return BACKFIRE_DAMAGE;
+	}
 
-    public DamageSource damageSource(RegistryAccess access) {
-        return ExtraBotanyDamageTypes.Sources.backfireDamage(access);
-    }
+	public static String getVariant(ItemStack stack) {
+		return ItemNBTHelper.getString(stack, TAG_VARIANT, "herrscher");
+	}
 
-    /*
-    public static FlyManager getFlyManager() {
-        return flyManager;
-    }
+	public DamageSource damageSource(RegistryAccess access) {
+		return ExtraBotanyDamageTypes.Sources.backfireDamage(access);
+	}
 
-    public static class FlyManager {
-        Map<UUID, Boolean> players = new HashMap<>();
+	/*
+	public static FlyManager getFlyManager() {
+		return flyManager;
+	}
+	
+	public static class FlyManager {
+		Map<UUID, Boolean> players = new HashMap<>();
+	
+		public void tick(MinecraftServer server) {
+			List<ServerPlayer> players = server.getPlayerList().getPlayers();
+	
+			for (var player : players) {
+				ItemStack core = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, player);
+	
+			}
+		}
+	}
+	*/
+	@Override
+	public boolean hasRender(ItemStack stack, LivingEntity living) {
+		return super.hasRender(stack, living) && living instanceof Player;
+	}
 
-        public void tick(MinecraftServer server) {
-            List<ServerPlayer> players = server.getPlayerList().getPlayers();
+	public static class Renderer implements AccessoryRenderer {
+		@Override
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			String variantID = getVariant(stack);
+			if (!ExtraBotanyAPI.instance().getCOVVariants().containsKey(variantID)) {
+				return;
+			}
 
-            for (var player : players) {
-                ItemStack core = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, player);
+			CoreOfTheVoidVariant variant = ExtraBotanyAPI.instance().getCOVVariants().get(variantID);
+			variant.render(bipedModel, stack, living, ms, buffers, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+		}
+	}
 
-            }
-        }
-    }
-    */
-    @Override
-    public boolean hasRender(ItemStack stack, LivingEntity living) {
-        return super.hasRender(stack, living) && living instanceof Player;
-    }
+	public static Relic makeRelic(ItemStack stack) {
+		return new RelicImpl(stack, null);
+	}
 
-    public static class Renderer implements AccessoryRenderer {
-        @Override
-        public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-            String variantID = getVariant(stack);
-            if (!ExtraBotanyAPI.instance().getCOVVariants().containsKey(variantID)) {
-                return;
-            }
+	@Override
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+		if (!world.isClientSide && entity instanceof Player player) {
+			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+			if (relic != null) {
+				relic.tickBinding(player);
+			}
+		}
+		super.inventoryTick(stack, world, entity, slot, selected);
+	}
 
-            CoreOfTheVoidVariant variant = ExtraBotanyAPI.instance().getCOVVariants().get(variantID);
-            variant.render(bipedModel, stack, living, ms, buffers, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
-        }
-    }
+	@Override
+	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+		Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
+		//TODO 反噬以及无魔力时去除Attribute
+		attributes.put(Attributes.MOVEMENT_SPEED,
+				new AttributeModifier(getBaubleUUID(stack), "Core of The Void", 0.1F, AttributeModifier.Operation.ADDITION));
+		attributes.put(Attributes.FLYING_SPEED,
+				new AttributeModifier(getBaubleUUID(stack), "Core of The Void", 0.6F, AttributeModifier.Operation.ADDITION));
 
-    public static Relic makeRelic(ItemStack stack) {
-        return new RelicImpl(stack, null);
-    }
+		return attributes;
+	}
 
-    @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-        if (!world.isClientSide && entity instanceof Player player) {
-            var relic = XplatAbstractions.INSTANCE.findRelic(stack);
-            if (relic != null) {
-                relic.tickBinding(player);
-            }
-        }
-        super.inventoryTick(stack, world, entity, slot, selected);
-    }
+	//Projectile immunity
+	@SubscribeEventWrapper
+	public static void onLivingAttack(LivingAttackEventWrapper event) {
+		LivingEntity owner = event.getEntity();
+		ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, owner);
 
-    @Override
-    public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
-        //TODO 反噬以及无魔力时去除Attribute
-        attributes.put(Attributes.MOVEMENT_SPEED,
-                new AttributeModifier(getBaubleUUID(stack), "Core of The Void", 0.1F, AttributeModifier.Operation.ADDITION));
-        attributes.put(Attributes.FLYING_SPEED,
-                new AttributeModifier(getBaubleUUID(stack), "Core of The Void", 0.6F, AttributeModifier.Operation.ADDITION));
+		if (armor.isEmpty()) {
+			return;
+		}
 
-        return attributes;
-    }
+		var relic = XplatAbstractions.INSTANCE.findRelic(armor);
+		if (relic == null ||
+				!(owner instanceof Player player) ||
+				!relic.isRightPlayer(player) ||
+				shouldBackFire(armor, player)) {
+			return;
+		}
 
-    //Projectile immunity
-    @SubscribeEventWrapper
-    public static void onLivingAttack(LivingAttackEventWrapper event) {
-        LivingEntity owner = event.getEntity();
-        ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, owner);
+		if (event.getSource().is(DamageTypeTags.IS_PROJECTILE)) {
+			event.setCanceled(true);
+		}
+	}
 
-        if (armor.isEmpty()) {
-            return;
-        }
+	@SubscribeEventWrapper
+	public static void onLivingHurt(LivingHurtEventWrapper event) {
+		LivingEntity owner = event.getEntity();
+		ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, owner);
 
-        var relic = XplatAbstractions.INSTANCE.findRelic(armor);
-        if (
-                relic == null ||
-                        !(owner instanceof Player player) ||
-                        !relic.isRightPlayer(player) ||
-                        shouldBackFire(armor, player)
-        ) {
-            return;
-        }
+		if (armor.isEmpty()) {
+			return;
+		}
 
-        if(event.getSource().is(DamageTypeTags.IS_PROJECTILE)) {
-            event.setCanceled(true);
-        }
-    }
+		var relic = XplatAbstractions.INSTANCE.findRelic(armor);
+		if (relic == null ||
+				!(owner instanceof Player player) ||
+				!relic.isRightPlayer(player) ||
+				shouldBackFire(armor, player)) {
+			return;
+		}
 
-    @SubscribeEventWrapper
-    public static void onLivingHurt(LivingHurtEventWrapper event) {
-        LivingEntity owner = event.getEntity();
-        ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, owner);
+		if (event.getSource().is(DamageTypeTags.IS_PROJECTILE)) {
+			event.setCanceled(true);
+		}
+	}
 
-        if (armor.isEmpty()) {
-            return;
-        }
+	@SubscribeEventWrapper
+	public static void onLivingDamage(LivingDamageEventWrapper event) {
+		LivingEntity owner = event.getEntity();
+		ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, owner);
 
-        var relic = XplatAbstractions.INSTANCE.findRelic(armor);
-        if (
-                relic == null ||
-                !(owner instanceof Player player) ||
-                !relic.isRightPlayer(player) ||
-                shouldBackFire(armor, player)
-        ) {
-            return;
-        }
+		if (armor.isEmpty()) {
+			return;
+		}
 
-        if(event.getSource().is(DamageTypeTags.IS_PROJECTILE)) {
-            event.setCanceled(true);
-        }
-    }
+		var relic = XplatAbstractions.INSTANCE.findRelic(armor);
+		if (relic == null ||
+				!(owner instanceof Player player) ||
+				!relic.isRightPlayer(player) ||
+				shouldBackFire(armor, player)) {
+			return;
+		}
 
-    @SubscribeEventWrapper
-    public static void onLivingDamage(LivingDamageEventWrapper event) {
-        LivingEntity owner = event.getEntity();
-        ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, owner);
+		if (event.getSource().is(DamageTypeTags.IS_PROJECTILE)) {
+			event.setCanceled(true);
+		}
+	}
 
-        if (armor.isEmpty()) {
-            return;
-        }
+	//Harmful potion remove
+	protected void tryRemoveHarmfulPotion(ItemStack stack, LivingEntity entity) {
+		List<MobEffectInstance> effects = entity.getActiveEffects().stream()
+				.filter(effect -> effect.getEffect().getCategory() == MobEffectCategory.HARMFUL)
+				.toList();
 
-        var relic = XplatAbstractions.INSTANCE.findRelic(armor);
-        if (
-                relic == null ||
-                        !(owner instanceof Player player) ||
-                        !relic.isRightPlayer(player) ||
-                        shouldBackFire(armor, player)
-        ) {
-            return;
-        }
+		if (!effects.isEmpty() &&
+				entity instanceof Player player &&
+				ManaItemHandler.instance().requestManaExactForTool(stack, player, getCureCost(), true)) {
+			effects.forEach(e -> entity.removeEffect(e.getEffect()));
+		}
+	}
 
-        if(event.getSource().is(DamageTypeTags.IS_PROJECTILE)) {
-            event.setCanceled(true);
-        }
-    }
-    //Harmful potion remove
-    protected void tryRemoveHarmfulPotion(ItemStack stack, LivingEntity entity) {
-        List<MobEffectInstance> effects = entity.getActiveEffects().stream()
-                .filter(effect -> effect.getEffect().getCategory() == MobEffectCategory.HARMFUL)
-                .toList();
+	//TODO 立即生效药水效果截断
+	@SubscribeEventWrapper
+	public static void onEffectAdd(MobEffectEventWrapper.Applicable event) {
+		LivingEntity owner = event.getEntity();
+		ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, owner);
 
-        if (
-                !effects.isEmpty() &&
-                entity instanceof Player player &&
-                ManaItemHandler.instance().requestManaExactForTool(stack, player, getCureCost(), true)
-        ) {
-            effects.forEach(e -> entity.removeEffect(e.getEffect()));
-        }
-    }
-    //TODO 立即生效药水效果截断
-    @SubscribeEventWrapper
-    public static void onEffectAdd(MobEffectEventWrapper.Applicable event) {
-        LivingEntity owner = event.getEntity();
-        ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, owner);
+		if (!armor.isEmpty() &&
+				event.getEffectInstance().getEffect().getCategory() == MobEffectCategory.HARMFUL) {
 
-        if (!armor.isEmpty() &&
-                event.getEffectInstance().getEffect().getCategory() == MobEffectCategory.HARMFUL) {
+			var relic = XplatAbstractions.INSTANCE.findRelic(armor);
+			if (relic != null &&
+					owner instanceof Player player &&
+					relic.isRightPlayer(player) &&
+					ManaItemHandler.instance().requestManaExact(armor, player, getCureCost(), true)) {
 
-            var relic = XplatAbstractions.INSTANCE.findRelic(armor);
-            if (relic != null &&
-                    owner instanceof Player player &&
-                    relic.isRightPlayer(player) &&
-                    ManaItemHandler.instance().requestManaExact(armor, player, getCureCost(), true)) {
-
-                event.setResult(EventWrapper.Result.DENY);
-            }
-        }
-    }
+				event.setResult(EventWrapper.Result.DENY);
+			}
+		}
+	}
 }

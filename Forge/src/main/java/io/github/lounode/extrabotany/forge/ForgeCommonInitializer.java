@@ -2,27 +2,7 @@ package io.github.lounode.extrabotany.forge;
 
 import com.google.common.base.Suppliers;
 import com.mojang.logging.LogUtils;
-import io.github.lounode.extrabotany.api.ExtraBotaniaRegistries;
-import io.github.lounode.extrabotany.api.ExtrabotanyForgeCapabilities;
-import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
-import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
-import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
-import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
-import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
-import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
-import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
-import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
-import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
-import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
-import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
-import io.github.lounode.extrabotany.common.item.brew.InfiniteWineItem;
-import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
-import io.github.lounode.extrabotany.common.item.relic.*;
-import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
-import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
-import io.github.lounode.extrabotany.common.lib.LibMisc;
-import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
-import io.github.lounode.extrabotany.forge.network.ForgePacketHandler;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -49,7 +29,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegisterEvent;
+
 import org.slf4j.Logger;
+
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.item.Relic;
@@ -70,180 +52,200 @@ import java.util.function.Supplier;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
+import io.github.lounode.extrabotany.api.ExtraBotaniaRegistries;
+import io.github.lounode.extrabotany.api.ExtrabotanyForgeCapabilities;
+import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
+import io.github.lounode.extrabotany.common.advancements.ExtrabotanyCriteriaTriggers;
+import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.block.block_entity.ExtraBotanyBlockEntities;
+import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
+import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
+import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.brew.InfiniteWineItem;
+import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
+import io.github.lounode.extrabotany.common.item.relic.*;
+import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
+import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
+import io.github.lounode.extrabotany.common.lib.LibMisc;
+import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+import io.github.lounode.extrabotany.forge.network.ForgePacketHandler;
+
 @Mod(LibMisc.MOD_ID)
-public class ForgeCommonInitializer
-{
-    private static final Logger LOGGER = LogUtils.getLogger();
-    public ForgeCommonInitializer()
-    {
-        ModLoadingContext context = ModLoadingContext.get();
-        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+public class ForgeCommonInitializer {
+	private static final Logger LOGGER = LogUtils.getLogger();
 
-        coreInit(context);
-        registryInit(modBus);
-        modBus.addListener(this::commonSetup);
-    }
+	public ForgeCommonInitializer() {
+		ModLoadingContext context = ModLoadingContext.get();
+		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-    public void commonSetup(FMLCommonSetupEvent evt) {
-        ForgePacketHandler.init();
-        registerEvents();
+		coreInit(context);
+		registryInit(modBus);
+		modBus.addListener(this::commonSetup);
+	}
 
-        evt.enqueueWork(() -> {
-            BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer = (resourceLocation, blockSupplier) -> ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(resourceLocation, blockSupplier);
-            ExtraBotanyBlocks.registerFlowerPotPlants(consumer);
-            ExtrabotanyFlowerBlocks.registerFlowerPotPlants(consumer);
-        });
+	public void commonSetup(FMLCommonSetupEvent evt) {
+		ForgePacketHandler.init();
+		registerEvents();
 
-        //Integration
-        if (ModList.get().isLoaded("tconstruc")) {
-            //modEventBus.addListener(this::registerTinkersMaterials);
-        }
-    }
+		evt.enqueueWork(() -> {
+			BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer = (resourceLocation, blockSupplier) -> ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(resourceLocation, blockSupplier);
+			ExtraBotanyBlocks.registerFlowerPotPlants(consumer);
+			ExtrabotanyFlowerBlocks.registerFlowerPotPlants(consumer);
+		});
 
-    private void coreInit(ModLoadingContext context) {
-        ForgeExtrabotanyConfig.setup(context);
-    }
+		//Integration
+		if (ModList.get().isLoaded("tconstruc")) {
+			//modEventBus.addListener(this::registerTinkersMaterials);
+		}
+	}
 
-    private void registryInit(IEventBus modEventBus) {
-        bind(modEventBus, Registries.SOUND_EVENT, ExtraBotanySounds::init);
-        //Block&ItemBlock&Items
-        bind(modEventBus, Registries.BLOCK, ExtraBotanyBlocks::registerBlocks);
-        bindForItems(modEventBus, ExtraBotanyBlocks::registerItemBlocks);
-        bind(modEventBus, Registries.BLOCK_ENTITY_TYPE, ExtraBotanyBlockEntities::registerTiles);
-        bindForItems(modEventBus, ExtraBotanyItems::registerItems);
+	private void coreInit(ModLoadingContext context) {
+		ForgeExtrabotanyConfig.setup(context);
+	}
 
-        bind(modEventBus,Registries.BLOCK, ExtrabotanyFlowerBlocks::registerBlocks);
-        bindForItems(modEventBus, ExtrabotanyFlowerBlocks::registerItemBlocks);
-        bind(modEventBus, Registries.BLOCK_ENTITY_TYPE, ExtrabotanyFlowerBlocks::registerTEs);
+	private void registryInit(IEventBus modEventBus) {
+		bind(modEventBus, Registries.SOUND_EVENT, ExtraBotanySounds::init);
+		//Block&ItemBlock&Items
+		bind(modEventBus, Registries.BLOCK, ExtraBotanyBlocks::registerBlocks);
+		bindForItems(modEventBus, ExtraBotanyBlocks::registerItemBlocks);
+		bind(modEventBus, Registries.BLOCK_ENTITY_TYPE, ExtraBotanyBlockEntities::registerTiles);
+		bindForItems(modEventBus, ExtraBotanyItems::registerItems);
 
-        //GUI & Recipe
-        bind(modEventBus, Registries.RECIPE_SERIALIZER, ExtraBotanyItems::registerRecipeSerializers);
-        bind(modEventBus, Registries.RECIPE_TYPE, ExtraBotanyRecipeTypes::submitRecipeTypes);
-        bind(modEventBus, Registries.RECIPE_SERIALIZER, ExtraBotanyRecipeTypes::submitRecipeSerializers);
+		bind(modEventBus, Registries.BLOCK, ExtrabotanyFlowerBlocks::registerBlocks);
+		bindForItems(modEventBus, ExtrabotanyFlowerBlocks::registerItemBlocks);
+		bind(modEventBus, Registries.BLOCK_ENTITY_TYPE, ExtrabotanyFlowerBlocks::registerTEs);
 
-        // Entities
-        bind(modEventBus, Registries.ENTITY_TYPE, ExtraBotanyEntityType::registerEntities);
-        modEventBus.addListener((EntityAttributeCreationEvent e) -> ExtraBotanyEntityType.registerAttributes((type, builder) -> e.put(type, builder.build())));
-        bind(modEventBus, Registries.MEMORY_MODULE_TYPE, ExtraBotanyMemoryType::registerMemories);
+		//GUI & Recipe
+		bind(modEventBus, Registries.RECIPE_SERIALIZER, ExtraBotanyItems::registerRecipeSerializers);
+		bind(modEventBus, Registries.RECIPE_TYPE, ExtraBotanyRecipeTypes::submitRecipeTypes);
+		bind(modEventBus, Registries.RECIPE_SERIALIZER, ExtraBotanyRecipeTypes::submitRecipeSerializers);
 
-        // Potions
-        bind(modEventBus, Registries.MOB_EFFECT, ExtraBotanyMobEffects::registerPotions);
-        bind(modEventBus, BotaniaRegistries.BREWS, ExtraBotanyBrews::submitRegistrations);
+		// Entities
+		bind(modEventBus, Registries.ENTITY_TYPE, ExtraBotanyEntityType::registerEntities);
+		modEventBus.addListener((EntityAttributeCreationEvent e) -> ExtraBotanyEntityType.registerAttributes((type, builder) -> e.put(type, builder.build())));
+		bind(modEventBus, Registries.MEMORY_MODULE_TYPE, ExtraBotanyMemoryType::registerMemories);
 
-        // Rest
-        //registerDatas(modEventBus);
+		// Potions
+		bind(modEventBus, Registries.MOB_EFFECT, ExtraBotanyMobEffects::registerPotions);
+		bind(modEventBus, BotaniaRegistries.BREWS, ExtraBotanyBrews::submitRegistrations);
 
-        ExtrabotanyCriteriaTriggers.init();
+		// Rest
+		//registerDatas(modEventBus);
 
-        //Creative tab
-        bind(modEventBus, Registries.CREATIVE_MODE_TAB, consumer -> {
-            consumer.accept(CreativeModeTab.builder()
-                            .title(Component.translatable("itemGroup.extrabotany").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
-                            .hideTitle()
-                            .icon(() -> new ItemStack(ExtraBotanyItems.zadkiel))
-                            //.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
-                            .backgroundSuffix("extrabotany.png")
-                            //.withSearchBar()
-                            .build(),
-                    ExtraBotaniaRegistries.EXTRA_BOTANIA_TAB_KEY.location());
-        });
+		ExtrabotanyCriteriaTriggers.init();
 
-        modEventBus.addListener((BuildCreativeModeTabContentsEvent e) -> {
-            if (e.getTabKey() == ExtraBotaniaRegistries.EXTRA_BOTANIA_TAB_KEY) {
-                for (Item item : this.itemsToAddToCreativeTab) {
-                    if (item instanceof CustomCreativeTabContents cc) {
-                        cc.addToCreativeTab(item, e);
-                    } else if (item instanceof BlockItem bi && bi.getBlock() instanceof CustomCreativeTabContents cc) {
-                        cc.addToCreativeTab(item, e);
-                    } else {
-                        e.accept(item);
-                    }
-                }
-            }
-        });
+		//Creative tab
+		bind(modEventBus, Registries.CREATIVE_MODE_TAB, consumer -> {
+			consumer.accept(CreativeModeTab.builder()
+					.title(Component.translatable("itemGroup.extrabotany").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
+					.hideTitle()
+					.icon(() -> new ItemStack(ExtraBotanyItems.zadkiel))
+					//.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
+					.backgroundSuffix("extrabotany.png")
+					//.withSearchBar()
+					.build(),
+					ExtraBotaniaRegistries.EXTRA_BOTANIA_TAB_KEY.location());
+		});
 
-    }
+		modEventBus.addListener((BuildCreativeModeTabContentsEvent e) -> {
+			if (e.getTabKey() == ExtraBotaniaRegistries.EXTRA_BOTANIA_TAB_KEY) {
+				for (Item item : this.itemsToAddToCreativeTab) {
+					if (item instanceof CustomCreativeTabContents cc) {
+						cc.addToCreativeTab(item, e);
+					} else if (item instanceof BlockItem bi && bi.getBlock() instanceof CustomCreativeTabContents cc) {
+						cc.addToCreativeTab(item, e);
+					} else {
+						e.accept(item);
+					}
+				}
+			}
+		});
 
-    private void registerEvents() {
-        IEventBus bus = MinecraftForge.EVENT_BUS;
-        bus.addGenericListener(ItemStack.class, this::attachItemCaps);
-        bus.addGenericListener(Level.class, this::attachLevelCaps);
+	}
 
-        bus.addListener(this::registerFuels);
-    }
+	private void registerEvents() {
+		IEventBus bus = MinecraftForge.EVENT_BUS;
+		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
+		bus.addGenericListener(Level.class, this::attachLevelCaps);
 
-    private void registerFuels(FurnaceFuelBurnTimeEvent e) {
-        //TODO 可配置燃烧时间
-    }
+		bus.addListener(this::registerFuels);
+	}
 
-    private void attachLevelCaps(AttachCapabilitiesEvent<Level> event) {
+	private void registerFuels(FurnaceFuelBurnTimeEvent e) {
+		//TODO 可配置燃烧时间
+	}
 
-    }
+	private void attachLevelCaps(AttachCapabilitiesEvent<Level> event) {
 
-    private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {
-        var stack = e.getObject();
+	}
 
-        if (stack.getItem() instanceof BaubleItem
-                && EquipmentHandler.instance instanceof CurioIntegration ci) {
-            e.addCapability(prefix("curio"), ci.initCapability(stack));
-        }
+	private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {
+		var stack = e.getObject();
 
-        var makeManaItem = MANA_ITEM.get().get(stack.getItem());
-        if (makeManaItem != null) {
-            e.addCapability(prefix("mana_item"),
-                    CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_ITEM, makeManaItem.apply(stack)));
-        }
+		if (stack.getItem() instanceof BaubleItem
+				&& EquipmentHandler.instance instanceof CurioIntegration ci) {
+			e.addCapability(prefix("curio"), ci.initCapability(stack));
+		}
 
-        var makeNatureEnergyItem = NATURE_ENERGY_ITEM.get().get(stack.getItem());
-        if (makeNatureEnergyItem != null) {
-            e.addCapability(prefix("nature_energy_item"),
-                    CapabilityUtil.makeProvider(ExtrabotanyForgeCapabilities.NATURE_ENERGY_ITEM, makeNatureEnergyItem.apply(stack)));
-        }
+		var makeManaItem = MANA_ITEM.get().get(stack.getItem());
+		if (makeManaItem != null) {
+			e.addCapability(prefix("mana_item"),
+					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_ITEM, makeManaItem.apply(stack)));
+		}
 
-        var makeRelic = RELIC.get().get(stack.getItem());
-        if (makeRelic != null) {
-            e.addCapability(prefix("relic"),
-                    CapabilityUtil.makeProvider(BotaniaForgeCapabilities.RELIC, makeRelic.apply(stack)));
-        }
-    }
+		var makeNatureEnergyItem = NATURE_ENERGY_ITEM.get().get(stack.getItem());
+		if (makeNatureEnergyItem != null) {
+			e.addCapability(prefix("nature_energy_item"),
+					CapabilityUtil.makeProvider(ExtrabotanyForgeCapabilities.NATURE_ENERGY_ITEM, makeNatureEnergyItem.apply(stack)));
+		}
 
-    private static final Supplier<Map<Item, Function<ItemStack, NatureEnergyItem>>> NATURE_ENERGY_ITEM = Suppliers.memoize(() -> Map.of(
-            ExtraBotanyItems.natureOrb, NatureOrbItem.NatureEnergyImpl::new
-    ));
+		var makeRelic = RELIC.get().get(stack.getItem());
+		if (makeRelic != null) {
+			e.addCapability(prefix("relic"),
+					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.RELIC, makeRelic.apply(stack)));
+		}
+	}
 
-    private static final Supplier<Map<Item, Function<ItemStack, ManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(
-            ExtraBotanyItems.manaRingMaster, MasterBandOfManaItem.ExtendManaItemImpl::new
-    ));
-    private static final Supplier<Map<Item, Function<ItemStack, Relic>>> RELIC = Suppliers.memoize(() -> Map.of(
-            ExtraBotanyItems.manaRingMaster, MasterBandOfManaItem::makeRelic,
-            ExtraBotanyItems.camera, CameraItem::makeRelic,
-            ExtraBotanyItems.failnaught, FailnaughtItem::makeRelic,
-            ExtraBotanyItems.excalibur, ExcaliburItem::makeRelic,
-            ExtraBotanyItems.coreOfTheVoid, CoreOfTheVoidItem::makeRelic,
-            ExtraBotanyItems.pandorasBox, PandorasBoxItem::makeRelic,
-            ExtraBotanyItems.infiniteWine, InfiniteWineItem::makeRelic,
-            ExtraBotanyItems.voidArchives, VoidArchivesItem::makeRelic
-    ));
+	private static final Supplier<Map<Item, Function<ItemStack, NatureEnergyItem>>> NATURE_ENERGY_ITEM = Suppliers.memoize(() -> Map.of(
+			ExtraBotanyItems.natureOrb, NatureOrbItem.NatureEnergyImpl::new
+	));
 
+	private static final Supplier<Map<Item, Function<ItemStack, ManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(
+			ExtraBotanyItems.manaRingMaster, MasterBandOfManaItem.ExtendManaItemImpl::new
+	));
+	private static final Supplier<Map<Item, Function<ItemStack, Relic>>> RELIC = Suppliers.memoize(() -> Map.of(
+			ExtraBotanyItems.manaRingMaster, MasterBandOfManaItem::makeRelic,
+			ExtraBotanyItems.camera, CameraItem::makeRelic,
+			ExtraBotanyItems.failnaught, FailnaughtItem::makeRelic,
+			ExtraBotanyItems.excalibur, ExcaliburItem::makeRelic,
+			ExtraBotanyItems.coreOfTheVoid, CoreOfTheVoidItem::makeRelic,
+			ExtraBotanyItems.pandorasBox, PandorasBoxItem::makeRelic,
+			ExtraBotanyItems.infiniteWine, InfiniteWineItem::makeRelic,
+			ExtraBotanyItems.voidArchives, VoidArchivesItem::makeRelic
+	));
 
+	private static <T> void bind(IEventBus modEventBus, ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
+		modEventBus.addListener((RegisterEvent event) -> {
+			if (registry.equals(event.getRegistryKey())) {
+				source.accept((t, rl) -> event.register(registry, rl, () -> t));
+			}
+		});
+	}
 
-    private static <T> void bind(IEventBus modEventBus, ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
-        modEventBus.addListener((RegisterEvent event) -> {
-            if (registry.equals(event.getRegistryKey())) {
-                source.accept((t, rl) -> event.register(registry, rl, () -> t));
-            }
-        });
-    }
+	private final Set<Item> itemsToAddToCreativeTab = new LinkedHashSet<>();
 
-    private final Set<Item> itemsToAddToCreativeTab = new LinkedHashSet<>();
-    private void bindForItems(IEventBus modEventBus, Consumer<BiConsumer<Item, ResourceLocation>> source) {
-        modEventBus.addListener((RegisterEvent event) -> {
-            if (event.getRegistryKey().equals(Registries.ITEM)) {
-                source.accept((t, rl) -> {
-                    itemsToAddToCreativeTab.add(t);
-                    event.register(Registries.ITEM, rl, () -> t);
-                });
-            }
-        });
-    }
+	private void bindForItems(IEventBus modEventBus, Consumer<BiConsumer<Item, ResourceLocation>> source) {
+		modEventBus.addListener((RegisterEvent event) -> {
+			if (event.getRegistryKey().equals(Registries.ITEM)) {
+				source.accept((t, rl) -> {
+					itemsToAddToCreativeTab.add(t);
+					event.register(Registries.ITEM, rl, () -> t);
+				});
+			}
+		});
+	}
 }

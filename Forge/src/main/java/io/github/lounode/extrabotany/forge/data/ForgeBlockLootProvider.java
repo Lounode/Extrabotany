@@ -7,19 +7,19 @@ import net.minecraft.data.DataProvider;
 import java.util.concurrent.CompletableFuture;
 
 public class ForgeBlockLootProvider implements DataProvider {
-    private final DataGenerator generator;
+	private final DataGenerator generator;
 
-    public ForgeBlockLootProvider(DataGenerator generator) {
-        this.generator = generator;
-    }
+	public ForgeBlockLootProvider(DataGenerator generator) {
+		this.generator = generator;
+	}
 
-    @Override
-    public CompletableFuture<?> run(CachedOutput cache) {
-        return CompletableFuture.completedFuture(null);
-    }
+	@Override
+	public CompletableFuture<?> run(CachedOutput cache) {
+		return CompletableFuture.completedFuture(null);
+	}
 
-    @Override
-    public String getName() {
-        return "ExtraBotany block loot (Forge-specific)";
-    }
+	@Override
+	public String getName() {
+		return "ExtraBotany block loot (Forge-specific)";
+	}
 }

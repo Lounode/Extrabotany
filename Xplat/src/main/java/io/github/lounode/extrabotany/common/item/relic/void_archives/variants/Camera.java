@@ -1,10 +1,5 @@
 package io.github.lounode.extrabotany.common.item.relic.void_archives.variants;
 
-import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
-import io.github.lounode.extrabotany.common.item.relic.CameraItem;
-import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
-import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
-import io.github.lounode.extrabotany.common.util.SoundEventUtil;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -21,68 +16,74 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
+import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
+import io.github.lounode.extrabotany.common.item.relic.CameraItem;
+import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
+import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
+import io.github.lounode.extrabotany.common.util.SoundEventUtil;
+
 public class Camera implements VoidArchivesVariant {
 
-    public static Camera INSTANCE = new Camera();
+	public static Camera INSTANCE = new Camera();
 
-    private static final String ID = "camera";
+	private static final String ID = "camera";
 
-    @Override
-    public String getId() {
-        return ID;
-    }
+	@Override
+	public String getId() {
+		return ID;
+	}
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        player.playNotifySound(ExtraBotanySounds.CAMERA_FOCUS, SoundSource.PLAYERS, .3F, SoundEventUtil.randomPitch(level));
-        return ItemUtils.startUsingInstantly(level, player, hand);
-    }
+	@Override
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+		player.playNotifySound(ExtraBotanySounds.CAMERA_FOCUS, SoundSource.PLAYERS, .3F, SoundEventUtil.randomPitch(level));
+		return ItemUtils.startUsingInstantly(level, player, hand);
+	}
 
-    @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        if (!(entity instanceof Player player)) {
-            return;
-        }
-        ItemStack usingItem = player.getUseItem();
+	@Override
+	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+		if (!(entity instanceof Player player)) {
+			return;
+		}
+		ItemStack usingItem = player.getUseItem();
 
-        if (usingItem.isEmpty() || !(usingItem.getItem() instanceof VoidArchivesItem)) {
-            return;
-        }
-        AABB bounds = CameraItem.getFreezeBounds(player);
+		if (usingItem.isEmpty() || !(usingItem.getItem() instanceof VoidArchivesItem)) {
+			return;
+		}
+		AABB bounds = CameraItem.getFreezeBounds(player);
 
-        List<LivingEntity> targets = player.level().getEntitiesOfClass(LivingEntity.class, bounds).stream()
-                .filter(e -> !e.equals(player))
-                .filter(e -> e.getTeam() == null || !e.getTeam().isAlliedTo(player.getTeam()))
-                .toList();
+		List<LivingEntity> targets = player.level().getEntitiesOfClass(LivingEntity.class, bounds).stream()
+				.filter(e -> !e.equals(player))
+				.filter(e -> e.getTeam() == null || !e.getTeam().isAlliedTo(player.getTeam()))
+				.toList();
 
-        for (LivingEntity target : targets) {
-            target.addEffect(new MobEffectInstance(
-                    MobEffects.GLOWING,
-                    2,
-                    0,
-                    false,
-                    true,
-                    true
-            ));
-        }
-    }
+		for (LivingEntity target : targets) {
+			target.addEffect(new MobEffectInstance(
+					MobEffects.GLOWING,
+					2,
+					0,
+					false,
+					true,
+					true
+			));
+		}
+	}
 
-    @Override
-    public void releaseUsing(ItemStack stack, Level world, LivingEntity entity, int timeLeft) {
-        if (!(entity instanceof Player player)) {
-            return;
-        }
+	@Override
+	public void releaseUsing(ItemStack stack, Level world, LivingEntity entity, int timeLeft) {
+		if (!(entity instanceof Player player)) {
+			return;
+		}
 
-        CameraItem.executeCapture(world, player, player.getUsedItemHand());
-    }
+		CameraItem.executeCapture(world, player, player.getUsedItemHand());
+	}
 
-    @Override
-    public int getUseDuration(ItemStack stack) {
-        return 1200;
-    }
+	@Override
+	public int getUseDuration(ItemStack stack) {
+		return 1200;
+	}
 
-    @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.SPYGLASS;
-    }
+	@Override
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.SPYGLASS;
+	}
 }

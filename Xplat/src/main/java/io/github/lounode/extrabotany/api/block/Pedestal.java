@@ -3,12 +3,12 @@ package io.github.lounode.extrabotany.api.block;
 import net.minecraft.world.item.ItemStack;
 
 public interface Pedestal {
-    int getStrikes();
+	int getStrikes();
 
-    void setStrikes(int strikes);
+	void setStrikes(int strikes);
 
-    int getTier();
+	int getTier();
 
-    void setItem(ItemStack stack);
-    ItemStack getItem();
+	void setItem(ItemStack stack);
+	ItemStack getItem();
 }
