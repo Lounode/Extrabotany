@@ -43,7 +43,7 @@ jobs:
       - name: Build with Gradle
         run: |
           RELEASE_MODE=${{ startsWith(github.ref, 'refs/tags/release-') && '1' || '0' }} \
-          ./gradlew pmdMain build
+          ./gradlew pmdMain spotlessJavaCheck build
       - name: PMD report
         uses: jwgmeligmeyling/pmd-github-action@v1
         if: failure()
@@ -53,6 +53,17 @@ jobs:
         run: ./scripts/check_datagen.sh
       - name: Stop Gradle
         run: ./gradlew --stop
+
+      - name: Sign jars
+        env:
+          SIGNING_KEY: ${{ secrets.LOUNODE_SIGN_KEY }}
+        if: ${{ env.SIGNING_KEY != '' }}
+        run: |
+          echo "${SIGNING_KEY}" | gpg --import -
+          gpg --local-user "lounode" --armor \
+            --detach-sign ${{ steps.calculate_artifact_names.outputs.forge }}
+          gpg --local-user "lounode" --armor \
+            --detach-sign ${{ steps.calculate_artifact_names.outputs.fabric }}
 
       - name: Archive Fabric Artifacts
         uses: actions/upload-artifact@v4
@@ -73,7 +84,9 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
-        run: ./gradlew publish
+        run: |
+          RELEASE_MODE=${{ startsWith(github.ref, 'refs/tags/release-') && '1' || '0' }} \
+          ./gradlew publish
 
       - name: Upload Releases
         if: startsWith(github.ref, 'refs/tags/release-')
