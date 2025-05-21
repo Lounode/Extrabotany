@@ -29,11 +29,26 @@ import static vazkii.botania.common.lib.LibBlockNames.SLAB_SUFFIX;
 import static vazkii.botania.common.lib.LibBlockNames.STAIR_SUFFIX;
 
 public final class ExtraBotanyBlocks {
-	public static final Block orichalcosBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.of().strength(3, 10).mapColor(MapColor.TERRACOTTA_PINK)
-			.sound(SoundType.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops());
-	public static final Block photoniumBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(orichalcosBlock).mapColor(MapColor.TERRACOTTA_WHITE));
-	public static final Block shadowiumBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(orichalcosBlock).mapColor(MapColor.COLOR_BLACK));
-	public static final Block aerialiteBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(orichalcosBlock).mapColor(MapColor.LAPIS));
+
+	public static final Block shadowiumBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.of()
+			.strength(3, 10)
+			.sound(SoundType.METAL)
+			.instrument(NoteBlockInstrument.IRON_XYLOPHONE)
+			.mapColor(MapColor.COLOR_BLACK)
+			.requiresCorrectToolForDrops()
+	);
+	public static final Block photoniumBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(shadowiumBlock)
+			.mapColor(MapColor.TERRACOTTA_WHITE)
+			.lightLevel((state) -> 15)
+	);
+	public static final Block aerialiteBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(photoniumBlock)
+			.mapColor(MapColor.LAPIS)
+	);
+	public static final Block orichalcosBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.of()
+			.strength(10, 1200.0F)
+			.instrument(NoteBlockInstrument.BASEDRUM)
+			.mapColor(MapColor.TERRACOTTA_PURPLE)
+	);
 	public static final Block dimensionCatalyst = new DimensionCatalystBlock(BlockBehaviour.Properties.copy(BotaniaBlocks.livingrock));
 	public static final Block livingrockPedestal = new PedestalBlock(PedestalBlock.Variant.LIVINGROCK, BlockBehaviour.Properties.of()
 			.strength(3.5F)
@@ -41,8 +56,9 @@ public final class ExtraBotanyBlocks {
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
 			.mapColor(MapColor.TERRACOTTA_WHITE));
-
-	public static final Block[] ALL_PEDESTALS = new Block[] { livingrockPedestal };
+	public static final Block calcitePedestal = new PedestalBlock(PedestalBlock.Variant.CALCITE, BlockBehaviour.Properties.copy(livingrockPedestal)
+			.sound(SoundType.CALCITE));
+	public static final Block[] ALL_PEDESTALS = new Block[] { livingrockPedestal, calcitePedestal };
 	public static final Block powerFrame = new PowerFrameBlock(BlockBehaviour.Properties.copy(Blocks.SPAWNER));
 	public static final Block manaCharger = new ManaChargerBlock(BlockBehaviour.Properties.copy(BotaniaBlocks.livingwood)
 			.explosionResistance(1.0F)
@@ -91,6 +107,7 @@ public final class ExtraBotanyBlocks {
 
 		//Pedestal
 		r.accept(livingrockPedestal, prefix(LibBlockNames.PEDESTAL_PREFIX + PedestalBlock.Variant.LIVINGROCK.name().toLowerCase(Locale.ROOT)));
+		r.accept(calcitePedestal, prefix(LibBlockNames.PEDESTAL_PREFIX + PedestalBlock.Variant.CALCITE.name().toLowerCase(Locale.ROOT)));
 		r.accept(powerFrame, prefix(LibBlockNames.POWER_FRAME));
 		r.accept(manaCharger, prefix(LibBlockNames.MANA_CHARGER));
 		r.accept(dimensionCatalyst, prefix(LibBlockNames.DIMENSION_CATALYST));
@@ -147,6 +164,7 @@ public final class ExtraBotanyBlocks {
 		r.accept(new BlockItem(dimensionCatalyst, props), BuiltInRegistries.BLOCK.getKey(dimensionCatalyst));
 		r.accept(new BlockItem(powerFrame, props), BuiltInRegistries.BLOCK.getKey(powerFrame));
 		r.accept(new BlockItem(livingrockPedestal, props), BuiltInRegistries.BLOCK.getKey(livingrockPedestal));
+		r.accept(new BlockItem(calcitePedestal, props), BuiltInRegistries.BLOCK.getKey(calcitePedestal));
 		r.accept(new BlockItem(manaCharger, props), BuiltInRegistries.BLOCK.getKey(manaCharger));
 
 	}

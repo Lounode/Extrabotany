@@ -55,6 +55,7 @@ public class PedestalBlock extends BotaniaWaterloggedBlock implements EntityBloc
 
 	public enum Variant implements PedestalVariant {
 		LIVINGROCK,
+		CALCITE,
 	}
 
 	public final PedestalVariant variant;

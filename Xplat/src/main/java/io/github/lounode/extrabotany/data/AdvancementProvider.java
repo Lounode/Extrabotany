@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.data;
 
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.*;
@@ -8,9 +9,11 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
+import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -54,39 +57,6 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
 					*/
 					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 					.save(consumer, mainId(LibAdvancementNames.SENBON_ZAKURA));
-			Advancement iSeeEveryThing = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.camera, LibAdvancementNames.I_SEE_EVERYTHING, FrameType.GOAL))
-					.parent(root)
-					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
-					.save(consumer, mainId(LibAdvancementNames.I_SEE_EVERYTHING));
-			Advancement hundredBlockPierce = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.failnaught, LibAdvancementNames.HUNDRED_BLOCK_PIERCE, FrameType.CHALLENGE))
-					.parent(root)
-					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
-					.save(consumer, mainId(LibAdvancementNames.HUNDRED_BLOCK_PIERCE));
-			//ManaRing
-			Advancement craftRing = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.PANDA_DO_NOT_WEAR_RINGS, FrameType.GOAL))
-					.parent(root)
-					.addCriterion("craft_ring", onPickup(ExtraBotanyItems.manaRingMaster))
-					.save(consumer, mainId(LibAdvancementNames.PANDA_DO_NOT_WEAR_RINGS));
-
-			Advancement overlord = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.OVERLOAD, FrameType.CHALLENGE))
-					.parent(craftRing)
-					.addCriterion("mana_charge", ManaChargeTrigger.TriggerInstance.manaCharged(
-							ItemPredicate.Builder.item().of(ExtraBotanyItems.manaRingMaster).build(),
-							MinMaxBoundsExtension.Longs.atLeast(MasterBandOfManaItem.ADVANCEMENT_PHASE1_REQUIRE)
-					))
-					.save(consumer, mainId(LibAdvancementNames.OVERLOAD));
-			Advancement lordOfKing = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.LOAD_OF_RING, FrameType.CHALLENGE))
-					.parent(overlord)
-					.addCriterion("mana_charge", ManaChargeTrigger.TriggerInstance.manaCharged(
-							ItemPredicate.Builder.item().of(ExtraBotanyItems.manaRingMaster).build(),
-							MinMaxBoundsExtension.Longs.atLeast(MasterBandOfManaItem.ADVANCEMENT_PHASE2_REQUIRE)
-					))
-					.save(consumer, mainId(LibAdvancementNames.LOAD_OF_RING));
 			//Pedestal
 			Advancement pedestal = Advancement.Builder.advancement()
 					.display(simple(ExtraBotanyBlocks.livingrockPedestal, LibAdvancementNames.CRAFT_PEDESTAL, FrameType.TASK))
@@ -114,16 +84,11 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
 					)
 					)
 					.save(consumer, mainId(LibAdvancementNames.DEEP_DARK_FANTASY));
-			Advancement onePunch = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.featherOfJingwei, LibAdvancementNames.ONE_PUNCH, FrameType.CHALLENGE))
-					.parent(root)
-					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
-					.save(consumer, mainId(LibAdvancementNames.ONE_PUNCH));
 			Advancement stygianTwins = Advancement.Builder.advancement()
 					.display(simple(ExtraBotanyItems.shadowium, LibAdvancementNames.STYGIAN_TWINS, FrameType.TASK))
 					.parent(goodtek)
-					.addCriterion("craft_shadowium", onPickup(ExtraBotanyItems.shadowium))
-					.addCriterion("craft_photonium", onPickup(ExtraBotanyItems.photonium))
+					.addCriterion("craft_shadowium", onPickup(ExtraBotanyTags.Items.INGOTS_SHADOWIUM))
+					.addCriterion("craft_photonium", onPickup(ExtraBotanyTags.Items.INGOTS_SHADOWIUM))
 					.save(consumer, mainId(LibAdvancementNames.STYGIAN_TWINS));
 			Advancement gaiaTrial = Advancement.Builder.advancement()
 					.display(simple(ExtraBotanyItems.challengeTicket, LibAdvancementNames.GAIA_TRIAL, FrameType.CHALLENGE))
@@ -145,8 +110,74 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
 							LocationPredicate.ANY
 					))
 					.save(consumer, mainId(LibAdvancementNames.THE_SOURCE_OF_HONKAI));
+			Advancement theOriginalDivineKey = relicBindAdvancement(
+					ExtraBotanyItems.voidArchives, LibAdvancementNames.THE_ORIGINAL_DIVINE_KEY)
+							.parent(theSourceOfHonkai)
+							.save(consumer, mainId(LibAdvancementNames.THE_ORIGINAL_DIVINE_KEY));
+			Advancement iSeeEveryThing = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.camera, LibAdvancementNames.I_SEE_EVERYTHING, FrameType.GOAL))
+					.parent(stygianTwins)
+					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.save(consumer, mainId(LibAdvancementNames.I_SEE_EVERYTHING));
+			Advancement onePunch = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.featherOfJingwei, LibAdvancementNames.ONE_PUNCH, FrameType.CHALLENGE))
+					.parent(theSourceOfHonkai)
+					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.save(consumer, mainId(LibAdvancementNames.ONE_PUNCH));
+			Advancement soulSteel = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.orichalcos, LibAdvancementNames.SOULSTEEL, FrameType.CHALLENGE))
+					.parent(theSourceOfHonkai)
+					.addCriterion("craft_orichalcos", onPickup(ExtraBotanyTags.Items.INGOTS_ORICHALCOS))
+					.save(consumer, mainId(LibAdvancementNames.SOULSTEEL));
+			//ManaRing
+			Advancement craftRing = relicBindAdvancement(
+					ExtraBotanyItems.manaRingMaster, LibAdvancementNames.PANDA_DO_NOT_WEAR_RINGS)
+							.parent(soulSteel)
+							.save(consumer, mainId(LibAdvancementNames.PANDA_DO_NOT_WEAR_RINGS));
+
+			Advancement overlord = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.OVERLOAD, FrameType.CHALLENGE))
+					.parent(craftRing)
+					.addCriterion("mana_charge", ManaChargeTrigger.TriggerInstance.manaCharged(
+							ItemPredicate.Builder.item().of(ExtraBotanyItems.manaRingMaster).build(),
+							MinMaxBoundsExtension.Longs.atLeast(MasterBandOfManaItem.ADVANCEMENT_PHASE1_REQUIRE)
+					))
+					.save(consumer, mainId(LibAdvancementNames.OVERLOAD));
+			Advancement lordOfKing = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.LOAD_OF_RING, FrameType.CHALLENGE))
+					.parent(overlord)
+					.addCriterion("mana_charge", ManaChargeTrigger.TriggerInstance.manaCharged(
+							ItemPredicate.Builder.item().of(ExtraBotanyItems.manaRingMaster).build(),
+							MinMaxBoundsExtension.Longs.atLeast(MasterBandOfManaItem.ADVANCEMENT_PHASE2_REQUIRE)
+					))
+					.save(consumer, mainId(LibAdvancementNames.LOAD_OF_RING));
+			Advancement hundredBlockPierce = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.failnaught, LibAdvancementNames.HUNDRED_BLOCK_PIERCE, FrameType.CHALLENGE))
+					.parent(soulSteel)
+					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.save(consumer, mainId(LibAdvancementNames.HUNDRED_BLOCK_PIERCE));
+			Advancement skyIsNotTheLimit = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.aerialite, LibAdvancementNames.SKY_IS_NOT_THE_LIMIT, FrameType.TASK))
+					.parent(stygianTwins)
+					.addCriterion("craft_aerialite", onPickup(ExtraBotanyTags.Items.INGOTS_AERIALITE))
+					.save(consumer, mainId(LibAdvancementNames.SKY_IS_NOT_THE_LIMIT));
+			/*
+			Advancement potatoSercer = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.gildedPotatoMashed, LibAdvancementNames.POTATO_SERVER, FrameType.TASK))
+					.parent(root)
+					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.save(consumer, mainId(LibAdvancementNames.POTATO_SERVER));
+			
+			*/
 
 		}
+	}
+
+	private static Advancement.Builder relicBindAdvancement(Item relicItem, String titleKey) {
+		return Advancement.Builder.advancement()
+				.display(simple(relicItem, titleKey, FrameType.CHALLENGE))
+				.rewards(AdvancementRewards.Builder.experience(50))
+				.addCriterion("has_relic", new RelicBindTrigger.Instance(ContextAwarePredicate.ANY, ItemPredicate.Builder.item().of(relicItem).build()));
 	}
 
 	protected static DisplayInfo simple(ItemLike icon, String name, FrameType frameType) {

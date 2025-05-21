@@ -6,7 +6,7 @@
       "item": "botania:gaia_ingot"
     },
     "O": {
-      "item": "extrabotany:orichalcos_ingot"
+      "tag": "extrabotany:orichalcos_ingots"
     },
     "S": {
       "item": "botania:mana_string"

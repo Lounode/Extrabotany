@@ -9,7 +9,6 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.SortableTool;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
@@ -19,10 +18,6 @@ import java.util.function.Consumer;
 
 public class ManasteelHammerItem extends PickaxeItem implements CustomDamageItem, SortableTool {
 	private static final int MANA_PER_DAMAGE = 60;
-
-	public ManasteelHammerItem(Properties props) {
-		this(BotaniaAPI.instance().getManasteelItemTier(), 6, -3.1F, props);
-	}
 
 	public ManasteelHammerItem(Tier tier, int attackDamageModifier, float attackSpeedModifier, Properties properties) {
 		super(tier, attackDamageModifier, attackSpeedModifier, properties);

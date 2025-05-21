@@ -93,9 +93,6 @@ legacyForge {
             systemProperty('metrics_debug', 'true')
             programArgument('--nogui')
             jvmArgument("-XX:+AllowEnhancedClassRedefinition")
-
-            programArguments.addAll("--username", "Dev")
-            programArguments.addAll("--uuid", "4f201c25-b473-4c2c-959a-dea681f79c23")
         }
 
         data {

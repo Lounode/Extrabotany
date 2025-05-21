@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "H": {
-      "item": "botania:elementium_ingot"
+      "tag": "botania:elementium_ingots"
     },
     "S": {
       "item": "botania:dreamwood_twig"

@@ -1,5 +1,9 @@
 {
   "category": "botania:extrabotanies",
+  "extra_recipe_mappings": {
+    "extrabotany:photonium_hammer": 1,
+    "extrabotany:shadowium_hammer": 1
+  },
   "icon": "extrabotany:manasteel_hammer",
   "name": "extrabotany.entry.hammers",
   "pages": [

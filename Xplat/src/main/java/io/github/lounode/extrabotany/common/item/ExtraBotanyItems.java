@@ -22,9 +22,12 @@ import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingw
 import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
 import io.github.lounode.extrabotany.common.item.equipment.shield.ManasteelShieldItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.MagicFingerItem;
+import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.ElementiumHammerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.ManasteelHammerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.RheinHammerItem;
+import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.TerrasteelHammerItem;
 import io.github.lounode.extrabotany.common.item.material.BossBattleItem;
+import io.github.lounode.extrabotany.common.item.material.GildedPotatoItem;
 import io.github.lounode.extrabotany.common.item.material.HammerTiers;
 import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
@@ -54,9 +57,9 @@ public final class ExtraBotanyItems {
 	public static final Item manasteelHammer = make(prefix(LibItemNames.MANASTEEL_HAMMER),
 			new ManasteelHammerItem(HammerTiers.MANASTEEL, 6, -3.1F, unstackableCustomDamage()));
 	public static final Item elementiumHammer = make(prefix(LibItemNames.ELEMENTIUM_HAMMER),
-			new ManasteelHammerItem(HammerTiers.ELEMENTIUM, 6, -3.1F, unstackableCustomDamage()));
+			new ElementiumHammerItem(HammerTiers.ELEMENTIUM, 6, -3.1F, unstackableCustomDamage()));
 	public static final Item terrasteelHammer = make(prefix(LibItemNames.TERRASTEEL_HAMMER),
-			new ManasteelHammerItem(HammerTiers.TERRASTEEL, 5, -3.0F, unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
+			new TerrasteelHammerItem(HammerTiers.TERRASTEEL, 5, -3.0F, unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
 	public static final Item gaiaHammer = make(prefix(LibItemNames.GAIA_HAMMER),
 			new ManasteelHammerItem(HammerTiers.GAIA, 5, -3.0F, unstackableCustomDamage().rarity(Rarity.UNCOMMON).fireResistant()));
 	public static final Item photoniumHammer = make(prefix(LibItemNames.PHOTONIUM_HAMMER),
@@ -78,6 +81,7 @@ public final class ExtraBotanyItems {
 	public static final Item camera = make(prefix(LibItemNames.CAMERA), new CameraItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
 	public static final Item failnaught = make(prefix(LibItemNames.FAILNAUGHT), new FailnaughtItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
 	public static final Item excalibur = make(prefix(LibItemNames.EXCALIBUR), new ExcaliburItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
+	//Armor
 
 	//Material
 	public static final Item orichalcos = make(prefix(LibItemNames.ORICHALCOS), new Item(defaultBuilder().rarity(Rarity.EPIC).fireResistant()));
@@ -92,7 +96,7 @@ public final class ExtraBotanyItems {
 	public static final Item elementiumQuartz = make(prefix(LibItemNames.ELEMENTIUM_QUARTZ), new Item(defaultBuilder()));
 
 	public static final Item dasRheingold = make(prefix(LibItemNames.DAS_RHEINGOLD), new Item(defaultBuilder()));
-	public static final Item gildedPotato = make(prefix(LibItemNames.GILDED_POTATO), new Item(defaultBuilder()));
+	public static final Item gildedPotato = make(prefix(LibItemNames.GILDED_POTATO), new GildedPotatoItem(defaultBuilder()));
 	public static final Item gildedPotatoMashed = make(prefix(LibItemNames.GILDED_POTATO_MASHED), new Item(defaultBuilder()));
 	public static final Item heroMedal = make(prefix(LibItemNames.HERO_MEDAL), new BossBattleItem(defaultBuilder().rarity(Rarity.UNCOMMON)));//OT
 	public static final Item challengeTicket = make(prefix(LibItemNames.CHALLENGE_TICKET), new BossBattleItem(defaultBuilder()));

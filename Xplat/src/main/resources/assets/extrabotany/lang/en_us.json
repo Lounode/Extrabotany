@@ -35,6 +35,12 @@
   "advancement.extrabotany:gaia_trial.desc": "Kill an Guardian of Gaia: III",
   "advancement.extrabotany:the_source_of_honkai": "The source of Honkai?",
   "advancement.extrabotany:the_source_of_honkai.desc": "Open a Pandora's box",
+  "advancement.extrabotany:the_original_divine_key": "The original Divine Key",
+  "advancement.extrabotany:the_original_divine_key.desc": "Be rewarded the Void Archives",
+  "advancement.extrabotany:soulsteel": "Soulsteel",
+  "advancement.extrabotany:soulsteel.desc": "Craft a Orichalcos Ingot",
+  "advancement.extrabotany:sky_is_not_the_limit": "Sky is not the Limit",
+  "advancement.extrabotany:sky_is_not_the_limit.desc": "Craft a Aerialite Ingot",
   
   "advancement.extrabotany:": "",
   
@@ -64,6 +70,7 @@
   "block.extrabotany.smooth_elementium_quartz_slab": "平滑源质石英台阶",
   "block.extrabotany.mana_charger": "Mana Charger",
   "block.extrabotany.power_frame": "Power Frame",
+  "block.extrabotany.pedestal_calcite": "Calcite Pedestal",
   
   "block.extrabotany.trade_orchid": "商友兰",
   "block.extrabotany.trade_orchid.reference": "不再需要打折机",
@@ -274,7 +281,7 @@
   
   "extrabotany.entry.yin_and_yang": "光暗双子",
   "extrabotany.page.yin_and_yang0": "向$(item)源质钢$()灌入蕴含光暗之力的$(thing)魔力$()，并用$(item)镀金土豆泥$()做催化剂，可以使其嬗变为一对彼岸双生的崭新金属材料。",
-  "extrabotany.page.yin_and_yang1": "这对金属材料拥有如下性质：WIP",
+  "extrabotany.page.yin_and_yang1": "$(item)光子锭$()制作而成的工具喜光，在白天有额外加成。$(br2)$(item)暗影锭$()制作而成的东西喜暗，在夜间有额外加成。",
   "extrabotany.page.yin_and_yang2": "天使と",
   "extrabotany.page.yin_and_yang3": "悪魔と",
   
@@ -323,9 +330,51 @@
   "extrabotany.page.nature_orb1": "$(li)$(b)$(t: 100,000自然之息)魔力的加护$()：能产出少量魔力。$(li)$(c)$(t: 300,000自然之息)再生的加护$()：会加快生命恢复。$(li)$(a)$(t: 400,000自然之息)森罗的加护$()：自动清除负面状态。$(br2)手持或佩戴$(item)自然蕴息宝珠$()时，$(k:sneak)$(k:use)多方块结构完整的盖亚仪式$(item)信标$()，此时会消耗$(t: 200,000自然之息)一定量$()的$(thing)自然之息$()，等同于使用$(item)挑战券$()召唤一次$(thing)盖亚守护者$()。",
   "extrabotany.page.nature_orb2": "森罗万象",
   "extrabotany.page.nature_orb3": "为了给它充能，你需要搭建一个$(thing)自然祭坛$()的多方块结构来获取$(thing)自然之息$()。$(br2)多方块结构具有两种等级，高级的结构获取$(thing)自然之息$()的效率也更高。$(br2)高级结构中的$(item)魔力池$()蕴含的$(thing)魔力$()可以加速$(thing)自然之息$()的获取速度。",
-  
   "extrabotany.multiblock.nature_pedestal_tier1": "自然祭坛",
   "extrabotany.multiblock.nature_pedestal_tier2": "自然祭坛（高级）",
+  
+  "extrabotany.entry.mana_cocktail": "魔力鸡尾酒",
+  "extrabotany.page.mana_cocktail0": "过度劳累后，来一杯$(item)魔力鸡尾酒$()吧，提神醒脑，永不疲劳。$(br2)使用$(item)魔法玻璃空瓶$()$(k:use)$(item)魔力池$()$(t: 25,000魔力)盛取一小杯。",
+  "extrabotany.page.mana_cocktail1": "$(o)$(m)不能长生不老",
+  "extrabotany.page.mana_cocktail2": "$(o)$(m)本品不能替代药品，使用前请确保符合所在的国家/地区有关法律法规。$(br2)$(o)$(m)并同意用户协议：我确认史蒂夫已成年。",
+  "extrabotany.page.mana_cocktail3": "当然你也可以用不同的$(thing)精酿$()来更改其药水效果。",
+  
+  "extrabotany.entry.infinite_wine": "无限之酒",
+  "extrabotany.page.infinite_wine0": "$(item)无限之酒$()是一种$(thing)携带在身上$()，可以随着时间推移慢慢补充已经被饮用掉部分的特殊遗物。$(br2)合成需要用到昂贵的$(item)英雄勋章$()，与任意满杯$(thing)鸡尾酒$()。",
+  "extrabotany.page.infinite_wine1": "其所拥有的$(thing)效果等级$()，与$(thing)持续时长$()均比原来的鸡尾酒要强，并可在$(thing)满杯$()情况下，通过与另一$(thing)满杯$()鸡尾酒合成来替换效果。",
+  "extrabotany.page.infinite_wine2": "$(o)$(m)这其实是小麦/葡萄/大麦/苹果……果汁",
+  "extrabotany.page.infinite_wine3": "七十二变",
+  
+  "extrabotany.entry.holy_water_grenade": "圣水手雷",
+  "extrabotany.page.holy_water_grenade0": "$(item)圣水手雷$()不仅仅是一种喷溅型药水容器，当它碎裂后，会将其中的正面药水效果给予$(thing)使用者$()，负面药水效果给予其他实体。$(br2)合成同样需要满杯任意$(thing)鸡尾酒$()",
+  "extrabotany.page.holy_water_grenade1": "Fire in the hole！",
+  
+  "extrabotany.entry.void_archives": "虚空万藏",
+  "extrabotany.page.void_archives0": "从$(item)潘多拉魔盒$()的奖励中发现的一种遗物，只要给予足够的$(thing)魔力$()，它就能模拟如下遗物：$(li)禁忌之果$(li)无限之酒$(li)王者圣剑$(li)百中弓$(li)文文的相机$(br2)使用$(k:sneak)+$(k:use)来切换形态。",
+  "extrabotany.page.void_archives1": "$(br2)$(br2)$(br2)$(br2)$(7)你好吗，我的老伙计",
+  
+  "extrabotany.entry.herrscher": "律者",
+  "extrabotany.page.herrscher0": "曾经，这片大地上存在过一个辉煌的前文明，他们造就了如今一切自然魔法的理论基石。$(br2)然而在某天，$(thing)崩坏$()降临了。$(br2)崩坏造就了怪物，也造就了一种源自崩坏的强大生物——$(thing)律者$()",
+  
+  "extrabotany.entry.glided_potato": "镀金马铃薯",
+  "extrabotany.page.glided_potato0": "和$(item)闪烁的西瓜片$()、$(item)金胡萝卜$()一样，你现在也能给$(item)马铃薯$()镀金了。$(br2)虽然不能吃，但它却是一种优秀的合成材料，尤其是在砸碎成$(item)镀金土豆泥$()后。",
+  "extrabotany.page.glided_potato1": "镀金服务器",
+  
+  "extrabotany.entry.universe_medium": "宇宙物质",
+  "extrabotany.page.universe_medium0": "$(o)$(7)宇宙虽有起源，却没有终结——无限。$(br2)星球虽也有其起源，却因自身之力而终归毁灭——有限。$(br2)智者往往最为愚蠢，纵观历史便可得知这点。$(br2)$(br2)这可以说就是，神给那些抵抗者们的，最后通牒。",
+  "extrabotany.page.universe_medium1": "$(o)$(7)敬后来者们：$(br2)一切只是偶然，但是那个偶然，同时也是一开始决定的世界的意志。$(br2)我没有发疯，我非常正常，我只是在这里诉说真相，绝非什么中二病的幻想。$(br2)祝你们好运。$(br2)$(br2)El Psy Congroo。",
+  "extrabotany.page.universe_medium2": "起源与终结的序章",
+  "extrabotany.page.universe_medium3": "永恒本源的崩坏",
+  "extrabotany.page.universe_medium4": "伪似的阴阳共生",
+  "extrabotany.page.universe_medium5": "边界曲面的命运石之门",
+  
+  "extrabotany.entry.orichalcos": "奥力哈钢",
+  "extrabotany.page.orichalcos0": "消耗大量$(item)魔力$()与$(item)盖亚之魂$()的魂力制作出的一种上等合金。$(br2)不仅防火，还具有相当的稳定性与防爆性。",
+  "extrabotany.page.orichalcos1": "$(o)$(7)魂钢",
+  
+  "extrabotany.entry.aerialite": "天空锭",
+  "extrabotany.page.aerialite0": "天空远不是极限，因为有着$(item)天空锭$()。$(br2)这种材料做成的物品异常轻盈，挥舞和使用起来也很得心应手，强度也足矣媲美$(item)泰拉锭$()，是不可多得的好材料。",
+  "extrabotany.page.aerialite1": "泰拉瑞亚！",
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""

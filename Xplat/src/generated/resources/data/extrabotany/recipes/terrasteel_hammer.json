@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "H": {
-      "item": "botania:terrasteel_ingot"
+      "tag": "botania:terrasteel_ingots"
     },
     "S": {
       "item": "botania:livingwood_twig"

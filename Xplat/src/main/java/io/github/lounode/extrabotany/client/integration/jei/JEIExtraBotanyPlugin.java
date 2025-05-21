@@ -2,37 +2,39 @@ package io.github.lounode.extrabotany.client.integration.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IJeiRuntime;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.OrechidRecipe;
+import vazkii.botania.common.brew.BotaniaBrews;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
-import io.github.lounode.extrabotany.client.integration.jei.crafing.CopyBrewFormFlaskRecipeWrapper;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.brew.BrewUtil;
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
-import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFormFlaskRecipe;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.brew.ManaCocktailItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
@@ -43,10 +45,10 @@ public class JEIExtraBotanyPlugin implements IModPlugin {
 	@Override
 	public void registerItemSubtypes(@NotNull ISubtypeRegistration registry) {
 		IIngredientSubtypeInterpreter<ItemStack> interpreter = (stack, ctx) -> BaseBrewItem.getSubtype(stack);
-		/*registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.manaCocktail, interpreter);
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.manaCocktail, interpreter);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.infiniteWine, interpreter);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.holyWaterGrenade, interpreter);
-		
+		/*
 		
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.manaRingMaster, (stack, ctx) -> {
 			int mana = XplatAbstractions.INSTANCE.findManaItem(stack).getMana();
@@ -69,8 +71,16 @@ public class JEIExtraBotanyPlugin implements IModPlugin {
 	}
 
 	@Override
+	public void registerRecipes(@NotNull IRecipeRegistration registry) {
+		registry.addRecipes(PedestalRecipeCategory.TYPE, sortRecipes(ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE, BY_SMASH_TOOLS.thenComparing(BY_GROUP).thenComparing(BY_ID)));
+		registerCocktailRecipes(registry);
+		registerInfiniteWineRecipes(registry);
+		registerHolyWaterGrenadeRecipes(registry);
+	}
+
+	@Override
 	public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
-		registration.getCraftingCategory().addCategoryExtension(CopyBrewFormFlaskRecipe.class, CopyBrewFormFlaskRecipeWrapper::new);
+		//registration.getCraftingCategory().addCategoryExtension(CopyBrewFormFlaskRecipe.class, CopyBrewFormFlaskRecipeWrapper::new);
 	}
 
 	@Override
@@ -90,11 +100,6 @@ public class JEIExtraBotanyPlugin implements IModPlugin {
 		for (Block pedestal : ExtraBotanyBlocks.ALL_PEDESTALS) {
 			registry.addRecipeCatalyst(new ItemStack(pedestal), PedestalRecipeCategory.TYPE);
 		}
-	}
-
-	@Override
-	public void registerRecipes(@NotNull IRecipeRegistration registry) {
-		registry.addRecipes(PedestalRecipeCategory.TYPE, sortRecipes(ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE, BY_SMASH_TOOLS.thenComparing(BY_GROUP).thenComparing(BY_ID)));
 	}
 
 	@Override
@@ -122,5 +127,89 @@ public class JEIExtraBotanyPlugin implements IModPlugin {
 		List<T> list = new ArrayList<>(recipes);
 		list.sort(comparator);
 		return list;
+	}
+
+	private void registerCocktailRecipes(IRecipeRegistration registry) {
+		List<CraftingRecipe> recipes = new ArrayList<>();
+		for (var brew : BotaniaAPI.instance().getBrewRegistry()) {
+			if (brew == ExtraBotanyBrews.manaCocktail) {
+				continue;
+			}
+			if (brew == BotaniaBrews.fallbackBrew) {
+				continue;
+			}
+
+			ItemStack cocktail = ManaCocktailItem.getDefaultCocktail();
+			ItemStack flask = BotaniaItems.brewFlask.getDefaultInstance();
+			BrewUtil.setBrew(flask, brew);
+
+			ResourceLocation id = prefix("mana_cocktail_change_brew");
+			var ingredients = NonNullList.of(Ingredient.EMPTY,
+					Ingredient.of(cocktail),
+					Ingredient.of(flask)
+			);
+			ItemStack result = ExtraBotanyItems.manaCocktail.getDefaultInstance();
+			BrewUtil.setBrew(result, brew);
+
+			ShapelessRecipe compose = new ShapelessRecipe(id, "mana_cocktail_change_brew", CraftingBookCategory.MISC, result, ingredients);
+			recipes.add(compose);
+		}
+		registry.addRecipes(RecipeTypes.CRAFTING, recipes);
+	}
+
+	private void registerInfiniteWineRecipes(IRecipeRegistration registry) {
+		List<CraftingRecipe> recipes = new ArrayList<>();
+		for (var brew : BotaniaAPI.instance().getBrewRegistry()) {
+			if (brew == BotaniaBrews.fallbackBrew) {
+				continue;
+			}
+
+			ItemStack cocktail = ExtraBotanyItems.manaCocktail.getDefaultInstance();
+			BrewUtil.setBrew(cocktail, brew);
+			if (brew == ExtraBotanyBrews.manaCocktail) {
+				cocktail = ManaCocktailItem.getDefaultCocktail();
+			}
+			ItemStack medal = ExtraBotanyItems.heroMedal.getDefaultInstance();
+
+			ResourceLocation id = prefix("infinite_wine");
+			var ingredients = NonNullList.of(Ingredient.EMPTY,
+					Ingredient.of(cocktail),
+					Ingredient.of(medal)
+			);
+			ItemStack result = ExtraBotanyItems.infiniteWine.getDefaultInstance();
+			BrewUtil.setBrew(result, brew);
+
+			ShapelessRecipe compose = new ShapelessRecipe(id, "infinite_wine", CraftingBookCategory.MISC, result, ingredients);
+			recipes.add(compose);
+		}
+		registry.addRecipes(RecipeTypes.CRAFTING, recipes);
+	}
+
+	private void registerHolyWaterGrenadeRecipes(IRecipeRegistration registry) {
+		List<CraftingRecipe> recipes = new ArrayList<>();
+		for (var brew : BotaniaAPI.instance().getBrewRegistry()) {
+			if (brew == BotaniaBrews.fallbackBrew) {
+				continue;
+			}
+
+			ItemStack cocktail = ExtraBotanyItems.manaCocktail.getDefaultInstance();
+			BrewUtil.setBrew(cocktail, brew);
+			if (brew == ExtraBotanyBrews.manaCocktail) {
+				cocktail = ManaCocktailItem.getDefaultCocktail();
+			}
+			ItemStack fruit = Items.POPPED_CHORUS_FRUIT.getDefaultInstance();
+
+			ResourceLocation id = prefix("holy_water_grenade");
+			var ingredients = NonNullList.of(Ingredient.EMPTY,
+					Ingredient.of(cocktail),
+					Ingredient.of(fruit)
+			);
+			ItemStack result = ExtraBotanyItems.holyWaterGrenade.getDefaultInstance();
+			BrewUtil.setBrew(result, brew);
+
+			ShapelessRecipe compose = new ShapelessRecipe(id, "holy_water_grenade", CraftingBookCategory.MISC, result, ingredients);
+			recipes.add(compose);
+		}
+		registry.addRecipes(RecipeTypes.CRAFTING, recipes);
 	}
 }

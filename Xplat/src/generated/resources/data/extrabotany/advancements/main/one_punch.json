@@ -1,5 +1,5 @@
 {
-  "parent": "extrabotany:main/root",
+  "parent": "extrabotany:main/the_source_of_honkai",
   "criteria": {
     "code_triggered": {
       "trigger": "minecraft:impossible"

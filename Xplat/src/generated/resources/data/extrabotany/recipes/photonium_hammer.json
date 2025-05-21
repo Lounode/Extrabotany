@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "H": {
-      "item": "extrabotany:photonium_ingot"
+      "tag": "extrabotany:photonium_ingots"
     },
     "S": {
       "item": "botania:livingwood_twig"

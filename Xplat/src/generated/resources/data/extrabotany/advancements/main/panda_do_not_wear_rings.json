@@ -1,17 +1,15 @@
 {
-  "parent": "extrabotany:main/root",
+  "parent": "extrabotany:main/soulsteel",
   "criteria": {
-    "craft_ring": {
+    "has_relic": {
       "conditions": {
-        "items": [
-          {
-            "items": [
-              "extrabotany:mana_ring_master"
-            ]
-          }
-        ]
+        "relic": {
+          "items": [
+            "extrabotany:mana_ring_master"
+          ]
+        }
       },
-      "trigger": "minecraft:inventory_changed"
+      "trigger": "botania:relic_bind"
     }
   },
   "display": {
@@ -19,7 +17,7 @@
     "description": {
       "translate": "advancement.extrabotany:panda_do_not_wear_rings.desc"
     },
-    "frame": "goal",
+    "frame": "challenge",
     "hidden": false,
     "icon": {
       "item": "extrabotany:mana_ring_master"
@@ -31,8 +29,11 @@
   },
   "requirements": [
     [
-      "craft_ring"
+      "has_relic"
     ]
   ],
+  "rewards": {
+    "experience": 50
+  },
   "sends_telemetry_event": true
 }

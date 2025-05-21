@@ -1,17 +1,20 @@
 package io.github.lounode.extrabotany.common.item.equipment.shield;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 
 import vazkii.botania.api.item.SortableTool;
+import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.function.Consumer;
 
-public class ManasteelShieldItem extends ShieldItem implements CustomDamageItem, SortableTool {
+public class ManasteelShieldItem extends ShieldItem implements CustomDamageItem, SortableTool, CustomCreativeTabContents {
 
 	private static final int MANA_PER_DAMAGE = 60;
 
@@ -32,5 +35,10 @@ public class ManasteelShieldItem extends ShieldItem implements CustomDamageItem,
 
 	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;
+	}
+
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		//Hide
 	}
 }

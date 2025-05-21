@@ -1,5 +1,5 @@
 {
-  "parent": "extrabotany:main/root",
+  "parent": "extrabotany:main/stygian_twins",
   "criteria": {
     "code_triggered": {
       "trigger": "minecraft:impossible"

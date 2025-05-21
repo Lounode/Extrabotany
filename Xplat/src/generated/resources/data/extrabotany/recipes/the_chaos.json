@@ -6,10 +6,10 @@
       "item": "extrabotany:spirit_fragment"
     },
     "P": {
-      "item": "extrabotany:photonium_ingot"
+      "tag": "extrabotany:photonium_ingots"
     },
     "S": {
-      "item": "extrabotany:shadowium_ingot"
+      "tag": "extrabotany:shadowium_ingots"
     }
   },
   "pattern": [

@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "A": {
-      "item": "botania:terrasteel_ingot"
+      "tag": "botania:terrasteel_ingots"
     },
     "P": {
       "item": "botania:mana_pearl"
     },
     "S": {
-      "item": "botania:dragonstone"
+      "tag": "botania:dragonstone_gems"
     }
   },
   "pattern": [

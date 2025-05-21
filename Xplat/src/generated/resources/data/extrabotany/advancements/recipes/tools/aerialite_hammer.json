@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "extrabotany:aerialite_ingot"
-            ]
+            "tag": "extrabotany:aerialite_ingots"
           }
         ]
       },

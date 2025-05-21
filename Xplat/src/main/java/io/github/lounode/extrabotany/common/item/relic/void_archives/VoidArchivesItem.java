@@ -30,10 +30,13 @@ import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.variants.*;
+import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class VoidArchivesItem extends Item implements CustomCreativeTabContents {
 
@@ -153,7 +156,7 @@ public class VoidArchivesItem extends Item implements CustomCreativeTabContents 
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, null);
+		return new RelicImpl(stack, prefix(LibAdvancementNames.THE_ORIGINAL_DIVINE_KEY));
 	}
 
 	@Override

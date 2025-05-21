@@ -60,6 +60,7 @@ public class CopyBrewFormFlaskRecipeWrapper implements ICraftingCategoryExtensio
 		if (flask != null) {
 			flasks.add(flask.copy());
 		} else {
+
 			BotaniaAPI.instance().getBrewRegistry().forEach(brew -> {
 				ItemStack flaskStack = new ItemStack(BotaniaItems.brewFlask);
 				BrewUtil.setBrew(flaskStack, brew);

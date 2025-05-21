@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "botania:elementium_ingot"
-            ]
+            "tag": "botania:elementium_ingots"
           }
         ]
       },

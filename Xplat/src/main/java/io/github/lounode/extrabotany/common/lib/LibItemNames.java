@@ -57,4 +57,14 @@ public final class LibItemNames {
 	public static final String MANA_COCKTAIL = "mana_cocktail";
 	public static final String INFINITE_WINE = "infinite_wine";
 	public static final String HOLY_WATER_GRENADE = "holy_water_grenade";
+	public static final String STARRY_IDOL_HEADGEAR = "starry_idol_headgear";
+	public static final String STARRY_IDOL_SUIT = "starry_idol_suit";
+	public static final String STARRY_IDOL_SKIRT = "starry_idol_skirt";
+	public static final String STARRY_IDOL_BOOTS = "starry_idol_boots";
+	public static final String PLEIADES_COMBAT_MAID_HEADGEAR = "pleiades_combat_maid_headgear";
+	public static final String PLEIADES_COMBAT_MAID_SUIT = "pleiades_combat_maid_suit";
+	public static final String PLEIADES_COMBAT_MAID_SKIRT = "pleiades_combat_maid_skirt";
+	public static final String PLEIADES_COMBAT_MAID_BOOTS = "pleiades_combat_maid_boots";
+	public static final String SHADOW_PLEIADES_COMBAT_MAID_SUIT = "shadow_pleiades_combat_maid_suit";
+
 }

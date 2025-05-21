@@ -16,10 +16,7 @@ import io.github.lounode.extrabotany.common.lib.RegistryHelper;
 import io.github.lounode.extrabotany.data.patchouli.PatchouliBuilder;
 import io.github.lounode.extrabotany.data.patchouli.PatchouliEntry;
 import io.github.lounode.extrabotany.data.patchouli.PatchouliProvider;
-import io.github.lounode.extrabotany.data.patchouli.page.botania.ElvenTradePage;
-import io.github.lounode.extrabotany.data.patchouli.page.botania.ManaInfusionPage;
-import io.github.lounode.extrabotany.data.patchouli.page.botania.PetalApothecaryPage;
-import io.github.lounode.extrabotany.data.patchouli.page.botania.RunicAltarPage;
+import io.github.lounode.extrabotany.data.patchouli.page.botania.*;
 import io.github.lounode.extrabotany.data.patchouli.page.extrabotany.EatPage;
 import io.github.lounode.extrabotany.data.patchouli.page.extrabotany.PedestalPage;
 import io.github.lounode.extrabotany.data.patchouli.page.extrabotany.SmithingPage;
@@ -59,6 +56,8 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						crafting(ExtraBotanyItems.manasteelHammer)
 								.withText("extrabotany.page.hammers1")
 				)
+				.extraRecipeMapping(ExtraBotanyItems.photoniumHammer, 1)
+				.extraRecipeMapping(ExtraBotanyItems.shadowiumHammer, 1)
 				.save(consumer, id("hammers"));
 		PatchouliBuilder.entry(CATEGORY)
 				.withName("extrabotany.entry.camera")
@@ -107,6 +106,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 								.withText("extrabotany.page.pedestals5"),
 						text("extrabotany.page.pedestals4")
 				)
+				.extraRecipeMapping(ExtraBotanyBlocks.calcitePedestal, 1)
 				.save(consumer, id("pedestals"));
 		PatchouliBuilder.entry(CATEGORY)
 				.withName("extrabotany.entry.fuels")
@@ -198,7 +198,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 		PatchouliBuilder.entry(CATEGORY)
 				.withName("extrabotany.entry.yin_and_yang")
 				.withIcon(ExtraBotanyItems.shadowium)
-				.withAdvancement(ResourceLocation.tryParse("botania:main/elf_portal_open"))
+				//.withAdvancement(ResourceLocation.tryParse("botania:main/elf_portal_open"))
 				.pages(
 						text("extrabotany.page.yin_and_yang0"),
 						text("extrabotany.page.yin_and_yang1"),
@@ -208,7 +208,9 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 								.withText("extrabotany.page.yin_and_yang3")
 				)
 				.extraRecipeMapping(ExtraBotanyItems.photoniumNugget, 2)
+				.extraRecipeMapping(ExtraBotanyBlocks.photoniumBlock, 2)
 				.extraRecipeMapping(ExtraBotanyItems.shadowiumNugget, 3)
+				.extraRecipeMapping(ExtraBotanyBlocks.shadowiumBlock, 3)
 				.save(consumer, id("yin_and_yang"));
 		PatchouliBuilder.entry(CATEGORY)
 				.withName("extrabotany.entry.pandoras_box")
@@ -330,14 +332,56 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				.withAdvancement(botaniaAdvancement("terrasteel_pickup"))
 				.save(consumer, id("nature_orb"));
 		PatchouliBuilder.entry(CATEGORY)
-				.withName("extrabotany.entry.mana_cocktail")
-				.withIcon(ExtraBotanyItems.manaCocktail)
+				.withName("extrabotany.entry.void_archives")
+				.withIcon(ExtraBotanyItems.voidArchives)
 				.pages(
-						text("extrabotany.page.mana_cocktail0"),
-						crafting(ExtraBotanyItems.manaGlassBottle).withText("extrabotany.page.mana_cocktail1")
+						spotlight(ExtraBotanyItems.voidArchives).withText("extrabotany.page.void_archives0"),
+						text("extrabotany.page.void_archives1")
 				)
-				.extraRecipeMapping(ExtraBotanyItems.manaCocktail, 0)
-				.save(consumer, id("mana_cocktail"));
+				.withAdvancement(mainAdvancement(LibAdvancementNames.THE_ORIGINAL_DIVINE_KEY))
+				.save(consumer, id("void_archives"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.glided_potato")
+				.withIcon(ExtraBotanyItems.gildedPotato)
+				.pages(
+						text("extrabotany.page.glided_potato0"),
+						runicAlter(ExtraBotanyItems.gildedPotato).withText("extrabotany.page.glided_potato1")
+
+				)
+				.save(consumer, id("glided_potato"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.universe_medium")
+				.withIcon(ExtraBotanyItems.theUniverse)
+				.pages(
+						text("extrabotany.page.universe_medium0"),
+						text("extrabotany.page.universe_medium1"),
+						crafting(ExtraBotanyItems.theOrigin).withText("extrabotany.page.universe_medium2"),
+						crafting(ExtraBotanyItems.theEnd).withText("extrabotany.page.universe_medium3"),
+						crafting(ExtraBotanyItems.theChaos).withText("extrabotany.page.universe_medium4"),
+						terraPlate(ExtraBotanyItems.theUniverse).withText("extrabotany.page.universe_medium5")
+
+				)
+				.save(consumer, id("universe_medium"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.orichalcos")
+				.withIcon(ExtraBotanyItems.orichalcos)
+				.pages(
+						text("extrabotany.page.orichalcos0"),
+						runicAlter(ExtraBotanyItems.orichalcos).withText("extrabotany.page.orichalcos1")
+				)
+				.extraRecipeMapping(ExtraBotanyBlocks.orichalcosBlock, 0)
+				.extraRecipeMapping(ExtraBotanyItems.orichalcosNugget, 0)
+				.save(consumer, id("orichalcos"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.aerialite")
+				.withIcon(ExtraBotanyItems.aerialite)
+				.pages(
+						text("extrabotany.page.aerialite0"),
+						terraPlate(ExtraBotanyItems.aerialite).withText("extrabotany.page.aerialite1")
+				)
+				.extraRecipeMapping(ExtraBotanyBlocks.aerialiteBlock, 0)
+				.extraRecipeMapping(ExtraBotanyItems.aerialiteNugget, 0)
+				.save(consumer, id("aerialite"));
 	}
 
 	private RunicAltarPage runicAlter(ItemLike item) {
@@ -373,6 +417,12 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 		ResourceLocation location = BuiltInRegistries.ITEM.getKey(item.asItem());
 		ResourceLocation recipeLocation = location.withPrefix("elven_trade/");
 		return new ElvenTradePage(recipeLocation.toString());
+	}
+
+	private TerraPlatePage terraPlate(ItemLike item) {
+		ResourceLocation location = BuiltInRegistries.ITEM.getKey(item.asItem());
+		ResourceLocation recipeLocation = location.withPrefix("terra_plate/");
+		return new TerraPlatePage(recipeLocation.toString());
 	}
 
 	private static ResourceLocation mainAdvancement(String name) {

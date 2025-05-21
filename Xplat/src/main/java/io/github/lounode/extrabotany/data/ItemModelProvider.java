@@ -107,7 +107,9 @@ public class ItemModelProvider implements DataProvider {
 		//Manual items
 		items.remove(failnaught);
 
-		takeAll(items, HAMMERS).forEach(i -> ModelTemplates.FLAT_HANDHELD_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(i), consumer));
+		takeAll(items, manasteelHammer, elementiumHammer, gaiaHammer,
+				photoniumHammer, shadowiumHammer, aerialiteHammer
+		).forEach(i -> ModelTemplates.FLAT_HANDHELD_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(i), consumer));
 
 		takeAll(items, i -> true).forEach(i -> ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(i), consumer));
 	}
@@ -217,6 +219,33 @@ public class ItemModelProvider implements DataProvider {
 				consumer);
 
 		items.remove(voidArchives);
+
+		ResourceLocation terrHammerEnabledModel = ModelLocationUtils.getModelLocation(terrasteelHammer, "_active");
+		ModelTemplates.FLAT_HANDHELD_ITEM.create(terrHammerEnabledModel, TextureMapping.layer0(terrHammerEnabledModel), consumer);
+
+		HANDHELD_OVERRIDES.create(ModelLocationUtils.getModelLocation(terrasteelHammer),
+				TextureMapping.layer0(terrasteelHammer),
+				new OverrideHolder().add(terrHammerEnabledModel, Pair.of(prefix("active"), 1.0)),
+				consumer);
+		items.remove(terrasteelHammer);
+
+		ResourceLocation orichalcosHammerEnabledModel = ModelLocationUtils.getModelLocation(orichalcosHammer, "_active");
+		ModelTemplates.FLAT_HANDHELD_ITEM.create(orichalcosHammerEnabledModel, TextureMapping.layer0(orichalcosHammerEnabledModel), consumer);
+
+		HANDHELD_OVERRIDES.create(ModelLocationUtils.getModelLocation(orichalcosHammer),
+				TextureMapping.layer0(orichalcosHammer),
+				new OverrideHolder().add(orichalcosHammerEnabledModel, Pair.of(prefix("active"), 1.0)),
+				consumer);
+		items.remove(orichalcosHammer);
+
+		ResourceLocation rheinHammerEnabledModel = ModelLocationUtils.getModelLocation(rheinHammer, "_active");
+		ModelTemplates.FLAT_HANDHELD_ITEM.create(rheinHammerEnabledModel, TextureMapping.layer0(rheinHammerEnabledModel), consumer);
+
+		HANDHELD_OVERRIDES.create(ModelLocationUtils.getModelLocation(rheinHammer),
+				TextureMapping.layer0(rheinHammer),
+				new OverrideHolder().add(rheinHammerEnabledModel, Pair.of(prefix("active"), 1.0)),
+				consumer);
+		items.remove(rheinHammer);
 	}
 
 	@NotNull

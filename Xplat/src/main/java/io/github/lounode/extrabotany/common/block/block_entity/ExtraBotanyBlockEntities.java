@@ -23,7 +23,7 @@ public class ExtraBotanyBlockEntities {
 	private static final Map<ResourceLocation, BlockEntityType<?>> ALL = new HashMap<>();
 
 	public static final BlockEntityType<PedestalBlockEntity> PEDESTAL = type(prefix(LibBlockNames.PEDESTAL), PedestalBlockEntity::new,
-			livingrockPedestal
+			ALL_PEDESTALS
 	);
 	public static final BlockEntityType<ManaChargerBlockEntity> MANA_CHARGER =
 			type(prefix(LibBlockNames.MANA_CHARGER), ManaChargerBlockEntity::new, manaCharger);

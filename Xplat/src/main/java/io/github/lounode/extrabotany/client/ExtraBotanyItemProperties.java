@@ -9,6 +9,7 @@ import vazkii.botania.network.TriConsumer;
 
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.TerrasteelHammerItem;
 import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.variants.Failnaught;
@@ -58,7 +59,7 @@ public class ExtraBotanyItemProperties {
 				return 0;
 			}
 
-			return (float) (0.1D * (item.getSwigs() - item.getSwigsLeft(stack)));
+			return (float) (0.01D * (item.getSwigs() - item.getSwigsLeft(stack)));
 		};
 
 		ClampedItemPropertyFunction brewGetter2 = (stack, world, entity, seed) -> {
@@ -76,5 +77,8 @@ public class ExtraBotanyItemProperties {
 		};
 
 		consumer.accept(ExtraBotanyItems.voidArchives, prefix("variant"), voidArchivesVariantGetter);
+
+		consumer.accept(ExtraBotanyItems.terrasteelHammer, prefix("active"),
+				(stack, world, entity, seed) -> TerrasteelHammerItem.isEnabled(stack) ? 1 : 0);
 	}
 }

@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "H": {
-      "item": "extrabotany:aerialite_ingot"
+      "tag": "extrabotany:aerialite_ingots"
     },
     "S": {
       "item": "botania:dreamwood_twig"

@@ -1,5 +1,8 @@
 {
   "category": "botania:extrabotanies",
+  "extra_recipe_mappings": {
+    "extrabotany:pedestal_calcite": 1
+  },
   "icon": "extrabotany:pedestal_livingrock",
   "name": "extrabotany.entry.pedestals",
   "pages": [

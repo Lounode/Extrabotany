@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "H": {
-      "item": "extrabotany:shadowium_ingot"
+      "tag": "extrabotany:shadowium_ingots"
     },
     "S": {
       "item": "botania:livingwood_twig"

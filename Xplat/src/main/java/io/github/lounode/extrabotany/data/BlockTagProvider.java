@@ -125,7 +125,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
 				getModBlocks(b -> b instanceof FloatingFlowerBlock || b instanceof BotaniaGrassBlock)
 		);
-
+		//Pickaxe
 		Set<Block> pickaxe = new HashSet<>(Set.of(
 				aerialiteBlock, orichalcosBlock, photoniumBlock, shadowiumBlock,
 				dimensionCatalyst, powerFrame
@@ -134,6 +134,10 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		pickaxe.addAll(List.of(ALL_QUARTZ));
 
 		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(getModBlocks(pickaxe::contains));
+		tag(BlockTags.NEEDS_STONE_TOOL).add(photoniumBlock, shadowiumBlock);
+		tag(BlockTags.NEEDS_IRON_TOOL).add(aerialiteBlock);
+		tag(BlockTags.NEEDS_DIAMOND_TOOL).add(orichalcosBlock);
+		//Axe
 		tag(BlockTags.MINEABLE_WITH_AXE).add(manaCharger);
 
 	}

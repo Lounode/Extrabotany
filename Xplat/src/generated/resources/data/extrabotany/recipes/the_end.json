@@ -9,7 +9,7 @@
       "item": "botania:gaia_ingot"
     },
     "S": {
-      "item": "extrabotany:orichalcos_ingot"
+      "tag": "extrabotany:orichalcos_ingots"
     }
   },
   "pattern": [

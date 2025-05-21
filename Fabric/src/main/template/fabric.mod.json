@@ -10,7 +10,7 @@
     "ExtraMeteorP(Original)"
   ],
   "contributors": [
-    "Uranium(Texture)"
+    "Urranium(Texture)"
   ],
   "contact": {
     "issues": "https://github.com/Lounode/ExtraBotany/issues",
@@ -18,7 +18,7 @@
   },
 
   "license": "${mod_license}",
-  "icon": "${mod_logo}",
+  "icon": "assets/extrabotany/textures/icon.png",
 
   "environment": "*",
   "entrypoints": {

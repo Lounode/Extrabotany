@@ -3,10 +3,10 @@
   "category": "equipment",
   "key": {
     "D": {
-      "item": "botania:mana_diamond"
+      "tag": "botania:mana_diamond_gems"
     },
     "P": {
-      "item": "botania:mana_powder"
+      "tag": "botania:mana_dusts"
     },
     "S": {
       "item": "botania:livingwood_twig"

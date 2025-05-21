@@ -6,10 +6,10 @@
       "item": "extrabotany:spirit_fragment"
     },
     "P": {
-      "item": "extrabotany:aerialite_ingot"
+      "tag": "extrabotany:aerialite_ingots"
     },
     "S": {
-      "item": "botania:terrasteel_ingot"
+      "tag": "botania:terrasteel_ingots"
     }
   },
   "pattern": [

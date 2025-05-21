@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "extrabotany:photonium_ingot"
-            ]
+            "tag": "extrabotany:shadowium_ingots"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "extrabotany:shadowium_ingot"
-            ]
+            "tag": "extrabotany:shadowium_ingots"
           }
         ]
       },

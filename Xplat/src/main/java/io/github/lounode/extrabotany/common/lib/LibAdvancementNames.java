@@ -16,4 +16,8 @@ public class LibAdvancementNames {
 	public static final String STYGIAN_TWINS = "stygian_twins";
 	public static final String GAIA_TRIAL = "gaia_trial";
 	public static final String THE_SOURCE_OF_HONKAI = "the_source_of_honkai";
+	public static final String THE_ORIGINAL_DIVINE_KEY = "the_original_divine_key";
+	public static final String POTATO_SERVER = "potato_server";
+	public static final String SOULSTEEL = "soulsteel";
+	public static final String SKY_IS_NOT_THE_LIMIT = "sky_is_not_the_limit";
 }

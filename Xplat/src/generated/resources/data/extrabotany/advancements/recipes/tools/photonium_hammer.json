@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "extrabotany:photonium_ingot"
-            ]
+            "tag": "extrabotany:photonium_ingots"
           }
         ]
       },

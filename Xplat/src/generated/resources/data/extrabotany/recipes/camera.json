@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "B": {
-      "item": "extrabotany:shadowium_ingot"
+      "tag": "extrabotany:shadowium_ingots"
     },
     "G": {
       "item": "botania:gaia_ingot"

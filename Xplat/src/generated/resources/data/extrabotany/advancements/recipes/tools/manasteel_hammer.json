@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "botania:manasteel_ingot"
-            ]
+            "tag": "botania:manasteel_ingots"
           }
         ]
       },

@@ -24,9 +24,12 @@ import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger;
+import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 
 import java.util.List;
 import java.util.Optional;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class MasterBandOfManaItem extends RelicBaubleItem implements CustomCreativeTabContents {
 	protected static final long MAX_MANA = Long.MAX_VALUE;
@@ -82,7 +85,7 @@ public class MasterBandOfManaItem extends RelicBaubleItem implements CustomCreat
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, null);
+		return new RelicImpl(stack, prefix(LibAdvancementNames.PANDA_DO_NOT_WEAR_RINGS));
 	}
 
 	public static class ExtendManaItemImpl implements ManaItem {

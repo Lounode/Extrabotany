@@ -6,13 +6,13 @@
       "item": "botania:life_essence"
     },
     "F": {
-      "item": "extrabotany:photonium_ingot"
+      "tag": "extrabotany:photonium_ingots"
     },
     "P": {
       "item": "botania:gaia_ingot"
     },
     "S": {
-      "item": "extrabotany:shadowium_ingot"
+      "tag": "extrabotany:shadowium_ingots"
     }
   },
   "pattern": [
