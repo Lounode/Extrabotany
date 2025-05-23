@@ -232,7 +232,7 @@ publishing {
     }
     repositories {
         if (System.getenv("GITHUB_ACTIONS") != null) {
-            if (System.getenv().RELEASE_MODE == null) {
+            if (System.getenv().RELEASE_MODE != "1") {
                 maven {
                     name = "lounode"
                     url = "https://maven.lounode.top/snapshots"

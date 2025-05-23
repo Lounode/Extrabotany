@@ -5,8 +5,8 @@ pluginManagement {
             url = 'https://maven.fabricmc.net/'
         }
         maven {
-            name = 'MinecraftForge'
-            url = 'https://maven.minecraftforge.net/'
+            name = "NeoForged"
+            url = "https://maven.neoforged.net/releases"
         }
         maven { url = 'https://maven.parchmentmc.org' }
         gradlePluginPortal()
