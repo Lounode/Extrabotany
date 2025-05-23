@@ -8,7 +8,7 @@ TAGNAME="${GIT_REF/#refs\/tags\/}"
 VERSION="${TAGNAME/#release-}"
 MC_VERSION=$(echo "${VERSION}" | cut -d '-' -f 1)
 #CHANGELOG_FRAGMENT=$(echo "${VERSION}" | tr . -)
-CHANGELOG_LINK="See https://github.com/Lounode/EventWrapper/commits/1.20.1/"
+CHANGELOG_LINK="See https://github.com/Lounode/Extrabotany/commits/1.20.1/"
 
 function release_github() {
 	echo >&2 'Creating GitHub Release'
@@ -16,7 +16,7 @@ function release_github() {
 	   --method POST \
 	   -H "Accept: application/vnd.github+json" \
 	   -H "X-GitHub-Api-Version: 2022-11-28" \
-	   /repos/Lounode/EventWrapper/releases \
+	   /repos/Lounode/Extrabotany/releases \
 	   -f tag_name="${TAGNAME}"
 
 	echo >&2 'Uploading Fabric Jar and Signature to GitHub'
@@ -173,5 +173,5 @@ $CURSEFORGE_GAME_VERSION]"
 }
 
 release_github
-release_modrinth
-release_curseforge
+#release_modrinth
+#release_curseforge

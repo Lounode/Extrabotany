@@ -9,6 +9,8 @@ import vazkii.botania.network.TriConsumer;
 
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.OrichalcosHammer;
+import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.RheinHammerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.TerrasteelHammerItem;
 import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
@@ -80,5 +82,9 @@ public class ExtraBotanyItemProperties {
 
 		consumer.accept(ExtraBotanyItems.terrasteelHammer, prefix("active"),
 				(stack, world, entity, seed) -> TerrasteelHammerItem.isEnabled(stack) ? 1 : 0);
+		consumer.accept(ExtraBotanyItems.orichalcosHammer, prefix("active"),
+				(stack, world, entity, seed) -> OrichalcosHammer.isEnabled(stack) ? 1 : 0);
+		consumer.accept(ExtraBotanyItems.rheinHammer, prefix("active"),
+				(stack, world, entity, seed) -> RheinHammerItem.isEnabled(stack) ? 1 : 0);
 	}
 }

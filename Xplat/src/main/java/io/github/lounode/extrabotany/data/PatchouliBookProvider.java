@@ -53,11 +53,25 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				.withIcon(ExtraBotanyItems.manasteelHammer)
 				.pages(
 						text("extrabotany.page.hammers0"),
-						crafting(ExtraBotanyItems.manasteelHammer)
-								.withText("extrabotany.page.hammers1")
+						crafting(ExtraBotanyItems.manasteelHammer).withText("extrabotany.page.hammers1"),
+						text("extrabotany.page.hammers2"),
+						crafting(ExtraBotanyItems.elementiumHammer).withText("extrabotany.page.hammers3"),
+						text("extrabotany.page.hammers4"),
+						crafting(ExtraBotanyItems.terrasteelHammer).withText("extrabotany.page.hammers5"),
+						text("extrabotany.page.hammers6"),
+						new SmithingPage("extrabotany:smithing/gaia_hammer").withText("extrabotany.page.hammers7"),
+						text("extrabotany.page.hammers8"),
+						crafting(ExtraBotanyItems.photoniumHammer).withText("extrabotany.page.hammers9"),
+						text("extrabotany.page.hammers10"),
+						crafting(ExtraBotanyItems.shadowiumHammer).withText("extrabotany.page.hammers11"),
+						text("extrabotany.page.hammers12"),
+						crafting(ExtraBotanyItems.aerialiteHammer).withText("extrabotany.page.hammers13"),
+						text("extrabotany.page.hammers14"),
+						runicAlter(ExtraBotanyItems.orichalcosHammer).withText("extrabotany.page.hammers15"),
+						text("extrabotany.page.hammers16"),
+						text("extrabotany.page.hammers17"),
+						terraPlate(ExtraBotanyItems.rheinHammer).withText("extrabotany.page.hammers18")
 				)
-				.extraRecipeMapping(ExtraBotanyItems.photoniumHammer, 1)
-				.extraRecipeMapping(ExtraBotanyItems.shadowiumHammer, 1)
 				.save(consumer, id("hammers"));
 		PatchouliBuilder.entry(CATEGORY)
 				.withName("extrabotany.entry.camera")
@@ -382,6 +396,15 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				.extraRecipeMapping(ExtraBotanyBlocks.aerialiteBlock, 0)
 				.extraRecipeMapping(ExtraBotanyItems.aerialiteNugget, 0)
 				.save(consumer, id("aerialite"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.das_rheingold")
+				.withIcon(ExtraBotanyItems.dasRheingold)
+				.pages(
+						text("extrabotany.page.das_rheingold0"),
+						text("extrabotany.page.das_rheingold1"),
+						crafting(ExtraBotanyItems.dasRheingold).withText("extrabotany.page.das_rheingold2")
+				)
+				.save(consumer, id("das_rheingold"));
 	}
 
 	private RunicAltarPage runicAlter(ItemLike item) {

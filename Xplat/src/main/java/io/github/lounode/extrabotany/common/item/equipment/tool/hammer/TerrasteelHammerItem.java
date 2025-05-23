@@ -3,11 +3,13 @@ package io.github.lounode.extrabotany.common.item.equipment.tool.hammer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
@@ -19,7 +21,6 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -29,6 +30,8 @@ import java.util.function.Predicate;
 public class TerrasteelHammerItem extends ManasteelHammerItem implements SequentialBreaker {
 	private static final String TAG_ENABLED = "Enabled";
 	private static final int MANA_PER_DAMAGE = 100;
+	private static final int ACTIVE_COST = 10;
+	public static final int RANGE = 2;
 
 	public TerrasteelHammerItem(Tier tier, int attackDamageModifier, float attackSpeedModifier, Properties properties) {
 		super(tier, attackDamageModifier, attackSpeedModifier, properties);
@@ -59,20 +62,17 @@ public class TerrasteelHammerItem extends ManasteelHammerItem implements Sequent
 		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 	}
 
-	@SoftImplement("IForgeItem")
-	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
-		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
-		if (player.level().isClientSide()) {
-			return false;
+	//Thanks mojang now it has official api
+	@Override
+	public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+		if (entityLiving instanceof ServerPlayer serverPlayer) {
+			BlockHitResult raycast = ToolCommons.raytraceFromEntity(serverPlayer, 10, false);
+			if (raycast.getType() == HitResult.Type.BLOCK) {
+				Direction face = raycast.getDirection();
+				breakOtherBlock(serverPlayer, stack, pos, pos, face);
+			}
 		}
-		if (raycast.getType() != HitResult.Type.BLOCK) {
-			return false;
-		}
-
-		Direction face = raycast.getDirection();
-		breakOtherBlock(player, stack, pos, pos, face);
-
-		return false;
+		return super.mineBlock(stack, level, state, pos, entityLiving);
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class TerrasteelHammerItem extends ManasteelHammerItem implements Sequent
 		boolean doY = side.getStepY() == 0;
 		boolean doZ = side.getStepZ() == 0;
 
-		int range = 3;
+		int range = getRange(player, stack, pos, originPos, side);
 
 		Vec3i beginDiff = new Vec3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
 		Vec3i endDiff = new Vec3i(doX ? range : 0, doY ? range * 2 - 1 : 0, doZ ? range : 0);
@@ -123,7 +123,7 @@ public class TerrasteelHammerItem extends ManasteelHammerItem implements Sequent
 		if (player.swinging) {
 			return;
 		}
-		if (!ManaItemHandler.instance().requestManaExactForTool(stack, player, getManaPerDamage(), false)) {
+		if (!ManaItemHandler.instance().requestManaExactForTool(stack, player, getActiveCost(), true)) {
 			setEnabled(stack, false);
 		}
 	}
@@ -134,5 +134,18 @@ public class TerrasteelHammerItem extends ManasteelHammerItem implements Sequent
 
 	public void setEnabled(ItemStack stack, boolean enabled) {
 		ItemNBTHelper.setBoolean(stack, TAG_ENABLED, enabled);
+	}
+
+	@Override
+	public int getManaPerDamage() {
+		return MANA_PER_DAMAGE;
+	}
+
+	public int getActiveCost() {
+		return ACTIVE_COST;
+	}
+
+	public int getRange(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
+		return RANGE;
 	}
 }

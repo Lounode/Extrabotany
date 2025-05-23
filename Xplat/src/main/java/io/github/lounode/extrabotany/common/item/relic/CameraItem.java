@@ -39,6 +39,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import io.github.lounode.eventwrapper.event.entity.player.ItemCooldownFinishEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.api.item.IShadowium;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
@@ -49,7 +50,7 @@ import java.util.List;
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 @EventBusSubscriberWrapper
-public class CameraItem extends RelicItem {
+public class CameraItem extends RelicItem implements IShadowium {
 	private static final int MANA_PER_USE = 1500;
 	private static final int RANGE = 20;
 	private static final int ADVANCEMENT_REQUIRE = 10;
@@ -132,6 +133,7 @@ public class CameraItem extends RelicItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+		shadowiumTick(stack, world, entity, slot, selected);
 		if (!(entity instanceof Player player)) {
 			return;
 		}

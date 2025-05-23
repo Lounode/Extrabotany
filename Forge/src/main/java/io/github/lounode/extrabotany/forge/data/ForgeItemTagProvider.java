@@ -8,6 +8,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
@@ -61,6 +62,7 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
 		//Tools
 		this.tag(Items.TOOLS_BOWS).add(BOWS);
 
+		this.generateToolTags();
 		this.generateAccessoryTags();
 		//TODO 盖亚bossTag
 	}
@@ -69,6 +71,13 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
 		tag(accessory("ring")).add(RINGS);
 		tag(accessory(("body"))).add(BODY);
 		tag(accessory("curio")).add(ALL_SLOT);
+	}
+
+	private void generateToolTags() {
+		this.tag(Tags.Items.ARMORS_HELMETS).add(starryIdolHeadgear);
+		this.tag(Tags.Items.ARMORS_CHESTPLATES).add(starryIdolSuit);
+		this.tag(Tags.Items.ARMORS_LEGGINGS).add(starryIdolSkirt);
+		this.tag(Tags.Items.ARMORS_BOOTS).add(starryIdolBoots);
 	}
 
 	private static TagKey<Item> accessory(String name) {

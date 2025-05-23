@@ -189,11 +189,11 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
 		hammer(BotaniaTags.Items.INGOTS_MANASTEEL, BotaniaItems.livingwoodTwig, ExtraBotanyItems.manasteelHammer).save(consumer);
 		hammer(BotaniaTags.Items.INGOTS_ELEMENTIUM, BotaniaItems.dreamwoodTwig, ExtraBotanyItems.elementiumHammer).save(consumer);
 		hammer(BotaniaTags.Items.INGOTS_TERRASTEEL, BotaniaItems.livingwoodTwig, ExtraBotanyItems.terrasteelHammer).save(consumer);
-		//hammer(BotaniaItems.gaiaIngot, ExtraBotanyItems.gaiaHammer).save(consumer);
+		//Gaia hammer see smithing recipe
 		hammer(ExtraBotanyTags.Items.INGOTS_PHOTONIUM, BotaniaItems.livingwoodTwig, ExtraBotanyItems.photoniumHammer).save(consumer);
 		hammer(ExtraBotanyTags.Items.INGOTS_SHADOWIUM, BotaniaItems.livingwoodTwig, ExtraBotanyItems.shadowiumHammer).save(consumer);
 		hammer(ExtraBotanyTags.Items.INGOTS_AERIALITE, BotaniaItems.dreamwoodTwig, ExtraBotanyItems.aerialiteHammer).save(consumer);
-		//hammer(ExtraBotanyItems.orichalcos, ExtraBotanyItems.orichalcosHammer).save(consumer);
+		//Orichalcos & Rhin see RunicAltar
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.walkingCane)
 				.define('T', BotaniaItems.livingwoodTwig)

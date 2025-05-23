@@ -3,12 +3,14 @@ package io.github.lounode.extrabotany.data.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -46,10 +48,28 @@ public class TerrestrialAgglomerationProvider extends ExtraBotanyRecipeProvider 
 				Ingredient.of(ExtraBotanyItems.theOrigin),
 				Ingredient.of(ExtraBotanyItems.theEnd)
 		));
+		consumer.accept(new FinishedRecipe(idFor(ExtraBotanyItems.rheinHammer), ManaPoolBlockEntity.MAX_MANA * 4,
+				new ItemStack(ExtraBotanyItems.rheinHammer),
+				Ingredient.of(ExtraBotanyItems.manasteelHammer),
+				Ingredient.of(ExtraBotanyItems.elementiumHammer),
+				Ingredient.of(ExtraBotanyItems.terrasteelHammer),
+				Ingredient.of(ExtraBotanyItems.gaiaHammer),
+				Ingredient.of(ExtraBotanyItems.photoniumHammer),
+				Ingredient.of(ExtraBotanyItems.shadowiumHammer),
+				Ingredient.of(ExtraBotanyItems.aerialiteHammer),
+				Ingredient.of(ExtraBotanyItems.orichalcosHammer),
+				Ingredient.of(ExtraBotanyItems.dasRheingold),
+				Ingredient.of(ExtraBotanyItems.theUniverse)
+		));
+
 	}
 
 	private static ResourceLocation idFor(String s) {
 		return prefix("terra_plate/" + s);
+	}
+
+	private static ResourceLocation idFor(ItemLike itemLike) {
+		return prefix("terra_plate/" + BuiltInRegistries.ITEM.getKey(itemLike.asItem()).getPath());
 	}
 
 	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {

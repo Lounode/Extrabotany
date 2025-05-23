@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 import io.github.lounode.extrabotany.common.entity.gaia.GaiaIII;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 
-public class BossBattleItem extends Item {
+public class ChallangeTicketItem extends Item {
 
-	public BossBattleItem(Properties properties) {
+	public ChallangeTicketItem(Properties properties) {
 		super(properties);
 	}
 
@@ -22,14 +22,6 @@ public class BossBattleItem extends Item {
 	public InteractionResult useOn(UseOnContext ctx) {
 		ItemStack stack = ctx.getItemInHand();
 		Player player = ctx.getPlayer();
-		/*
-		if (stack.is(ExtraBotanyItems.heroMedal)) {
-			return Gaia.spawn(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos())
-					? InteractionResult.sidedSuccess(ctx.getLevel().isClientSide())
-					: InteractionResult.FAIL;
-		}
-		
-		*/
 
 		if (stack.is(ExtraBotanyItems.challengeTicket)) {
 			if (GaiaIII.spawn(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos())) {

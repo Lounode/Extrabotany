@@ -5,6 +5,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
+import mezz.jei.api.recipe.IRecipeManager;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IJeiRuntime;
 
@@ -35,6 +36,7 @@ import io.github.lounode.extrabotany.common.item.brew.ManaCocktailItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
@@ -76,6 +78,8 @@ public class JEIExtraBotanyPlugin implements IModPlugin {
 		registerCocktailRecipes(registry);
 		registerInfiniteWineRecipes(registry);
 		registerHolyWaterGrenadeRecipes(registry);
+
+		//registry.getIngredientManager().removeIngredientsAtRuntime()
 	}
 
 	@Override
@@ -104,7 +108,16 @@ public class JEIExtraBotanyPlugin implements IModPlugin {
 
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+		IRecipeManager manager = jeiRuntime.getRecipeManager();
+		ResourceLocation recipeId = prefix("das_rheingold_change_bind");
 
+		List<CraftingRecipe> toHide = manager.createRecipeLookup(RecipeTypes.CRAFTING).get()
+				.filter(r -> r.getId().equals(recipeId))
+				.collect(Collectors.toList());
+
+		if (!toHide.isEmpty()) {
+			manager.hideRecipes(RecipeTypes.CRAFTING, toHide);
+		}
 	}
 
 	private static final Comparator<Recipe<?>> BY_ID = Comparator.comparing(Recipe::getId);

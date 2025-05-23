@@ -98,6 +98,22 @@ public class SoundProvider extends SoundDefinitionsProvider {
 				)
 		);
 
+		take(soundEvents, ARMOR_EQUIP_MAID);
+		this.add(ARMOR_EQUIP_MAID, SoundDefinition.definition()
+				.subtitle(title(ARMOR_EQUIP_MAID))
+				.with(
+						SoundDefinitionsProvider.sound(BotaniaSounds.equipManaweave.getLocation(), SoundDefinition.SoundType.EVENT)
+				)
+		);
+
+		take(soundEvents, ARMOR_EQUIP_IDOL);
+		this.add(ARMOR_EQUIP_IDOL, SoundDefinition.definition()
+				.subtitle(title(ARMOR_EQUIP_IDOL))
+				.with(
+						SoundDefinitionsProvider.sound(BotaniaSounds.equipManaweave.getLocation(), SoundDefinition.SoundType.EVENT)
+				)
+		);
+
 		for (SoundEvent soundEvent : soundEvents) {
 			this.add(soundEvent, defaultDefinition(soundEvent));
 		}

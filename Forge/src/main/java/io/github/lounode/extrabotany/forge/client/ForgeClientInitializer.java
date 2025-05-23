@@ -26,6 +26,7 @@ import vazkii.botania.forge.CapabilityUtil;
 import io.github.lounode.extrabotany.client.ExtraBotanyItemProperties;
 import io.github.lounode.extrabotany.client.core.ExtraBotanyModels;
 import io.github.lounode.extrabotany.client.gui.HUD;
+import io.github.lounode.extrabotany.client.model.ExtrabotanyLayerDefinitions;
 import io.github.lounode.extrabotany.client.renderer.BlockRenderLayers;
 import io.github.lounode.extrabotany.client.renderer.ColorHandler;
 import io.github.lounode.extrabotany.client.renderer.entity.EntityRenderers;
@@ -110,6 +111,11 @@ public class ForgeClientInitializer {
 	public static void registerGuiOverlays(RegisterGuiOverlaysEvent e) {
 		e.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "hud",
 				(gui, poseStack, partialTick, width, height) -> hud.onDrawScreenPost(poseStack, partialTick));
+	}
+
+	@SubscribeEvent
+	public static void registerEntityLayers(EntityRenderersEvent.RegisterLayerDefinitions evt) {
+		ExtrabotanyLayerDefinitions.init(evt::registerLayerDefinition);
 	}
 
 	@SubscribeEvent

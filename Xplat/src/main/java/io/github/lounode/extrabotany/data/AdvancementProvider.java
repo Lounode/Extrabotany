@@ -11,6 +11,7 @@ import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
 import vazkii.botania.common.advancements.RelicBindTrigger;
@@ -33,6 +34,9 @@ import java.util.function.Consumer;
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider {
+
+	public static String CODE_TRIGGE = "code_triggered";
+
 	public static net.minecraft.data.advancements.AdvancementProvider create(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		return new net.minecraft.data.advancements.AdvancementProvider(packOutput, lookupProvider, List.of(new ExtrabotanyAdvancements()));
 	}
@@ -48,13 +52,6 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
 			Advancement senbonZakura = Advancement.Builder.advancement()
 					.display(simple(ExtraBotanyItems.manaReader, LibAdvancementNames.SENBON_ZAKURA, FrameType.CHALLENGE))
 					.parent(root)
-					/*
-					.addCriterion("item_used",
-							ItemUsedTrigger.TriggerInstance.itemUsed(
-									ItemPredicate.Builder.item().of(ExtraBotanyItems.manaReader.asItem()).build(),
-									MinMaxBounds.Ints.atLeast(1000)
-							))
-					*/
 					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 					.save(consumer, mainId(LibAdvancementNames.SENBON_ZAKURA));
 			//Pedestal
@@ -161,15 +158,21 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
 					.parent(stygianTwins)
 					.addCriterion("craft_aerialite", onPickup(ExtraBotanyTags.Items.INGOTS_AERIALITE))
 					.save(consumer, mainId(LibAdvancementNames.SKY_IS_NOT_THE_LIMIT));
-			/*
-			Advancement potatoSercer = Advancement.Builder.advancement()
+
+			Advancement potatoServer = Advancement.Builder.advancement()
 					.display(simple(ExtraBotanyItems.gildedPotatoMashed, LibAdvancementNames.POTATO_SERVER, FrameType.TASK))
 					.parent(root)
 					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 					.save(consumer, mainId(LibAdvancementNames.POTATO_SERVER));
-			
-			*/
 
+			Advancement rheinKraft = relicBindAdvancement(ExtraBotanyItems.rheinHammer, LibAdvancementNames.RHEIN_KRAFT)
+					.parent(theSourceOfHonkai)
+					.save(consumer, mainId(LibAdvancementNames.RHEIN_KRAFT));
+			Advancement spongeHammer = Advancement.Builder.advancement()
+					.display(simple(Items.SPONGE, LibAdvancementNames.SPONGE_HAMMER, FrameType.TASK))
+					.parent(rheinKraft)
+					.addCriterion(CODE_TRIGGE, new ImpossibleTrigger.TriggerInstance())
+					.save(consumer, mainId(LibAdvancementNames.SPONGE_HAMMER));
 		}
 	}
 

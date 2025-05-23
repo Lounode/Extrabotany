@@ -1,11 +1,18 @@
 package io.github.lounode.extrabotany.common.item.material;
 
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
-import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import vazkii.botania.common.helper.PlayerHelper;
+
+import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 
 import java.util.Locale;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class GildedPotatoItem extends Item {
 
@@ -15,19 +22,18 @@ public class GildedPotatoItem extends Item {
 		super(properties);
 	}
 
-	//TODO onAnvilRepair
-	public static void onAnvilRepair() {
-		if (/*player.getLevel().isClientSide()*/ false) {
+	@Override
+	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+		super.inventoryTick(stack, level, entity, slotId, isSelected);
+		if (!(entity instanceof ServerPlayer serverPlayer)) {
 			return;
 		}
-		ItemStack stack = ItemStack.EMPTY;
-
-		if (!stack.is(ExtraBotanyItems.gildedPotato)) {
+		if (PlayerHelper.hasAdvancement(serverPlayer, prefix(LibAdvancementNames.POTATO_SERVER).withPrefix("main/"))) {
 			return;
 		}
 
-		if (ADVANCEMENT_NAME.equals(stack.getDisplayName().getString().toLowerCase(Locale.ROOT))) {
-			//PlayerHelper.grantCriterion(serverPlayer, LibAdvancementNames.POTATO_SERVER, "code_triggered");
+		if (ADVANCEMENT_NAME.equals(stack.getHoverName().getString().toLowerCase(Locale.ROOT))) {
+			PlayerHelper.grantCriterion(serverPlayer, prefix(LibAdvancementNames.POTATO_SERVER).withPrefix("main/"), "code_triggered");
 		}
 	}
 }

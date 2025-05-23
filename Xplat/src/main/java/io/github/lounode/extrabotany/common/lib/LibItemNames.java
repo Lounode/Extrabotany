@@ -65,6 +65,6 @@ public final class LibItemNames {
 	public static final String PLEIADES_COMBAT_MAID_SUIT = "pleiades_combat_maid_suit";
 	public static final String PLEIADES_COMBAT_MAID_SKIRT = "pleiades_combat_maid_skirt";
 	public static final String PLEIADES_COMBAT_MAID_BOOTS = "pleiades_combat_maid_boots";
-	public static final String SHADOW_PLEIADES_COMBAT_MAID_SUIT = "shadow_pleiades_combat_maid_suit";
+	public static final String PLEIADES_COMBAT_MAID_SUIT_DARKENED = "pleiades_combat_maid_suit_darkened";
 
 }

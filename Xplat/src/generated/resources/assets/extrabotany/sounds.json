@@ -8,6 +8,24 @@
     ],
     "subtitle": "subtitles.extrabotany:entity.player.hurt_backfire"
   },
+  "item.armor.equip_idol": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "botania:equip_manaweave"
+      }
+    ],
+    "subtitle": "subtitles.extrabotany:item.armor.equip_idol"
+  },
+  "item.armor.equip_maid": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "botania:equip_manaweave"
+      }
+    ],
+    "subtitle": "subtitles.extrabotany:item.armor.equip_maid"
+  },
   "item.camera.charge": {
     "sounds": [
       "extrabotany:item/camera/charge"

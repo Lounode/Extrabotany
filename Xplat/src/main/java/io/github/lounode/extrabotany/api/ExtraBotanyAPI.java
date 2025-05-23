@@ -118,4 +118,11 @@ public interface ExtraBotanyAPI {
 		return new HashMap<>();
 	}
 
+	default ArmorMaterial getPleiadsMaidCombatArmorMaterial() {
+		return DUMMY_ARMOR_MATERIAL;
+	}
+
+	default ArmorMaterial getStarryIdolArmorMaterial() {
+		return DUMMY_ARMOR_MATERIAL;
+	}
 }

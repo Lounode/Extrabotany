@@ -57,6 +57,7 @@ import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.brew.InfiniteWineItem;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
+import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.RheinHammerItem;
 import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
@@ -225,7 +226,8 @@ public class ForgeCommonInitializer {
 			ExtraBotanyItems.coreOfTheVoid, CoreOfTheVoidItem::makeRelic,
 			ExtraBotanyItems.pandorasBox, PandorasBoxItem::makeRelic,
 			ExtraBotanyItems.infiniteWine, InfiniteWineItem::makeRelic,
-			ExtraBotanyItems.voidArchives, VoidArchivesItem::makeRelic
+			ExtraBotanyItems.voidArchives, VoidArchivesItem::makeRelic,
+			ExtraBotanyItems.rheinHammer, RheinHammerItem::makeRelic
 	));
 
 	private static <T> void bind(IEventBus modEventBus, ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {

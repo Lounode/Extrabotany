@@ -31,9 +31,11 @@ public class AuraFireEntity extends ThrowableProjectile {
 	private static final String TAG_GRAVITY = "gravity";
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_MAX_LIVING_TIME = "maxLivingTime";
+	private static final String TAG_DAMAGE = "Damage";
 
 	private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(AuraFireEntity.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Integer> MAX_LIVING_TIME = SynchedEntityData.defineId(AuraFireEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Float> DAMAGE = SynchedEntityData.defineId(AuraFireEntity.class, EntityDataSerializers.FLOAT);
 	public static final float ADVANCEMENT_REQUIRE = 40;
 	private static final int LONG_LIVING = -1;
 	private static final float BASE_DAMAGE = 4.0F;
@@ -57,12 +59,14 @@ public class AuraFireEntity extends ThrowableProjectile {
 
 		setRot(shooter.getYRot() + 180, -shooter.getXRot());
 		setDeltaMovement(calculateVelocity(getXRot(), getYRot()));
+		setDamage((float) (BASE_DAMAGE + shooter.getAttributeValue(Attributes.ATTACK_DAMAGE)));
 	}
 
 	@Override
 	protected void defineSynchedData() {
 		entityData.define(GRAVITY, 0F);
 		entityData.define(MAX_LIVING_TIME, 80);
+		entityData.define(DAMAGE, BASE_DAMAGE);
 	}
 
 	@Override
@@ -71,6 +75,7 @@ public class AuraFireEntity extends ThrowableProjectile {
 		tag.putFloat(TAG_GRAVITY, getGravity());
 		tag.putInt(TAG_TICKS_EXISTED, getTicksExisted());
 		tag.putInt(TAG_MAX_LIVING_TIME, getMaxLivingTime());
+		tag.putFloat(TAG_DAMAGE, getDamage());
 	}
 
 	@Override
@@ -79,6 +84,7 @@ public class AuraFireEntity extends ThrowableProjectile {
 		setTicksExisted(cmp.getInt(TAG_TICKS_EXISTED));
 		setMaxLivingTime(cmp.getInt(TAG_MAX_LIVING_TIME));
 		setGravity(cmp.getFloat(TAG_GRAVITY));
+		setDamage(cmp.getFloat(TAG_DAMAGE));
 	}
 
 	@Override
@@ -109,10 +115,7 @@ public class AuraFireEntity extends ThrowableProjectile {
 				.filter(e -> e.hurtTime == 0)
 				.toList();
 		for (var entity : entities) {
-			float damage = BASE_DAMAGE;
-			if (owner instanceof LivingEntity livingOwner) {
-				damage += (float) livingOwner.getAttributeValue(Attributes.ATTACK_DAMAGE);
-			}
+			float damage = getDamage();
 
 			DamageSource source = createDamageSource(entity, owner);
 
@@ -193,6 +196,14 @@ public class AuraFireEntity extends ThrowableProjectile {
 
 	public void setLongLiving() {
 		entityData.set(MAX_LIVING_TIME, LONG_LIVING);
+	}
+
+	public float getDamage() {
+		return entityData.get(DAMAGE);
+	}
+
+	public void setDamage(float damage) {
+		entityData.set(DAMAGE, damage);
 	}
 
 	@Override

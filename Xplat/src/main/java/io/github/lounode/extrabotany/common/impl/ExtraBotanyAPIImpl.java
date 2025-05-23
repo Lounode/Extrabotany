@@ -1,8 +1,11 @@
 package io.github.lounode.extrabotany.common.impl;
 
+import net.minecraft.world.item.ArmorMaterial;
+
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.api.item.CoreOfTheVoidVariant;
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
+import io.github.lounode.extrabotany.common.item.material.ArmorsMaterial;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,6 +13,16 @@ import java.util.Map;
 public class ExtraBotanyAPIImpl implements ExtraBotanyAPI {
 	private final Map<String, CoreOfTheVoidVariant> covVariants = new LinkedHashMap<>();
 	private final Map<String, VoidArchivesVariant> voidArchivesVariants = new LinkedHashMap<>();
+
+	@Override
+	public ArmorMaterial getPleiadsMaidCombatArmorMaterial() {
+		return ArmorsMaterial.PLEIADS_MAID_COMBAT;
+	}
+
+	@Override
+	public ArmorMaterial getStarryIdolArmorMaterial() {
+		return ArmorsMaterial.STARRY_IDOL;
+	}
 
 	@Override
 	public void registerCOVVariant(CoreOfTheVoidVariant variant) {

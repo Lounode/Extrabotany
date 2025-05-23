@@ -3,15 +3,18 @@ package io.github.lounode.extrabotany.data.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
@@ -78,11 +81,22 @@ public class RunicAltarProvider extends ExtraBotanyRecipeProvider {
 				Ingredient.of(Items.POTATO),
 				Ingredient.of(Items.GOLD_NUGGET)
 		));
+		consumer.accept(new FinishedRecipe(idFor(ExtraBotanyItems.orichalcosHammer), new ItemStack(ExtraBotanyItems.orichalcosHammer), ManaPoolBlockEntity.MAX_MANA,
+				Ingredient.of(ExtraBotanyItems.heroMedal),
+				Ingredient.of(ExtraBotanyItems.gildedPotatoMashed),
+				Ingredient.of(ExtraBotanyItems.theChaos),
+				Ingredient.of(ExtraBotanyItems.theOrigin),
+				Ingredient.of(ExtraBotanyItems.theEnd)
+		));
 
 	}
 
 	private static ResourceLocation idFor(String s) {
 		return prefix("runic_altar/" + s);
+	}
+
+	private static ResourceLocation idFor(ItemLike itemLike) {
+		return prefix("runic_altar/" + BuiltInRegistries.ITEM.getKey(itemLike.asItem()).getPath());
 	}
 
 	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {

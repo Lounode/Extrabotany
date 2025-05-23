@@ -20,4 +20,6 @@ public class LibAdvancementNames {
 	public static final String POTATO_SERVER = "potato_server";
 	public static final String SOULSTEEL = "soulsteel";
 	public static final String SKY_IS_NOT_THE_LIMIT = "sky_is_not_the_limit";
+	public static final String RHEIN_KRAFT = "rhein_kraft";
+	public static final String SPONGE_HAMMER = "sponge_hammer";
 }

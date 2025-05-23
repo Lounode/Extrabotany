@@ -36,6 +36,7 @@ import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.brew.InfiniteWineItem;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
+import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.RheinHammerItem;
 import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
@@ -154,6 +155,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> PandorasBoxItem.makeRelic(st), ExtraBotanyItems.pandorasBox);
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> InfiniteWineItem.makeRelic(st), ExtraBotanyItems.infiniteWine);
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> VoidArchivesItem.makeRelic(st), ExtraBotanyItems.voidArchives);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> RheinHammerItem.makeRelic(st), ExtraBotanyItems.rheinHammer);
 	}
 
 	private void registerFuels() {

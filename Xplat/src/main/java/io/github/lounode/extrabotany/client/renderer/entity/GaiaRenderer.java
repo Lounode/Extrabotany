@@ -18,8 +18,8 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.model.armor.ArmorModels;
 
+import io.github.lounode.extrabotany.client.model.ArmorModels;
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 
 public class GaiaRenderer extends HumanoidMobRenderer<Gaia, HumanoidModel<Gaia>> {

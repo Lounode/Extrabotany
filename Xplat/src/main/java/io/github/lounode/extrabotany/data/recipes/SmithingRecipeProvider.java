@@ -38,6 +38,15 @@ public class SmithingRecipeProvider extends ExtraBotanyRecipeProvider {
 		)
 				.unlocks("has_item", conditionsFromItem(ExtraBotanyItems.heroMedal))
 				.save(consumer, id(ExtraBotanyItems.excalibur));
+		SmithingTransformRecipeBuilder.smithing(
+				Ingredient.of(BotaniaItems.gaiaIngot),
+				Ingredient.of(ExtraBotanyItems.terrasteelHammer),
+				Ingredient.of(ExtraBotanyItems.heroMedal),
+				RecipeCategory.COMBAT,
+				ExtraBotanyItems.gaiaHammer
+		)
+				.unlocks("has_item", conditionsFromItem(BotaniaItems.gaiaIngot))
+				.save(consumer, id(ExtraBotanyItems.gaiaHammer));
 	}
 
 	protected ResourceLocation id(ItemLike itemLike) {
