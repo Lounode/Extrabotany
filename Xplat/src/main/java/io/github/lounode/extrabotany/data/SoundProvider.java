@@ -87,6 +87,7 @@ public class SoundProvider extends SoundDefinitionsProvider {
 				.with(
 						SoundDefinitionsProvider.sound(relocateOggPath(MUSIC_GAIA3.getLocation()))
 								.stream()
+								.volume(0.3F)
 				)
 		);
 
@@ -111,6 +112,14 @@ public class SoundProvider extends SoundDefinitionsProvider {
 				.subtitle(title(ARMOR_EQUIP_IDOL))
 				.with(
 						SoundDefinitionsProvider.sound(BotaniaSounds.equipManaweave.getLocation(), SoundDefinition.SoundType.EVENT)
+				)
+		);
+
+		take(soundEvents, HAMMER_USE);
+		this.add(HAMMER_USE, SoundDefinition.definition()
+				.subtitle(title(HAMMER_USE))
+				.with(
+						SoundDefinitionsProvider.sound(BotaniaSounds.terraPickMode.getLocation(), SoundDefinition.SoundType.EVENT)
 				)
 		);
 

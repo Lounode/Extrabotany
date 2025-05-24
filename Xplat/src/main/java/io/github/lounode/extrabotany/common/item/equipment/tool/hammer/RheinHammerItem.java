@@ -2,6 +2,7 @@ package io.github.lounode.extrabotany.common.item.equipment.tool.hammer;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -9,11 +10,15 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.relic.RelicImpl;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.eventwrapper.event.entity.player.PlayerEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
@@ -26,6 +31,7 @@ import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.material.HammerTiers;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 
+import java.util.List;
 import java.util.Locale;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
@@ -49,8 +55,20 @@ public class RheinHammerItem extends TerrasteelHammerItem implements IShadowium,
 	}
 
 	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+		super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+		RelicImpl.addDefaultTooltip(stack, tooltipComponents);
+	}
+
+	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
+		if (!world.isClientSide && entity instanceof Player player) {
+			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+			if (relic != null) {
+				relic.tickBinding(player);
+			}
+		}
 		if (entity instanceof ServerPlayer serverPlayer && checkAdvancement(stack, serverPlayer)) {
 			PlayerHelper.grantCriterion(serverPlayer, prefix("main/" + LibAdvancementNames.SPONGE_HAMMER), "code_triggered");
 		}

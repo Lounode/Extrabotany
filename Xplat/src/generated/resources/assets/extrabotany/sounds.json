@@ -74,6 +74,15 @@
     ],
     "subtitle": "subtitles.extrabotany:item.feather_of_jingwei.shoot"
   },
+  "item.hammer.use": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "botania:terra_pick_mode"
+      }
+    ],
+    "subtitle": "subtitles.extrabotany:item.hammer.use"
+  },
   "item.pandoras_box.open": {
     "sounds": [
       {
@@ -105,7 +114,8 @@
     "sounds": [
       {
         "name": "extrabotany:music/gaia3",
-        "stream": true
+        "stream": true,
+        "volume": 0.3
       }
     ]
   }

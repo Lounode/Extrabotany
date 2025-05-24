@@ -74,10 +74,10 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
 	}
 
 	private void generateToolTags() {
-		this.tag(Tags.Items.ARMORS_HELMETS).add(starryIdolHeadgear);
-		this.tag(Tags.Items.ARMORS_CHESTPLATES).add(starryIdolSuit);
-		this.tag(Tags.Items.ARMORS_LEGGINGS).add(starryIdolSkirt);
-		this.tag(Tags.Items.ARMORS_BOOTS).add(starryIdolBoots);
+		this.tag(Tags.Items.ARMORS_HELMETS).add(starryIdolHeadgear, pleiadesCombatMaidHeadgear);
+		this.tag(Tags.Items.ARMORS_CHESTPLATES).add(starryIdolSuit, pleiadesCombatMaidSuit, pleiadesCombatMaidSuitDarkened);
+		this.tag(Tags.Items.ARMORS_LEGGINGS).add(starryIdolSkirt, pleiadesCombatMaidSkirt);
+		this.tag(Tags.Items.ARMORS_BOOTS).add(starryIdolBoots, pleiadesCombatMaidBoots);
 	}
 
 	private static TagKey<Item> accessory(String name) {

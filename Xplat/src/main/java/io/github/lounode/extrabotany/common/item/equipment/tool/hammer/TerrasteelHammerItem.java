@@ -21,9 +21,10 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+
+import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 
 import java.util.function.Predicate;
 
@@ -56,7 +57,7 @@ public class TerrasteelHammerItem extends ManasteelHammerItem implements Sequent
 		setEnabled(stack, !isEnabled(stack));
 
 		if (!level.isClientSide) {
-			level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraPickMode, SoundSource.PLAYERS, 1F, 1F);
+			level.playSound(null, player.getX(), player.getY(), player.getZ(), ExtraBotanySounds.HAMMER_USE, SoundSource.PLAYERS, 1F, 1F);
 		}
 
 		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());

@@ -41,7 +41,7 @@ public final class ExtraBotanyBlocks {
 			.mapColor(MapColor.TERRACOTTA_WHITE)
 			.lightLevel((state) -> 15)
 	);
-	public static final Block aerialiteBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(photoniumBlock)
+	public static final Block aerialiteBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(shadowiumBlock)
 			.mapColor(MapColor.LAPIS)
 	);
 	public static final Block orichalcosBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.of()

@@ -5,10 +5,8 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class ExtrabotanyModelLayers {
-
-	public static final ModelLayerLocation STARRY_IDOL_INNER_ARMOR = make("starry_idol_armor", "inner_armor");
-	public static final ModelLayerLocation STARRY_IDOL_OUTER_ARMOR = make("starry_idol_armor", "outer_armor");
-	public static final ModelLayerLocation STARRY_IDOL_ARMOR = make("starry_idol_armor");
+	public static final ModelLayerLocation STARRY_IDOL_ARMOR_NORMAL = make("starry_idol_armor_normal");
+	public static final ModelLayerLocation STARRY_IDOL_ARMOR_DRESS = make("starry_idol_armor_dress");
 
 	private static ModelLayerLocation make(String name) {
 		return make(name, "main");

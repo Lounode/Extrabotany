@@ -25,6 +25,7 @@ public class ExtraBotanySounds {
 	public static final SoundEvent MUSIC_GAIA3 = makeSoundEvent("music.gaia3");
 	public static final SoundEvent ARMOR_EQUIP_MAID = makeSoundEvent("item.armor.equip_maid");
 	public static final SoundEvent ARMOR_EQUIP_IDOL = makeSoundEvent("item.armor.equip_idol");;
+	public static final SoundEvent HAMMER_USE = makeSoundEvent("item.hammer.use");
 
 	private static SoundEvent makeSoundEvent(String name) {
 		SoundEvent event = SoundEvent.createVariableRangeEvent(prefix(name));

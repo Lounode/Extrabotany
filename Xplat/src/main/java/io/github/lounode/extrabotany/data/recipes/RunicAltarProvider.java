@@ -82,7 +82,7 @@ public class RunicAltarProvider extends ExtraBotanyRecipeProvider {
 				Ingredient.of(Items.GOLD_NUGGET)
 		));
 		consumer.accept(new FinishedRecipe(idFor(ExtraBotanyItems.orichalcosHammer), new ItemStack(ExtraBotanyItems.orichalcosHammer), ManaPoolBlockEntity.MAX_MANA,
-				Ingredient.of(ExtraBotanyItems.heroMedal),
+				Ingredient.of(ExtraBotanyItems.orichalcos),
 				Ingredient.of(ExtraBotanyItems.gildedPotatoMashed),
 				Ingredient.of(ExtraBotanyItems.theChaos),
 				Ingredient.of(ExtraBotanyItems.theOrigin),

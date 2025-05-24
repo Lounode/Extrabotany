@@ -108,7 +108,8 @@ public class ItemModelProvider implements DataProvider {
 		items.remove(failnaught);
 
 		takeAll(items, manasteelHammer, elementiumHammer, gaiaHammer,
-				photoniumHammer, shadowiumHammer, aerialiteHammer
+				photoniumHammer, shadowiumHammer, aerialiteHammer,
+				excalibur, walkingCane, magicFinger, manaReader
 		).forEach(i -> ModelTemplates.FLAT_HANDHELD_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(i), consumer));
 
 		takeAll(items, i -> true).forEach(i -> ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(i), consumer));

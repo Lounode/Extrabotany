@@ -18,9 +18,9 @@
   "advancement.extrabotany:craft_pedestal": "advancement.extrabotany:craft_pedestal",
   "advancement.extrabotany:craft_pedestal.desc": "Craft a type of Nature Pedestal",
   "advancement.extrabotany:goodtek": "GOODTEK!",
-  "advancement.extrabotany:goodtek.desc": "",
+  "advancement.extrabotany:goodtek.desc": "用锻造锤锻造自然祭坛中的物品",
   "advancement.extrabotany:kurukuru": "Time to twirl!",
-  "advancement.extrabotany:kurukuru.desc": "",
+  "advancement.extrabotany:kurukuru.desc": "将一个自然祭坛的四面都贴上放入锻造锤的展示框",
   "advancement.extrabotany:deep_dark_fantasy": "Deep Dark Fantasy",
   "advancement.extrabotany:deep_dark_fantasy.desc": "食用一个梦魇燃料",
   "advancement.extrabotany:i_see_everything": "I see EVERYTHING!",
@@ -179,6 +179,7 @@
   "item.extrabotany.pleiades_combat_maid_suit_darkened": "暗影昴星团战斗女仆服",
   "item.extrabotany.pleiades_combat_maid_skirt": "昴星团战斗女仆裙甲",
   "item.extrabotany.pleiades_combat_maid_boots": "昴星团战斗女仆靴",
+  "item.extrabotany.manasteel_shield": "魔力钢盾牌",
   
   "message.extrabotany.actionbar.mana_left": "Mana: %s",
   "message.extrabotany.chat.bad_struct": "无论你多么努力地尝试将%1$s送入信标之中，什么事都没有发生。也许你摆放的仪式结构有问题。",
@@ -193,9 +194,10 @@
   "subtitles.extrabotany:entity.player.hurt_backfire": "玩家：遭受反噬",
   "subtitles.extrabotany:item.reward_bag.open": "Reward Bag open",
   "subtitles.extrabotany:item.pandoras_box.open": "Pandora's Box open",
-  "subtitles.extrabotany:item.walking_cane.use": "弹跳",
+  "subtitles.extrabotany:item.walking_cane.use": "Bounce",
   "subtitles.extrabotany:item.armor.equip_maid": "昴星团女仆：穿着",
   "subtitles.extrabotany:item.armor.equip_idol": "星空歌姬：穿着",
+  "subtitles.extrabotany:item.hammer.use": "锻造锤：升级",
   
   "subtitles.extrabotany:": "",
   

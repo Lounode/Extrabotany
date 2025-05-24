@@ -69,8 +69,8 @@ public class StarryIdolArmorItem extends ArmorItem implements
 	}
 
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		//return ResourcesLib.MODEL_STARRY_IDOL;
-		return ResourcesLib.MODEL_INVISIBLE_ARMOR;
+		return ResourcesLib.MODEL_STARRY_IDOL;
+		//return ResourcesLib.MODEL_INVISIBLE_ARMOR;
 	}
 
 	@Override

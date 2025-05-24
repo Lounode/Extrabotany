@@ -2,7 +2,7 @@
   "type": "botania:runic_altar",
   "ingredients": [
     {
-      "item": "extrabotany:hero_medal"
+      "item": "extrabotany:orichalcos_ingot"
     },
     {
       "item": "extrabotany:gilded_potato_mashed"

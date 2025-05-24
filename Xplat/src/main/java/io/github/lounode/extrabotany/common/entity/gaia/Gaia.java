@@ -593,10 +593,10 @@ public class Gaia extends Monster {
 	}
 
 	public static class GaiaSpawnData {
-		int playerCount;
-		GlobalPos home;
-		UUID bossInfoUUID;
-		GaiaArena arena;
+		private int playerCount;
+		private GlobalPos home;
+		private UUID bossInfoUUID;
+		private GaiaArena arena;
 
 		public GaiaSpawnData() {}
 

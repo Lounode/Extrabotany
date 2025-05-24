@@ -10,6 +10,8 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.model.armor.ArmorModel;
 
+import io.github.lounode.extrabotany.common.item.equipment.armor.starry_idol.StarryIdolArmorItem;
+
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
@@ -37,20 +39,27 @@ public class ArmorModels {
 		return ret;
 	}
 
+	private static Map<EquipmentSlot, ArmorModel> makeIdol(EntityRendererProvider.Context ctx, ModelLayerLocation layer, ModelLayerLocation dressLayer) {
+		Map<EquipmentSlot, ArmorModel> ret = new EnumMap<>(EquipmentSlot.class);
+		for (var slot : EquipmentSlot.values()) {
+			var mesh = ctx.bakeLayer(slot != EquipmentSlot.LEGS ? layer : dressLayer);
+			ret.put(slot, new ArmorModel(mesh, slot));
+		}
+		return ret;
+	}
+
 	public static void init(EntityRendererProvider.Context ctx) {
 		//starryIdol = make(ctx, ExtrabotanyModelLayers.STARRY_IDOL_INNER_ARMOR, ExtrabotanyModelLayers.STARRY_IDOL_OUTER_ARMOR);
-		starryIdol = make(ctx, ExtrabotanyModelLayers.STARRY_IDOL_ARMOR);
+		starryIdol = makeIdol(ctx, ExtrabotanyModelLayers.STARRY_IDOL_ARMOR_NORMAL, ExtrabotanyModelLayers.STARRY_IDOL_ARMOR_DRESS);
 	}
 
 	@Nullable
 	public static ArmorModel get(ItemStack stack) {
 		Item item = stack.getItem();
-		/*
+
 		if (item instanceof StarryIdolArmorItem armor) {
 			return starryIdol.get(armor.getEquipmentSlot());
 		}
-		
-		*/
 
 		return null;
 	}

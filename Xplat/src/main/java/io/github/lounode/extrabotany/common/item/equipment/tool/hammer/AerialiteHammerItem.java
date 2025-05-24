@@ -10,7 +10,7 @@ import io.github.lounode.extrabotany.api.item.IAerialite;
 public class AerialiteHammerItem extends ManasteelHammerItem implements IAerialite {
 
 	private static final int MANA_PER_DAMAGE = 70;
-	private static final int BUFF_MANA = 100;
+	private static final int BUFF_MANA = 10;
 
 	public AerialiteHammerItem(Tier tier, int attackDamageModifier, float attackSpeedModifier, Properties properties) {
 		super(tier, attackDamageModifier, attackSpeedModifier, properties);
