@@ -228,6 +228,7 @@ public final class ExtraBotanyItems {
 	private static Item.Properties stackTo16() {
 		return defaultBuilder().stacksTo(16);
 	}
+
 	private static Item.Properties stackTo4() {
 		return defaultBuilder().stacksTo(16);
 	}
