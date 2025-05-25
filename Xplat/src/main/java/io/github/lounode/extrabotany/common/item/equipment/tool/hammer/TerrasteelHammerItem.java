@@ -3,13 +3,11 @@ package io.github.lounode.extrabotany.common.item.equipment.tool.hammer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
@@ -21,6 +19,7 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
@@ -63,17 +62,16 @@ public class TerrasteelHammerItem extends ManasteelHammerItem implements Sequent
 		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 	}
 
-	//Thanks mojang now it has official api
-	@Override
-	public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-		if (entityLiving instanceof ServerPlayer serverPlayer) {
-			BlockHitResult raycast = ToolCommons.raytraceFromEntity(serverPlayer, 10, false);
-			if (raycast.getType() == HitResult.Type.BLOCK) {
-				Direction face = raycast.getDirection();
-				breakOtherBlock(serverPlayer, stack, pos, pos, face);
-			}
+	//TODO BlockEventWrapper
+	@SoftImplement("IForgeItem")
+	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
+		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
+		if (!player.level().isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
+			Direction face = raycast.getDirection();
+			breakOtherBlock(player, stack, pos, pos, face);
 		}
-		return super.mineBlock(stack, level, state, pos, entityLiving);
+
+		return false;
 	}
 
 	@Override

@@ -4,13 +4,12 @@
   "package": "io.github.lounode.extrabotany.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-  
+    "ServerPlayerGameModeFabricMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-  
   ],
   "refmap": "extrabotany.refmap.json"
 }

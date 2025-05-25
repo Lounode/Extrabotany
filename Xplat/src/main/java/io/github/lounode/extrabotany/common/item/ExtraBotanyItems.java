@@ -162,7 +162,7 @@ public final class ExtraBotanyItems {
 	//Brews
 	public static final Item manaCocktail = make(prefix(LibItemNames.MANA_COCKTAIL), new ManaCocktailItem(unstackable().craftRemainder(manaGlassBottle), 8, 32, () -> manaGlassBottle));
 	public static final Item infiniteWine = make(prefix(LibItemNames.INFINITE_WINE), new InfiniteWineItem(unstackable().rarity(Rarity.RARE).craftRemainder(manaGlassBottle), 12, 18, () -> manaGlassBottle));
-	public static final Item holyWaterGrenade = make(prefix(LibItemNames.HOLY_WATER_GRENADE), new HolyWaterGrenadeItem(stackTo16()));
+	public static final Item holyWaterGrenade = make(prefix(LibItemNames.HOLY_WATER_GRENADE), new HolyWaterGrenadeItem(stackTo4()));
 
 	//For tags
 	public static final Item[] REWARD_BAGS = {
@@ -226,6 +226,9 @@ public final class ExtraBotanyItems {
 	}
 
 	private static Item.Properties stackTo16() {
+		return defaultBuilder().stacksTo(16);
+	}
+	private static Item.Properties stackTo4() {
 		return defaultBuilder().stacksTo(16);
 	}
 

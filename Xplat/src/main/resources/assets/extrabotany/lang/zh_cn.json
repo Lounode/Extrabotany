@@ -264,7 +264,7 @@
   "extrabotany.page.hammers3": "邦！变猫娘！",
   "extrabotany.page.hammers4": "$(item)泰拉碾压者$()是挖矿时的得力助手，和$(item)泰拉粉碎者$()一样，激活时具有大范围的区域挖掘，能一次性挖出巨大的矿道。",
   "extrabotany.page.hammers5": "惊天矿工团",
-  "extrabotany.page.hammers6": "$(item)盖亚魂钢$()锤是一个很特殊的锤子，不同于其他锤子的各显神通，它$(thing)有且只有一个能力$()：$(br2)当有人拿着它从高处下落，击中敌人时，可以施展一招从天而降的青春版$(thing)重击$()，并让使用者借助后坐力弹回空中。$(br2)可惜的是，下落的高度与锤击的伤害并$(thing)没有关系$()。",
+  "extrabotany.page.hammers6": "$(item)盖亚魂钢锤$()是一个很特殊的锤子，不同于其他锤子的各显神通，它$(thing)有且只有一个能力$()：$(br2)当有人拿着它从高处下落，击中敌人时，可以施展一招从天而降的青春版$(thing)重击$()，并让使用者借助后坐力弹回空中。$(br2)可惜的是，下落的高度与锤击的伤害并$(thing)没有关系$()。",
   "extrabotany.page.hammers7": "重锤青春版",
   "extrabotany.page.hammers8": "$(thing)白天$()是$(item)光子锤$()最喜欢的时候，它喜欢白天的$(thing)日照$()，在日光下，把它拿在手里，你就有了无限的$(thing)速度$()效果。$(br2)但请注意，在不见天日的洞穴里，该效果$(thing)不能$()生效。",
   "extrabotany.page.hammers9": "天野灯",
@@ -336,7 +336,7 @@
   
   "extrabotany.entry.reward_bags": "奖励袋",
   "extrabotany.page.reward_bags0": "抽卡是个好东西，人人都喜欢抽卡，尤其是抽中金色传说的那一刻。$(br2)$(m)而且抽$(thing)$(m)奖励袋$()$(m)还不用花钱。$()",
-  "extrabotany.page.reward_bags1": "悠香快乐袋$(br2)",
+  "extrabotany.page.reward_bags1": "幽香快乐袋$(br2)",
   "extrabotany.page.reward_bags2": "钻石镐爷爷$(br2)",
   "extrabotany.page.reward_bags3": "搏一搏，单车变摩托$(br2)",
   "extrabotany.page.reward_bags4": "God knows...$(br2)",
@@ -413,7 +413,7 @@
   "extrabotany.page.universe_medium5": "边界曲面的命运石之门",
   
   "extrabotany.entry.orichalcos": "奥力哈钢",
-  "extrabotany.page.orichalcos0": "消耗大量$(item)魔力$()与$(item)盖亚之魂$()的魂力制作出的一种上等合金。$(br2)不仅防火，还具有相当的稳定性与防爆性。",
+  "extrabotany.page.orichalcos0": "消耗大量$(thing)魔力$()与$(item)盖亚之魂$()的魂力制作出的一种上等合金。$(br2)不仅防火，还具有相当的稳定性与防爆性。",
   "extrabotany.page.orichalcos1": "$(o)$(7)魂钢",
   
   "extrabotany.entry.aerialite": "天空锭",

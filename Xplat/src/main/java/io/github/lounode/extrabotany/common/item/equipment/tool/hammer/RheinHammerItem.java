@@ -156,6 +156,26 @@ public class RheinHammerItem extends TerrasteelHammerItem implements IShadowium,
 		return BUFF_MANA;
 	}
 
+	@Override
+	public boolean isNight(Level level) {
+		return true;
+	}
+
+	@Override
+	public boolean isInCave(Level level, BlockPos pos) {
+		return true;
+	}
+
+	@Override
+	public boolean isDay(Level level) {
+		return true;
+	}
+
+	@Override
+	public boolean isOutCave(Level level, BlockPos pos) {
+		return true;
+	}
+
 	public static Relic makeRelic(ItemStack stack) {
 		return new RelicImpl(stack, prefix("main/" + LibAdvancementNames.RHEIN_KRAFT));
 	}

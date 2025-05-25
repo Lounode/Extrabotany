@@ -195,6 +195,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 
 				)
 				.extraRecipeMapping(ExtraBotanyItems.coreOfTheVoid, 0)
+				.withAdvancement(mainAdvancement("impossible"))
 				.save(consumer, id("core_of_the_void"));
 		PatchouliBuilder.entry(CATEGORY)
 				.withName("extrabotany.entry.gaia_3rd")
