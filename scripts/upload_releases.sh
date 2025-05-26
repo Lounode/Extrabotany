@@ -8,7 +8,7 @@ TAGNAME="${GIT_REF/#refs\/tags\/}"
 VERSION="${TAGNAME/#release-}"
 MC_VERSION=$(echo "${VERSION}" | cut -d '-' -f 1)
 #CHANGELOG_FRAGMENT=$(echo "${VERSION}" | tr . -)
-CHANGELOG_LINK="See https://github.com/Lounode/Extrabotany/commits/1.20.1/"
+CHANGELOG_LINK="See https://github.com/Lounode/Extrabotany/blob/1.20.1/web/changelog_en.md"
 
 function release_github() {
 	echo >&2 'Creating GitHub Release'
@@ -36,12 +36,16 @@ function release_modrinth() {
 		{
 			"project_id": "P7dR8mSH",
 			"dependency_type": "required"
+		},
+		{
+		  "project_id": "k7JPYdTv",
+      "dependency_type": "required"
 		}
 	],
 	"version_type": "release",
 	"loaders": ["fabric", "quilt"],
 	"featured": false,
-	"project_id": "k7JPYdTv",
+	"project_id": "zG0IqeQj",
 	"file_parts": [
 		"jar"
 	],
@@ -64,11 +68,16 @@ EOF
 	local MODRINTH_FORGE_SPEC
 	MODRINTH_FORGE_SPEC=$(cat <<EOF
 {
-	"dependencies": [],
+	"dependencies": [
+	  {
+    		"project_id": "k7JPYdTv",
+        "dependency_type": "required"
+    }
+	],
 	"version_type": "release",
-	"loaders": ["forge"],
+	"loaders": ["forge", "neoforge"],
 	"featured": false,
-	"project_id": "k7JPYdTv",
+	"project_id": "zG0IqeQj",
 	"file_parts": [
 		"jar"
 	],
@@ -96,6 +105,8 @@ function release_curseforge() {
 	local CURSEFORGE_JAVA_VERSION=8326 # Java 17
 	local CURSEFORGE_FABRIC_VERSION=7499
 	local CURSEFORGE_FORGE_VERSION=7498
+	local CURSEFORGE_QUILT_VERSION=9153
+	local CURSEFORGE_NEOFORGE_VERSION=10150
 	local CURSEFORGE_CLIENT_VERSION=9638
 	local CURSEFORGE_SERVER_VERSION=9639
 	# For the Minecraft one, don't hardcode so we don't have to remember to come change this every time.
@@ -120,7 +131,11 @@ function release_curseforge() {
 			{
 				"slug": "fabric-api",
 				"type": "requiredDependency"
-			}
+			},
+			{
+      	"slug": "event-wrapper",
+      	"type": "requiredDependency"
+      }
 		]
 	}
 }
@@ -132,13 +147,14 @@ $CURSEFORGE_JAVA_VERSION,\
 $CURSEFORGE_CLIENT_VERSION,\
 $CURSEFORGE_SERVER_VERSION,\
 $CURSEFORGE_FABRIC_VERSION,\
+$CURSEFORGE_QUILT_VERSION,\
 $CURSEFORGE_GAME_VERSION]"
 
 	CURSEFORGE_FABRIC_SPEC=$(echo "$CURSEFORGE_FABRIC_SPEC" | \
 								 jq --arg changelog "$CHANGELOG_LINK" \
 									--argjson gamevers "$CURSEFORGE_FABRIC_GAMEVERS" \
 									'.gameVersions=$ARGS.named.gamevers | .changelog=$ARGS.named.changelog')
-	curl 'https://minecraft.curseforge.com/api/projects/1256971/upload-file' \
+	curl 'https://minecraft.curseforge.com/api/projects/1271869/upload-file' \
 		 -H "X-Api-Token: $CURSEFORGE_TOKEN" \
 		 -F "metadata=$CURSEFORGE_FABRIC_SPEC" \
 		 -F "file=@$FABRIC_JAR"
@@ -149,7 +165,15 @@ $CURSEFORGE_GAME_VERSION]"
 	CURSEFORGE_FORGE_SPEC=$(cat <<EOF
 {
     "changelogType": "text",
-    "releaseType": "release"
+    "releaseType": "release",
+    "relations": {
+      "projects": [
+      			{
+            	"slug": "event-wrapper",
+            	"type": "requiredDependency"
+            }
+      ]
+    }
 }
 EOF
 						 )
@@ -159,13 +183,14 @@ $CURSEFORGE_JAVA_VERSION,\
 $CURSEFORGE_CLIENT_VERSION,\
 $CURSEFORGE_SERVER_VERSION,\
 $CURSEFORGE_FORGE_VERSION,\
+$CURSEFORGE_NEOFORGE_VERSION,\
 $CURSEFORGE_GAME_VERSION]"
 
 	CURSEFORGE_FORGE_SPEC=$(echo "$CURSEFORGE_FORGE_SPEC" | \
 								jq --arg changelog "$CHANGELOG_LINK" \
 								   --argjson gamevers "$CURSEFORGE_FORGE_GAMEVERS" \
 								   '.gameVersions=$ARGS.named.gamevers | .changelog=$ARGS.named.changelog')
-	curl 'https://minecraft.curseforge.com/api/projects/1256971/upload-file' \
+	curl 'https://minecraft.curseforge.com/api/projects/1271869/upload-file' \
 		 -H "X-Api-Token: $CURSEFORGE_TOKEN" \
 		 -F "metadata=$CURSEFORGE_FORGE_SPEC" \
 		 -F "file=@$FORGE_JAR"
@@ -173,5 +198,5 @@ $CURSEFORGE_GAME_VERSION]"
 }
 
 release_github
-#release_modrinth
-#release_curseforge
+release_modrinth
+release_curseforge
