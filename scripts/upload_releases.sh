@@ -4,7 +4,7 @@ set -euo pipefail
 # Remove 'refs/tags/' from front
 TAGNAME="${GIT_REF/#refs\/tags\/}"
 
-# Remove 'release-' from front
+# Remove 'release-' from front.
 VERSION="${TAGNAME/#release-}"
 MC_VERSION=$(echo "${VERSION}" | cut -d '-' -f 1)
 #CHANGELOG_FRAGMENT=$(echo "${VERSION}" | tr . -)
