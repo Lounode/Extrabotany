@@ -4,7 +4,7 @@ set -euo pipefail
 # Remove 'refs/tags/' from front
 TAGNAME="${GIT_REF/#refs\/tags\/}"
 
-# Remove 'release-' from front.
+# Remove 'release-' from front
 VERSION="${TAGNAME/#release-}"
 MC_VERSION=$(echo "${VERSION}" | cut -d '-' -f 1)
 #CHANGELOG_FRAGMENT=$(echo "${VERSION}" | tr . -)
@@ -105,8 +105,6 @@ function release_curseforge() {
 	local CURSEFORGE_JAVA_VERSION=8326 # Java 17
 	local CURSEFORGE_FABRIC_VERSION=7499
 	local CURSEFORGE_FORGE_VERSION=7498
-	local CURSEFORGE_QUILT_VERSION=9153
-	local CURSEFORGE_NEOFORGE_VERSION=10150
 	local CURSEFORGE_CLIENT_VERSION=9638
 	local CURSEFORGE_SERVER_VERSION=9639
 	# For the Minecraft one, don't hardcode so we don't have to remember to come change this every time.
@@ -135,6 +133,10 @@ function release_curseforge() {
 			{
       	"slug": "event-wrapper",
       	"type": "requiredDependency"
+      },
+      {
+        "slug":"botania-fabric",
+        "type": "requiredDependency"
       }
 		]
 	}
@@ -147,7 +149,6 @@ $CURSEFORGE_JAVA_VERSION,\
 $CURSEFORGE_CLIENT_VERSION,\
 $CURSEFORGE_SERVER_VERSION,\
 $CURSEFORGE_FABRIC_VERSION,\
-$CURSEFORGE_QUILT_VERSION,\
 $CURSEFORGE_GAME_VERSION]"
 
 	CURSEFORGE_FABRIC_SPEC=$(echo "$CURSEFORGE_FABRIC_SPEC" | \
@@ -171,6 +172,10 @@ $CURSEFORGE_GAME_VERSION]"
       			{
             	"slug": "event-wrapper",
             	"type": "requiredDependency"
+            },
+            {
+            		"slug": "botania",
+            		"type": "requiredDependency"
             }
       ]
     }
@@ -183,7 +188,6 @@ $CURSEFORGE_JAVA_VERSION,\
 $CURSEFORGE_CLIENT_VERSION,\
 $CURSEFORGE_SERVER_VERSION,\
 $CURSEFORGE_FORGE_VERSION,\
-$CURSEFORGE_NEOFORGE_VERSION,\
 $CURSEFORGE_GAME_VERSION]"
 
 	CURSEFORGE_FORGE_SPEC=$(echo "$CURSEFORGE_FORGE_SPEC" | \
