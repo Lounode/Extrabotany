@@ -85,7 +85,7 @@ public class BlockstateProvider extends vazkii.botania.data.BlockstateProvider {
 							.put(TextureSlot.SIDE, getBlockTexture(chiseled, ""))
 							.put(TextureSlot.END, getBlockTexture(chiseled, "_top")), this.modelOutput));
 
-			ResourceLocation bricksId = prefix(variant + "_bricks");
+			ResourceLocation bricksId = prefix(variant + "_quartz_bricks");
 			Block bricks = BuiltInRegistries.BLOCK.get(bricksId);
 			singleVariantBlockState(bricks,
 					ModelTemplates.CUBE_ALL.create(bricks, TextureMapping.cube(bricks), this.modelOutput));
