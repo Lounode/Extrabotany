@@ -40,7 +40,11 @@ function release_modrinth() {
 		{
 		  "project_id": "k7JPYdTv",
       "dependency_type": "required"
-		}
+		},
+		{
+    		  "project_id": "pfjLUfGv",
+          "dependency_type": "required"
+    }
 	],
 	"version_type": "release",
 	"loaders": ["fabric", "quilt"],
@@ -71,6 +75,10 @@ EOF
 	"dependencies": [
 	  {
     		"project_id": "k7JPYdTv",
+        "dependency_type": "required"
+    },
+    {
+        "project_id": "pfjLUfGv",
         "dependency_type": "required"
     }
 	],
@@ -107,6 +115,8 @@ function release_curseforge() {
 	local CURSEFORGE_FORGE_VERSION=7498
 	local CURSEFORGE_CLIENT_VERSION=9638
 	local CURSEFORGE_SERVER_VERSION=9639
+	local CURSEFORGE_QUILT_VERSION=9153
+  local CURSEFORGE_NEOFORGE_VERSION=10150
 	# For the Minecraft one, don't hardcode so we don't have to remember to come change this every time.
 	# Each game version seems to be duplicated three times:
 	# Once with type ID 1 (unused?), once with its major-version-specific type ID, and once with the type ID for "Addons" 615
@@ -149,6 +159,7 @@ $CURSEFORGE_JAVA_VERSION,\
 $CURSEFORGE_CLIENT_VERSION,\
 $CURSEFORGE_SERVER_VERSION,\
 $CURSEFORGE_FABRIC_VERSION,\
+$CURSEFORGE_QUILT_VERSION,\
 $CURSEFORGE_GAME_VERSION]"
 
 	CURSEFORGE_FABRIC_SPEC=$(echo "$CURSEFORGE_FABRIC_SPEC" | \
@@ -188,6 +199,7 @@ $CURSEFORGE_JAVA_VERSION,\
 $CURSEFORGE_CLIENT_VERSION,\
 $CURSEFORGE_SERVER_VERSION,\
 $CURSEFORGE_FORGE_VERSION,\
+$CURSEFORGE_NEOFORGE_VERSION,\
 $CURSEFORGE_GAME_VERSION]"
 
 	CURSEFORGE_FORGE_SPEC=$(echo "$CURSEFORGE_FORGE_SPEC" | \

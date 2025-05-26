@@ -97,7 +97,7 @@ jobs:
           GIT_REF: ${{ github.ref }}
           FABRIC_JAR: ${{ steps.calculate_artifact_names.outputs.fabric }}
           FORGE_JAR: ${{ steps.calculate_artifact_names.outputs.forge }}
-          CURSEFORGE_TOKEN: ${{ secrets.LOUNODE_CURSEFORGE_TOKEN }}
-          MODRINTH_TOKEN: ${{ secrets.LOUNODE_MODRINTH_TOKEN }}
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
         run: |
           scripts/upload_releases.sh
