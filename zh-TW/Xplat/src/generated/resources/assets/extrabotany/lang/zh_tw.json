@@ -1,7 +1,7 @@
 {
   "itemGroup.extrabotany": "额外植物学",
   "extrabotany.desc": "欢迎来到额外植物学",
-  "extrabotany.category.name": "额外学",
+  "extrabotany.category.name": "額外學",
   "extrabotany.category.desc": "通过对植物魔法的深入了解，你发现了一个全新的魔法世界：$(br)这里有更多的$(thing)自然装置$()、$(thing)神秘工具$()和$(thing)饰品$()，以及最重要的：全新的$(thing)盖亚Boss$()。$(br2)享受你的$(thing)额外学$()之旅吧！",
   "extrabotany.jei.pedestal": "祭坛锻造",
   "extrabotany.jei.pedestal.tip_strikes": "%s 次敲击",
