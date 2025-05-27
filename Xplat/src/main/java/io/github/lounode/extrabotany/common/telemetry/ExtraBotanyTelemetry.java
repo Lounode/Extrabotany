@@ -96,7 +96,7 @@ public class ExtraBotanyTelemetry {
 
 	private static JsonObject appendPlatformData(MinecraftServer server) {
 		JsonObject builder = new JsonObject();
-		builder.addProperty("playerAmount", server.getPlayerCount());
+		builder.addProperty("players", server.getPlayerCount());
 		builder.addProperty("onlineMode", server.usesAuthentication() ? 1 : 0);
 		builder.addProperty("minecraftVersion", server.getServerVersion());
 

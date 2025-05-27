@@ -58,7 +58,7 @@ public class Metrics {
 			public void run() {
 				submitData();
 			}
-		}, /*1000 * 60 * 5*/1000 * 5, 1000 * 60 * 30);
+		}, 1000 * 60 * 5, 1000 * 60 * 30);
 	}
 
 	private void submitData() {
