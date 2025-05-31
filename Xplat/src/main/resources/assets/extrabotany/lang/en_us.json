@@ -46,7 +46,19 @@
   "advancement.extrabotany:rhein_kraft.desc": "Craft a Rhein Hammer",
   "advancement.extrabotany:sponge_hammer": "Sponge Hammer",
   "advancement.extrabotany:sponge_hammer.desc": "Who lives in a pineapple under the sea?",
+  "advancement.extrabotany:omg_its_miku": "OMG, it's Miku!",
+  "advancement.extrabotany:omg_its_miku.desc": "Equip the full Starry Idol armor set",
+  "advancement.extrabotany:seven_samurai": "Seven Samurai",
+  "advancement.extrabotany:seven_samurai.desc": "Equip the full Shadow Warrior armor set",
+  "advancement.extrabotany:goblin_killer": "Goblin Killer",
+  "advancement.extrabotany:goblin_killer.desc": "Equip the full Goblin Slayer armor set",
+  "advancement.extrabotany:cute_dress": "Cute Dress",
+  "advancement.extrabotany:cute_dress.desc": "Equip the full Pleiades Combat Maid armor set",
+  "advancement.extrabotany:corruption": "Corruption",
+  "advancement.extrabotany:corruption.desc": "Corrupt the Pleiades Combat Maid Suit",
+  
   "advancement.extrabotany:": "",
+  
   "block.extrabotany.aerialite_block": "Block of Aerialite",
   "block.extrabotany.orichalcos_block": "Block of Orichalcos",
   "block.extrabotany.photonium_block": "Block of Photonium",
@@ -74,10 +86,12 @@
   "block.extrabotany.mana_charger": "Mana Charger",
   "block.extrabotany.power_frame": "Power Frame",
   "block.extrabotany.pedestal_calcite": "Calcite Pedestal",
+  
   "block.extrabotany.trade_orchid": "Trade Orchid",
   "block.extrabotany.trade_orchid.reference": "No longer needs villager discount machine",
   "block.extrabotany.potted_trade_orchid": "Potted Trade Orchid",
   "block.extrabotany.floating_trade_orchid": "Floating Trade Orchid",
+  
   "death.attack.extrabotany.link": "%1$s shared in someone else's pain",
   "death.attack.extrabotany.link.player": "%1$s shared in %2$s's pain",
   "death.attack.extrabotany.link.item": "%1$s shared in %2$s's pain using %3$s",
@@ -93,11 +107,13 @@
   "death.attack.extrabotany.backfire": "%1$s was killed by Honkai Energy's backlash",
   "death.attack.extrabotany.backfire.player": "%1$s was killed by Honkai Energy backlash while trying to escape %2$s",
   "death.attack.extrabotany.backfire.item": "%1$s was killed by Honkai Energy backlash while trying to escape %2$s's %3$s",
+  
   "effect.extrabotany.immobilize": "Immobilize",
   "effect.extrabotany.link": "Link",
   "effect.extrabotany.heal_reverse": "Heal Reverse",
   "effect.extrabotany.discount": "Discount",
   "entity.extrabotany.aura_fire": "Aura Fire",
+  
   "entity.extrabotany.magic_landmine": "Gaia Trap",
   "entity.extrabotany.gaia_legacy": "Guardian of Gaia",
   "entity.extrabotany.gaia_3rd": "Guardian of Gaia III",
@@ -106,6 +122,7 @@
   "entity.extrabotany.skull_landmine_red": "Red Gaia Trap",
   "entity.extrabotany.skull_landmine_green": "Green Gaia Trap",
   "entity.extrabotany.holy_water_grenade": "Holy Water Grenade",
+  
   "item.extrabotany.aerialite_ingot": "Aerialite Ingot",
   "item.extrabotany.orichalcos_ingot": "Orichalcos Ingot",
   "item.extrabotany.photonium_ingot": "Photonium Ingot",
@@ -167,13 +184,23 @@
   "item.extrabotany.starry_idol_boots": "Starry Idol Boots",
   "item.extrabotany.pleiades_combat_maid_headgear": "Pleiades Combat Maid Headgear",
   "item.extrabotany.pleiades_combat_maid_suit": "Pleiades Combat Maid Suit",
-  "item.extrabotany.pleiades_combat_maid_suit_darkened": "Darkened Pleiades Combat Maid Suit",
+  "item.extrabotany.sanguine_pleiades_combat_maid_suit": "Sanguine Pleiades Combat Maid Suit",
   "item.extrabotany.pleiades_combat_maid_skirt": "Pleiades Combat Maid Skirt",
   "item.extrabotany.pleiades_combat_maid_boots": "Pleiades Combat Maid Boots",
   "item.extrabotany.manasteel_shield": "Manasteel Shield",
+  "item.extrabotany.shadow_warrior_helmet": "Shadow Warrior Helmet",
+  "item.extrabotany.shadow_warrior_chestplate": "Shadow Warrior Chestplate",
+  "item.extrabotany.shadow_warrior_leggings": "Shadow Warrior Leggings",
+  "item.extrabotany.shadow_warrior_boots": "Shadow Warrior Boots",
+  "item.extrabotany.goblin_slayer_helmet": "Goblin Slayer Helmet",
+  "item.extrabotany.goblin_slayer_chestplate": "Goblin Slayer Chestplate",
+  "item.extrabotany.goblin_slayer_leggings": "Goblin Slayer Leggings",
+  "item.extrabotany.goblin_slayer_boots": "Goblin Slayer Boots",
+  
   "message.extrabotany.actionbar.mana_left": "Mana: %1$s",
   "message.extrabotany.chat.bad_struct": "No matter how hard you try to push %1$s into the beacon, nothing seems to happen. Perhaps your ritual structure is incorrect.",
   "message.extrabotany.chat.unsafe_inventory": "No matter how hard you call the guardian, there is no response. Perhaps it’s a good idea for those around to carry only vanilla or botania related items.",
+  
   "subtitles.extrabotany:item.camera.use": "Camera flash",
   "subtitles.extrabotany:item.camera.charge": "Camera charged",
   "subtitles.extrabotany:item.camera.focus": "Camera focus",
@@ -187,6 +214,9 @@
   "subtitles.extrabotany:item.armor.equip_maid": "Pleiades Combat Maid wear",
   "subtitles.extrabotany:item.armor.equip_idol": "Starry Idol wear",
   "subtitles.extrabotany:item.hammer.use": "Hammer upgrade",
+  "subtitles.extrabotany:item.armor.equip_goblin": "Goblin Slayer wear",
+  "subtitles.extrabotany:item.armor.equip_warrior": "Shadow Warrior wear",
+  
   "subtitles.extrabotany:": "",
   "tooltip.extrabotany.camera": "Has the ability to Thoughtography",
   "tooltip.extrabotany.excalibur": "King's Blade Guides, As Fate Decides",
@@ -198,22 +228,31 @@
   "tooltip.extrabotany.buff_for_enemy": "For enemy:",
   "tooltip.extrabotany.buff_for_self": "For self:",
   "tooltip.extrabotany.bind": "Bound to: %s",
+  "tooltip.extrabotany.work_on_night": "When on Night:",
+  
   "extrabotany.armorset.starry_idol.name": "Starry Idol",
-  "extrabotany.armorset.starry_idol.desc": "Super Mana Affinity (60% discount)",
+  "extrabotany.armorset.starry_idol.desc": "Super Mana Affinity",
   "extrabotany.armorset.pleiades_combat_maid.name": "Pleiades Combat Maid",
   "extrabotany.armorset.pleiades_combat_maid.desc0": "Boxer",
   "extrabotany.armorset.pleiades_combat_maid.desc1": "Greater Regeneration",
   "extrabotany.armorset.pleiades_combat_maid.desc2": "Mana Affinity",
+  "extrabotany.armorset.shadow_warrior.name": "Shadow Warrior",
+  "extrabotany.armorset.shadow_warrior.desc0": "Bushido",
+  "extrabotany.armorset.goblin_slayer.name": "Goblin Slayer",
+  "extrabotany.armorset.goblin_slayer.desc0": "Goblin Killer",
+  
   "extrabotany.brew.mana_cocktail": "Mana",
   "extrabotany.brew.revolution": "Revolution",
   "extrabotany.brew.shield": "Turtle",
   "extrabotany.brew.all_in_one": "All In One",
   "extrabotany.brew.deadpool": "Deadpool",
   "extrabotany.brew.floating": "Floating",
+  
   "extrabotany.wings.herrscher": "Wings: Herrscher",
   "extrabotany.wings.steampunk": "Wings: Steampunk",
   "extrabotany.wings.flandre": "Wings: Flandre",
   "extrabotany.wings.jim": "Wings: Jim",
+  
   "extrabotany.patchouli.template.pedestal_smash.operate": "Smash",
   "extrabotany.patchouli.template.pedestal_smash.tip": "Tip: Right click the pedestal with hammer to smash item",
   "extrabotany.patchouli.template.eat.operate": "Eat",
@@ -221,14 +260,17 @@
   "extrabotany.entry.zadkiel": "Zadkiel",
   "extrabotany.page.zadkiel0": "By mix the ice and $(item)Totem of Undying$() with $(thing)Mana$(), you create a $(item)Zadkiel$() that can control ice.$(br2)By holding this, water will frozen and slowdown your enemy.$(br2)Taking some $(thing)Manas$(), it can also make ice pierce your enemy.",
   "extrabotany.page.zadkiel1": "P... Please don't touch my head!",
+  
   "extrabotany.entry.mana_reader": "Real · Numerical Mana",
   "extrabotany.page.mana_reader0": "$(7)Oops, Looks like you found the page that was stolen by Doge.$()$(br2)Count how many $(thing)Manas$() in $(item)Mana Pool$() always a annoying things, thanks for $(item)Mana Reader$(), Use it on $(item)Mana Pool$() or $(item)Mana Spreader$(), even some $(thing)Generating Flora$(), can show how many $(thing)Manas$() in it.",
   "extrabotany.page.mana_reader1": "...yes!",
   "extrabotany.page.mana_reader2": "$(item)Mana Reader$() can be combined with the $(item)Forest Wand$() or $(item)Elven Forest Wand$() in $(thing)Crafting Table$() to gain additional functionality.$(br2)A $(item)Forest Wand$() with this functionality will display a block’s $(thing)Current Mana$() and $(thing)Maximum Mana$() at the bottom of the $(thing)Mana Bar$() when pointing at blocks like the $(item)Mana Pool$().",
   "extrabotany.page.mana_reader3": "Combine with Wand",
+  
   "extrabotany.entry.mana_ring_master": "Master Band of Mana",
   "extrabotany.page.mana_ring_master0": "Feel like the $(item)Band of Mana$() or $(item)Greater Band of Mana$() is still not enough?$(br2)Here is the $(item)Master Band of Mana$(), specially designed for those suffering from mana deficiency anxiety — with a $(t: Long.MAX_VALUE)nearly$() $(9)I$(a)n$(b)f$(9)i$(d)n$(c)i$(e)t$(6)y$() mana storge.",
   "extrabotany.page.mana_ring_master1": "$(7)Try not to fill about it...$()",
+  
   "extrabotany.entry.pedestals": "Nature Pedestal",
   "extrabotany.page.pedestals0": "Besides you can craft a $(item)Petal Apothecary$() with $(item)Livingrock$(), you can also craft a $(thing)Nature Pedestal$().$(br2)Use to put item on the pedestal.",
   "extrabotany.page.pedestals1": "Can I touch your Trophy?",
@@ -236,6 +278,7 @@
   "extrabotany.page.pedestals3": "Better than KFC",
   "extrabotany.page.pedestals4": "For automation, you can place a $(item)Item Frame$() on the side, then insert a $(thing)Hammer$() into the frame.$(br2)Pedestal will auto craft with $(thing)Hammers$() in the frame.",
   "extrabotany.page.pedestals5": "My body is small, My mind still sharp",
+  
   "extrabotany.entry.hammers": "Hammers",
   "extrabotany.page.hammers0": "Use $(item)Manasteel$(), $(item)Elementium$(), or $(item)Terrasteel$() to craft a $(thing)Hammer$()!$(br2)It can not only $(thing)Smash$() item on $(thing)Nature Pedestal$(), but also a $(thing)Pickaxe$().$(br2)And possessing the damage of an $(thing)Axe$().",
   "extrabotany.page.hammers1": "Hammer Status",
@@ -256,33 +299,41 @@
   "extrabotany.page.hammers16": "$(item)Das Rheingold$()? Are you crazy?...Well, the $(item)Rhein Hammer$() comes with $(thing)Haste$(), $(thing)Speed$(), $(thing)Night Vision$(), and $(thing)Fire Resistance$(), it’s practically born for mining.",
   "extrabotany.page.hammers17": "Everything relies on heavy $(thing)Mana$() consumption, once the $(thing)Mana$() supply is cut off, this hammer will instantly become unable to even mine $(thing)a single block$().$(br2)To use it, make sure you have enough $(thing)Mana$(), and $(k:sneak)+$(k:use) to switch the tool into its $(thing)active$() mode.",
   "extrabotany.page.hammers18": "I, can do everything!",
+  
   "extrabotany.entry.fuels": "Nightmare Fuel",
   "extrabotany.page.fuels0": "An advanced fuel obtained by infusing $(item)Coal$() with $(thing)Mana$(), capable of burning in a $(item)Furnace$() for several times longer than regular $(item)Coal$().",
   "extrabotany.page.fuels1": "My brain is trembling!",
   "extrabotany.page.fuels2": "Eating $(item)Nightmare Fuel$() is generally a bad idea, it inflicts temporary $(thing)negative potion effects$() and forcibly drains some of your $(thing)health$().$(br2)However, as your mind synchronizes with the $(item)Nightmare Fuel$() during the process, a strange reaction occurs, resulting in the creation of a new kind of fuel: $(item)Spirit Fuel$().",
   "extrabotany.page.fuels3": "Imagination can change everything",
   "extrabotany.page.fuels4": "In contrast to $(item)Nightmare Fuel$(), eat $(item)Spirit Fuel$() grants you temporary $(thing)positive potion effects$(), and it burns for several times longer in a $(item)Furnace$() than $(item)Nightmare Fuel$().",
+  
   "extrabotany.entry.camera": "Shameimaru's Camera",
   "extrabotany.page.camera0": "Has the ability to Thoughtography.$(br2)Consumes some $(thing)Mana$() on use to mark all enemies within the viewfinder, and clears all non-friendly projectiles in the area.",
   "extrabotany.page.camera1": "Enemies marked by the camera are afflicted with the $(thing)Link$() effect.$(br2)When an entity with $(thing)Link$() takes damage, all other nearby entities that also have the $(thing)Link$() effect will receive a portion of the same damage.",
   "extrabotany.page.camera2": "Fujin Shojo",
+  
   "extrabotany.entry.failnaught": "Failnaught",
   "extrabotany.page.failnaught0": "By consuming a large amount of $(thing)Mana$(), the $(item)Failnaught$() can fire a powerful arrow made of $(thing)Mana$().$(br2)This arrow not only pierces through enemies but also deals heavy damage to all $(thing)entities$() along its path. The longer you charge it, the greater its damage and range.",
   "extrabotany.page.failnaught1": "The Alchemist Code",
   "extrabotany.page.failnaught2": "$(item)Failnaught$() can be $(thing)enchanted$() with various $(thing)enchantments$(), providing the following bonuses:$(br2)$(thing)Power$(): Increases base damage by 0.5 and consumes additional $(thing)Mana$() per level, adding 0.5 base damage each level.$(br2)$(thing)Multishot$(): Fires three $(thing)Mana Arrows$() simultaneously, consuming triple the $(thing)Mana$().$(br2)$(thing)Quick Charge$(): Consumes $(thing)Mana$() to speed up draw time.",
   "extrabotany.page.failnaught3": "$(thing)Punch$(): Consumes $(thing)Mana$() to increase knockback distance on hit.$(br2)$(thing)Flame$(): Consumes $(thing)Mana$() to set hit enemies ablaze.",
+  
   "extrabotany.entry.excalibur": "Excalibur",
   "extrabotany.page.excalibur0": "It's time to upgrade your $(item)Terra Blade$(). Here comes the superior $(item)Excalibur$().$(br2)Compared to the $(item)Terra Blade$(), it fires golden $(thing)Mana burst$() on attack that track and strike your enemies, dealing $(thing)bypass armor$() damage.",
   "extrabotany.page.excalibur1": "EX...... Calibur!!!!",
+  
   "extrabotany.entry.jingwei": "Feather of Jingwei",
   "extrabotany.page.jingwei0": "The power of the Jingwei is bound to it, granting the wearer great strength.$(br2)When equipped with the $(item)Feather of Jingwei$(), each $(thing)unarmed$() attack releases an $(thing)Aura Fire$()—a punch wave that damages enemies.$(br2)When the $(thing)Aura Fire$() deals damage, it also grants the wearer a small amount of $(thing)damage absorption$().",
   "extrabotany.page.jingwei1": "Cunjin, Kaitian!",
+  
   "extrabotany.entry.magic_finger": "Magic Finger",
   "extrabotany.page.magic_finger0": "Out and about with plenty of $(thing)Mana$() on you, but no $(thing)Mana$() in your $(item)Mana Pool$()?  Luckily, there’s the $(item)Magic Finger$().$(br2)Sneak and use the $(item)Magic Finger$() on the $(item)Mana Pool$() to transfer 10,000 $(thing)Mana$() from yourself into the pool.$(br2)Due to the interaction between $(thing)Mana$(), entities hit by this item will suffer $(thing)Heal Reverse$() for the next 3 seconds.",
   "extrabotany.page.magic_finger1": "Double happiness",
+  
   "extrabotany.entry.walking_cane": "Walking Cane",
   "extrabotany.page.walking_cane0": "The $(item)Walking Cane$() is a handy tool — just holding it increases your $(thing)movement speed$().$(br2)Hold use to charge it up with a small amount of $(thing)mana$(), and it will launch you forward in a quick $(thing)dash$(), perfect for fast travel.",
   "extrabotany.page.walking_cane1": "No Walrus Ivory T-T",
+  
   "extrabotany.entry.core_of_the_void": "Core of The Void",
   "extrabotany.page.core_of_the_void0": "$(7)Honkai is an abnormal disaster, a rhythm of the universe's periodic adjustment.$(br2)——Otto Apocalypse$()$(br2)The core of the $(thing)Herrscher of The Void$() contains powerful Honkai Energy.",
   "extrabotany.page.core_of_the_void1": "When equipped $(item)Core of The Void$(), you will gain $(thing)Flight$() abality like Creative Mode, increase your $(thing)Movement Speed$() and $(thing)Flying Speed$(), also immunity to $(thing)Projectiles$() and $(thing)Negative Potion Effects$().\n$(br2)But at what the cost? It is $(thing)BackFire$(). When $(thing)Mana$() was drawn up, it will drain your life. So make sure your cotains enough $(thing)Mana$().",
@@ -292,15 +343,18 @@
   "extrabotany.page.gaia_3rd2": "First, the area required to summon the $(thing)Guardian$() is larger than before. In addition, all players nearby must not carry any items except those from vanilla Minecraft, Botania, or this mod. Once the battle begins, any items outside these sources will be forcibly disarmed.",
   "extrabotany.page.gaia_3rd3": "During the battle, the $(thing)Guardian$() will also summon landmines of different colors:$(br2)$(li)$(1)Blue$(): Inflicts Blindness and Wither effects.$(li)$(4)Red$(): Deals true damage.$(li)$(a)Green$(): Disarms the item in your main hand.",
   "extrabotany.page.gaia_3rd4": "$(thing)Guardian$() will also summon even more powerful minions, who will stop at nothing to fight for it. Make sure to take them down first!",
+  
   "extrabotany.entry.yin_and_yang": "Yin and Yang",
   "extrabotany.page.yin_and_yang0": "Infuse $(item)Elementium Ingot$() with $(thing)Mana$(), and use $(item)Gilded Mashed Potato$() as a catalyst, can transmute it into a pair of brand-new twin metals from the Beyond.",
   "extrabotany.page.yin_and_yang1": "Tools made from $(item)Photonium Ingots$() favor the daylight, gaining extra bonuses during the day.$(br2)Items made from $(item)Shadowium Ingots$() favor the darkness, gaining extra bonuses at night.",
   "extrabotany.page.yin_and_yang2": "With Angel...",
   "extrabotany.page.yin_and_yang3": "With Demon...",
+  
   "extrabotany.entry.pandoras_box": "Pandora's Box",
   "extrabotany.page.pandoras_box0": "A treasure box after you defect the $(thing)Gaia Guardian III$().$(br2)What happens when you open it?...God knows.",
   "extrabotany.page.pandoras_box1": "You felt your sins crawling on your back, finally you open it.$(br2)To your surprise, there’s no price to pay. Just some bunch of $(item)Reward bags$() and an $(item)Hero Medal$() in it.$(br2)It seems you have successfully conquered yourself.",
   "extrabotany.page.pandoras_box2": "Level A, Tiger Hero!",
+  
   "extrabotany.entry.reward_bags": "Reward Bags",
   "extrabotany.page.reward_bags0": "Gacha is a fantastic things, everyone loves gacha, especially the moment you get that golden legendary.$(br2)$(m)Not to mention this gacha doesn’t even cost a dime.$()",
   "extrabotany.page.reward_bags1": "Yuuka happy bag$(br2)",
@@ -308,9 +362,11 @@
   "extrabotany.page.reward_bags3": "Gamble!$(br2)",
   "extrabotany.page.reward_bags4": "God knows...$(br2)",
   "extrabotany.page.reward_bags5": "No owls$(br2)",
+  
   "extrabotany.entry.mana_charger": "Mana Charger",
   "extrabotany.page.mana_charger0": "Often forget your $(item)Terra Shatterer$() floating in the $(item)Mana Pool$()?$(br2)Now you can sleep peacefully.$(br2)Craft a $(item)Mana Charger$() and place it on top of the $(item)Mana Pool$(), then you can place your item on it.$(br2)Use $(item)Wand of the Forest$() to change input/output mode on $(item)Mana Pool$().",
   "extrabotany.page.mana_charger1": "Botania Needs These Things!",
+  
   "extrabotany.entry.dimension_catalyst": "Dimension Catalyst",
   "extrabotany.page.dimension_catalyst0": "Just like the $(item)Alchemy Catalyst$() and $(item)Conjuration Catalyst$(), the $(item)Dimensional Catalyst$() can also placed at the bottom of the $(item)Mana Pool$().$(br2)It possesses the power to $(thing)transmute$() items from one dimension into another dimension.",
   "extrabotany.page.dimension_catalyst11": "You are Weeb! Not me!",
@@ -324,13 +380,16 @@
   "extrabotany.page.dimension_catalyst8": "Transmute $(item)Soul Sand$()",
   "extrabotany.page.dimension_catalyst9": "Transmute $(item)End Stone$()",
   "extrabotany.page.dimension_catalyst10": "Transmute $(item)Elytra$()",
+  
   "extrabotany.entry.quartzs": "More Quartz",
   "extrabotany.page.quartzs0": "There are so many beautiful decorative quartz, use them to spruce up your base!",
   "extrabotany.page.quartzs1": "Déjà vu",
   "extrabotany.page.quartzs2": "Texture update",
+  
   "extrabotany.entry.trade_orchid": "Trade Orchid",
   "extrabotany.page.trade_orchid0": "$(item)Trade Orchid$() is villagers’s friend. It can use $(thing)mana$() to grant nearby villagers a discount on trades.$(br2)The discount effects from multiple Trade Orchids do not stack.",
   "extrabotany.page.trade_orchid1": "Can discount after discount?",
+  
   "extrabotany.entry.nature_orb": "Nature Orb",
   "extrabotany.page.nature_orb0": "$(item)Nature Orb$() can store $(thing)Nature Aura$(), harnessing the power of nature to protect its master. $(br2)It also grants blessings depend to the amount of $(thing)Nature Aura$() contained within.",
   "extrabotany.page.nature_orb1": "$(li)$(b)$(t: 100,000 Nature Aura)Blessing of Mana$(): Produce some mana.$(li)$(c)$(t: 300,000 Nature Aura)Blessing of Regeneration$()Speed up health regen.$(li)$(a)$(t: 400,000 Nature Aura)Blessing of Senro$()Clear Harmful Potions.$(br2)You can also use some $(t: 200,000Nature Aura)Nature Aura$() to Spawn $(thing)Gaia Guardian III$().",
@@ -338,6 +397,7 @@
   "extrabotany.page.nature_orb3": "To charge it, you need to build a $(thing)Nature Pedestal$() multiblock structure to gather $(thing)Nature Aura$().$(br2)The multiblock structure has two tiers, with the advanced tier providing higher efficiency in collecting $(thing)Nature Aura$().$(br2)The $(item)Mana Pool$() in the advanced structure, filled with $(thing)mana$(), can speed up the gathering of $(thing)Nature Aura$().",
   "extrabotany.multiblock.nature_pedestal_tier1": "Nature Pedestal",
   "extrabotany.multiblock.nature_pedestal_tier2": "Advance Pedestal",
+  
   "extrabotany.entry.mana_cocktail": "Mana Cocktail",
   "extrabotany.page.mana_cocktail0": "After overworking, have a glass of $(item)Mana Cocktail$() to refresh your mind and never feel tired.$(br2)Use a $(item)Managlass Bottle$() use on a $(item)Mana Pool$()$(t: 25,000 mana) to fill a small cup.",
   "extrabotany.page.mana_cocktail1": "$(o)$(m)Made In China",
@@ -348,17 +408,22 @@
   "extrabotany.page.infinite_wine1": "Its $(thing)effect level$() and $(thing)duration$() are both stronger than those of the original cocktail, and when it is $(thing)full$(), you can replace its effect by combining it with another $(thing)full$() cocktail.",
   "extrabotany.page.infinite_wine2": "$(o)$(m)It's actually just wheat/grape/barley/apple... juice",
   "extrabotany.page.infinite_wine3": "72 Bian",
+  
   "extrabotany.entry.holy_water_grenade": "Holy Water Grenade",
   "extrabotany.page.holy_water_grenade0": "$(item)Holy Water Grenade$() is more than a splash potion container. When it shatters, all positive effects inside are granted to the $(thing)user$(), while negative effects are applied to other entities nearby.$(br2)Crafting it also requires a full cup of any $(thing)cocktail$().",
   "extrabotany.page.holy_water_grenade1": "Fire in the hole!",
+  
   "extrabotany.entry.void_archives": "Void Archives",
   "extrabotany.page.void_archives0": "A relic discovered as a reward from the $(item)Pandora’s Box$(), can imitate this relics when has enough $(thing)mana$():$(li)The Fruit of Grisaia$(li)Infinite Wine$(li)Excalibur$(li)Failnaught$(li)Shameimaru's Camera$(br2)$(k:sneak)+$(k:use) to switch variants.",
   "extrabotany.page.void_archives1": "$(br2)$(br2)$(br2)$(br2)$(7)Hello? My old friends.",
+  
   "extrabotany.entry.herrscher": "Herrscher",
   "extrabotany.page.herrscher0": "Once upon a time, there was a glorious pre-civilization on this land, and they created the theoretical foundation of all natural magic today. $(br2)However, one day, $(thing)Honkai$() came. $(br2)Honkai created monsters, and also created a powerful creature derived —— Herrscher.",
+  
   "extrabotany.entry.glided_potato": "Glided Potato",
   "extrabotany.page.glided_potato0": "Like $(item)Glistering Melon Slice$(), $(item)Golden Carrot$(), you can also gilded on $(item)Potato$().$(br2)While it's not edible, it's an excellent crafting material — especially after being smashed into $(item)Gilded Mashed Potato$().",
   "extrabotany.page.glided_potato1": "Glided Potato Server",
+  
   "extrabotany.entry.universe_medium": "Universe Medium",
   "extrabotany.page.universe_medium0": "$(o)$(7)The universe has a beginning, but no end—infinite. $(br2)Although the planets have their origins, they are destroyed by their own power—finite. $(br2)The wise are often the most foolish, as we can see from history. $(br2)This can be said to be the ultimatum from God to those who resist.",
   "extrabotany.page.universe_medium1": "$(o)$(7)To those who come after me: $(br2)Everything is just a coincidence, but that coincidence is also the will of the world that was determined from the beginning. $(br2)I am not crazy, I am very normal, I am just telling the truth here, not some chuunibyou fantasy. $(br2)Good luck to you. $(br2)El Psy Congroo.",
@@ -366,16 +431,53 @@
   "extrabotany.page.universe_medium3": "The Honkai of Eternal Origin",
   "extrabotany.page.universe_medium4": "Pseudo-yin and yang symbiosis",
   "extrabotany.page.universe_medium5": "Border Surface Steins;Gate",
+  
   "extrabotany.entry.orichalcos": "Orichalcos",
   "extrabotany.page.orichalcos0": "A high-grade alloy forged with immense amounts of $(thing)Mana$() and the soul force of $(item)Gaia Spirit$().$(br2)It is not only fireproof, but also highly stable and explosion-resistant.",
   "extrabotany.page.orichalcos1": "$(o)$(7)Soulsteel",
+  
   "extrabotany.entry.aerialite": "Aerialite",
   "extrabotany.page.aerialite0": "Sky isn't the limit, because of the $(item)Aerialite$(). $(br2)Items made from aerialite are exceptionally lightweight, making them easy to wield and handle. Their durability rivals even that of $(item)Terrasteel$(), making it a truly outstanding crafting material.",
   "extrabotany.page.aerialite1": "Terraria!",
+  
   "extrabotany.entry.das_rheingold": "Das Rheingold",
   "extrabotany.page.das_rheingold0": "It is said that this mighty golden relic contains the power of the Primordial Mana Source and Supreme Soulforce, allowing it to surpass even the $(thing)Relics of the Gods$() — and go beyond their limits.",
   "extrabotany.page.das_rheingold1": "Relics crafted with the $(item)Das Rheingold$() will $(thing)Unbound$() until they are $(thing)placed in a player's inventory$() again.$(br2)Use the $(item)Das Rheingold$() on a player to $(thing)Bind$() their soul to it — any relics crafted with it will be $(thing)Bound$() to that player.$(br2)$(thing)$(k:sneak)$() + $(thing)$(k:use)$() to clear the current soulbinding.",
   "extrabotany.page.das_rheingold2": "Artifaconia",
+  
+  "extrabotany.entry.starry_idol": "Starry Idol",
+  "extrabotany.page.starry_idol0": "From the Isekai beyond this world, a princess who reigns as the greatest of all. She once wore this armor set.$(br2)When equip the full armor set, grants an $(t:60％ discount)$(thing)Super Mana Affinity$().",
+  "extrabotany.page.starry_idol1": "World Is Mine",
+  "extrabotany.page.starry_idol2": "Deep Sea Girl",
+  "extrabotany.page.starry_idol3": "God‐ish",
+  "extrabotany.page.starry_idol4": "Senbonzakura",
+  "extrabotany.page.starry_idol5": "$(br2)$(br2)$(br2)$(7)Wear it, and poof! You’re Miku~$(br2)I know you’re glad to do...",
+  
+  "extrabotany.entry.pleiades_combat_maid": "Pleiades Combat Maid",
+  "extrabotany.page.pleiades_combat_maid0": "Rumored to be the battle uniform that worn by the Pleiades Combat Maids in Isekai \"Yggdrasil\".$(br2)When equip the full armor set, will increase the damage cursed by $(thing)Empty Handed$(), and increase $(t:30％ discount)$(thing)Mana Affinity$() and $(thing)Regeneration Ability$().",
+  "extrabotany.page.pleiades_combat_maid1": "The Undead King",
+  "extrabotany.page.pleiades_combat_maid2": "The Dark Warrior",
+  "extrabotany.page.pleiades_combat_maid3": "The Bloody Valkyrie",
+  "extrabotany.page.pleiades_combat_maid4": "The Lizardman Heroes",
+  "extrabotany.page.pleiades_combat_maid5": "Rumor has it that the $(item)Pleiades Combat Maid Suit$() is extremely $(thing)Bloodthirsty$(). But no matter how closely you examine it, nothing seems out of the ordinary.$(br2)Perhaps it craves a fierce, all-out battle—one drenched in blood to awaken its true nature.",
+  "extrabotany.page.pleiades_combat_maid6": "The rumors were true. After you covered the suit with blood, it transformed into a truly $(thing)Bloodthirsty$() suit.$(br2)While wearing it, each attack $(thing)drains$() a portion of the enemy’s blood and $(thing)powers$() you in return.",
+  "extrabotany.page.pleiades_combat_maid7": "Jin'i Ittai",
+  "extrabotany.page.pleiades_combat_maid8": "$(br2)$(br2)$(br)$(7)Oh ya? See this? Now strike a pose for the camera~ Say cheese~$(br2)Wow so cute you now...",
+  
+  "extrabotany.entry.shadow_warrior": "Shadow Warrior",
+  "extrabotany.page.shadow_warrior0": "The armor set made from $(item)Shadowium$(), grant $(thing)Night Vision$() effect when night.$(br2)When equip the full armor set, will immune $(thing)Falling Damage$() and $(thing)Explosion Damage$().$(br2)Has a little chance to spawn $(thing)Dark Pixie$() when took damage.",
+  "extrabotany.page.shadow_warrior1": "Shimada Kanbee",
+  "extrabotany.page.shadow_warrior2": "Himura Kenshin",
+  "extrabotany.page.shadow_warrior3": "Gintoki Sakata",
+  "extrabotany.page.shadow_warrior4": "Konpaku Youmu",
+  
+  "extrabotany.entry.goblin_slayer": "Goblin Slayer",
+  "extrabotany.page.goblin_slayer0": "The armor set made from $(item)Photonium$(), grant $(thing)Speed$() effect when daytime.$(br2)When equip the full armor set, will made $(t:50％)extra damage$() for $(thing)Undead$() Mob. $(br2)For $(thing)Goblins$(), can kill with one attack.",
+  "extrabotany.page.goblin_slayer1": "Human",
+  "extrabotany.page.goblin_slayer2": "Elf",
+  "extrabotany.page.goblin_slayer3": "Dwarf",
+  "extrabotany.page.goblin_slayer4": "Beastmen",
+  
   "extrabotany.entry.": "",
   "extrabotany.page.": ""
 }

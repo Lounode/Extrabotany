@@ -12,6 +12,10 @@ public class ResourceLocationHelper {
 		return ResourceLocation.tryBuild("botania", path);
 	}
 
+	public static ResourceLocation location(String namespace, String path) {
+		return ResourceLocation.tryBuild(namespace, path);
+	}
+
 	public static ModelResourceLocation modelResourceLocation(String path, String variant) {
 		return new ModelResourceLocation(prefix(path), variant);
 	}
