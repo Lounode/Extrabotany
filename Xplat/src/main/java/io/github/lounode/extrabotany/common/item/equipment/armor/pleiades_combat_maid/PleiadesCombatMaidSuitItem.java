@@ -1,6 +1,8 @@
 package io.github.lounode.extrabotany.common.item.equipment.armor.pleiades_combat_maid;
 
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -10,9 +12,16 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.mana.ManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 
+import io.github.lounode.eventwrapper.event.entity.living.LivingHurtEventWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
+import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 
 public class PleiadesCombatMaidSuitItem extends PleiadesCombatMaidArmorItem implements ManaDiscountArmor {
+	private static final int COMMON_COST = 75;
+	private static final float EMPTY_HAND_BONUS = 10.0F;
+
 	public PleiadesCombatMaidSuitItem(Properties properties) {
 		super(Type.CHESTPLATE, properties);
 	}
@@ -28,14 +37,14 @@ public class PleiadesCombatMaidSuitItem extends PleiadesCombatMaidArmorItem impl
 		if (!(entity instanceof Player player)) {
 			return;
 		}
-		if (!player.getInventory().armor.contains(stack)) {
+		if (player.getItemBySlot(EquipmentSlot.CHEST) != stack) {
 			return;
 		}
 		if (!hasArmorSet(player)) {
 			return;
 		}
 
-		if (player.tickCount % 80 == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, 20, true)) {
+		if (player.tickCount % 80 == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COMMON_COST, true)) {
 			player.heal(1F);
 		}
 
@@ -44,5 +53,64 @@ public class PleiadesCombatMaidSuitItem extends PleiadesCombatMaidArmorItem impl
 		}
 
 		ManaItemHandler.instance().dispatchManaExact(stack, player, 1, true);
+	}
+
+	public float getEmptyHandBonus() {
+		return EMPTY_HAND_BONUS;
+	}
+
+	@EventBusSubscriberWrapper
+	public static class EventHandler {
+
+		@SubscribeEventWrapper
+		public static void onEntityAttacked(LivingHurtEventWrapper event) {
+			Entity attacker = event.getSource().getEntity();
+			LivingEntity target = event.getEntity();
+
+			if (!(attacker instanceof Player player)) {
+				return;
+			}
+			if (target == attacker) {
+				return;
+			}
+
+			ItemStack suitStack = player.getItemBySlot(EquipmentSlot.CHEST);
+			if (!(suitStack.getItem() instanceof PleiadesCombatMaidSuitItem suit)) {
+				return;
+			}
+			if (!suit.hasArmorSet(player)) {
+				return;
+			}
+
+			if (player.getMainHandItem() == ItemStack.EMPTY &&
+					ManaItemHandler.instance().requestManaExactForTool(suitStack, player, COMMON_COST, true)) {
+				event.setAmount(event.getAmount() + suit.getEmptyHandBonus());
+			}
+
+			if (player.isHurt() &&
+					ManaItemHandler.instance().requestManaExactForTool(suitStack, player, COMMON_COST, true)) {
+				player.heal(event.getAmount() / 8.0F);
+			}
+		}
+
+		@SubscribeEventWrapper
+		public static void onPlayerAttacked(LivingHurtEventWrapper event) {
+			Entity target = event.getEntity();
+			if (!(target instanceof Player player)) {
+				return;
+			}
+			ItemStack suitStack = player.getItemBySlot(EquipmentSlot.CHEST);
+			if (!(suitStack.getItem() instanceof PleiadesCombatMaidSuitItem suit)) {
+				return;
+			}
+			if (!suit.hasArmorSet(player)) {
+				return;
+			}
+
+			if (event.getSource().is(ExtraBotanyTags.DamageTypes.MAID_PROTECTION)) {
+				event.setAmount(0);
+				event.setCanceled(true);
+			}
+		}
 	}
 }

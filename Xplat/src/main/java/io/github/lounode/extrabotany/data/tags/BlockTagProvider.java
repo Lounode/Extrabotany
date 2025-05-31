@@ -1,4 +1,4 @@
-package io.github.lounode.extrabotany.data;
+package io.github.lounode.extrabotany.data.tags;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;

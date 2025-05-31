@@ -247,6 +247,21 @@ public class ItemModelProvider implements DataProvider {
 				new OverrideHolder().add(rheinHammerEnabledModel, Pair.of(prefix("active"), 1.0)),
 				consumer);
 		items.remove(rheinHammer);
+
+		GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(holyWaterGrenade),
+				TextureMapping.layer0(holyWaterGrenade).put(LAYER1, TextureMapping.getItemTexture(holyWaterGrenade, "_cover")),
+				holyWaterGrenadeOverrides,
+				consumer);
+
+		items.remove(holyWaterGrenade);
+
+		ResourceLocation senketsuModel = ModelLocationUtils.getModelLocation(sanguinePleiadesCombatMaidSuit, "_senketsu");
+		GENERATED_0.create(senketsuModel, TextureMapping.layer0(senketsuModel), consumer);
+		GENERATED_OVERRIDES.create(ModelLocationUtils.getModelLocation(sanguinePleiadesCombatMaidSuit),
+				TextureMapping.layer0(sanguinePleiadesCombatMaidSuit),
+				new OverrideHolder().add(senketsuModel, Pair.of(prefix("senketsu"), 1.0)),
+				consumer);
+		items.remove(sanguinePleiadesCombatMaidSuit);
 	}
 
 	@NotNull

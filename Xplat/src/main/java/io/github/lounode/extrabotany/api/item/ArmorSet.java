@@ -3,6 +3,8 @@ package io.github.lounode.extrabotany.api.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
@@ -10,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
+import io.github.lounode.extrabotany.common.advancements.HasArmorSetTrigger;
 import io.github.lounode.extrabotany.common.proxy.Proxy;
 
 import java.util.List;
@@ -20,6 +23,12 @@ public interface ArmorSet {
 
 	default boolean hasArmorSet(Player player) {
 		return hasArmorSetItem(player, EquipmentSlot.HEAD) && hasArmorSetItem(player, EquipmentSlot.CHEST) && hasArmorSetItem(player, EquipmentSlot.LEGS) && hasArmorSetItem(player, EquipmentSlot.FEET);
+	}
+
+	default void triggerAdvancement(Entity entity) {
+		if (entity instanceof ServerPlayer serverPlayer) {
+			HasArmorSetTrigger.INSTANCE.trigger(serverPlayer);
+		}
 	}
 
 	boolean hasArmorSetItem(Player player, EquipmentSlot slot);
@@ -52,7 +61,7 @@ public interface ArmorSet {
 		}
 
 		list.add(getArmorSetTitle(player));
-		addArmorSetDescription(stack, list);
+		addArmorSetDescription(stack, list, hasArmorSet(player));
 		ItemStack[] stacks = getArmorSetStacks();
 		for (ItemStack armor : stacks) {
 			MutableComponent cmp = Component.literal(" - ").append(armor.getHoverName());
@@ -62,5 +71,5 @@ public interface ArmorSet {
 		}
 	}
 
-	void addArmorSetDescription(ItemStack stack, List<Component> list);
+	void addArmorSetDescription(ItemStack stack, List<Component> list, boolean hasArmorSet);
 }

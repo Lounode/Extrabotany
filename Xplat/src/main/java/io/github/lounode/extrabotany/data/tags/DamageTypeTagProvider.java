@@ -1,4 +1,4 @@
-package io.github.lounode.extrabotany.data;
+package io.github.lounode.extrabotany.data.tags;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -7,6 +7,9 @@ import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
+
+import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -41,6 +44,7 @@ public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 		));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
 		for (var entry : map.entrySet()) {
@@ -49,5 +53,28 @@ public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 				this.tag(tag).add(damageType);
 			}
 		}
+		this.tag(IS_FALL);
+		this.tag(IS_DROWNING);
+		this.tag(IS_FREEZING);
+		this.tag(IS_LIGHTNING);
+		this.tag(IS_FIRE);
+		this.tag(ExtraBotanyTags.DamageTypes.MAID_PROTECTION)
+				.add(
+						DamageTypes.CRAMMING,
+						DamageTypes.IN_WALL,
+						DamageTypes.STARVE,
+						DamageTypes.CACTUS,
+						DamageTypes.FLY_INTO_WALL,
+						DamageTypes.FALLING_ANVIL
+				)
+				.addTag(IS_FALL)
+				.addTag(IS_DROWNING)
+				.addTag(IS_FREEZING)
+				.addTag(IS_LIGHTNING)
+				.addTag(IS_FIRE);
+		this.tag(IS_EXPLOSION);
+		this.tag(ExtraBotanyTags.DamageTypes.SHADOW_WARRIOR_PROTECTION)
+				.addTag(IS_EXPLOSION)
+				.addTag(IS_FALL);
 	}
 }

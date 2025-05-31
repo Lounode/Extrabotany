@@ -17,6 +17,8 @@ public class ResourcesLib {
 
 	public static final String MODEL_INVISIBLE_ARMOR = "botania:textures/model/armor_invisible.png";
 
-	public static final String MODEL_STARRY_IDOL = PREFIX_ARMOR + "armor_starry_idol.png";
-	public static final String MODEL_PLEIADES_COMBAT_MAID = PREFIX_ARMOR + "armor_pleiades_combat_maid.png";
+	public static final String MODEL_STARRY_IDOL = PREFIX_ARMOR + "starry_idol.png";
+	public static final String MODEL_PLEIADES_COMBAT_MAID = PREFIX_ARMOR + "pleiades_combat_maid.png";
+	public static final String MODEL_SHADOW_WARRIOR = PREFIX_ARMOR + "shadow_warrior.png";
+	public static final String MODEL_GOBLIN_SLAYER = PREFIX_ARMOR + "goblin_slayer.png";
 }

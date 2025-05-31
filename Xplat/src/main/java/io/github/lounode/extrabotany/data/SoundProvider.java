@@ -122,6 +122,20 @@ public class SoundProvider extends SoundDefinitionsProvider {
 						SoundDefinitionsProvider.sound(BotaniaSounds.terraPickMode.getLocation(), SoundDefinition.SoundType.EVENT)
 				)
 		);
+		take(soundEvents, ARMOR_EQUIP_GOBLIN);
+		this.add(ARMOR_EQUIP_GOBLIN, SoundDefinition.definition()
+				.subtitle(title(ARMOR_EQUIP_GOBLIN))
+				.with(
+						SoundDefinitionsProvider.sound(SoundEvents.ARMOR_EQUIP_IRON.getLocation(), SoundDefinition.SoundType.EVENT)
+				)
+		);
+		take(soundEvents, ARMOR_EQUIP_WARRIOR);
+		this.add(ARMOR_EQUIP_WARRIOR, SoundDefinition.definition()
+				.subtitle(title(ARMOR_EQUIP_WARRIOR))
+				.with(
+						SoundDefinitionsProvider.sound(SoundEvents.ARMOR_EQUIP_CHAIN.getLocation(), SoundDefinition.SoundType.EVENT)
+				)
+		);
 
 		for (SoundEvent soundEvent : soundEvents) {
 			this.add(soundEvent, defaultDefinition(soundEvent));

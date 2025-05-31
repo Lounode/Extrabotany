@@ -30,7 +30,21 @@ public enum ArmorsMaterial implements ArmorMaterial, StringRepresentable {
 		map.put(ArmorItem.Type.CHESTPLATE, 8);
 		map.put(ArmorItem.Type.HELMET, 3);
 	}), 50, ExtraBotanySounds.ARMOR_EQUIP_MAID, 4F, 0.0F,
-			() -> Ingredient.of(ExtraBotanyItems.dasRheingold));
+			() -> Ingredient.of(ExtraBotanyItems.dasRheingold)),
+	GOBLIN_SLAYER("goblin_slayer", 21, Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+		map.put(ArmorItem.Type.BOOTS, 3);
+		map.put(ArmorItem.Type.LEGGINGS, 6);
+		map.put(ArmorItem.Type.CHESTPLATE, 6);
+		map.put(ArmorItem.Type.HELMET, 3);
+	}), 40, ExtraBotanySounds.ARMOR_EQUIP_GOBLIN, 2.5F, 0.0F,
+			() -> Ingredient.of(ExtraBotanyItems.photonium)),
+	SHADOW_WARRIOR("shadow_warrior", 23, Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+		map.put(ArmorItem.Type.BOOTS, 3);
+		map.put(ArmorItem.Type.LEGGINGS, 7);
+		map.put(ArmorItem.Type.CHESTPLATE, 6);
+		map.put(ArmorItem.Type.HELMET, 3);
+	}), 28, ExtraBotanySounds.ARMOR_EQUIP_WARRIOR, 1.5F, 0.0F,
+			() -> Ingredient.of(ExtraBotanyItems.shadowium));
 
 	public static final StringRepresentable.EnumCodec<ArmorsMaterial> CODEC = StringRepresentable.fromEnum(ArmorsMaterial::values);
 	private static final EnumMap<ArmorItem.Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {

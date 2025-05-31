@@ -9,6 +9,7 @@ import vazkii.botania.network.TriConsumer;
 
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.equipment.armor.pleiades_combat_maid.SanguinePleiadesCombatMaidSuitItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.OrichalcosHammer;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.RheinHammerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.TerrasteelHammerItem;
@@ -86,5 +87,7 @@ public class ExtraBotanyItemProperties {
 				(stack, world, entity, seed) -> OrichalcosHammer.isEnabled(stack) ? 1 : 0);
 		consumer.accept(ExtraBotanyItems.rheinHammer, prefix("active"),
 				(stack, world, entity, seed) -> RheinHammerItem.isEnabled(stack) ? 1 : 0);
+		consumer.accept(ExtraBotanyItems.sanguinePleiadesCombatMaidSuit, prefix("senketsu"),
+				(stack, world, entity, seed) -> SanguinePleiadesCombatMaidSuitItem.isSenketsu(stack) ? 1 : 0);
 	}
 }

@@ -4,6 +4,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -61,9 +62,19 @@ public class ExtraBotanyTags {
 
 	public static class DamageTypes {
 		public static final TagKey<DamageType> PEACE_AMULET_AVAILABLE = tag("peace_amulet_available");
+		public static final TagKey<DamageType> MAID_PROTECTION = tag("maid_protection");
+		public static final TagKey<DamageType> SHADOW_WARRIOR_PROTECTION = tag("shadow_warrior_protection");
 
 		private static TagKey<DamageType> tag(String name) {
 			return TagKey.create(Registries.DAMAGE_TYPE, prefix(name));
+		}
+	}
+
+	public static class Entities {
+		public static final TagKey<EntityType<?>> GOBLINS = tag("goblins");
+
+		private static TagKey<EntityType<?>> tag(String name) {
+			return TagKey.create(Registries.ENTITY_TYPE, prefix(name));
 		}
 	}
 }

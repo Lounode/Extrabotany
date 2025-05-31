@@ -25,6 +25,16 @@ public class ExtraBotanyAPIImpl implements ExtraBotanyAPI {
 	}
 
 	@Override
+	public ArmorMaterial getGoblinSlayerArmorMaterial() {
+		return ArmorsMaterial.GOBLIN_SLAYER;
+	}
+
+	@Override
+	public ArmorMaterial getShadowWarriorArmorMaterial() {
+		return ArmorsMaterial.SHADOW_WARRIOR;
+	}
+
+	@Override
 	public void registerCOVVariant(CoreOfTheVoidVariant variant) {
 		this.covVariants.put(variant.getId(), variant);
 	}

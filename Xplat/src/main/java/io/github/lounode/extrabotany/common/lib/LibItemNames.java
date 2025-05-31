@@ -65,6 +65,14 @@ public final class LibItemNames {
 	public static final String PLEIADES_COMBAT_MAID_SUIT = "pleiades_combat_maid_suit";
 	public static final String PLEIADES_COMBAT_MAID_SKIRT = "pleiades_combat_maid_skirt";
 	public static final String PLEIADES_COMBAT_MAID_BOOTS = "pleiades_combat_maid_boots";
-	public static final String PLEIADES_COMBAT_MAID_SUIT_DARKENED = "pleiades_combat_maid_suit_darkened";
+	public static final String SANGUINE_PLEIADES_COMBAT_MAID_SUIT = "sanguine_pleiades_combat_maid_suit";
+	public static final String GOBLIN_SLAYER_HELMET = "goblin_slayer_helmet";
+	public static final String GOBLIN_SLAYER_CHESTPLATE = "goblin_slayer_chestplate";
+	public static final String GOBLIN_SLAYER_LEGGINGS = "goblin_slayer_leggings";
+	public static final String GOBLIN_SLAYER_BOOTS = "goblin_slayer_boots";
+	public static final String SHADOW_WARRIOR_HELMET = "shadow_warrior_helmet";
+	public static final String SHADOW_WARRIOR_CHESTPLATE = "shadow_warrior_chestplate";
+	public static final String SHADOW_WARRIOR_LEGGINGS = "shadow_warrior_leggings";
+	public static final String SHADOW_WARRIOR_BOOTS = "shadow_warrior_boots";
 
 }

@@ -16,6 +16,10 @@ import io.github.lounode.extrabotany.data.loot.BlockLootProvider;
 import io.github.lounode.extrabotany.data.loot.EntityLootProvider;
 import io.github.lounode.extrabotany.data.loot.RewardBagLootProvider;
 import io.github.lounode.extrabotany.data.recipes.*;
+import io.github.lounode.extrabotany.data.tags.BlockTagProvider;
+import io.github.lounode.extrabotany.data.tags.DamageTypeTagProvider;
+import io.github.lounode.extrabotany.data.tags.EntityTypeTagProvider;
+import io.github.lounode.extrabotany.data.tags.ItemTagProvider;
 
 import java.util.List;
 import java.util.Set;
@@ -50,7 +54,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		//pack.addProvider((PackOutput output) -> new LooniumStructureConfigurationProvider(output));
 		BlockTagProvider blockTagProvider = pack.addProvider(BlockTagProvider::new);
 		pack.addProvider((output, registriesFuture) -> new ItemTagProvider(output, registriesFuture, blockTagProvider.contentsGetter()));
-		//pack.addProvider(EntityTagProvider::new);
+		pack.addProvider(EntityTypeTagProvider::new);
 		pack.addProvider(ExtraBotanyDynamicRegistryProvider::new);
 		pack.addProvider(DamageTypeTagProvider::new);
 

@@ -406,6 +406,61 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						crafting(ExtraBotanyItems.dasRheingold).withText("extrabotany.page.das_rheingold2")
 				)
 				.save(consumer, id("das_rheingold"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.starry_idol")
+				.withIcon(ExtraBotanyItems.starryIdolHeadgear)
+				.pages(
+						text("extrabotany.page.starry_idol0"),
+						crafting(ExtraBotanyItems.starryIdolHeadgear).withText("extrabotany.page.starry_idol1"),
+						crafting(ExtraBotanyItems.starryIdolSuit).withText("extrabotany.page.starry_idol2"),
+						crafting(ExtraBotanyItems.starryIdolSkirt).withText("extrabotany.page.starry_idol3"),
+						crafting(ExtraBotanyItems.starryIdolBoots).withText("extrabotany.page.starry_idol4"),
+						text("extrabotany.page.starry_idol5")
+				)
+				.save(consumer, id("starry_idol"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.pleiades_combat_maid")
+				.withIcon(ExtraBotanyItems.pleiadesCombatMaidSuit)
+				.pages(
+						text("extrabotany.page.pleiades_combat_maid0"),
+						crafting(ExtraBotanyItems.pleiadesCombatMaidHeadgear).withText("extrabotany.page.pleiades_combat_maid1"),
+						crafting(ExtraBotanyItems.pleiadesCombatMaidSuit).withText("extrabotany.page.pleiades_combat_maid2"),
+						crafting(ExtraBotanyItems.pleiadesCombatMaidSkirt).withText("extrabotany.page.pleiades_combat_maid3"),
+						crafting(ExtraBotanyItems.pleiadesCombatMaidBoots).withText("extrabotany.page.pleiades_combat_maid4"),
+						text("extrabotany.page.pleiades_combat_maid5"),
+						text("extrabotany.page.pleiades_combat_maid6")
+								.withAdvancement(mainAdvancement(LibAdvancementNames.CORRUPTION)),
+						spotlight(ExtraBotanyItems.sanguinePleiadesCombatMaidSuit).withText("extrabotany.page.pleiades_combat_maid7")
+								.withAdvancement(mainAdvancement(LibAdvancementNames.CORRUPTION)),
+						text("extrabotany.page.pleiades_combat_maid8")
+
+				)
+				.withAdvancement(mainAdvancement(LibAdvancementNames.STYGIAN_TWINS))
+				.save(consumer, id("pleiades_combat_maid"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.shadow_warrior")
+				.withIcon(ExtraBotanyItems.shadowWarriorHelmet)
+				.pages(
+						text("extrabotany.page.shadow_warrior0"),
+						crafting(ExtraBotanyItems.shadowWarriorHelmet).withText("extrabotany.page.shadow_warrior1"),
+						crafting(ExtraBotanyItems.shadowWarriorChestplate).withText("extrabotany.page.shadow_warrior2"),
+						crafting(ExtraBotanyItems.shadowWarriorLeggings).withText("extrabotany.page.shadow_warrior3"),
+						crafting(ExtraBotanyItems.shadowWarriorBoots).withText("extrabotany.page.shadow_warrior4")
+				)
+				.withAdvancement(mainAdvancement(LibAdvancementNames.STYGIAN_TWINS))
+				.save(consumer, id("shadow_warrior"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.goblin_slayer")
+				.withIcon(ExtraBotanyItems.goblinSlayerHelmet)
+				.pages(
+						text("extrabotany.page.goblin_slayer0"),
+						crafting(ExtraBotanyItems.goblinSlayerHelmet).withText("extrabotany.page.goblin_slayer1"),
+						crafting(ExtraBotanyItems.goblinSlayerChestplate).withText("extrabotany.page.goblin_slayer2"),
+						crafting(ExtraBotanyItems.goblinSlayerLeggings).withText("extrabotany.page.goblin_slayer3"),
+						crafting(ExtraBotanyItems.goblinSlayerBoots).withText("extrabotany.page.goblin_slayer4")
+				)
+				.withAdvancement(mainAdvancement(LibAdvancementNames.STYGIAN_TWINS))
+				.save(consumer, id("goblin_slayer"));
 	}
 
 	private RunicAltarPage runicAlter(ItemLike item) {

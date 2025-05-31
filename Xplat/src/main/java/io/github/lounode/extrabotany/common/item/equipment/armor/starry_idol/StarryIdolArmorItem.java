@@ -32,13 +32,13 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class StarryIdolArmorItem extends ArmorItem implements
-		ManaFixableItem, IArmor, ArmorSet, PhantomInkable, CustomCreativeTabContents {
+public class StarryIdolArmorItem extends ArmorItem implements CustomCreativeTabContents,
+		ManaFixableItem, IArmor, ArmorSet, PhantomInkable {
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 	private static final int MANA_PER_DAMAGE = 100;
 
-	private static final Supplier<ItemStack[]> ARMOR_SET = Suppliers.memoize(() -> new ItemStack[] {
+	public static final Supplier<ItemStack[]> ARMOR_SET = Suppliers.memoize(() -> new ItemStack[] {
 			new ItemStack(ExtraBotanyItems.starryIdolHeadgear),
 			new ItemStack(ExtraBotanyItems.starryIdolSuit),
 			new ItemStack(ExtraBotanyItems.starryIdolSkirt),
@@ -60,6 +60,7 @@ public class StarryIdolArmorItem extends ArmorItem implements
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+		triggerAdvancement(entity);
 		tickManaFix(stack, world, entity, slot, selected);
 	}
 
@@ -70,7 +71,6 @@ public class StarryIdolArmorItem extends ArmorItem implements
 
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
 		return ResourcesLib.MODEL_STARRY_IDOL;
-		//return ResourcesLib.MODEL_INVISIBLE_ARMOR;
 	}
 
 	@Override
@@ -112,8 +112,9 @@ public class StarryIdolArmorItem extends ArmorItem implements
 	}
 
 	@Override
-	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
-		list.add(Component.translatable("extrabotany.armorset.starry_idol.desc").withStyle(ChatFormatting.GRAY));
+	public void addArmorSetDescription(ItemStack stack, List<Component> list, boolean hasArmorSet) {
+		list.add(Component.translatable("extrabotany.armorset.starry_idol.desc")
+				.withStyle(hasArmorSet ? ChatFormatting.AQUA : ChatFormatting.GRAY));
 	}
 
 	@Override
@@ -138,6 +139,6 @@ public class StarryIdolArmorItem extends ArmorItem implements
 
 	@Override
 	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
-
+		output.accept(new ItemStack(me));
 	}
 }

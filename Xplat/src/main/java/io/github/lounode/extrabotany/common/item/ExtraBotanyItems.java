@@ -20,9 +20,13 @@ import io.github.lounode.extrabotany.common.item.brew.HolyWaterGrenadeItem;
 import io.github.lounode.extrabotany.common.item.brew.InfiniteWineItem;
 import io.github.lounode.extrabotany.common.item.brew.ManaCocktailItem;
 import io.github.lounode.extrabotany.common.item.brew.ManaGlassBottleItem;
+import io.github.lounode.extrabotany.common.item.equipment.armor.goblin_slayer.GoblinSlayerArmorItem;
+import io.github.lounode.extrabotany.common.item.equipment.armor.goblin_slayer.GoblinSlayerHelmetItem;
 import io.github.lounode.extrabotany.common.item.equipment.armor.pleiades_combat_maid.PleiadesCombatMaidArmorItem;
-import io.github.lounode.extrabotany.common.item.equipment.armor.pleiades_combat_maid.PleiadesCombatMaidSuitDarkenedItem;
 import io.github.lounode.extrabotany.common.item.equipment.armor.pleiades_combat_maid.PleiadesCombatMaidSuitItem;
+import io.github.lounode.extrabotany.common.item.equipment.armor.pleiades_combat_maid.SanguinePleiadesCombatMaidSuitItem;
+import io.github.lounode.extrabotany.common.item.equipment.armor.shadow_warrior.ShadowWarriorArmorItem;
+import io.github.lounode.extrabotany.common.item.equipment.armor.shadow_warrior.ShadowWarriorHelmetItem;
 import io.github.lounode.extrabotany.common.item.equipment.armor.starry_idol.StarryIdolArmorItem;
 import io.github.lounode.extrabotany.common.item.equipment.armor.starry_idol.StarryIdolHeadgearItem;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
@@ -97,8 +101,26 @@ public final class ExtraBotanyItems {
 			new PleiadesCombatMaidArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()));
 	public static final Item pleiadesCombatMaidBoots = make(prefix(LibItemNames.PLEIADES_COMBAT_MAID_BOOTS),
 			new PleiadesCombatMaidArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()));
-	public static final Item pleiadesCombatMaidSuitDarkened = make(prefix(LibItemNames.PLEIADES_COMBAT_MAID_SUIT_DARKENED),
-			new PleiadesCombatMaidSuitDarkenedItem(unstackableCustomDamage()));
+	public static final Item sanguinePleiadesCombatMaidSuit = make(prefix(LibItemNames.SANGUINE_PLEIADES_COMBAT_MAID_SUIT),
+			new SanguinePleiadesCombatMaidSuitItem(unstackableCustomDamage()));
+
+	public static final Item goblinSlayerHelmet = make(prefix(LibItemNames.GOBLIN_SLAYER_HELMET),
+			new GoblinSlayerHelmetItem(unstackableCustomDamage()));
+	public static final Item goblinSlayerChestplate = make(prefix(LibItemNames.GOBLIN_SLAYER_CHESTPLATE),
+			new GoblinSlayerArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage()));
+	public static final Item goblinSlayerLeggings = make(prefix(LibItemNames.GOBLIN_SLAYER_LEGGINGS),
+			new GoblinSlayerArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()));
+	public static final Item goblinSlayerBoots = make(prefix(LibItemNames.GOBLIN_SLAYER_BOOTS),
+			new GoblinSlayerArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()));
+
+	public static final Item shadowWarriorHelmet = make(prefix(LibItemNames.SHADOW_WARRIOR_HELMET),
+			new ShadowWarriorHelmetItem(unstackableCustomDamage()));
+	public static final Item shadowWarriorChestplate = make(prefix(LibItemNames.SHADOW_WARRIOR_CHESTPLATE),
+			new ShadowWarriorArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage()));
+	public static final Item shadowWarriorLeggings = make(prefix(LibItemNames.SHADOW_WARRIOR_LEGGINGS),
+			new ShadowWarriorArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()));
+	public static final Item shadowWarriorBoots = make(prefix(LibItemNames.SHADOW_WARRIOR_BOOTS),
+			new ShadowWarriorArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()));
 
 	//Relic
 	public static final Item manaRingMaster = make(prefix(LibItemNames.MANA_RING_MASTER), new MasterBandOfManaItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
@@ -186,7 +208,10 @@ public final class ExtraBotanyItems {
 	};
 	public static final Item[] MANA_USING_ITEM = {
 			camera, failnaught, excalibur, featherOfJingwei, magicFinger, coreOfTheVoid, voidArchives, walkingCane,
-			starryIdolHeadgear, starryIdolSuit, starryIdolSkirt, starryIdolBoots
+			starryIdolHeadgear, starryIdolSuit, starryIdolSkirt, starryIdolBoots,
+			pleiadesCombatMaidHeadgear, pleiadesCombatMaidSuit, pleiadesCombatMaidSkirt, pleiadesCombatMaidBoots, sanguinePleiadesCombatMaidSuit,
+			shadowWarriorHelmet, shadowWarriorChestplate, shadowWarriorLeggings, shadowWarriorBoots,
+			goblinSlayerHelmet, goblinSlayerChestplate, goblinSlayerLeggings, goblinSlayerBoots
 	};
 
 	public static final Item[] REPLICATOR_BLACKLIST = {
@@ -230,7 +255,7 @@ public final class ExtraBotanyItems {
 	}
 
 	private static Item.Properties stackTo4() {
-		return defaultBuilder().stacksTo(16);
+		return defaultBuilder().stacksTo(4);
 	}
 
 	private static Item.Properties unstackable() {

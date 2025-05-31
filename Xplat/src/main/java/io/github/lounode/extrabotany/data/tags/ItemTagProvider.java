@@ -1,4 +1,4 @@
-package io.github.lounode.extrabotany.data;
+package io.github.lounode.extrabotany.data.tags;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -76,7 +76,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(ItemTags.TALL_FLOWERS).addTag(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.tag(ItemTags.SMALL_FLOWERS).addTag(BotaniaTags.Items.MYSTICAL_FLOWERS).addTag(BotaniaTags.Items.SPECIAL_FLOWERS);
 
-		this.tag(BotaniaTags.Items.TERRA_PICK_BLACKLIST).add(natureOrb);
+		this.tag(BotaniaTags.Items.TERRA_PICK_BLACKLIST).add(natureOrb, pleiadesCombatMaidSuit, sanguinePleiadesCombatMaidSuit);
 
 		TagsProvider.TagAppender<Item> builder = this.tag(BotaniaTags.Items.LENS);
 		BuiltInRegistries.ITEM.stream().filter(i -> i instanceof LensItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))

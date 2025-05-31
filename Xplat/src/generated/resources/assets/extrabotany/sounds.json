@@ -8,6 +8,15 @@
     ],
     "subtitle": "subtitles.extrabotany:entity.player.hurt_backfire"
   },
+  "item.armor.equip_goblin": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "item.armor.equip_iron"
+      }
+    ],
+    "subtitle": "subtitles.extrabotany:item.armor.equip_goblin"
+  },
   "item.armor.equip_idol": {
     "sounds": [
       {
@@ -25,6 +34,15 @@
       }
     ],
     "subtitle": "subtitles.extrabotany:item.armor.equip_maid"
+  },
+  "item.armor.equip_warrior": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "item.armor.equip_chain"
+      }
+    ],
+    "subtitle": "subtitles.extrabotany:item.armor.equip_warrior"
   },
   "item.camera.charge": {
     "sounds": [

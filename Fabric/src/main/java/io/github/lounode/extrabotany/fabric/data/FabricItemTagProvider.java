@@ -10,7 +10,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-import io.github.lounode.extrabotany.data.ItemTagProvider;
+import io.github.lounode.extrabotany.data.tags.ItemTagProvider;
 
 import java.util.concurrent.CompletableFuture;
 

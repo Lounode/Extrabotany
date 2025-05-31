@@ -6,7 +6,7 @@ import net.minecraft.tags.BlockTags;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
-import io.github.lounode.extrabotany.data.BlockTagProvider;
+import io.github.lounode.extrabotany.data.tags.BlockTagProvider;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

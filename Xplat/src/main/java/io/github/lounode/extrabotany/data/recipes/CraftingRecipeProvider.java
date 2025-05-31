@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
@@ -33,7 +34,7 @@ import io.github.lounode.extrabotany.common.lib.ResourceLocationHelper;
 import java.util.Comparator;
 import java.util.function.Consumer;
 
-import static io.github.lounode.extrabotany.data.BlockTagProvider.EXTRABOTANY_BLOCK;
+import static io.github.lounode.extrabotany.data.tags.BlockTagProvider.EXTRABOTANY_BLOCK;
 
 public class CraftingRecipeProvider extends vazkii.botania.data.recipes.CraftingRecipeProvider {
 	public CraftingRecipeProvider(PackOutput packOutput) {
@@ -45,6 +46,7 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
 		registerMain(consumer);
 		registerMisc(consumer);
 		registerTools(consumer);
+		registerArmors(consumer);
 		registerTrinkets(consumer);
 		registerConversions(consumer);
 		registerDecor(consumer);
@@ -212,6 +214,81 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
 				.pattern("PCP")
 				.pattern(" H ")
 				.unlockedBy("has_item", conditionsFromItem(ExtraBotanyItems.heroMedal))
+				.save(consumer);
+	}
+
+	private void registerArmors(Consumer<FinishedRecipe> consumer) {
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.starryIdolHeadgear)
+				.define('W', BotaniaItems.manaweaveCloth)
+				.define('A', BotaniaItems.manasteelHelm)
+				.pattern("WWW")
+				.pattern("WAW")
+				.pattern("WWW")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manasteelHelm))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.starryIdolSuit)
+				.define('W', BotaniaItems.manaweaveCloth)
+				.define('A', BotaniaItems.manasteelChest)
+				.pattern("WWW")
+				.pattern("WAW")
+				.pattern("WWW")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manasteelChest))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.starryIdolSkirt)
+				.define('W', BotaniaItems.manaweaveCloth)
+				.define('A', BotaniaItems.manasteelLegs)
+				.pattern("WWW")
+				.pattern("WAW")
+				.pattern("WWW")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manasteelLegs))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.starryIdolBoots)
+				.define('W', BotaniaItems.manaweaveCloth)
+				.define('A', BotaniaItems.manasteelBoots)
+				.pattern("WWW")
+				.pattern("WAW")
+				.pattern("WWW")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manasteelBoots))
+				.save(consumer);
+		registerSimpleArmorSet(consumer,
+				Ingredient.of(ExtraBotanyItems.shadowium), "shadow_warrior", conditionsFromTag(ExtraBotanyTags.Items.INGOTS_SHADOWIUM));
+		registerSimpleArmorSet(consumer,
+				Ingredient.of(ExtraBotanyItems.photonium), "goblin_slayer", conditionsFromTag(ExtraBotanyTags.Items.INGOTS_PHOTONIUM));
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.pleiadesCombatMaidHeadgear)
+				.define('I', BotaniaItems.gaiaIngot)
+				.define('G', ExtraBotanyItems.dasRheingold)
+				.define('T', BotaniaItems.terrasteelHelm)
+				.pattern("III")
+				.pattern("GTG")
+				.pattern("   ")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.pleiadesCombatMaidSuit)
+				.define('I', BotaniaItems.gaiaIngot)
+				.define('G', ExtraBotanyItems.dasRheingold)
+				.define('T', BotaniaItems.terrasteelChest)
+				.pattern("G G")
+				.pattern("GTG")
+				.pattern("III")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.pleiadesCombatMaidSkirt)
+				.define('I', BotaniaItems.gaiaIngot)
+				.define('G', ExtraBotanyItems.dasRheingold)
+				.define('T', BotaniaItems.terrasteelLegs)
+				.pattern("III")
+				.pattern("GTG")
+				.pattern("G G")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.pleiadesCombatMaidBoots)
+				.define('I', BotaniaItems.gaiaIngot)
+				.define('G', ExtraBotanyItems.dasRheingold)
+				.define('T', BotaniaItems.terrasteelBoots)
+				.pattern("GTG")
+				.pattern("III")
+				.pattern("   ")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
 				.save(consumer);
 	}
 

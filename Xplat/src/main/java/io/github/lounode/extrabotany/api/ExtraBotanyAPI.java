@@ -125,4 +125,12 @@ public interface ExtraBotanyAPI {
 	default ArmorMaterial getStarryIdolArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
+
+	default ArmorMaterial getGoblinSlayerArmorMaterial() {
+		return DUMMY_ARMOR_MATERIAL;
+	}
+
+	default ArmorMaterial getShadowWarriorArmorMaterial() {
+		return DUMMY_ARMOR_MATERIAL;
+	}
 }
