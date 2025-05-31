@@ -22,9 +22,9 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import io.github.lounode.eventwrapper.EventsWrapper;
 import io.github.lounode.eventwrapper.event.entity.player.PlayerEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.Dist;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.OnlyIn;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
@@ -35,7 +35,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-@EventBusSubscriberWrapper
 @OnlyIn(Dist.CLIENT)
 public final class HUD {
 	public static HUD INSTANCE;
@@ -49,6 +48,7 @@ public final class HUD {
 		INSTANCE = this;
 		this.minecraft = minecraft;
 		this.bossOverlay = new ColorfulBossBarOverlay(minecraft);
+		EventsWrapper.register(HUD.class);
 	}
 
 	public void onDrawScreenPost(GuiGraphics gui, float partialTicks) {
