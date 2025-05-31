@@ -65,7 +65,8 @@ public class ExtraBotanyTelemetry {
 				telemetryUUID,
 				getInstance().serviceId,
 				appendPlatformData(server),
-				appendServiceData()
+				appendServiceData(),
+				server
 		);
 
 		getInstance().metrics.addCustomChart(new SimplePie("modLoader", () -> EXplatAbstractions.INSTANCE.isForge() ? "forge" : "fabric"));
@@ -96,7 +97,6 @@ public class ExtraBotanyTelemetry {
 
 	private static JsonObject appendPlatformData(MinecraftServer server) {
 		JsonObject builder = new JsonObject();
-		builder.addProperty("players", server.getPlayerCount());
 		builder.addProperty("onlineMode", server.usesAuthentication() ? 1 : 0);
 		builder.addProperty("minecraftVersion", server.getServerVersion());
 

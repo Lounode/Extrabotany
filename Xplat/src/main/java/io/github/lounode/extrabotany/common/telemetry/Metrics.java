@@ -3,6 +3,8 @@ package io.github.lounode.extrabotany.common.telemetry;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import net.minecraft.server.MinecraftServer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,18 +33,20 @@ public class Metrics {
 	private final JsonObject appendServiceDataConsumer;
 
 	private final Set<Chart> customCharts = new HashSet<>();
+	private final MinecraftServer server;
 
 	public Metrics(
 			String platform,
 			String serverUuid,
 			int serviceId,
 			JsonObject appendPlatformDataConsumer,
-			JsonObject appendServiceDataConsumer) {
+			JsonObject appendServiceDataConsumer, MinecraftServer server) {
 		this.platform = platform;
 		this.serverUuid = serverUuid;
 		this.serviceId = serviceId;
 		this.platformData = appendPlatformDataConsumer;
 		this.appendServiceDataConsumer = appendServiceDataConsumer;
+		this.server = server;
 
 		startSubmitting();
 	}
@@ -80,6 +84,7 @@ public class Metrics {
 		baseJsonBuilder.add("service", serviceJsonBuilder);
 		baseJsonBuilder.addProperty("serverUUID", serverUuid);
 		baseJsonBuilder.addProperty("metricsVersion", METRICS_VERSION);
+		baseJsonBuilder.addProperty("playerAmount", server.getPlayerCount());
 
 		JsonObject data = baseJsonBuilder;
 
