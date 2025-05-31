@@ -4,7 +4,6 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
-import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,6 +27,7 @@ import io.github.lounode.eventwrapper.event.entity.living.MobEffectEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import java.util.Locale;
 import java.util.Map;
