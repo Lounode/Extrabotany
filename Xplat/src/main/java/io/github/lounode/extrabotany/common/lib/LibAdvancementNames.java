@@ -22,4 +22,9 @@ public class LibAdvancementNames {
 	public static final String SKY_IS_NOT_THE_LIMIT = "sky_is_not_the_limit";
 	public static final String RHEIN_KRAFT = "rhein_kraft";
 	public static final String SPONGE_HAMMER = "sponge_hammer";
+	public static final String OMG_ITS_MIKU = "omg_its_miku";
+	public static final String SEVEN_SAMURAI = "seven_samurai";
+	public static final String GOBLIN_KILLER = "goblin_killer";
+	public static final String CUTE_DRESS = "cute_dress";
+	public static final String CORRUPTION = "corruption";
 }

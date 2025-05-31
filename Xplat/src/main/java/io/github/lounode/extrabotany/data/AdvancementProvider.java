@@ -18,11 +18,16 @@ import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.item.BotaniaItems;
 
+import io.github.lounode.extrabotany.common.advancements.HasArmorSetTrigger;
 import io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger;
 import io.github.lounode.extrabotany.common.advancements.MinMaxBoundsExtension;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.item.equipment.armor.goblin_slayer.GoblinSlayerArmorItem;
+import io.github.lounode.extrabotany.common.item.equipment.armor.pleiades_combat_maid.PleiadesCombatMaidArmorItem;
+import io.github.lounode.extrabotany.common.item.equipment.armor.shadow_warrior.ShadowWarriorArmorItem;
+import io.github.lounode.extrabotany.common.item.equipment.armor.starry_idol.StarryIdolArmorItem;
 import io.github.lounode.extrabotany.common.item.relic.MasterBandOfManaItem;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
@@ -30,6 +35,7 @@ import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
@@ -173,7 +179,37 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
 					.parent(rheinKraft)
 					.addCriterion(CODE_TRIGGE, new ImpossibleTrigger.TriggerInstance())
 					.save(consumer, mainId(LibAdvancementNames.SPONGE_HAMMER));
+			Advancement omgItsMiku = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.starryIdolHeadgear, LibAdvancementNames.OMG_ITS_MIKU, FrameType.TASK))
+					.parent(root)
+					.addCriterion("has_armor_set", armorSet(StarryIdolArmorItem.ARMOR_SET))
+					.save(consumer, mainId(LibAdvancementNames.OMG_ITS_MIKU));
+			Advancement sevenSamurai = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.shadowWarriorHelmet, LibAdvancementNames.SEVEN_SAMURAI, FrameType.CHALLENGE))
+					.parent(stygianTwins)
+					.addCriterion("has_armor_set", armorSet(ShadowWarriorArmorItem.ARMOR_SET))
+					.save(consumer, mainId(LibAdvancementNames.SEVEN_SAMURAI));
+			Advancement goblinKiller = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.goblinSlayerHelmet, LibAdvancementNames.GOBLIN_KILLER, FrameType.CHALLENGE))
+					.parent(stygianTwins)
+					.addCriterion("has_armor_set", armorSet(GoblinSlayerArmorItem.ARMOR_SET))
+					.save(consumer, mainId(LibAdvancementNames.GOBLIN_KILLER));
+			Advancement cuteDress = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.pleiadesCombatMaidSuit, LibAdvancementNames.CUTE_DRESS, FrameType.CHALLENGE))
+					.parent(stygianTwins)
+					.addCriterion("has_armor_set", armorSet(PleiadesCombatMaidArmorItem.ARMOR_SET))
+					.save(consumer, mainId(LibAdvancementNames.CUTE_DRESS));
+			Advancement corruption = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.sanguinePleiadesCombatMaidSuit, LibAdvancementNames.CORRUPTION, FrameType.CHALLENGE))
+					.parent(cuteDress)
+					.addCriterion("has_item", onPickup(ExtraBotanyItems.sanguinePleiadesCombatMaidSuit))
+					.save(consumer, mainId(LibAdvancementNames.CORRUPTION));
+
 		}
+	}
+
+	protected static HasArmorSetTrigger.TriggerInstance armorSet(Supplier<ItemStack[]> armorSet) {
+		return HasArmorSetTrigger.TriggerInstance.forArmorSet(armorSet.get());
 	}
 
 	private static Advancement.Builder relicBindAdvancement(Item relicItem, String titleKey) {
