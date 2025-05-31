@@ -17,9 +17,12 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import io.github.lounode.extrabotany.api.item.RewardBag;
+import io.github.lounode.extrabotany.client.LootDataPoolClient;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 
 import java.util.List;
@@ -63,10 +66,22 @@ public class RewardBagItem extends Item implements RewardBag {
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		super.appendHoverText(stack, world, tooltip, flags);
-
 		//TODO 显示概率
+		ResourceLocation tableKey = getLoot(stack);
+		if (tableKey == null) {
+			return;
+		}
+		var datas = LootDataPoolClient.getData(tableKey);
+		if (datas == null) {
+			return;
+		}
+
+		for (var data : datas) {
+			tooltip.add(Component.literal(Component.translatable(data.item().getDescriptionId()).getString() + " " + data.chance() + "%"));
+		}
 	}
 
+	@Nullable
 	public static ResourceLocation getLoot(ItemStack stack) {
 		if (stack.getItem() instanceof RewardBagItem bag) {
 			String tableKey = ItemNBTHelper.getString(stack, TAG_LOOT_TABLE, "");

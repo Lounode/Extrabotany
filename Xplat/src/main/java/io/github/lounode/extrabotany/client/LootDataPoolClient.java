@@ -1,4 +1,7 @@
 package io.github.lounode.extrabotany.client;
 
-public class LootDataPoolClient {
+import io.github.lounode.extrabotany.common.loot.RewardBagManager;
+
+public class LootDataPoolClient extends RewardBagManager {
+
 }

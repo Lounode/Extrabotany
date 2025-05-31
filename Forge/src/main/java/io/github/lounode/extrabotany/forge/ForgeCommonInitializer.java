@@ -21,7 +21,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -62,6 +61,7 @@ import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
+import io.github.lounode.extrabotany.common.loot.RewardBagManager;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.forge.network.ForgePacketHandler;
 
@@ -173,11 +173,7 @@ public class ForgeCommonInitializer {
 		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
 		bus.addGenericListener(Level.class, this::attachLevelCaps);
 
-		bus.addListener(this::registerFuels);
-	}
-
-	private void registerFuels(FurnaceFuelBurnTimeEvent e) {
-		//TODO 可配置燃烧时间
+		RewardBagManager.registerListener();
 	}
 
 	private void attachLevelCaps(AttachCapabilitiesEvent<Level> event) {

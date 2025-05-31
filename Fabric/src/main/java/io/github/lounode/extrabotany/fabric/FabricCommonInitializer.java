@@ -41,6 +41,7 @@ import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
+import io.github.lounode.extrabotany.common.loot.RewardBagManager;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
 
@@ -142,6 +143,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				AutoEventSubscriberRegistryFabric.register(impl);
 			}
 		});
+		RewardBagManager.registerListener();
 	}
 
 	private void registerCapabilities() {
