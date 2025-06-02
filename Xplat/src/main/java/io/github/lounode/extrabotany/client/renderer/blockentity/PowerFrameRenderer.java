@@ -28,7 +28,7 @@ public class PowerFrameRenderer implements BlockEntityRenderer<PowerFrameBlockEn
 		poseStack.pushPose();
 
 		poseStack.translate(0.5F, 0.6F, 0.5F);
-		float rotation = (charger.getLevel().getGameTime() + partialTick) * 2F;
+		float rotation = (charger.tickCount + partialTick) * 2F;
 		poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
 		poseStack.scale(0.5F, 0.5F, 0.5F);
 

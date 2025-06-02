@@ -34,6 +34,8 @@ import java.util.List;
 
 public abstract class ChargerBlockEntity extends ExposedSimpleInventoryBlockEntity implements Charger {
 
+	public int tickCount;
+
 	public ChargerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
@@ -70,7 +72,8 @@ public abstract class ChargerBlockEntity extends ExposedSimpleInventoryBlockEnti
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, ChargerBlockEntity self) {
-		if (level.getGameTime() % 10 == 0) {
+
+		if (self.tickCount % 10 == 0) {
 			self.setChanged();
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
 		}
@@ -120,7 +123,7 @@ public abstract class ChargerBlockEntity extends ExposedSimpleInventoryBlockEnti
 		}
 
 		if (didSomething) {
-			if (level.getGameTime() % 10 == 0 && BotaniaConfig.common().chargingAnimationEnabled()) {
+			if (self.tickCount % 10 == 0 && BotaniaConfig.common().chargingAnimationEnabled()) {
 				self.chargeParticles();
 			}
 
@@ -128,12 +131,17 @@ public abstract class ChargerBlockEntity extends ExposedSimpleInventoryBlockEnti
 				bellow.setActive(true);
 			}
 		}
+
+		self.tickCount++;
 	}
 
 	public static void clientTick(Level level, BlockPos pos, BlockState state, ChargerBlockEntity self) {
+		/*
 		if (level.getGameTime() % 10 == 0 && BotaniaConfig.common().chargingAnimationEnabled()) {
 
 		}
+
+		 */
 	}
 
 	public void chargeParticles() {

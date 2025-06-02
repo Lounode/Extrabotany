@@ -30,9 +30,9 @@ public class PedestalRenderer implements BlockEntityRenderer<PedestalBlockEntity
 		poseStack.pushPose();
 
 		poseStack.translate(0.5F, 1.35F, 0.5F);
-		float rotation = (pedestal.getLevel().getGameTime() + partialTick) * 2F;
+		float rotation = (pedestal.tickCount + partialTick) * 2F;
 		poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
-		float floatOffset = Mth.sin((pedestal.getLevel().getGameTime() + partialTick) * 0.1F) * 0.05F;
+		float floatOffset = Mth.sin((pedestal.tickCount + partialTick) * 0.1F) * 0.05F;
 		poseStack.translate(0F, floatOffset, 0F);
 		poseStack.scale(0.5F, 0.5F, 0.5F);
 

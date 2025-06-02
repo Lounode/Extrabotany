@@ -147,6 +147,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 			.createPattern();
 
 	public final int FINISH_CRAFT_STRIKE_FLAG = -1;
+	public int tickCount;
 	private int strikes;
 	private int tier;
 	private Map<ItemStack, ItemFrame> automaticHammers = new HashMap<>();
@@ -413,19 +414,19 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 
 	//TODO 精神燃料自动化
 	public static void serverTick(Level level, BlockPos pos, BlockState state, PedestalBlockEntity self) {
-		if (level.getGameTime() % 10 == 0) {
+		if (self.tickCount % 10 == 0) {
 			self.markUpdated();
 		}
 
 		//Lazy
-		if (level.getGameTime() % (20 * 5) == 0) {
+		if (self.tickCount % (20 * 5) == 0) {
 			self.updateTier();
 		}
 
 		var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(self.getItem());
 		if (natureItem != null) {
 			//Hot
-			if (level.getGameTime() % 20 == 0) {
+			if (self.tickCount % 20 == 0) {
 				self.updateTier();
 			}
 
@@ -438,7 +439,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 
 		}
 
-		if (level.getGameTime() % 20 == 0) {
+		if (self.tickCount % 20 == 0) {
 			int lastHammers = self.automaticHammers.size();
 			self.updateAutomaticHammers();
 			if (lastHammers != self.automaticHammers.size() && self.automaticHammers.size() == 4) {
@@ -452,7 +453,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 			}
 		}
 
-		if (level.getGameTime() % 10 == 0 && !self.isEmpty()) {
+		if (self.tickCount % 10 == 0 && !self.isEmpty()) {
 			for (ItemStack hammer : self.automaticHammers.keySet()) {
 				ItemFrame frame = self.automaticHammers.get(hammer);
 				if (frame == null || !frame.isAlive()) {
@@ -464,6 +465,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 			}
 		}
 
+		self.tickCount++;
 	}
 
 	public int getChargeAmount() {
