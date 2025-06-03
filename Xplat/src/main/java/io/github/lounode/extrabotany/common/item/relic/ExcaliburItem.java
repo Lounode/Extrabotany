@@ -102,7 +102,7 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
 		player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ExtraBotanySounds.EXCALIBUR_ATTACK, SoundSource.PLAYERS, 1F, 1F);
 	}
 
-    @Override
+	@Override
 	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
 		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
 		if (slot == EquipmentSlot.MAINHAND) {

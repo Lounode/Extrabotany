@@ -1,6 +1,5 @@
 package io.github.lounode.extrabotany.client;
 
-import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
@@ -14,6 +13,7 @@ import io.github.lounode.extrabotany.common.item.equipment.armor.pleiades_combat
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.OrichalcosHammer;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.RheinHammerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.TerrasteelHammerItem;
+import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
 import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.variants.Failnaught;
