@@ -29,6 +29,7 @@
     },
     {
       "type": "patchouli:text",
+      "flag": "otaku_mode",
       "text": "extrabotany.page.starry_idol5"
     }
   ]

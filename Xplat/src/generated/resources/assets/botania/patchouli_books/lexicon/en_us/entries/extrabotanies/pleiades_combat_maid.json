@@ -46,6 +46,7 @@
     },
     {
       "type": "patchouli:text",
+      "flag": "otaku_mode",
       "text": "extrabotany.page.pleiades_combat_maid8"
     }
   ]

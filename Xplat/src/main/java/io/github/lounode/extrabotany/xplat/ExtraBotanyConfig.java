@@ -35,7 +35,7 @@ public class ExtraBotanyConfig {
 	}
 
 	public interface ClientConfigAccess {
-		boolean testClientConfig();
+		boolean otakuMode();
 	}
 
 	public interface ConfigAccess {

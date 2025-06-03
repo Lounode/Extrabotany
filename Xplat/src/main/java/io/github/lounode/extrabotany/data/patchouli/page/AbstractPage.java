@@ -18,9 +18,16 @@ public abstract class AbstractPage<T extends AbstractPage<T>> implements IPatcho
 		return withAdvancement(advancement.getId());
 	}
 
+	@SuppressWarnings("unchecked")
+	public T withFlags(String flags) {
+		object.addProperty("flag", flags);
+		return (T) this;
+	}
+
 	@Override
 	public JsonObject build() {
 		object.addProperty("type", getType().toString());
 		return object;
 	}
+
 }

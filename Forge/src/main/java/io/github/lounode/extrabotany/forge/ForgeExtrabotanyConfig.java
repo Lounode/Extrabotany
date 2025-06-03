@@ -19,21 +19,27 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ForgeExtrabotanyConfig {
 	private static class Client implements ExtraBotanyConfig.ClientConfigAccess {
-		public final ForgeConfigSpec.BooleanValue testClientConfig;
+		public final ForgeConfigSpec.BooleanValue otakuMode;
 
 		public Client(ForgeConfigSpec.Builder builder) {
-			builder.push("test");
+			builder.push("client");
 
-			testClientConfig = builder
-					.comment("This is a test for client config")
-					.define("testClientConfig", true);
+			otakuMode = builder
+					.comment("""
+							设为 true 来开启二刺螈模式
+							（将会启用一些浓度较高、发癫的文本显示）
+							
+							Set true to enable Otaku Mode.
+							(Enables otaku-style text display)
+							""")
+					.define("otakuMode", false);
 
 			builder.pop();
 		}
 
 		@Override
-		public boolean testClientConfig() {
-			return testClientConfig.get();
+		public boolean otakuMode() {
+			return otakuMode.get();
 		}
 	}
 
@@ -56,23 +62,39 @@ public class ForgeExtrabotanyConfig {
 
 			builder.push("telemetry");
 			enableTelemetry = builder
-					.comment("We use telemetry data to provide a better gameplay experience.")
-					.comment("The following data will be collected during your play session:")
-					.comment("    - Gaia III completion rate")
-					.comment("    - etc...")
-					.comment("")
-					.comment("Find more on: https://github.com/Lounode/Extrabotany")
-					.comment("If you prefer not to participate, set the option below to false.")
+					.comment("""
+							我们使用遥测数据来提供更好的游玩体验。
+							以下数据在您的游玩过程中将被收集：
+								- 盖亚三通过率
+								- 其他...
+							
+							您可以在 https://github.com/Lounode/Extrabotany 上找到更多
+							如果您不想被收集这些数据，在下方将配置项改为 false
+							
+							We use telemetry data to provide a better gameplay experience.
+							The following data will be collected during your play session:
+								- Gaia III completion rate
+								- etc...
+							
+							Find more on: https://github.com/Lounode/Extrabotany
+							If you prefer not to participate, set the option below to false.
+							""")
 					.define("enableTelemetry", true);
 
 			telemetryUUID = builder
-					.comment("The UUID of the telemetry data")
+					.comment("""
+							遥测数据UUID
+							The UUID of the telemetry data
+							""")
 					.define("telemetryUUID", UUID.randomUUID().toString());
 			builder.pop();
 
 			builder.push("gaia");
 			disableGaiaDisArm = builder
-					.comment("Set true to disable Gaia's disarm")
+					.comment("""
+							设为 true 来禁用盖亚的缴械技能
+							Set true to disable Gaia's disarm
+							""")
 					.define("disableGaiaDisarm", false);
 			builder.pop();
 

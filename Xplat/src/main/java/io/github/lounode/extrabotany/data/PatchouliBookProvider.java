@@ -416,6 +416,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						crafting(ExtraBotanyItems.starryIdolSkirt).withText("extrabotany.page.starry_idol3"),
 						crafting(ExtraBotanyItems.starryIdolBoots).withText("extrabotany.page.starry_idol4"),
 						text("extrabotany.page.starry_idol5")
+								.withFlags("otaku_mode")
 				)
 				.save(consumer, id("starry_idol"));
 		PatchouliBuilder.entry(CATEGORY)
@@ -433,6 +434,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						spotlight(ExtraBotanyItems.sanguinePleiadesCombatMaidSuit).withText("extrabotany.page.pleiades_combat_maid7")
 								.withAdvancement(mainAdvancement(LibAdvancementNames.CORRUPTION)),
 						text("extrabotany.page.pleiades_combat_maid8")
+								.withFlags("otaku_mode")
 
 				)
 				.withAdvancement(mainAdvancement(LibAdvancementNames.STYGIAN_TWINS))

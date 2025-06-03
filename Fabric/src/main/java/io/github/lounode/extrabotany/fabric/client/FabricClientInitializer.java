@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import io.github.lounode.extrabotany.api.client.IArmor;
 import io.github.lounode.extrabotany.client.ExtraBotanyItemProperties;
@@ -25,6 +26,7 @@ import io.github.lounode.extrabotany.client.renderer.ColorHandler;
 import io.github.lounode.extrabotany.client.renderer.entity.EntityRenderers;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.fabric.network.FabricPacketHandler;
+import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 public class FabricClientInitializer implements ClientModInitializer {
 	private HUD hud;
@@ -46,6 +48,8 @@ public class FabricClientInitializer implements ClientModInitializer {
 		//EntityRender
 		EntityRenderers.registerBlockEntityRenderers(BlockEntityRenderers::register);
 		EntityRenderers.registerEntityRenderers(EntityRendererRegistry::register);
+
+		PatchouliAPI.get().setConfigFlag("otaku_mode", ExtraBotanyConfig.client().otakuMode());
 
 		//Events
 		ClientLifecycleEvents.CLIENT_STARTED.register(this::loadComplete);

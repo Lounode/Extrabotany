@@ -22,6 +22,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.forge.CapabilityUtil;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import io.github.lounode.extrabotany.client.ExtraBotanyItemProperties;
 import io.github.lounode.extrabotany.client.core.ExtraBotanyModels;
@@ -32,6 +33,7 @@ import io.github.lounode.extrabotany.client.renderer.ColorHandler;
 import io.github.lounode.extrabotany.client.renderer.entity.EntityRenderers;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
+import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import java.util.Collections;
 import java.util.IdentityHashMap;
@@ -50,6 +52,8 @@ public class ForgeClientInitializer {
 
 		var bus = MinecraftForge.EVENT_BUS;
 		hud = new HUD(Minecraft.getInstance());
+
+		PatchouliAPI.get().setConfigFlag("otaku_mode", ExtraBotanyConfig.client().otakuMode());
 		/*
 		bus.addListener((CustomizeGuiOverlayEvent.BossEventProgress e) -> {
 			var result = BossBarHandler.onBarRender(e.getGuiGraphics(), e.getX(), e.getY(),

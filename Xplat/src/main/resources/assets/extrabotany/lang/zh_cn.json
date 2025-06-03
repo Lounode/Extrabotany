@@ -231,6 +231,10 @@
   "tooltip.extrabotany.buff_for_self": "对己方：",
   "tooltip.extrabotany.bind": "绑定至：%s",
   "tooltip.extrabotany.work_on_night": "在夜晚时：",
+  "tooltip.extrabotany.pleiades_combat_maid_headgear": "猫耳",
+  "tooltip.extrabotany.pleiades_combat_maid_suit": "制服",
+  "tooltip.extrabotany.pleiades_combat_maid_skirt": "洛丽塔",
+  "tooltip.extrabotany.pleiades_combat_maid_boots": "白丝",
   
   "extrabotany.armorset.starry_idol.name": "星空歌姬",
   "extrabotany.armorset.starry_idol.desc": "超强魔力亲和",
@@ -467,7 +471,7 @@
   "extrabotany.page.pleiades_combat_maid5": "有传言说，$(item)昴宿星团战斗女仆服$()极为$(thing)嗜血$()，但你左看右看却看不出什么门道来。$(br2)或许它需要一场酣畅淋漓的战斗，用足够的鲜血去浇灌它。",
   "extrabotany.page.pleiades_combat_maid6": "传言是真的，在你用鲜血染红这套装备后，它转变成了一件$(thing)嗜血$()的装备。$(br2)穿着这件装备时，每次攻击会$(thing)吸取$()对方一定部分的血量，并$(thing)增强$()自身。",
   "extrabotany.page.pleiades_combat_maid7": "人衣一体",
-  "extrabotany.page.pleiades_combat_maid8": "$(br2)$(br2)$(br)$(7)哦呀？你看到这里了吗？来，对着镜头摆几个姿势～ 茄子～$(br2)什么，你说你不喜欢？ 没事～ 多穿几次女装就习惯了～ 或者...不穿就足够可爱了～",
+  "extrabotany.page.pleiades_combat_maid8": "$(br2)$(br2)$(7)很多时候有人会对非常套装做出疑惑，为什么一套女仆装却是血腥的工具$(br2)没有人想得到这套装的主人经历了什么$(br2)没有人知道这套套装是为什么会染上鲜血的……",
   
   "extrabotany.entry.shadow_warrior": "暗影武士套装",
   "extrabotany.page.shadow_warrior0": "$(item)暗影锭$()制作而成的套装，具有能在夜晚看清事物的优良属性。$(br2)穿戴齐套装时，将免疫$(thing)摔落伤害$()与$(thing)爆炸伤害$()。$(br2)受到攻击时有概率召唤$(thing)黑暗精灵$()攻击敌人。",

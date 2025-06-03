@@ -15,11 +15,18 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.client.gui.TooltipHandler;
 
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.client.lib.ResourcesLib;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.equipment.armor.starry_idol.StarryIdolArmorItem;
+import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import java.util.List;
 import java.util.UUID;
@@ -56,6 +63,20 @@ public class PleiadesCombatMaidArmorItem extends StarryIdolArmorItem {
 					new AttributeModifier(uuid, "Combatmaid modifier" + type, 5, AttributeModifier.Operation.ADDITION));
 		}
 		return ret;
+	}
+
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flags) {
+		if (ExtraBotanyConfig.client().otakuMode()) {
+			switch (getType()) {
+				case HELMET -> list.add(Component.translatable("tooltip.extrabotany.pleiades_combat_maid_headgear").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+				case CHESTPLATE -> list.add(Component.translatable("tooltip.extrabotany.pleiades_combat_maid_suit").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+				case LEGGINGS -> list.add(Component.translatable("tooltip.extrabotany.pleiades_combat_maid_skirt").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+				case BOOTS -> list.add(Component.translatable("tooltip.extrabotany.pleiades_combat_maid_boots").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+			}
+			list.add(Component.empty());
+		}
+		TooltipHandler.addOnShift(list, () -> addInformation(stack, world, list, flags));
 	}
 
 	@Override

@@ -149,6 +149,8 @@ dependencies {
     //modRuntimeOnly("dev.shadowsoffire:Placebo:1.20.1-8.6.2")
     //modRuntimeOnly("teamtwilight:twilightforest:4.3.1893:universal")
 
+    modRuntimeOnly("maven.modrinth:3dskinlayers:93jYE7eX")
+    modRuntimeOnly("maven.modrinth:spark:4FXHDE9F")
     modRuntimeOnly("maven.modrinth:nbtedit-reborn:x45wpz18")
     modRuntimeOnly("maven.modrinth:just-enough-resources-jer:1.4.0.247")
 }
