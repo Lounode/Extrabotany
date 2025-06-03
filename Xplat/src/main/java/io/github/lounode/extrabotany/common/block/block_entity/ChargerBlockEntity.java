@@ -138,10 +138,10 @@ public abstract class ChargerBlockEntity extends ExposedSimpleInventoryBlockEnti
 	public static void clientTick(Level level, BlockPos pos, BlockState state, ChargerBlockEntity self) {
 		/*
 		if (level.getGameTime() % 10 == 0 && BotaniaConfig.common().chargingAnimationEnabled()) {
-
+		
 		}
-
-		 */
+		
+		*/
 	}
 
 	public void chargeParticles() {

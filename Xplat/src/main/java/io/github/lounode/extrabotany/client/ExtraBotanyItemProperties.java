@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.client;
 
+import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
@@ -89,5 +90,7 @@ public class ExtraBotanyItemProperties {
 				(stack, world, entity, seed) -> RheinHammerItem.isEnabled(stack) ? 1 : 0);
 		consumer.accept(ExtraBotanyItems.sanguinePleiadesCombatMaidSuit, prefix("senketsu"),
 				(stack, world, entity, seed) -> SanguinePleiadesCombatMaidSuitItem.isSenketsu(stack) ? 1 : 0);
+		consumer.accept(ExtraBotanyItems.excalibur, prefix("saber"),
+				(stack, world, entity, seed) -> ExcaliburItem.isSaber(stack) ? 1 : 0);
 	}
 }

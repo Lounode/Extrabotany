@@ -109,7 +109,7 @@ public class ItemModelProvider implements DataProvider {
 
 		takeAll(items, manasteelHammer, elementiumHammer, gaiaHammer,
 				photoniumHammer, shadowiumHammer, aerialiteHammer,
-				excalibur, walkingCane, magicFinger, manaReader
+				walkingCane, magicFinger, manaReader
 		).forEach(i -> ModelTemplates.FLAT_HANDHELD_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(i), consumer));
 
 		takeAll(items, i -> true).forEach(i -> ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(i), consumer));
@@ -262,6 +262,16 @@ public class ItemModelProvider implements DataProvider {
 				new OverrideHolder().add(senketsuModel, Pair.of(prefix("senketsu"), 1.0)),
 				consumer);
 		items.remove(sanguinePleiadesCombatMaidSuit);
+
+		ResourceLocation saberModel = ModelLocationUtils.getModelLocation(excalibur, "_saber");
+		ModelTemplates.FLAT_HANDHELD_ITEM.create(saberModel, TextureMapping.layer0(saberModel), consumer);
+
+		HANDHELD_OVERRIDES.create(ModelLocationUtils.getModelLocation(excalibur),
+				TextureMapping.layer0(excalibur),
+				new OverrideHolder().add(saberModel, Pair.of(prefix("saber"), 1.0)),
+				consumer);
+
+		items.remove(excalibur);
 	}
 
 	@NotNull

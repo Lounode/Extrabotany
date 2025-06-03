@@ -47,6 +47,7 @@ import io.github.lounode.extrabotany.xplat.ExClientXplatAbstractions;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @EventBusSubscriberWrapper
@@ -101,7 +102,7 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
 		player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ExtraBotanySounds.EXCALIBUR_ATTACK, SoundSource.PLAYERS, 1F, 1F);
 	}
 
-	@Override
+    @Override
 	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
 		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
 		if (slot == EquipmentSlot.MAINHAND) {
@@ -258,5 +259,10 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
 		tooltip.add(Component.translatable("tooltip.extrabotany.excalibur").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
 		tooltip.add(Component.literal(""));
 		RelicImpl.addDefaultTooltip(stack, tooltip);
+	}
+
+	public static boolean isSaber(ItemStack stack) {
+		String name = stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim();
+		return "saber".equals(name);
 	}
 }

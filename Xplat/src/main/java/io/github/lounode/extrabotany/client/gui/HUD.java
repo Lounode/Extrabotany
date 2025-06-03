@@ -24,8 +24,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.eventwrapper.EventsWrapper;
 import io.github.lounode.eventwrapper.event.entity.player.PlayerEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.Dist;
-import io.github.lounode.eventwrapper.eventbus.api.OnlyIn;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
@@ -35,7 +33,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
 public final class HUD {
 	public static HUD INSTANCE;
 	private static final ResourceLocation manaBar = ResourceLocation.tryParse("botania:textures/gui/mana_hud.png");

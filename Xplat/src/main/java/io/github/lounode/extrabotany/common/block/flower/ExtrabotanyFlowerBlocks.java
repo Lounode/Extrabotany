@@ -35,7 +35,7 @@ public class ExtrabotanyFlowerBlocks {
 	private static final BlockBehaviour.Properties FLOWER_PROPS = BlockBehaviour.Properties.copy(Blocks.POPPY);
 	private static final BlockBehaviour.Properties FLOATING_PROPS = BotaniaBlocks.FLOATING_PROPS;
 
-	public static final Block tradeOrchid = createSpecialFlowerBlock(MobEffects.HERO_OF_THE_VILLAGE, 1, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.TRADE_ORCHID);
+	public static final Block tradeOrchid = createSpecialFlowerBlock(MobEffects.HERO_OF_THE_VILLAGE, 60 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.TRADE_ORCHID);
 	public static final Block tradeOrchidFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.TRADE_ORCHID);
 	public static final Block tradeOrchidPotted = ExtraBotanyBlocks.flowerPot(tradeOrchid, 0);
 
