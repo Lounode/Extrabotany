@@ -150,7 +150,6 @@ public class GoblinSlayerArmorModel {
 
 		PartDefinition binding_r1 = belt.addOrReplaceChild("binding_r1", CubeListBuilder.create().texOffs(92, 8).addBox(-3.0F, 0.62F, -2.0F, 3.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, 9.0F, -1.5F, 0.0F, 0.0F, -0.7854F));
 
-
 		PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create(), PartPose.offset(-1.9F, 12.0F, 0.0F));
 
 		PartDefinition right_legplate = right_leg.addOrReplaceChild("right_legplate", CubeListBuilder.create().texOffs(98, 61).addBox(-2.1F, 1.0F, -3.5F, 4.0F, 5.0F, 1.0F, new CubeDeformation(0.0F))
