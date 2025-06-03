@@ -67,7 +67,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		pack.addProvider((PackOutput output) -> new ElvenTradeProvider(output));
 		pack.addProvider((PackOutput output) -> new ManaInfusionProvider(output));
 		//pack.addProvider((PackOutput output) -> new PureDaisyProvider(output));
-		//pack.addProvider((PackOutput output) -> new BrewProvider(output));
+		pack.addProvider((PackOutput output) -> new BrewProvider(output));
 		pack.addProvider((PackOutput output) -> new PetalApothecaryProvider(output));
 		pack.addProvider((PackOutput output) -> new RunicAltarProvider(output));
 		pack.addProvider((PackOutput output) -> new TerrestrialAgglomerationProvider(output));
