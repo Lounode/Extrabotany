@@ -14,6 +14,19 @@
           "name": "extrabotany:reikarlily"
         }
       ],
+      "functions": [
+        {
+          "function": "minecraft:copy_nbt",
+          "ops": [
+            {
+              "op": "replace",
+              "source": "cooldown",
+              "target": "BlockEntityTag.cooldown"
+            }
+          ],
+          "source": "block_entity"
+        }
+      ],
       "rolls": 1.0
     }
   ]
