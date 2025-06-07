@@ -56,7 +56,7 @@ public class GoblinSlayerArmorModel {
 		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.5F, 0.0F, -1.0F));
 
 		PartDefinition chestplate = body.addOrReplaceChild("chestplate", CubeListBuilder.create().texOffs(100, 0).addBox(-5.0F, -1.0F, -1.5F, 9.0F, 13.0F, 5.0F, new CubeDeformation(0.1F))
-				.texOffs(50, 8).addBox(-5.5F, 5.0F, -2.0F, 10.0F, 1.0F, 6.0F, new CubeDeformation(0.1F)), PartPose.offset(0.0F, 0.0F, -1.0F));
+				.texOffs(50, 8).addBox(-5.5F, 5.0F, -2.0F, 10.0F, 1.0F, 6.0F, new CubeDeformation(0.1F)), PartPose.offset(0.8F, 0.0F, -1.0F));
 
 		PartDefinition back_armor_plate_r1 = chestplate.addOrReplaceChild("back_armor_plate_r1", CubeListBuilder.create().texOffs(54, 0).addBox(-1.0F, -3.0F, -0.5F, 6.0F, 6.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.0F, 8.0F, 4.0F, 0.0F, 0.0F, -0.7854F));
 
@@ -126,7 +126,7 @@ public class GoblinSlayerArmorModel {
 		partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.ZERO);
 		var body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
 
-		PartDefinition belt = body.addOrReplaceChild("belt", CubeListBuilder.create().texOffs(68, 0).addBox(-5.5F, 11.0F, -2.0F, 10.0F, 2.0F, 6.0F, new CubeDeformation(0.1F)), PartPose.offset(0.0F, 0.0F, -1.0F));
+		PartDefinition belt = body.addOrReplaceChild("belt", CubeListBuilder.create().texOffs(68, 0).addBox(-5.5F, 11.0F, -2.0F, 10.0F, 2.0F, 6.0F, new CubeDeformation(0.1F)), PartPose.offset(0.8F, 0.0F, -1.0F));
 
 		PartDefinition RobeBack2_r1 = belt.addOrReplaceChild("RobeBack2_r1", CubeListBuilder.create().texOffs(78, 18).addBox(0.0F, 0.0F, -2.0F, 5.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
 				.texOffs(78, 18).addBox(0.0F, 0.0F, 5.0F, 5.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-0.2815F, 11.1381F, -1.0F, 0.0F, 0.0F, 0.2967F));
