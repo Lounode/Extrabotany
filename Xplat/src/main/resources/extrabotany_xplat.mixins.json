@@ -9,6 +9,7 @@
     "ItemCustomEnchantableEnchantTableSupporter",
     "ItemCustomEnchantableSupporter",
     "TradeOrchidEditSpecialPrice",
+    "accessor.LightningBoltAccessor",
     "client.PatchouliTemplateXModMixin",
     "client.PatchouliTemplateXModMixinBuilder"
   ],

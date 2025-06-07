@@ -17,4 +17,6 @@ public class LibBlockNames {
 	public static final String MANA_CHARGER = "mana_charger";
 	public static final String POWER_FRAME = "power_frame";
 	public static final ResourceLocation SUBTILE_TRADE_ORCHID = prefix("trade_orchid");
+	public static final ResourceLocation SUBTILE_WOODIENIA = prefix("woodienia");
+	public static final ResourceLocation SUBTILE_REIKARLILY = prefix("reikarlily");
 }

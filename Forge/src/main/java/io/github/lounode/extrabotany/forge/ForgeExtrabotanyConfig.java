@@ -11,9 +11,12 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
+import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
+import java.util.List;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -30,8 +33,7 @@ public class ForgeExtrabotanyConfig {
 							（将会启用一些浓度较高、发癫的文本显示）
 							
 							Set true to enable Otaku Mode.
-							(Enables otaku-style text display)
-							""")
+							(Enables otaku-style text display)""")
 					.define("otakuMode", false);
 
 			builder.pop();
@@ -55,6 +57,21 @@ public class ForgeExtrabotanyConfig {
 		public final ForgeConfigSpec.BooleanValue disableGaiaDisArm;
 		public final ForgeConfigSpec.BooleanValue enableTelemetry;
 		public final ForgeConfigSpec.ConfigValue<String> telemetryUUID;
+		public final ForgeConfigSpec.ConfigValue<String> fakePlayerId;
+		public final ForgeConfigSpec.ConfigValue<List<? extends Integer>> woodieniaRange;
+		public final ForgeConfigSpec.IntValue woodieniaCooldown;
+		public final ForgeConfigSpec.IntValue woodieniaMaxMana;
+		public final ForgeConfigSpec.IntValue woodieniaWorkManaCost;
+		public final ForgeConfigSpec.IntValue reikarlilyMaxMana;
+		public final ForgeConfigSpec.IntValue reikarlilyProduceCooldown;
+		public final ForgeConfigSpec.IntValue reikarlilyProduceMana;
+		public final ForgeConfigSpec.IntValue reikarlilySpawnLightningCooldown;
+		public final ForgeConfigSpec.IntValue reikarlilyPassiveGenerateTime;
+		public final ForgeConfigSpec.IntValue reikarlilyPassiveGenerateMana;
+		public final ForgeConfigSpec.IntValue tradeOrchidMaxMana;
+		public final ForgeConfigSpec.IntValue tradeOrchidManaCost;
+		public final ForgeConfigSpec.IntValue tradeOrchidCooldown;
+		public final ForgeConfigSpec.DoubleValue tradeOrchidDiscountPercentage;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 
@@ -77,28 +94,122 @@ public class ForgeExtrabotanyConfig {
 								- etc...
 							
 							Find more on: https://github.com/Lounode/Extrabotany
-							If you prefer not to participate, set the option below to false.
-							""")
+							If you prefer not to participate, set the option below to false""")
 					.define("enableTelemetry", true);
 
 			telemetryUUID = builder
 					.comment("""
 							遥测数据UUID
-							The UUID of the telemetry data
-							""")
+							The UUID of the telemetry data""")
 					.define("telemetryUUID", UUID.randomUUID().toString());
-			builder.pop();
+			builder.pop();//End telemetry
 
 			builder.push("gaia");
 			disableGaiaDisArm = builder
 					.comment("""
 							设为 true 来禁用盖亚的缴械技能
-							Set true to disable Gaia's disarm
-							""")
+							Set true to disable Gaia's disarm""")
 					.define("disableGaiaDisarm", false);
-			builder.pop();
+			builder.pop();//End gaia
 
-			builder.pop();
+			builder.push("fakePlayer");
+			fakePlayerId = builder
+					.comment("""
+							假玩家ID（用于权限配置）
+							Fake Player ID (for permission configuration)""")
+					.define("fakePlayerId", "[Extrabotany]");
+			builder.pop();//End fakePlayer
+
+			builder.push("flower");
+			builder.comment("""
+					商友兰
+					Trade Orchid""");
+			builder.push("tradeOrchid");
+			tradeOrchidMaxMana = builder
+					.comment("""
+							最大魔力值
+							Maximum mana""")
+					.defineInRange("maxMana", TradeOrchidBlockEntity.MAX_MANA, 0, Integer.MAX_VALUE);
+			tradeOrchidManaCost = builder
+					.comment("""
+							每只村民消耗的魔力量
+							Mana cost per villager""")
+					.defineInRange("manaCost", TradeOrchidBlockEntity.MANA_PER_USE, 0, Integer.MAX_VALUE);
+			tradeOrchidCooldown = builder
+					.comment("""
+							冷却时间(ticks)
+							Cooldown time in ticks""")
+					.defineInRange("cooldown", TradeOrchidBlockEntity.COOLDOWN, 0, Integer.MAX_VALUE);
+			tradeOrchidDiscountPercentage = builder
+					.comment("""
+							折扣百分比(仅支持精确到两位小数)
+							(例如：0.85 = 八五折)
+							Discount percentage (max precision: 0.01)
+							(e.g., 0.85 = 15% off)""")
+					.defineInRange("discountPercentage", TradeOrchidBlockEntity.DISCOUNT_RATE, 0, 1.0D);
+			builder.pop();//End tradeOrchid
+			builder.comment("""
+					伐木花
+					Woodienia""");
+			builder.push("woodienia");
+			woodieniaMaxMana = builder
+					.comment("""
+							最大魔力
+							Maximum Mana""")
+					.defineInRange("maxMana", 10_000, 0, Integer.MAX_VALUE);
+			woodieniaWorkManaCost = builder
+					.comment("""
+							破坏原木的魔力消耗
+							Cost when break Logs""")
+					.defineInRange("workManaCost", 200, 0, Integer.MAX_VALUE);
+			woodieniaRange = builder
+					.comment("""
+							以自身为中心的工作范围（±X轴，+Y轴，±Z轴）
+							Working range centered on self (±X axis, +Y axis, ±Z axis)""")
+					.defineList("range", List.of(8, 16, 8), o -> o instanceof Integer i && i > 0 && i < Integer.MAX_VALUE);
+			woodieniaCooldown = builder
+					.comment("""
+							工作间隔
+							Cooldown interval""")
+					.defineInRange("cooldown", 10, 0, Integer.MAX_VALUE);
+			builder.pop();//End woodienia
+			builder.comment("""
+					雷卡兰
+					Reikarlily""");
+			builder.push("reikarlily");
+			reikarlilyMaxMana = builder
+					.comment("""
+							最大魔力
+							Maximum Mana""")
+					.defineInRange("maxMana", ReikarlilyBlockEntity.MAX_MANA, 0, Integer.MAX_VALUE);
+			reikarlilyProduceCooldown = builder
+					.comment("""
+							雷击后再次产出魔力的冷却时间
+							Cooldown time for regenerating mana after a lightning strike""")
+					.defineInRange("produceCooldown", ReikarlilyBlockEntity.COOLDOWN, 0, Integer.MAX_VALUE);
+			reikarlilyProduceMana = builder
+					.comment("""
+							雷击生成的魔力量
+							Mana generated per lightning strike""")
+					.defineInRange("produceMana", ReikarlilyBlockEntity.PRODUCE_MANA, 0, Integer.MAX_VALUE);
+			reikarlilyPassiveGenerateTime = builder
+					.comment("""
+							雷击后被动生成魔力的时间
+							Passive mana generation duration after lightning strike""")
+					.defineInRange("passiveGenerateTime", ReikarlilyBlockEntity.RESIDUAL_HEAT_AFTER_PRODUCE, 0, Integer.MAX_VALUE);
+			reikarlilyPassiveGenerateMana = builder
+					.comment("""
+							雷击后每Tick被动生成的魔力量
+							Mana generated per passive tick""")
+					.defineInRange("passiveGenerateMana", ReikarlilyBlockEntity.RESIDUAL_HEAT_PRODUCE_MANA, 0, Integer.MAX_VALUE);
+			reikarlilySpawnLightningCooldown = builder
+					.comment("""
+							雨天生成闪电的冷却时间
+							Cooldown for spawning lightning when raining""")
+					.defineInRange("spawnLightningCooldown", ReikarlilyBlockEntity.SPAWN_LIGHTNING_COOLDOWN, 0, Integer.MAX_VALUE);
+			builder.pop();//End reikarlily
+			builder.pop();//End flower
+			builder.pop();//End server
 		}
 
 		@Override
@@ -112,8 +223,85 @@ public class ForgeExtrabotanyConfig {
 		}
 
 		@Override
+		public String fakePlayerId() {
+			return fakePlayerId.get();
+		}
+
+		@Override
 		public String telemetryUUID() {
 			return telemetryUUID.get();
+		}
+
+		@Override
+		public int[] woodieniaRange() {
+			return woodieniaRange.get().stream()
+					.mapToInt(Integer::intValue)
+					.toArray();
+		}
+
+		@Override
+		public int woodieniaCooldown() {
+			return woodieniaCooldown.get();
+		}
+
+		@Override
+		public int woodieniaMaxMana() {
+			return woodieniaMaxMana.get();
+		}
+
+		@Override
+		public int woodieniaWorkManaCost() {
+			return woodieniaWorkManaCost.get();
+		}
+
+		@Override
+		public int reikarlilyMaxMana() {
+			return reikarlilyMaxMana.get();
+		}
+
+		@Override
+		public int reikarlilyProduceCooldown() {
+			return reikarlilyProduceCooldown.get();
+		}
+
+		@Override
+		public int reikarlilyProduceMana() {
+			return reikarlilyProduceMana.get();
+		}
+
+		@Override
+		public int reikarlilySpawnLightningCooldown() {
+			return reikarlilySpawnLightningCooldown.get();
+		}
+
+		@Override
+		public int reikarlilyPassiveGenerateTime() {
+			return reikarlilyPassiveGenerateTime.get();
+		}
+
+		@Override
+		public int reikarlilyPassiveGenerateMana() {
+			return reikarlilyPassiveGenerateMana.get();
+		}
+
+		@Override
+		public int tradeOrchidMaxMana() {
+			return tradeOrchidMaxMana.get();
+		}
+
+		@Override
+		public int tradeOrchidManaCost() {
+			return tradeOrchidManaCost.get();
+		}
+
+		@Override
+		public int tradeOrchidCooldown() {
+			return tradeOrchidCooldown.get();
+		}
+
+		@Override
+		public double tradeOrchidDiscountPercentage() {
+			return tradeOrchidDiscountPercentage.get();
 		}
 	}
 

@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "extrabotany:floating_trade_orchid"
+    "extrabotany:floating_reikarlily",
+    "extrabotany:floating_trade_orchid",
+    "extrabotany:floating_woodienia"
   ]
 }

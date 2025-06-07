@@ -1,11 +1,14 @@
 package io.github.lounode.extrabotany.xplat;
 
+import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
@@ -49,6 +52,8 @@ public interface EXplatAbstractions extends XplatAbstractions {
 
 		return ModLoaderType.UNKNOWN;
 	}
+
+	Player createFakePlayer(ServerLevel level, GameProfile userName);
 
 	enum ModLoaderType implements StringRepresentable {
 		FORGE("forge"),

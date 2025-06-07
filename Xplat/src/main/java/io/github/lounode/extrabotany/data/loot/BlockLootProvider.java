@@ -34,6 +34,9 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import org.jetbrains.annotations.NotNull;
 
+import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
+import io.github.lounode.extrabotany.common.block.flower.functional.WoodieniaBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 
 import java.nio.file.Path;
@@ -74,6 +77,12 @@ public class BlockLootProvider implements DataProvider {
 				//    functionTable.put(b, BlockLootProvider::genMetamorphicStone);
 			}
 		}
+
+		//FlowerNbt
+		functionTable.put(ExtrabotanyFlowerBlocks.woodienia, b -> genCopyNbt(b, WoodieniaBlockEntity.TAG_COOLDOWN));
+		functionTable.put(ExtrabotanyFlowerBlocks.woodieniaFloating, b -> genCopyNbt(b, WoodieniaBlockEntity.TAG_COOLDOWN));
+		functionTable.put(ExtrabotanyFlowerBlocks.reikarlily, b -> genCopyNbt(b, ReikarlilyBlockEntity.TAG_COOLDOWN));
+		functionTable.put(ExtrabotanyFlowerBlocks.reikarlilyFloating, b -> genCopyNbt(b, ReikarlilyBlockEntity.TAG_COOLDOWN));
 	}
 
 	@Override

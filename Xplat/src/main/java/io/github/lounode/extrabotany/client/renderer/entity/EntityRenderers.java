@@ -44,6 +44,9 @@ public final class EntityRenderers {
 		consumer.register(ExtraBotanyBlockEntities.PEDESTAL, PedestalRenderer::new);
 		consumer.register(ExtraBotanyBlockEntities.MANA_CHARGER, ManaChargerRenderer::new);
 		consumer.register(ExtraBotanyBlockEntities.POWER_FRAME, PowerFrameRenderer::new);
+		//Flowers
 		consumer.register(ExtrabotanyFlowerBlocks.TRADE_ORCHID, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ExtrabotanyFlowerBlocks.WOODIENIA, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ExtrabotanyFlowerBlocks.REIKARLILY, SpecialFlowerBlockEntityRenderer::new);
 	}
 }

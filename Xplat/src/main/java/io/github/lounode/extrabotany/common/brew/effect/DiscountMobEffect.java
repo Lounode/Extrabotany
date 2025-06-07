@@ -9,21 +9,21 @@ import net.minecraft.world.item.trading.MerchantOffer;
 
 public class DiscountMobEffect extends MobEffect {
 
-	public static float DISCOUNT_PER_LEVEL = 0.25F;
+	public static double DISCOUNT_PER_LEVEL = 0.01D;
 
 	public DiscountMobEffect(MobEffectCategory category, int color) {
 		super(category, color);
 	}
 
 	public int getDiscount(MobEffectInstance effectInstance, Villager villager, MerchantOffer offer, Player player) {
-		int level = effectInstance.getAmplifier();
+		int level = effectInstance.getAmplifier() + 1;
 		int costA = offer.getBaseCostA().getCount();
-		float discountRate = Math.min(1.0f, Math.max(0.0f, getDiscountPerLevel() * level));
+		double discountRate = Math.min(1.0f, Math.max(0.0f, getDiscountPerLevel() * level));
 
 		return -(int) (costA * discountRate);
 	}
 
-	public float getDiscountPerLevel() {
+	public double getDiscountPerLevel() {
 		return DISCOUNT_PER_LEVEL;
 	}
 }

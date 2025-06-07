@@ -5,7 +5,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -14,17 +13,25 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
+import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import java.util.List;
 
 public class TradeOrchidBlockEntity extends FunctionalFlowerBlockEntity {
 
 	private static final int RANGE = 8;
-	private static final int MAX_MANA = 10000;
-	private static final int MANA_PER_USE = 1000;
+	public static final int MAX_MANA = 10000;
+	public static final int MANA_PER_USE = 1000;
+	public static final int COOLDOWN = 2 * 20;
+	public static final double DISCOUNT_RATE = 0.50D;
 
 	public TradeOrchidBlockEntity(BlockPos pos, BlockState state) {
 		super(ExtrabotanyFlowerBlocks.TRADE_ORCHID, pos, state);
+	}
+
+	@Override
+	public boolean acceptsRedstone() {
+		return true;
 	}
 
 	@Override
@@ -35,6 +42,9 @@ public class TradeOrchidBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 		if (ticksExisted % 20 == 0) {
 			sync();
+		}
+		if (redstoneSignal > 0) {
+			return;
 		}
 		if (ticksExisted % getCooldown() != 0) {
 			return;
@@ -80,9 +90,17 @@ public class TradeOrchidBlockEntity extends FunctionalFlowerBlockEntity {
 		super.setRemoved();
 	}
 
+	public int getCooldown() {
+		return ExtraBotanyConfig.common().tradeOrchidCooldown();
+	}
+
+	public int getManaPerUse() {
+		return ExtraBotanyConfig.common().tradeOrchidManaCost();
+	}
+
 	@Override
 	public int getMaxMana() {
-		return MAX_MANA;
+		return ExtraBotanyConfig.common().tradeOrchidMaxMana();
 	}
 
 	@Override
@@ -90,20 +108,23 @@ public class TradeOrchidBlockEntity extends FunctionalFlowerBlockEntity {
 		return 0x54eb89;
 	}
 
-	public int getManaPerUse() {
-		return MANA_PER_USE;
-	}
-
 	public MobEffectInstance getNewEffect() {
-		return new MobEffectInstance(ExtraBotanyMobEffects.DISCOUNT, 3 * 20, 2, true, false);
+		return new MobEffectInstance(
+				ExtraBotanyMobEffects.DISCOUNT,
+				ExtraBotanyConfig.common().tradeOrchidCooldown() + 20,
+				calcRequireLevel(ExtraBotanyConfig.common().tradeOrchidDiscountPercentage()) - 1,
+				true,
+				false
+		);
 	}
 
-	public int getCooldown() {
-		return 2 * 20;
+	private int calcRequireLevel(double percentage) {
+		percentage = Math.max(0, Math.min(1, percentage));
+		return (int) Math.round((1 - percentage) * 100);
 	}
 
 	@Override
 	public @Nullable RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Rectangle(getEffectivePos(), new AABB(getEffectivePos()).inflate(RANGE));
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RANGE);
 	}
 }

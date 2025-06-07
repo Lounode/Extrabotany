@@ -1,11 +1,16 @@
 package io.github.lounode.extrabotany.fabric.xplat;
 
+import com.mojang.authlib.GameProfile;
+
+import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
@@ -38,5 +43,10 @@ public class ExFabricXplatImpl extends FabricXplatImpl implements EXplatAbstract
 	@Override
 	public String getExtraBotanyVersion() {
 		return FabricLoader.getInstance().getModContainer(LibMisc.MOD_ID).get().getMetadata().getVersion().getFriendlyString();
+	}
+
+	@Override
+	public Player createFakePlayer(ServerLevel level, GameProfile userName) {
+		return FakePlayer.get(level, userName);
 	}
 }

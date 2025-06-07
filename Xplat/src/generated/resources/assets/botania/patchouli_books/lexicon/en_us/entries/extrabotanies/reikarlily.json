@@ -1,0 +1,23 @@
+{
+  "category": "botania:extrabotanies",
+  "extra_recipe_mappings": {
+    "extrabotany:floating_reikarlily": 1
+  },
+  "icon": "extrabotany:reikarlily",
+  "name": "extrabotany.entry.reikarlily",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "extrabotany.page.reikarlily0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "extrabotany.page.reikarlily1"
+    },
+    {
+      "type": "botania:petal_apothecary",
+      "recipe": "extrabotany:petal_apothecary/reikarlily",
+      "text": "extrabotany.page.reikarlily2"
+    }
+  ]
+}

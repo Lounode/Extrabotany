@@ -12,7 +12,7 @@
   "advancement.extrabotany:panda_do_not_wear_rings": "熊猫不戴戒指",
   "advancement.extrabotany:panda_do_not_wear_rings.desc": "合成一个大师魔力之戒",
   "advancement.extrabotany:overload": "大约3560万吨吧",
-  "advancement.extrabotany:overload.desc": "将大师魔力之戒充能至第二阶段",
+  "advancement.extrabotany:overload.desc": "将大师魔力之戒充能至整型上限",
   "advancement.extrabotany:load_of_ring": "指环王",
   "advancement.extrabotany:load_of_ring.desc": "将大师魔力之戒充满",
   "advancement.extrabotany:craft_pedestal": "快到坛里来",
@@ -92,6 +92,16 @@
   "block.extrabotany.trade_orchid.reference": "不再需要打折机",
   "block.extrabotany.potted_trade_orchid": "商友兰盆栽",
   "block.extrabotany.floating_trade_orchid": "浮空商友兰",
+  
+  "block.extrabotany.woodienia": "伐木花",
+  "block.extrabotany.woodienia.reference": "一口吃掉小木屋",
+  "block.extrabotany.potted_woodienia": "伐木花盆栽",
+  "block.extrabotany.floating_woodienia": "浮空伐木花",
+  
+  "block.extrabotany.reikarlily": "雷卡兰",
+  "block.extrabotany.reikarlily.reference": "雷公助我",
+  "block.extrabotany.potted_reikarlily": "雷卡兰盆栽",
+  "block.extrabotany.floating_reikarlily": "浮空雷卡兰",
   
   "death.attack.extrabotany.link": "%1$s 对别人的痛苦感同身受",
   "death.attack.extrabotany.link.player": "%1$s 对 %2$s 的痛苦感同身受",
@@ -395,7 +405,7 @@
   "extrabotany.page.quartzs2": "材 质 更 新",
   
   "extrabotany.entry.trade_orchid": "商友兰",
-  "extrabotany.page.trade_orchid0": "$(item)商友兰$()是商人的好友，它可以用$(thing)魔力$()让附近的村民交易打折，多个商友兰提供的折扣效果不会叠加。",
+  "extrabotany.page.trade_orchid0": "$(item)商友兰$()是商人的好友，它可以用$(thing)魔力$()让附近的村民交易打折，多个商友兰提供的折扣效果不会叠加。$(br2)给予一个$(thing)红石信号$()，可以抑制$(item)商友兰$()的活动。",
   "extrabotany.page.trade_orchid1": "可以折上折吗？",
   
   "extrabotany.entry.nature_orb": "自然蕴息宝珠",
@@ -486,6 +496,15 @@
   "extrabotany.page.goblin_slayer2": "森人",
   "extrabotany.page.goblin_slayer3": "矿人",
   "extrabotany.page.goblin_slayer4": "兽人",
+  
+  "extrabotany.entry.woodienia": "伐木花",
+  "extrabotany.page.woodienia0": "砍树是$(item)伐木花$()的工作，仅仅需要一点点$(thing)魔力$()，它就可以帮你采掘一定范围内的$(thing)原木$()。$(br2)它太爱砍树了，经常敌我不分，把小木屋建在伐木花附近可能不是个好主意。$(br2)提供一个$(thing)红石信号$()可以抑制它的活动。",
+  "extrabotany.page.woodienia1": "熊大，光头强又来砍树啦！",
+  
+  "extrabotany.entry.reikarlily": "雷卡兰",
+  "extrabotany.page.reikarlily0": "$(item)雷卡兰$()可以将$(thing)闪电$()的巨大能量转化为$(thing)魔力$()。$(br2)每当有$(thing)闪电$()劈在其附近时，就会立刻产出巨大$(thing)魔力$()，并且余热会使其继续缓慢地产出$(thing)魔力$()。",
+  "extrabotany.page.reikarlily1": "只是在$(thing)雨天$()，劈在它身上的$(thing)闪电$()似乎有点过于多了，你不禁有点怀疑：到底是它保护了你，还是它$(thing)吸引$()来了$(thing)闪电$()？",
+  "extrabotany.page.reikarlily2": "就决定是你了！",
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""

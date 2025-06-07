@@ -6,6 +6,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import vazkii.botania.common.item.BotaniaItems;
 
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 
 import java.util.function.Consumer;
 
@@ -54,7 +55,9 @@ public class PetalApothecaryProvider extends vazkii.botania.data.recipes.PetalAp
 		Ingredient gaiaSpirit = Ingredient.of(BotaniaItems.lifeEssence);
 		//Recipes
 
-		consumer.accept(make(ExtrabotanyFlowerBlocks.tradeOrchid, lime, lime, green, brown, runeGreed, runeLust));
+		consumer.accept(make(ExtrabotanyFlowerBlocks.tradeOrchid, lime, lime, green, brown, runeGreed, runeLust, redstoneRoot));
+		consumer.accept(make(ExtrabotanyFlowerBlocks.woodienia, brown, brown, brown, gray, Ingredient.of(ExtraBotanyItems.elementiumQuartz), runeGluttony, redstoneRoot));
+		consumer.accept(make(ExtrabotanyFlowerBlocks.reikarlily, lightBlue, lightBlue, cyan, cyan, blue, runePride, runeEnvy, runeSloth, Ingredient.of(BotaniaItems.lifeEssence)));
 	}
 
 	@Override

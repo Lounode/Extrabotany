@@ -463,6 +463,25 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				)
 				.withAdvancement(mainAdvancement(LibAdvancementNames.STYGIAN_TWINS))
 				.save(consumer, id("goblin_slayer"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.woodienia")
+				.withIcon(ExtrabotanyFlowerBlocks.woodienia)
+				.pages(
+						text("extrabotany.page.woodienia0"),
+						petal(ExtrabotanyFlowerBlocks.woodienia).withText("extrabotany.page.woodienia1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.woodieniaFloating, 1)
+				.save(consumer, id("woodienia"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.reikarlily")
+				.withIcon(ExtrabotanyFlowerBlocks.reikarlily)
+				.pages(
+						text("extrabotany.page.reikarlily0"),
+						text("extrabotany.page.reikarlily1"),
+						petal(ExtrabotanyFlowerBlocks.reikarlily).withText("extrabotany.page.reikarlily2")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.reikarlilyFloating, 1)
+				.save(consumer, id("reikarlily"));
 	}
 
 	private RunicAltarPage runicAlter(ItemLike item) {

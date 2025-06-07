@@ -42,5 +42,30 @@ public class ExtraBotanyConfig {
 		boolean disableGaiaDisArm();
 		boolean enableTelemetry();
 		String telemetryUUID();
+		String fakePlayerId();
+
+		//Flowers
+		//Generating
+
+		//Reikarlily
+		int reikarlilyMaxMana();
+		int reikarlilyProduceCooldown();
+		int reikarlilyProduceMana();
+		int reikarlilySpawnLightningCooldown();
+		int reikarlilyPassiveGenerateTime();
+		int reikarlilyPassiveGenerateMana();
+
+		//Functional
+		//TradeOrchid
+		int tradeOrchidMaxMana();
+		int tradeOrchidManaCost();
+		int tradeOrchidCooldown();
+		double tradeOrchidDiscountPercentage();
+
+		//Woodienia
+		int[] woodieniaRange();
+		int woodieniaCooldown();
+		int woodieniaMaxMana();
+		int woodieniaWorkManaCost();
 	}
 }

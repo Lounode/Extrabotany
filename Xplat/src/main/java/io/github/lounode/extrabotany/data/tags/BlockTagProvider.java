@@ -28,8 +28,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
 import static io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks.*;
-import static io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks.tradeOrchid;
-import static io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks.tradeOrchidPotted;
+import static io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks.*;
 
 public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	public static final Predicate<Block> EXTRABOTANY_BLOCK = b -> LibMisc.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace());
@@ -91,12 +90,12 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		);
 
 		Block[] generatingSpecialFlowers = {
-
+				reikarlily,
 		};
 		tag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOWERS).add(generatingSpecialFlowers);
 
 		Block[] functionalSpecialFlowers = {
-				tradeOrchid
+				tradeOrchid, woodienia,
 		};
 		tag(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS).add(functionalSpecialFlowers);
 
@@ -114,8 +113,10 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.FLOWER_POTS)
 
 				.add(
+						//Generating
+						reikarlilyPotted,
 						//Func
-						tradeOrchidPotted
+						tradeOrchidPotted, woodieniaPotted
 				);
 
 		registerMiningTags();

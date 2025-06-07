@@ -1,9 +1,14 @@
 package io.github.lounode.extrabotany.forge.xplat;
 
+import com.mojang.authlib.GameProfile;
+
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.PacketDistributor;
@@ -42,4 +47,8 @@ public class ExForgeXplatImpl extends ForgeXplatImpl implements EXplatAbstractio
 		return ModList.get().getModContainerById(LibMisc.MOD_ID).get().getModInfo().getVersion().toString();
 	}
 
+	@Override
+	public Player createFakePlayer(ServerLevel level, GameProfile userName) {
+		return FakePlayerFactory.get(level, userName);
+	}
 }
