@@ -13,7 +13,7 @@ import vazkii.botania.common.entity.GaiaGuardianEntity;
 import io.github.lounode.extrabotany.api.gaia.GaiaArena;
 import io.github.lounode.extrabotany.common.entity.gaia.GaiaIII;
 
-@Mixin(GaiaGuardianEntity.class)
+@Mixin(value = GaiaGuardianEntity.class, remap = false)
 public abstract class GaiaGuardianAdditionalSpawnCheck {
 
 	@Inject(

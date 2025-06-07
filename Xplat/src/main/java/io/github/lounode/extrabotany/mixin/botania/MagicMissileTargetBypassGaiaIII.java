@@ -12,7 +12,7 @@ import vazkii.botania.common.entity.MagicMissileEntity;
 
 import io.github.lounode.extrabotany.common.entity.gaia.Gaia;
 
-@Mixin(MagicMissileEntity.class)
+@Mixin(value = MagicMissileEntity.class, remap = false)
 public class MagicMissileTargetBypassGaiaIII {
 
 	@Inject(
