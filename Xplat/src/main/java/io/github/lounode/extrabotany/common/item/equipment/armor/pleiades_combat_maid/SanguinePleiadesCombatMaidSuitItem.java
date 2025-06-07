@@ -27,7 +27,6 @@ import io.github.lounode.eventwrapper.event.entity.living.MobEffectEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
-import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import java.util.Locale;
 import java.util.Map;
@@ -130,15 +129,6 @@ public class SanguinePleiadesCombatMaidSuitItem extends PleiadesCombatMaidSuitIt
 		@SubscribeEventWrapper
 		public static void onEffectExpired(MobEffectEventWrapper.Expired event) {
 			if (event.getEntity() instanceof ServerPlayer serverPlayer) {
-				//TODO 下个版本换回实现
-				if (EXplatAbstractions.INSTANCE.isFabric()) {
-					if (event.getEffectInstance() != null) {
-						if (event.getEffectInstance().getDuration() == 0) {
-							onEffectRemovedOrExpired(serverPlayer, event.getEffectInstance());
-						}
-					}
-					return;
-				}
 				onEffectRemovedOrExpired(serverPlayer, event.getEffectInstance());
 			}
 		}

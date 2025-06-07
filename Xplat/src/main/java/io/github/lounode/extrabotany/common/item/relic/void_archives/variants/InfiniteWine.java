@@ -22,15 +22,14 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
-import io.github.lounode.extrabotany.common.brew.BrewUtil;
 import io.github.lounode.extrabotany.common.lib.LibBrewNames;
 
 import java.util.List;
 
+import static io.github.lounode.extrabotany.common.item.brew.InfiniteWineItem.*;
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class InfiniteWine implements VoidArchivesVariant, BrewItem {
@@ -61,9 +60,9 @@ public class InfiniteWine implements VoidArchivesVariant, BrewItem {
 			}
 
 			for (MobEffectInstance effect : getBrew(stack).getPotionEffects(stack)) {
-				MobEffectInstance newEffect = new MobEffectInstance(effect.getEffect(), effect.getDuration(), effect.getAmplifier(), true, true);
+				MobEffectInstance newEffect = new MobEffectInstance(effect.getEffect(), (int) ((float) effect.getDuration() * (1.0 + getDurationMultiplier())), effect.getAmplifier() + getAmplifierAddition(), true, true);
 				if (effect.getEffect().isInstantenous()) {
-					effect.getEffect().applyInstantenousEffect(living, living, living, newEffect.getAmplifier(), 1F);
+					effect.getEffect().applyInstantenousEffect(living, living, living, newEffect.getAmplifier() + getAmplifierAddition(), 1F);
 				} else {
 					living.addEffect(newEffect);
 				}
@@ -80,7 +79,7 @@ public class InfiniteWine implements VoidArchivesVariant, BrewItem {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
 		tooltipComponents.add(Component.empty());
-		BaseBrewItem.addPotionTooltip(BrewUtil.getPotionEffects(BrewUtil.getBrew(stack)), tooltipComponents, 1.0F);
+		addPotionTooltip(getBrew(stack).getPotionEffects(stack), tooltipComponents, (float) (1.0D + getDurationMultiplier()), getAmplifierAddition());
 	}
 
 	@Override
@@ -117,5 +116,13 @@ public class InfiniteWine implements VoidArchivesVariant, BrewItem {
 	public Brew getBrew(ItemStack itemStack) {
 		String key = ItemNBTHelper.getString(itemStack, TAG_BREW_KEY, "");
 		return BotaniaAPI.instance().getBrewRegistry().get(ResourceLocation.tryParse(key));
+	}
+
+	public int getAmplifierAddition() {
+		return AMPLIFIER_ADDITION;
+	}
+
+	public float getDurationMultiplier() {
+		return DURATION_MULTIPLIER;
 	}
 }

@@ -61,7 +61,7 @@ public class InfiniteWineItem extends BaseBrewItem {
 	public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, Level world, LivingEntity living) {
 		if (!world.isClientSide) {
 			for (MobEffectInstance effect : getBrew(stack).getPotionEffects(stack)) {
-				MobEffectInstance newEffect = new MobEffectInstance(effect.getEffect(), (int) ((float) effect.getDuration() * getDurationMultiplier()), effect.getAmplifier() + getAmplifierAddition(), true, true);
+				MobEffectInstance newEffect = new MobEffectInstance(effect.getEffect(), (int) ((float) effect.getDuration() * (1.0 + getDurationMultiplier())), effect.getAmplifier() + getAmplifierAddition(), true, true);
 				if (effect.getEffect().isInstantenous()) {
 					effect.getEffect().applyInstantenousEffect(living, living, living, newEffect.getAmplifier() + getAmplifierAddition(), 1F);
 				} else {

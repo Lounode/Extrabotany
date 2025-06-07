@@ -32,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.entity.MagicLandmineEntity;
 import vazkii.botania.common.entity.PixieEntity;
 import vazkii.botania.common.helper.MathHelper;
@@ -292,7 +293,7 @@ public class GaiaArena {
 	public boolean checksVanilla(Player player, Level world, BlockPos pos) {
 		if (!(world.getBlockEntity(pos) instanceof BeaconBlockEntity) ||
 				!isTruePlayer(player) ||
-				countGaiaAround(world, Gaia.class) > 0) {
+				countGaiaAround(world, GaiaGuardianEntity.class) > 0) {
 			return false;
 		}
 		if (!checkDifficulty(world)) {
@@ -324,7 +325,7 @@ public class GaiaArena {
 	public boolean checksModern(Player player, Level world, ItemStack stack) {
 		if (!(world.getBlockEntity(center().pos()) instanceof BeaconBlockEntity) ||
 				!isTruePlayer(player) ||
-				countGaiaAround(world, Gaia.class) > 0) {
+				(countGaiaAround(world, Gaia.class) + countGaiaAround(world, GaiaGuardianEntity.class)) > 0) {
 			return false;
 		}
 

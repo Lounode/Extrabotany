@@ -21,7 +21,7 @@
       "translate": "advancement.extrabotany:load_of_ring.desc"
     },
     "frame": "challenge",
-    "hidden": false,
+    "hidden": true,
     "icon": {
       "item": "extrabotany:mana_ring_master"
     },

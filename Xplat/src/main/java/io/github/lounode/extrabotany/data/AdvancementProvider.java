@@ -147,7 +147,7 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
 					))
 					.save(consumer, mainId(LibAdvancementNames.OVERLOAD));
 			Advancement lordOfKing = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.LOAD_OF_RING, FrameType.CHALLENGE))
+					.display(hidden(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.LOAD_OF_RING, FrameType.CHALLENGE))
 					.parent(overlord)
 					.addCriterion("mana_charge", ManaChargeTrigger.TriggerInstance.manaCharged(
 							ItemPredicate.Builder.item().of(ExtraBotanyItems.manaRingMaster).build(),
