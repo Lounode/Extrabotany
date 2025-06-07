@@ -134,7 +134,7 @@ public class FailnaughtItem extends LivingwoodBowItem implements LensEffectItem,
 				float spreadAngle = 10.0f;
 
 				for (int i = 0; i < (multiShoutLevel > 0 ? 3 : 1); i++) {
-					ManaBurstEntity burst = getBurst(player, player.getMainHandItem(), manaInBurst, getTier(chargeProgress));
+					ManaBurstEntity burst = getBurst(player, stack, manaInBurst, getTier(chargeProgress));
 
 					if (multiShoutLevel > 0 && i > 0) {
 						float angle = (i == 1 ? -spreadAngle : spreadAngle) * Mth.DEG_TO_RAD;

@@ -443,7 +443,7 @@
   "extrabotany.page.goblin_slayer3": "Dwarf",
   "extrabotany.page.goblin_slayer4": "Furry",
   "extrabotany.entry.woodienia": "Woodienia",
-  "extrabotany.page.woodienia0": "Logging is $(item)Woodienia$()'s job, just need a little bit of $(thing)Mana$(), It can helps you harvest the $(thing)Logs$() within a certain range.$(br2)It loves chopping trees too much, often can't tell friend from foe. Building your cabin near the $(item)Woodienia$() might not a good idea.$(br2)Any $(thing)Redstone Signal$() can suppression it's activity.",
+  "extrabotany.page.woodienia0": "Logging is $(item)Woodienia$()'s job, just need a little bit of $(thing)Mana$(), It can help you harvest the $(thing)Logs$() within a certain range.$(br2)It loves chopping trees too much, often can't tell friend from foe. Built your cabin near the $(item)Woodienia$() might not a good idea.$(br2)Any $(thing)Redstone Signal$() can suppression it's activity.",
   "extrabotany.page.woodienia1": "Tin Woodman",
   "extrabotany.entry.reikarlily": "Reikarlily",
   "extrabotany.page.reikarlily0": "$(item)Reikarlily$() turns the tremendous energy of $(thing)lightning$() into $(thing)Mana$(). When a $(thing)lightning bolt$() hits nearby, it will generate a great amount of $(thing)Mana$() immediately and continue to produce $(thing)Mana$() for a long time.",

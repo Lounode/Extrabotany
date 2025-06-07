@@ -10,6 +10,8 @@
     "ItemCustomEnchantableSupporter",
     "TradeOrchidEditSpecialPrice",
     "accessor.LightningBoltAccessor",
+    "botania.GaiaGuardianAdditionalSpawnCheck",
+    "botania.MagicMissileTargetBypassGaiaIII",
     "client.PatchouliTemplateXModMixin",
     "client.PatchouliTemplateXModMixinBuilder"
   ],
