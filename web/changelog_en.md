@@ -1,4 +1,35 @@
-# Current Version: 1.20.1-1.1.0 (2025.6.1)
+# Current Version: 1.20.1-1.2.0 Release (2025.6.8)
+### New 
+#### New Generating Flower: `Reikarlily`
+Reikarlily turns the tremendous energy of lightning into Mana. 
+
+When a lightning bolt hits nearby, it will generate a great amount of Mana immediately and continue to produce Mana for a long time.
+#### New Functional Flower: `Woodienia`
+Just need a little bit of Mana, Woodienia can help you harvest the Logs$ within a certain range.
+
+Built your cabin near the Woodienia might not a good idea.
+
+Any Redstone Signal can suppression it's activity.
+- add client configuration item: `otakuMode` some text only available when it was set to true
+- add Naming Easter egg for Excalibur
+- add some configuration items for flower
+### Change&Optimize
+- changed some armor model that solved clip bug
+- changed some text in Patchouli book
+- Tradeorchid now can be suppressed by any Redstone Signal
+- changed ManaCocktail texture
+- changed some `en_us` translations
+- changed some `ja_jp` translate.
+- GaiaIII now can't be summoned when it has GaiaI GaiaII in arena
+- GaiaIII now can't be the Missile Rod's Target
+### Bugfix
+- fix clip bug when equip armor and installed `3D Skin Layers`
+- fix bug that Mana Charger and Pedestals can't be speedup by Torcherino
+- fix bug that some Brew doesn't have a recipe
+- fix bug that Infinite Wine gives a wrong effect duration
+- Fixed Failnaught tracking the wrong enemy when held in the off-hand
+- Removed Herobrine
+## 1.20.1-1.1.0 (2025.6.1)
 ### New
 #### New Armorset: Starry Idol
 From the Isekai beyond this world, a princess who reigns as the greatest of all. She once wore this armor set.
