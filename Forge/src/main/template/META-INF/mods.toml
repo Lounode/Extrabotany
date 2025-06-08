@@ -37,20 +37,6 @@ issueTrackerURL="https://github.com/lounode/ExtraBotany/issues"
     side="BOTH"
 
 [[dependencies."${mod_id}"]]
-    modId="patchouli"
-    mandatory=true
-    versionRange="${patchouli_version_range}"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies."${mod_id}"]]
-    modId="curios"
-    mandatory=true
-    versionRange="${curios_version_range}"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies."${mod_id}"]]
     modId="eventwrapper"
     mandatory=true
     versionRange="${eventwrapper_version_range}"
@@ -61,6 +47,12 @@ issueTrackerURL="https://github.com/lounode/ExtraBotany/issues"
     modId="jei"
     mandatory=false
     versionRange="${jei_version_range}"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies."${mod_id}"]]
+    modId="kubejs"
+    mandatory=false
+    versionRange="${kubejs_version_range}"
     ordering="NONE"
     side="BOTH"
 

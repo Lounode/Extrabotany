@@ -78,6 +78,24 @@ repositories {
         name = "lounode"
         url = "https://maven.lounode.top/releases"
     }
+    maven {
+        name = "kubejs"
+        url = "https://maven.latvian.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.latvian.apps"
+        }
+    }
+    maven {
+        url = "https://maven.saps.dev/minecraft"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.ftb.mods"
+        }
+    }
+    maven {
+        url = "https://maven.architectury.dev/"
+    }
 }
 
 loom {
@@ -157,6 +175,10 @@ dependencies {
     modRuntimeOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
     modImplementation("dev.emi:trinkets:3.7.0") { transitive = false }
 
+    modImplementation "dev.latvian.mods:kubejs-fabric:${kubejs_version}"
+    modImplementation "dev.latvian.mods:rhino-fabric:${rhino_version}"
+    modImplementation "dev.architectury:architectury-fabric:${architectury_version}"
+
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
     modRuntimeOnly "com.terraformersmc:modmenu:7.2.2"
 }
@@ -197,6 +219,7 @@ def generateModMetadataFabric = tasks.register('generateModMetadataFabric', Proc
             tinkers_version: tinkers_version, tinkers_version_range: tinkers_version_range,
             top_version: top_version, top_version_range: top_version_range,
             eventwrapper_version: eventwrapper_version, eventwrapper_version_range: eventwrapper_version_range,
+            kubejs_version: kubejs_version, kubejs_version_range: kubejs_version_range,
     ]
     inputs.properties replaceProperties
     expand replaceProperties
