@@ -20,7 +20,9 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -53,6 +55,7 @@ import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyMemoryType;
+import io.github.lounode.extrabotany.common.impl.WindImpl;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.brew.InfiniteWineItem;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
@@ -172,6 +175,10 @@ public class ForgeCommonInitializer {
 		IEventBus bus = MinecraftForge.EVENT_BUS;
 		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
 		bus.addGenericListener(Level.class, this::attachLevelCaps);
+
+		bus.addListener((LevelEvent.Load event) -> WindImpl.EventHandler.onLevelLoad((Level) event.getLevel()));
+		bus.addListener((LevelEvent.Unload event) -> WindImpl.EventHandler.onLevelUnLoad((Level) event.getLevel()));
+		bus.addListener((TickEvent.LevelTickEvent event) -> WindImpl.EventHandler.onLevelTick(event.level));
 
 		RewardBagManager.registerListener();
 	}

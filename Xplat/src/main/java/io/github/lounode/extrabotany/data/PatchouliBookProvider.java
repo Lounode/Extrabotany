@@ -480,8 +480,18 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						text("extrabotany.page.reikarlily1"),
 						petal(ExtrabotanyFlowerBlocks.reikarlily).withText("extrabotany.page.reikarlily2")
 				)
-				.extraRecipeMapping(ExtrabotanyFlowerBlocks.reikarlilyFloating, 1)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.reikarlilyFloating, 2)
 				.save(consumer, id("reikarlily"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.bellflower")
+				.withIcon(ExtrabotanyFlowerBlocks.bellflower)
+				.pages(
+						text("extrabotany.page.bellflower0"),
+						text("extrabotany.page.bellflower1"),
+						petal(ExtrabotanyFlowerBlocks.bellflower).withText("extrabotany.page.bellflower2")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.bellflowerFloating, 2)
+				.save(consumer, id("bellflower"));
 	}
 
 	private RunicAltarPage runicAlter(ItemLike item) {

@@ -112,7 +112,7 @@ legacyForge {
             jvmArgument("-XX:+AllowEnhancedClassRedefinition")
 
             programArguments.addAll("--username", "Dev")
-            programArguments.addAll("--uuid", "4f201c25-b473-4c2c-959a-dea681f79c23")
+            programArguments.addAll("--uuid", "7a031748-9466-4652-b0b7-dfdc82b0c336")
         }
 
         server {

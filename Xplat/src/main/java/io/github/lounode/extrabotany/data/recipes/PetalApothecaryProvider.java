@@ -58,6 +58,7 @@ public class PetalApothecaryProvider extends vazkii.botania.data.recipes.PetalAp
 		consumer.accept(make(ExtrabotanyFlowerBlocks.tradeOrchid, lime, lime, green, brown, runeGreed, runeLust, redstoneRoot));
 		consumer.accept(make(ExtrabotanyFlowerBlocks.woodienia, brown, brown, brown, gray, Ingredient.of(ExtraBotanyItems.elementiumQuartz), runeGluttony, redstoneRoot));
 		consumer.accept(make(ExtrabotanyFlowerBlocks.reikarlily, lightBlue, lightBlue, cyan, cyan, blue, runePride, runeEnvy, runeSloth, Ingredient.of(BotaniaItems.lifeEssence)));
+		consumer.accept(make(ExtrabotanyFlowerBlocks.bellflower, yellow, yellow, lime, lime, Ingredient.of(ExtraBotanyItems.spiritFragment)));
 	}
 
 	@Override

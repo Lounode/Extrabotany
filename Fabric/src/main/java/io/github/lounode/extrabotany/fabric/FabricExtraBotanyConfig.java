@@ -4,6 +4,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.BellflowerBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
@@ -89,6 +90,8 @@ public class FabricExtraBotanyConfig {
 		public final PropertyMirror<Integer> tradeOrchidManaCost = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Integer> tradeOrchidCooldown = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Double> tradeOrchidDiscountPercentage = PropertyMirror.create(DOUBLE);
+		public final PropertyMirror<Integer> bellflowerMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Double> bellflowerGenerateModify = PropertyMirror.create(DOUBLE);
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder
@@ -232,6 +235,21 @@ public class FabricExtraBotanyConfig {
 					.finishValue(reikarlilySpawnLightningCooldown::mirror)
 					.finishBranch()//End reikarlily
 
+					.fork("bellflower").withComment("""
+							风铃草
+							Bellflower""")
+					.beginValue("maxMana", INTEGER, BellflowerBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(bellflowerMaxMana::mirror)
+					.beginValue("generateModify", DOUBLE, BellflowerBlockEntity.GENERATE_MODIFY)
+					.withComment("""
+							魔力生成修正值
+							Mana generation modifier""")
+					.finishValue(bellflowerGenerateModify::mirror)
+					.finishBranch() // End bellflower
+
 					.finishBranch()//End flower
 
 					.finishBranch();//End server
@@ -327,6 +345,16 @@ public class FabricExtraBotanyConfig {
 		@Override
 		public double tradeOrchidDiscountPercentage() {
 			return tradeOrchidDiscountPercentage.getValue();
+		}
+
+		@Override
+		public int bellflowerMaxMana() {
+			return bellflowerMaxMana.getValue();
+		}
+
+		@Override
+		public double bellflowerGenerateModify() {
+			return bellflowerGenerateModify.getValue();
 		}
 	}
 

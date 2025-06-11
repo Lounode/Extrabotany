@@ -133,7 +133,7 @@ loom {
             ideConfigGenerated(true)
 
             programArgs.addAll("--username", "Dev")
-            programArgs.addAll("--uuid", "4f201c25-b473-4c2c-959a-dea681f79c23")
+            programArgs.addAll("--uuid", "7a031748-9466-4652-b0b7-dfdc82b0c336")
         }
     }
 

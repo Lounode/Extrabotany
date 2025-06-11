@@ -26,6 +26,7 @@ import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.functional.WoodieniaBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.BellflowerBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
 import io.github.lounode.extrabotany.common.lib.LibBlockNames;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
@@ -50,9 +51,14 @@ public class ExtrabotanyFlowerBlocks {
 	public static final Block reikarlilyFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.REIKARLILY);
 	public static final Block reikarlilyPotted = ExtraBotanyBlocks.flowerPot(reikarlily, 0);
 
+	public static final Block bellflower = createSpecialFlowerBlock(MobEffects.MOVEMENT_SPEED, 10 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.BELLFLOWER);
+	public static final Block bellflowerFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.BELLFLOWER);
+	public static final Block bellflowerPotted = ExtraBotanyBlocks.flowerPot(bellflower, 0);
+
 	public static final BlockEntityType<TradeOrchidBlockEntity> TRADE_ORCHID = EXplatAbstractions.INSTANCE.createBlockEntityType(TradeOrchidBlockEntity::new, tradeOrchid, tradeOrchidFloating);
 	public static final BlockEntityType<WoodieniaBlockEntity> WOODIENIA = EXplatAbstractions.INSTANCE.createBlockEntityType(WoodieniaBlockEntity::new, woodienia, woodieniaFloating);
 	public static final BlockEntityType<ReikarlilyBlockEntity> REIKARLILY = EXplatAbstractions.INSTANCE.createBlockEntityType(ReikarlilyBlockEntity::new, reikarlily, reikarlilyFloating);
+	public static final BlockEntityType<BellflowerBlockEntity> BELLFLOWER = EXplatAbstractions.INSTANCE.createBlockEntityType(BellflowerBlockEntity::new, bellflower, bellflowerFloating);
 
 	private static ResourceLocation floating(ResourceLocation orig) {
 		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
@@ -89,17 +95,21 @@ public class ExtrabotanyFlowerBlocks {
 	}
 
 	public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {
-		r.accept(tradeOrchid, LibBlockNames.SUBTILE_TRADE_ORCHID);
-		r.accept(tradeOrchidFloating, floating(LibBlockNames.SUBTILE_TRADE_ORCHID));
-		r.accept(tradeOrchidPotted, potted(LibBlockNames.SUBTILE_TRADE_ORCHID));
+		r.accept(tradeOrchid, LibBlockNames.TRADE_ORCHID);
+		r.accept(tradeOrchidFloating, floating(LibBlockNames.TRADE_ORCHID));
+		r.accept(tradeOrchidPotted, potted(LibBlockNames.TRADE_ORCHID));
 
-		r.accept(woodienia, LibBlockNames.SUBTILE_WOODIENIA);
-		r.accept(woodieniaFloating, floating(LibBlockNames.SUBTILE_WOODIENIA));
-		r.accept(woodieniaPotted, potted(LibBlockNames.SUBTILE_WOODIENIA));
+		r.accept(woodienia, LibBlockNames.WOODIENIA);
+		r.accept(woodieniaFloating, floating(LibBlockNames.WOODIENIA));
+		r.accept(woodieniaPotted, potted(LibBlockNames.WOODIENIA));
 
-		r.accept(reikarlily, LibBlockNames.SUBTILE_REIKARLILY);
-		r.accept(reikarlilyFloating, floating(LibBlockNames.SUBTILE_REIKARLILY));
-		r.accept(reikarlilyPotted, potted(LibBlockNames.SUBTILE_REIKARLILY));
+		r.accept(reikarlily, LibBlockNames.REIKARLILY);
+		r.accept(reikarlilyFloating, floating(LibBlockNames.REIKARLILY));
+		r.accept(reikarlilyPotted, potted(LibBlockNames.REIKARLILY));
+
+		r.accept(bellflower, LibBlockNames.BELLFLOWER);
+		r.accept(bellflowerFloating, floating(LibBlockNames.BELLFLOWER));
+		r.accept(bellflowerPotted, potted(LibBlockNames.BELLFLOWER));
 	}
 
 	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
@@ -113,12 +123,16 @@ public class ExtrabotanyFlowerBlocks {
 
 		r.accept(new SpecialFlowerBlockItem(reikarlily, props), getId(reikarlily));
 		r.accept(new SpecialFlowerBlockItem(reikarlilyFloating, props), getId(reikarlilyFloating));
+
+		r.accept(new SpecialFlowerBlockItem(bellflower, props), getId(bellflower));
+		r.accept(new SpecialFlowerBlockItem(bellflowerFloating, props), getId(bellflowerFloating));
 	}
 
 	public static void registerTEs(BiConsumer<BlockEntityType<?>, ResourceLocation> r) {
 		r.accept(TRADE_ORCHID, getId(tradeOrchid));
 		r.accept(WOODIENIA, getId(woodienia));
 		r.accept(REIKARLILY, getId(reikarlily));
+		r.accept(BELLFLOWER, getId(bellflower));
 	}
 
 	public static void registerWandHudCaps(BotaniaBlockEntities.BECapConsumer<WandHUD> consumer) {
@@ -128,6 +142,7 @@ public class ExtrabotanyFlowerBlocks {
 		consumer.accept(be -> new BindableSpecialFlowerBlockEntity.BindableFlowerWandHud<>((GeneratingFlowerBlockEntity) be),
 				REIKARLILY
 		);
+		consumer.accept(be -> new BellflowerBlockEntity.WandHud((BellflowerBlockEntity) be), BELLFLOWER);
 	}
 
 	public static void registerFlowerPotPlants(BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer) {

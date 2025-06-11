@@ -54,6 +54,9 @@ public class ExtraBotanyConfig {
 		int reikarlilySpawnLightningCooldown();
 		int reikarlilyPassiveGenerateTime();
 		int reikarlilyPassiveGenerateMana();
+		//Bellflower
+		int bellflowerMaxMana();
+		double bellflowerGenerateModify();
 
 		//Functional
 		//TradeOrchid

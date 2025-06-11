@@ -16,6 +16,7 @@ import net.minecraft.world.level.ItemLike;
 
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.item.BotaniaItems;
 
 import io.github.lounode.extrabotany.common.advancements.HasArmorSetTrigger;
@@ -204,7 +205,11 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
 					.parent(cuteDress)
 					.addCriterion("has_item", onPickup(ExtraBotanyItems.sanguinePleiadesCombatMaidSuit))
 					.save(consumer, mainId(LibAdvancementNames.CORRUPTION));
-
+			Advancement aBaldrupt = Advancement.Builder.advancement()
+					.display(hidden(BotaniaFlowerBlocks.daffomill, LibAdvancementNames.A_BALDRUPT, FrameType.TASK))
+					.parent(goodtek)
+					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.save(consumer, mainId(LibAdvancementNames.A_BALDRUPT));
 		}
 	}
 

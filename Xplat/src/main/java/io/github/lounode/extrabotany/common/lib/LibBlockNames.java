@@ -16,7 +16,8 @@ public class LibBlockNames {
 	public static final String ELEMENTIUM_QUARTZ = "elementium_quartz";
 	public static final String MANA_CHARGER = "mana_charger";
 	public static final String POWER_FRAME = "power_frame";
-	public static final ResourceLocation SUBTILE_TRADE_ORCHID = prefix("trade_orchid");
-	public static final ResourceLocation SUBTILE_WOODIENIA = prefix("woodienia");
-	public static final ResourceLocation SUBTILE_REIKARLILY = prefix("reikarlily");
+	public static final ResourceLocation TRADE_ORCHID = prefix("trade_orchid");
+	public static final ResourceLocation WOODIENIA = prefix("woodienia");
+	public static final ResourceLocation REIKARLILY = prefix("reikarlily");
+	public static final ResourceLocation BELLFLOWER = prefix("bellflower");
 }

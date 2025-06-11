@@ -1,7 +1,7 @@
 {
   "category": "botania:extrabotanies",
   "extra_recipe_mappings": {
-    "extrabotany:floating_reikarlily": 1
+    "extrabotany:floating_reikarlily": 2
   },
   "icon": "extrabotany:reikarlily",
   "name": "extrabotany.entry.reikarlily",

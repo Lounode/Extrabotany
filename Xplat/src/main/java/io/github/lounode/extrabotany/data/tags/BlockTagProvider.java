@@ -70,7 +70,16 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.dilutedPool,
 				BotaniaBlocks.fabulousPool
 		);
+		tag(ExtraBotanyTags.Blocks.MANA_SPREADERS).add(
+				BotaniaBlocks.manaSpreader,
+				BotaniaBlocks.redstoneSpreader,
+				BotaniaBlocks.elvenSpreader,
+				BotaniaBlocks.gaiaSpreader
+		);
 		tag(ExtraBotanyTags.Blocks.CHARGERS).add(powerFrame, manaCharger);
+		tag(ExtraBotanyTags.Blocks.BELLFLOWER_IGNORE)
+				.addTag(ExtraBotanyTags.Blocks.MANA_POOLS)
+				.addTag(ExtraBotanyTags.Blocks.MANA_SPREADERS);
 
 		tag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS);
 		tag(BotaniaTags.Blocks.MYSTICAL_FLOWERS);
@@ -90,7 +99,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		);
 
 		Block[] generatingSpecialFlowers = {
-				reikarlily,
+				reikarlily, bellflower,
 		};
 		tag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOWERS).add(generatingSpecialFlowers);
 
@@ -114,7 +123,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 				.add(
 						//Generating
-						reikarlilyPotted,
+						reikarlilyPotted, bellflowerPotted,
 						//Func
 						tradeOrchidPotted, woodieniaPotted
 				);

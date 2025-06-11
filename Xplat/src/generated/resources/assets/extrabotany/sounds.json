@@ -1,4 +1,10 @@
 {
+  "block.bellflower.ring": {
+    "sounds": [
+      "extrabotany:block/bellflower/ring"
+    ],
+    "subtitle": "subtitles.extrabotany:block.bellflower.ring"
+  },
   "entity.player.hurt_backfire": {
     "sounds": [
       {

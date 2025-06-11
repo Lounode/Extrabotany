@@ -27,4 +27,5 @@ public class LibAdvancementNames {
 	public static final String GOBLIN_KILLER = "goblin_killer";
 	public static final String CUTE_DRESS = "cute_dress";
 	public static final String CORRUPTION = "corruption";
+	public static final String A_BALDRUPT = "a_baldrupt";
 }

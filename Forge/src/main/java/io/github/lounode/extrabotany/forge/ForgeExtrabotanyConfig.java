@@ -12,6 +12,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.BellflowerBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
@@ -72,6 +73,8 @@ public class ForgeExtrabotanyConfig {
 		public final ForgeConfigSpec.IntValue tradeOrchidManaCost;
 		public final ForgeConfigSpec.IntValue tradeOrchidCooldown;
 		public final ForgeConfigSpec.DoubleValue tradeOrchidDiscountPercentage;
+		public final ForgeConfigSpec.IntValue bellflowerMaxMana;
+		public final ForgeConfigSpec.DoubleValue bellflowerGenerateModify;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 
@@ -208,6 +211,21 @@ public class ForgeExtrabotanyConfig {
 							Cooldown for spawning lightning when raining""")
 					.defineInRange("spawnLightningCooldown", ReikarlilyBlockEntity.SPAWN_LIGHTNING_COOLDOWN, 0, Integer.MAX_VALUE);
 			builder.pop();//End reikarlily
+			builder.comment("""
+					风铃草
+					Bellflower""");
+			builder.push("bellflower");
+			bellflowerMaxMana = builder
+					.comment("""
+							最大魔力值
+							Maximum mana""")
+					.defineInRange("maxMana", BellflowerBlockEntity.MAX_MANA, 0, Integer.MAX_VALUE);
+			bellflowerGenerateModify = builder
+					.comment("""
+							魔力生成修正值
+							Mana generation modifier""")
+					.defineInRange("generateModify", BellflowerBlockEntity.GENERATE_MODIFY, 0, Integer.MAX_VALUE);
+			builder.pop(); // End bellflower
 			builder.pop();//End flower
 			builder.pop();//End server
 		}
@@ -302,6 +320,16 @@ public class ForgeExtrabotanyConfig {
 		@Override
 		public double tradeOrchidDiscountPercentage() {
 			return tradeOrchidDiscountPercentage.get();
+		}
+
+		@Override
+		public int bellflowerMaxMana() {
+			return bellflowerMaxMana.get();
+		}
+
+		@Override
+		public double bellflowerGenerateModify() {
+			return bellflowerGenerateModify.get();
 		}
 	}
 
