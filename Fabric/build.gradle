@@ -175,9 +175,9 @@ dependencies {
     modRuntimeOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
     modImplementation("dev.emi:trinkets:3.7.0") { transitive = false }
 
-    modImplementation "dev.latvian.mods:kubejs-fabric:${kubejs_version}"
-    modImplementation "dev.latvian.mods:rhino-fabric:${rhino_version}"
-    modImplementation "dev.architectury:architectury-fabric:${architectury_version}"
+    modCompileOnly "dev.latvian.mods:kubejs-fabric:${kubejs_version}"
+    modCompileOnly "dev.latvian.mods:rhino-fabric:${rhino_version}"
+    modCompileOnly "dev.architectury:architectury-fabric:${architectury_version}"
 
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
     modRuntimeOnly "com.terraformersmc:modmenu:7.2.2"
