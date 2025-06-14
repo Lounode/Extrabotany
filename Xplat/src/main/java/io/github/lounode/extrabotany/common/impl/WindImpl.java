@@ -73,10 +73,12 @@ public class WindImpl implements Wind {
 			double result = baseStrength * (0.5 + heightMultiplier * 1.5);
 
 			double rainOffset = 1.0;
-			if (level.isRaining())
+			if (level.isRaining()) {
 				rainOffset += 0.25;
-			if (level.isThundering())
+			}
+			if (level.isThundering()) {
 				rainOffset += 0.25;
+			}
 
 			return result * rainOffset;
 		}

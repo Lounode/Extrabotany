@@ -142,6 +142,7 @@ public abstract class ChargerBlockEntity extends ExposedSimpleInventoryBlockEnti
 		}
 		
 		*/
+		self.tickCount++;
 	}
 
 	public void chargeParticles() {

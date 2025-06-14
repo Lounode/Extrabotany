@@ -11,6 +11,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
+import io.github.lounode.extrabotany.common.block.flower.functional.AnnoyingFlowerBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.BellflowerBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
@@ -75,6 +76,12 @@ public class ForgeExtrabotanyConfig {
 		public final ForgeConfigSpec.DoubleValue tradeOrchidDiscountPercentage;
 		public final ForgeConfigSpec.IntValue bellflowerMaxMana;
 		public final ForgeConfigSpec.DoubleValue bellflowerGenerateModify;
+		public final ForgeConfigSpec.IntValue annoyingflowerMaxMana;
+		public final ForgeConfigSpec.IntValue annoyingflowerFishingCost;
+		public final ForgeConfigSpec.IntValue annoyingflowerCooldown;
+		public final ForgeConfigSpec.IntValue annoyingflowerFoodBoostMax;
+		public final ForgeConfigSpec.IntValue annoyingflowerFoodBoostTimes;
+		public final ForgeConfigSpec.DoubleValue annoyingflowerFoodBoostCooldownMultiplier;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 
@@ -226,6 +233,41 @@ public class ForgeExtrabotanyConfig {
 							Mana generation modifier""")
 					.defineInRange("generateModify", BellflowerBlockEntity.GENERATE_MODIFY, 0, Integer.MAX_VALUE);
 			builder.pop(); // End bellflower
+			builder.comment("""
+					神烦花
+					Annoying Flower""");
+			builder.push("annoyingflower");
+			annoyingflowerMaxMana = builder
+					.comment("""
+							最大魔力值
+							Maximum mana""")
+					.defineInRange("maxMana", AnnoyingFlowerBlockEntity.MAX_MANA, 0, Integer.MAX_VALUE);
+			annoyingflowerFishingCost = builder
+					.comment("""
+							钓鱼消耗的魔力量
+							Mana cost per fishing""")
+					.defineInRange("fishingCost", AnnoyingFlowerBlockEntity.FISHING_COST, 0, Integer.MAX_VALUE);
+			annoyingflowerCooldown = builder
+					.comment("""
+							工作冷却时间(ticks)
+							Cooldown time in ticks""")
+					.defineInRange("cooldown", AnnoyingFlowerBlockEntity.COOLDOWN_AFTER_WORK, 0, Integer.MAX_VALUE);
+			annoyingflowerFoodBoostMax = builder
+					.comment("""
+							最大食物加成次数
+							Maximum food boost""")
+					.defineInRange("foodBoostMax", AnnoyingFlowerBlockEntity.FOOD_BOOST_MAX, 0, Integer.MAX_VALUE);
+			annoyingflowerFoodBoostTimes = builder
+					.comment("""
+							每次进食增加的次数
+							Boost added per food consumed""")
+					.defineInRange("foodBoostPerEat", AnnoyingFlowerBlockEntity.FOOD_BOOST_TIMES, 0, Integer.MAX_VALUE);
+			annoyingflowerFoodBoostCooldownMultiplier = builder
+					.comment("""
+							食物加成时的冷却时间乘数
+							Cooldown multiplier when food boosted""")
+					.defineInRange("foodBoostCooldownMultiplier", AnnoyingFlowerBlockEntity.FOOD_BOOST_COOLDOWN_MULTIPLIER, 0, 1.0D);
+			builder.pop(); // End annoyingflower
 			builder.pop();//End flower
 			builder.pop();//End server
 		}
@@ -330,6 +372,36 @@ public class ForgeExtrabotanyConfig {
 		@Override
 		public double bellflowerGenerateModify() {
 			return bellflowerGenerateModify.get();
+		}
+
+		@Override
+		public int annoyingflowerMaxMana() {
+			return annoyingflowerMaxMana.get();
+		}
+
+		@Override
+		public int annoyingflowerFishingCost() {
+			return annoyingflowerFishingCost.get();
+		}
+
+		@Override
+		public int annoyingflowerCooldown() {
+			return annoyingflowerCooldown.get();
+		}
+
+		@Override
+		public int annoyingflowerFoodBoostMax() {
+			return annoyingflowerFoodBoostMax.get();
+		}
+
+		@Override
+		public int annoyingflowerFoodBoostTimes() {
+			return annoyingflowerFoodBoostTimes.get();
+		}
+
+		@Override
+		public double annoyingflowerFoodBoostCooldownMultiplier() {
+			return annoyingflowerFoodBoostCooldownMultiplier.get();
 		}
 	}
 

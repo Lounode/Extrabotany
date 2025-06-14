@@ -59,6 +59,8 @@
   "advancement.extrabotany:corruption.desc": "将昴宿星团战斗女仆服污染",
   "advancement.extrabotany:a_baldrupt": "有点秃然",
   "advancement.extrabotany:a_baldrupt.desc": "啊哦，看来你不小心让风力太过强劲了。",
+  "advancement.extrabotany:muromi_san": "人鱼又上钩",
+  "advancement.extrabotany:muromi_san.desc": "使用神烦花钓到宝藏",
   
   "advancement.extrabotany:": "",
   
@@ -104,6 +106,16 @@
   "block.extrabotany.reikarlily.reference": "雷公助我",
   "block.extrabotany.potted_reikarlily": "雷卡兰盆栽",
   "block.extrabotany.floating_reikarlily": "浮空雷卡兰",
+  
+  "block.extrabotany.bellflower": "风铃草",
+  "block.extrabotany.bellflower.reference": "铃儿响叮当",
+  "block.extrabotany.potted_bellflower": "风铃草盆栽",
+  "block.extrabotany.floating_bellflower": "浮空风铃草",
+  
+  "block.extrabotany.annoyingflower": "神烦花",
+  "block.extrabotany.annoyingflower.reference": "狗吃掉了鸡肉",
+  "block.extrabotany.potted_annoyingflower": "神烦花盆栽",
+  "block.extrabotany.floating_annoyingflower": "浮空神烦花",
   
   "death.attack.extrabotany.link": "%1$s 对别人的痛苦感同身受",
   "death.attack.extrabotany.link.player": "%1$s 对 %2$s 的痛苦感同身受",
@@ -209,10 +221,13 @@
   "item.extrabotany.goblin_slayer_chestplate": "哥布林猎人胸甲",
   "item.extrabotany.goblin_slayer_leggings": "哥布林猎人护腿",
   "item.extrabotany.goblin_slayer_boots": "哥布林猎人靴子",
+  "item.extrabotany.fried_chicken": "香香鸡",
   
   "message.extrabotany.actionbar.mana_left": "魔力: %1$s",
   "message.extrabotany.chat.bad_struct": "无论你多么努力地尝试将%1$s送入信标之中，什么事都没有发生。也许你摆放的仪式结构有问题。",
   "message.extrabotany.chat.unsafe_inventory": "无论你怎么呼唤守护者，始终没有回应。或许周围人身上只携带与原版或者与植物魔法有关的物品是个好主意。",
+  "message.extrabotany.chat.wind_level": "风力：%1$s",
+  "message.extrabotany.gui.food_level": "饱食度：%1$s",
   
   "subtitles.extrabotany:item.camera.use": "相机：闪烁",
   "subtitles.extrabotany:item.camera.charge": "相机：装填完毕",
@@ -229,6 +244,7 @@
   "subtitles.extrabotany:item.hammer.use": "锻造锤：升级",
   "subtitles.extrabotany:item.armor.equip_goblin": "哥布林猎人：穿着",
   "subtitles.extrabotany:item.armor.equip_warrior": "暗影武士：穿着",
+  "subtitles.extrabotany:block.bellflower.ring": "风铃草：叮铃",
   
   "subtitles.extrabotany:": "",
   
@@ -507,6 +523,32 @@
   "extrabotany.page.reikarlily0": "$(item)雷卡兰$()可以将$(thing)闪电$()的巨大能量转化为$(thing)魔力$()。$(br2)每当有$(thing)闪电$()劈在其附近时，就会立刻产出巨大$(thing)魔力$()，并且余热会使其继续缓慢地产出$(thing)魔力$()。",
   "extrabotany.page.reikarlily1": "只是在$(thing)雨天$()，劈在它身上的$(thing)闪电$()似乎有点过于多了，你不禁有点怀疑：到底是它保护了你，还是它$(thing)吸引$()来了$(thing)闪电$()？",
   "extrabotany.page.reikarlily2": "就决定是你了！",
+  
+  "extrabotany.entry.bellflower": "风铃草",
+  "extrabotany.page.bellflower0": "$(item)风铃草$()可以将风的力量转化为$(thing)魔力$()。$(br2)当它的$(thing)周围空间$()足够时，微风便会轻抚它的叶片，从中产生少量的$(thing)魔力$()，并带走一片作为留念。$(br2)长此以往，$(item)风铃草$()便会逐渐凋零，于此完成了它的一生，变为一株$(item)枯死的灌木$()。",
+  "extrabotany.page.bellflower1": "将$(item)风铃草$()种植在高空可以使它获得更强的风力，但要小心不要触及了弱风的$(thing)平流层$()。$(br2)使用$(item)森林法杖$()对准$(item)风铃草$()可以查看它当前接受的$(thing)风力$()。",
+  "extrabotany.page.bellflower2": "只有风暴才能击倒大树",
+  
+  "extrabotany.entry.annoyingflower": "神烦花",
+  "extrabotany.page.annoyingflower0": "在$(item)神烦花$()周围摆放上一个带有$(item)水桶$()的$(thing)自然祭坛$()，它就可以消耗$(thing)魔力$()来自动钓鱼。$(br2)如果给它投喂$(item)香香鸡$()的话，它接下来几次的工作效率会得到大幅提高，并有更高概率钓到稀有物品。",
+  "extrabotany.page.annoyingflower1": "小花",
+  
+  "extrabotany.entry.fried_chicken": "香香鸡",
+  "extrabotany.page.fried_chicken0": "$(item)香香鸡$()是一种很好的食物，由于它实在是太好吃了，当你的饱食度为满的时候，依然可以食用$(item)香香鸡$()。",
+  "extrabotany.page.fried_chicken1": "我遗忘的笼中鸟，那令人怜爱的名『charActer』",
+  
+  "extrabotany.entry.more_brews": "更多精酿",
+  "extrabotany.page.more_brews0": "你现在可以在$(item)植物酿造台$()上制作出更多精酿了，以下是它们各自的效果和配方。",
+  "extrabotany.page.more_brews1a": "一种简单的精酿，它效仿了$(item)急迫药水$()，并加强了它，服用后，玩家会被给予与之相仿的效果，使玩家获得一个$(thing)急迫III$()的效果。",
+  "extrabotany.page.more_brews1b": "革命机Valvrave",
+  "extrabotany.page.more_brews2a": "一种简单的精酿，它效仿了$(item)神龟药水$()，服用后，玩家会被给予与之相仿的效果，使玩家获得同时获得$(thing)抗性提升III$()和$(thing)缓慢III$()的效果",
+  "extrabotany.page.more_brews2b": "龟派气功",
+  "extrabotany.page.more_brews3a": "一种提供了绝大部分增益效果的药水，要说有什么缺点的话，大概就是持续时长非常短，以及所有药水效果都只有一级。",
+  "extrabotany.page.more_brews3b": "一则全，全则一",
+  "extrabotany.page.more_brews4a": "一种同时提供正面和负面药水效果的药水，一方面让你充满力量，另一方面可能会夺走你的生命。",
+  "extrabotany.page.more_brews4b": "我将，点燃大海",
+  "extrabotany.page.more_brews5a": "一种简单的精酿，它效仿了$(item)漂浮药水$()，服用后，玩家会被给予与之相仿的效果，使玩家获得一个$(thing)漂浮III$()的效果。",
+  "extrabotany.page.more_brews5b": "拉普达碎片",
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""

@@ -3,6 +3,7 @@ package io.github.lounode.extrabotany.fabric;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
+import io.github.lounode.extrabotany.common.block.flower.functional.AnnoyingFlowerBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.BellflowerBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
@@ -92,6 +93,12 @@ public class FabricExtraBotanyConfig {
 		public final PropertyMirror<Double> tradeOrchidDiscountPercentage = PropertyMirror.create(DOUBLE);
 		public final PropertyMirror<Integer> bellflowerMaxMana = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Double> bellflowerGenerateModify = PropertyMirror.create(DOUBLE);
+		public final PropertyMirror<Integer> annoyingflowerMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> annoyingflowerFishingCost = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> annoyingflowerCooldown = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> annoyingflowerFoodBoostMax = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> annoyingflowerFoodBoostTimes = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Double> annoyingflowerFoodBoostCooldownMultiplier = PropertyMirror.create(DOUBLE);
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder
@@ -249,6 +256,40 @@ public class FabricExtraBotanyConfig {
 							Mana generation modifier""")
 					.finishValue(bellflowerGenerateModify::mirror)
 					.finishBranch() // End bellflower
+					.fork("annoyingflower").withComment("""
+							神烦花
+							Annoying Flower""")
+					.beginValue("maxMana", INTEGER, AnnoyingFlowerBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(annoyingflowerMaxMana::mirror)
+					.beginValue("fishingCost", INTEGER, AnnoyingFlowerBlockEntity.FISHING_COST)
+					.withComment("""
+							钓鱼消耗的魔力量
+							Mana cost per fishing""")
+					.finishValue(annoyingflowerFishingCost::mirror)
+					.beginValue("cooldown", INTEGER, AnnoyingFlowerBlockEntity.COOLDOWN_AFTER_WORK)
+					.withComment("""
+							工作冷却时间(ticks)
+							Cooldown time in ticks""")
+					.finishValue(annoyingflowerCooldown::mirror)
+					.beginValue("foodBoostMax", INTEGER, AnnoyingFlowerBlockEntity.FOOD_BOOST_MAX)
+					.withComment("""
+							最大食物加成次数
+							Maximum food boost""")
+					.finishValue(annoyingflowerFoodBoostMax::mirror)
+					.beginValue("foodBoostPerEat", INTEGER, AnnoyingFlowerBlockEntity.FOOD_BOOST_TIMES)
+					.withComment("""
+							每次进食增加的次数
+							Boost added per food consumed""")
+					.finishValue(annoyingflowerFoodBoostTimes::mirror)
+					.beginValue("foodBoostCooldownMultiplier", DOUBLE, AnnoyingFlowerBlockEntity.FOOD_BOOST_COOLDOWN_MULTIPLIER)
+					.withComment("""
+							食物加成时的冷却时间乘数
+							Cooldown multiplier when food boosted""")
+					.finishValue(annoyingflowerFoodBoostCooldownMultiplier::mirror)
+					.finishBranch() // End annoyingflower
 
 					.finishBranch()//End flower
 
@@ -355,6 +396,36 @@ public class FabricExtraBotanyConfig {
 		@Override
 		public double bellflowerGenerateModify() {
 			return bellflowerGenerateModify.getValue();
+		}
+
+		@Override
+		public int annoyingflowerMaxMana() {
+			return annoyingflowerMaxMana.getValue();
+		}
+
+		@Override
+		public int annoyingflowerFishingCost() {
+			return annoyingflowerFishingCost.getValue();
+		}
+
+		@Override
+		public int annoyingflowerCooldown() {
+			return annoyingflowerCooldown.getValue();
+		}
+
+		@Override
+		public int annoyingflowerFoodBoostMax() {
+			return annoyingflowerFoodBoostMax.getValue();
+		}
+
+		@Override
+		public int annoyingflowerFoodBoostTimes() {
+			return annoyingflowerFoodBoostTimes.getValue();
+		}
+
+		@Override
+		public double annoyingflowerFoodBoostCooldownMultiplier() {
+			return annoyingflowerFoodBoostCooldownMultiplier.getValue();
 		}
 	}
 

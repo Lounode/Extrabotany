@@ -23,6 +23,7 @@ import io.github.lounode.extrabotany.common.advancements.HasArmorSetTrigger;
 import io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger;
 import io.github.lounode.extrabotany.common.advancements.MinMaxBoundsExtension;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.entity.ExtraBotanyEntityType;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.equipment.armor.goblin_slayer.GoblinSlayerArmorItem;
@@ -210,6 +211,11 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
 					.parent(goodtek)
 					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 					.save(consumer, mainId(LibAdvancementNames.A_BALDRUPT));
+			Advancement muromiSan = Advancement.Builder.advancement()
+					.display(simple(ExtrabotanyFlowerBlocks.annoyingflower, LibAdvancementNames.MUROMI_SAN, FrameType.GOAL))
+					.parent(goodtek)
+					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.save(consumer, mainId(LibAdvancementNames.MUROMI_SAN));
 		}
 	}
 

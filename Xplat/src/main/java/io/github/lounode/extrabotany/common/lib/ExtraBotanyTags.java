@@ -32,6 +32,7 @@ public class ExtraBotanyTags {
 		public static final TagKey<Item> REWARD_BAGS = tag("reward_bags");
 		public static final TagKey<Item> MANA_POOLS = tag("botania", "mana_pools");
 		public static final TagKey<Item> CHARGERS = tag("chargers");
+		public static final TagKey<Item> ANNOYING_FLOWER_EATABLE = tag("annoying_flower_eatable");
 
 		private static TagKey<Item> tag(String name) {
 			return TagKey.create(Registries.ITEM, prefix(name));

@@ -24,6 +24,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
 
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.block.flower.functional.AnnoyingFlowerBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.functional.WoodieniaBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.BellflowerBlockEntity;
@@ -54,11 +55,15 @@ public class ExtrabotanyFlowerBlocks {
 	public static final Block bellflower = createSpecialFlowerBlock(MobEffects.MOVEMENT_SPEED, 10 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.BELLFLOWER);
 	public static final Block bellflowerFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.BELLFLOWER);
 	public static final Block bellflowerPotted = ExtraBotanyBlocks.flowerPot(bellflower, 0);
+	public static final Block annoyingflower = createSpecialFlowerBlock(MobEffects.LUCK, 10 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.ANNOYINGFLOWER);
+	public static final Block annoyingflowerFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.ANNOYINGFLOWER);
+	public static final Block annoyingflowerPotted = ExtraBotanyBlocks.flowerPot(annoyingflower, 0);
 
 	public static final BlockEntityType<TradeOrchidBlockEntity> TRADE_ORCHID = EXplatAbstractions.INSTANCE.createBlockEntityType(TradeOrchidBlockEntity::new, tradeOrchid, tradeOrchidFloating);
 	public static final BlockEntityType<WoodieniaBlockEntity> WOODIENIA = EXplatAbstractions.INSTANCE.createBlockEntityType(WoodieniaBlockEntity::new, woodienia, woodieniaFloating);
 	public static final BlockEntityType<ReikarlilyBlockEntity> REIKARLILY = EXplatAbstractions.INSTANCE.createBlockEntityType(ReikarlilyBlockEntity::new, reikarlily, reikarlilyFloating);
 	public static final BlockEntityType<BellflowerBlockEntity> BELLFLOWER = EXplatAbstractions.INSTANCE.createBlockEntityType(BellflowerBlockEntity::new, bellflower, bellflowerFloating);
+	public static final BlockEntityType<AnnoyingFlowerBlockEntity> ANNOYINGFLOWER = EXplatAbstractions.INSTANCE.createBlockEntityType(AnnoyingFlowerBlockEntity::new, annoyingflower, annoyingflowerFloating);
 
 	private static ResourceLocation floating(ResourceLocation orig) {
 		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
@@ -110,6 +115,10 @@ public class ExtrabotanyFlowerBlocks {
 		r.accept(bellflower, LibBlockNames.BELLFLOWER);
 		r.accept(bellflowerFloating, floating(LibBlockNames.BELLFLOWER));
 		r.accept(bellflowerPotted, potted(LibBlockNames.BELLFLOWER));
+
+		r.accept(annoyingflower, LibBlockNames.ANNOYINGFLOWER);
+		r.accept(annoyingflowerFloating, floating(LibBlockNames.ANNOYINGFLOWER));
+		r.accept(annoyingflowerPotted, potted(LibBlockNames.ANNOYINGFLOWER));
 	}
 
 	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
@@ -126,6 +135,9 @@ public class ExtrabotanyFlowerBlocks {
 
 		r.accept(new SpecialFlowerBlockItem(bellflower, props), getId(bellflower));
 		r.accept(new SpecialFlowerBlockItem(bellflowerFloating, props), getId(bellflowerFloating));
+
+		r.accept(new SpecialFlowerBlockItem(annoyingflower, props), getId(annoyingflower));
+		r.accept(new SpecialFlowerBlockItem(annoyingflowerFloating, props), getId(annoyingflowerFloating));
 	}
 
 	public static void registerTEs(BiConsumer<BlockEntityType<?>, ResourceLocation> r) {
@@ -133,6 +145,7 @@ public class ExtrabotanyFlowerBlocks {
 		r.accept(WOODIENIA, getId(woodienia));
 		r.accept(REIKARLILY, getId(reikarlily));
 		r.accept(BELLFLOWER, getId(bellflower));
+		r.accept(ANNOYINGFLOWER, getId(annoyingflower));
 	}
 
 	public static void registerWandHudCaps(BotaniaBlockEntities.BECapConsumer<WandHUD> consumer) {
@@ -143,6 +156,7 @@ public class ExtrabotanyFlowerBlocks {
 				REIKARLILY
 		);
 		consumer.accept(be -> new BellflowerBlockEntity.WandHud((BellflowerBlockEntity) be), BELLFLOWER);
+		consumer.accept(be -> new AnnoyingFlowerBlockEntity.WandHud((AnnoyingFlowerBlockEntity) be), ANNOYINGFLOWER);
 	}
 
 	public static void registerFlowerPotPlants(BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer) {

@@ -39,7 +39,7 @@ public class ManaInfusionProvider extends ExtraBotanyRecipeProvider {
 	@Override
 	public void buildRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 		consumer.accept(new FinishedRecipe(id("nightmare_fuel"), new ItemStack(ExtraBotanyItems.nightmareFuel), Ingredient.of(Items.COAL), 2000));
-
+		consumer.accept(new FinishedRecipe(id("fried_chicken"), new ItemStack(ExtraBotanyItems.friedChicken), Ingredient.of(Items.COOKED_CHICKEN), 600));
 		//Dimension
 		consumer.accept(FinishedRecipe.dimension(id("snowball_to_ender_pearl"), new ItemStack(Items.ENDER_PEARL), ingr(Items.SNOWBALL), 2000));
 		consumer.accept(FinishedRecipe.dimension(id("diamond_horse_armor_to_shulker_shell"), new ItemStack(Items.SHULKER_SHELL), ingr(Items.DIAMOND_HORSE_ARMOR), 20000));

@@ -28,4 +28,5 @@ public class LibAdvancementNames {
 	public static final String CUTE_DRESS = "cute_dress";
 	public static final String CORRUPTION = "corruption";
 	public static final String A_BALDRUPT = "a_baldrupt";
+	public static final String MUROMI_SAN = "muromi_san";
 }

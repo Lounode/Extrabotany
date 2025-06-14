@@ -74,5 +74,5 @@ public final class LibItemNames {
 	public static final String SHADOW_WARRIOR_CHESTPLATE = "shadow_warrior_chestplate";
 	public static final String SHADOW_WARRIOR_LEGGINGS = "shadow_warrior_leggings";
 	public static final String SHADOW_WARRIOR_BOOTS = "shadow_warrior_boots";
-
+	public static final String FRIED_CHICKEN = "fried_chicken";
 }

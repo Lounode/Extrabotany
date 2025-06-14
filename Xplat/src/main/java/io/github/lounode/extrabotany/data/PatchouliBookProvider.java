@@ -3,13 +3,17 @@ package io.github.lounode.extrabotany.data;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.block.BotaniaBlocks;
 
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.PedestalBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
+import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 import io.github.lounode.extrabotany.common.lib.RegistryHelper;
@@ -492,6 +496,52 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				)
 				.extraRecipeMapping(ExtrabotanyFlowerBlocks.bellflowerFloating, 2)
 				.save(consumer, id("bellflower"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.annoyingflower")
+				.withIcon(ExtrabotanyFlowerBlocks.annoyingflower)
+				.pages(
+						text("extrabotany.page.annoyingflower0"),
+						petal(ExtrabotanyFlowerBlocks.annoyingflower).withText("extrabotany.page.annoyingflower1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.annoyingflowerFloating, 1)
+				.save(consumer, id("annoyingflower"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.fried_chicken")
+				.withIcon(ExtraBotanyItems.friedChicken)
+				.pages(
+						text("extrabotany.page.fried_chicken0"),
+						manaInfusion(ExtraBotanyItems.friedChicken).withText("extrabotany.page.fried_chicken1")
+				)
+				.save(consumer, id("fried_chicken"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.more_brews")
+				.withIcon(Items.AIR)
+				.pages(
+						text("extrabotany.page.more_brews0"),
+						brew(ExtraBotanyBrews.revolution)
+								.withText("extrabotany.page.more_brews1a")
+								.withFlavor("extrabotany.page.more_brews1b"),
+						brew(ExtraBotanyBrews.shield)
+								.withText("extrabotany.page.more_brews2a")
+								.withFlavor("extrabotany.page.more_brews2b"),
+						brew(ExtraBotanyBrews.allInOne)
+								.withText("extrabotany.page.more_brews3a")
+								.withFlavor("extrabotany.page.more_brews3b"),
+						brew(ExtraBotanyBrews.deadpool)
+								.withText("extrabotany.page.more_brews4a")
+								.withFlavor("extrabotany.page.more_brews4b"),
+						brew(ExtraBotanyBrews.floating)
+								.withText("extrabotany.page.more_brews5a")
+								.withFlavor("extrabotany.page.more_brews5b")
+				)
+				.save(consumer, id("more_brews"));
+
+	}
+
+	private BrewPage brew(Brew brew) {
+		ResourceLocation location = BotaniaAPI.instance().getBrewRegistry().getKey(brew);
+		ResourceLocation recipeLocation = location.withPrefix("brew/");
+		return new BrewPage(recipeLocation.toString());
 	}
 
 	private RunicAltarPage runicAlter(ItemLike item) {

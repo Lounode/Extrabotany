@@ -70,5 +70,13 @@ public class ExtraBotanyConfig {
 		int woodieniaCooldown();
 		int woodieniaMaxMana();
 		int woodieniaWorkManaCost();
+
+		//Annoyingflower
+		int annoyingflowerMaxMana();
+		int annoyingflowerFishingCost();
+		int annoyingflowerCooldown();
+		int annoyingflowerFoodBoostMax();
+		int annoyingflowerFoodBoostTimes();
+		double annoyingflowerFoodBoostCooldownMultiplier();
 	}
 }

@@ -97,5 +97,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ExtraBotanyTags.Blocks.PEDESTALS, ExtraBotanyTags.Items.PEDESTALS);
 		this.copy(ExtraBotanyTags.Blocks.MANA_POOLS, ExtraBotanyTags.Items.MANA_POOLS);
 		this.copy(ExtraBotanyTags.Blocks.CHARGERS, ExtraBotanyTags.Items.CHARGERS);
+		this.tag(ExtraBotanyTags.Items.ANNOYING_FLOWER_EATABLE).add(friedChicken);
 	}
 }

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 import vazkii.botania.common.block.flower.functional.DaffomillBlockEntity;
 
-@Mixin(DaffomillBlockEntity.class)
+@Mixin(value = DaffomillBlockEntity.class, remap = false)
 public interface DaffomillBlockEntityAccessor {
 
 	@Invoker("aabbForOrientation")

@@ -20,4 +20,5 @@ public class LibBlockNames {
 	public static final ResourceLocation WOODIENIA = prefix("woodienia");
 	public static final ResourceLocation REIKARLILY = prefix("reikarlily");
 	public static final ResourceLocation BELLFLOWER = prefix("bellflower");
+	public static final ResourceLocation ANNOYINGFLOWER = prefix("annoyingflower");
 }

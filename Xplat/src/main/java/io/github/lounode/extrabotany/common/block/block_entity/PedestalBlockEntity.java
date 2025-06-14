@@ -507,7 +507,9 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 		return this.tier;
 	}
 
-	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, PedestalBlockEntity self) {}
+	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, PedestalBlockEntity self) {
+		self.tickCount++;
+	}
 
 	public boolean tryAutoSmash(ItemStack hammer) {
 		for (Recipe<?> r : ExtraBotanyRecipeTypes.getRecipes(level, ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE).values()) {

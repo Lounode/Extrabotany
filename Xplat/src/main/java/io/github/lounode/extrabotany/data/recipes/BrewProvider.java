@@ -45,7 +45,7 @@ public class BrewProvider extends vazkii.botania.data.recipes.BrewProvider {
 				Ingredient.of(Items.BONE),
 				Ingredient.of(Items.BLAZE_POWDER)));
 
-		consumer.accept(new FinishedRecipe(idFor("shell"), ExtraBotanyBrews.shield,
+		consumer.accept(new FinishedRecipe(idFor("shield"), ExtraBotanyBrews.shield,
 				Ingredient.of(Items.NETHER_WART),
 				Ingredient.of(Items.GOLDEN_APPLE),
 				Ingredient.of(Items.BUCKET),
