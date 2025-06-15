@@ -466,7 +466,7 @@
   "extrabotany.page.reikarlily1": "Sometimes you thought: Maybe it has too many $(thing)lightning bolt$() hits on it when $(thing)raining$(). Is it really protecting you when raining? Or else it's actually $(thing)attracted$() all those $(thing)lightning bolt$()? Nobody knows.",
   "extrabotany.page.reikarlily2": "I Choose You!",
   "extrabotany.entry.bellflower": "Bellflower",
-  "extrabotany.page.bellflower0": "$(item)Bellflower$() converts wind power into $(thing)Mana$().$(br2)When there's $(thing)Enough Space$() nearby, it slowly generates a bit of $(thing)Mana$() and the wind blew away one of it's leaves.$(br2)Over time, it will eventually decay into a $(item)Dead Bush$().",
+  "extrabotany.page.bellflower0": "$(item)Bellflower$() converts wind power into $(thing)Mana$().$(br2)When there's $(thing)Enough Space$() nearby, it slowly generates a bit of $(thing)Mana$() and the wind blew away one of its leaves.$(br2)Over time, it will eventually decay into a $(item)Dead Bush$().",
   "extrabotany.page.bellflower1": "Planting the $(item)Bellflower$() high in the sky allows it to harness stronger winds, but be careful not to reach the calm $(thing)Stratosphere$().$(br2)Focus on the $(item)Bellflower$() with a $(item)Wand of the Forest$() to view the current $(thing)Wind Power$() it receives.",
   "extrabotany.page.bellflower2": "Only a storm can fell Greatwood",
   "extrabotany.entry.annoyingflower": "Annoyingflower",

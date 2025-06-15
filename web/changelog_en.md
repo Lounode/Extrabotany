@@ -1,4 +1,25 @@
-# Current Version: 1.20.1-1.2.0 Release (2025.6.8)
+# Current Version: 1.20.1-1.3.0 Release (2025.6.15)
+### New
+#### New Generating Flower: `Bellflower`
+Bellflower converts wind power into Mana.
+
+When there's Enough Space nearby, it slowly generates a bit of Mana and the wind blew away one of its leaves.
+
+Over time, it will eventually decay into a Dead Bush.
+
+#### New Functional Flower: `Annoyingflower`
+The Annoyingflower can fish in nearby Nature Pedestal filled with Water Bucket. 
+
+For that process it will use mana. Feeding Fried Chicken to it will significantly increase the efficiency and the chance of getting treasure.
+#### New Food: `Fried Chicken`
+Fried Chicken is a delicious food that can be eaten even when you're full.
+
+- added KubeJS support for Nature Pedestal
+- added Patchouli Book entry for these new Brews
+### Bugfix
+- fixed bug that item in Nature Pedestal could not rotate
+- Removed Herobrine
+## 1.20.1-1.2.0 Release (2025.6.8)
 ### New 
 #### New Generating Flower: `Reikarlily`
 Reikarlily turns the tremendous energy of lightning into Mana. 

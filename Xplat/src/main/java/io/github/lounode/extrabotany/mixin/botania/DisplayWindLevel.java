@@ -18,7 +18,7 @@ import vazkii.botania.common.item.WandOfTheForestItem;
 import io.github.lounode.extrabotany.api.level.Wind;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 
-@Mixin(value = WandOfTheForestItem.class, remap = false)
+@Mixin(value = WandOfTheForestItem.class)
 public abstract class DisplayWindLevel {
 
 	@Inject(
