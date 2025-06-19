@@ -6,6 +6,8 @@
   "extrabotany.jei.pedestal": "祭坛锻造",
   "extrabotany.jei.pedestal.tip_strikes": "%s 次敲击",
   "extrabotany.jei.pedestal.tip_exp": "%s 点经验",
+  "extrabotany.jei.stonesia": "石中姬",
+  "extrabotany.jei.stonesia.tip_mana_output": "产出 %s 魔力",
   
   "advancement.extrabotany:senbon_zakura": "千本桜",
   "advancement.extrabotany:senbon_zakura.desc": "使用魔力读取器读取1000次魔力",
@@ -61,6 +63,8 @@
   "advancement.extrabotany:a_baldrupt.desc": "啊哦，看来你不小心让风力太过强劲了。",
   "advancement.extrabotany:muromi_san": "人鱼又上钩",
   "advancement.extrabotany:muromi_san.desc": "使用神烦花钓到宝藏",
+  "advancement.extrabotany:its_only_the_fairy_tale": "It's Only The Fairy Tale",
+  "advancement.extrabotany:its_only_the_fairy_tale.desc": "使用雪绒花吞噬一只雪傀儡",
   
   "advancement.extrabotany:": "",
   
@@ -117,6 +121,16 @@
   "block.extrabotany.potted_annoyingflower": "神烦花盆栽",
   "block.extrabotany.floating_annoyingflower": "浮空神烦花",
   
+  "block.extrabotany.stonesia": "石中姬",
+  "block.extrabotany.stonesia.reference": "地球冒险",
+  "block.extrabotany.potted_stonesia": "石中姬盆栽",
+  "block.extrabotany.floating_stonesia": "浮空石中姬",
+  
+  "block.extrabotany.edelweiss": "雪绒花",
+  "block.extrabotany.edelweiss.reference": "雪初音",
+  "block.extrabotany.potted_edelweiss": "雪绒花盆栽",
+  "block.extrabotany.floating_edelweiss": "浮空雪绒花",
+  
   "death.attack.extrabotany.link": "%1$s 对别人的痛苦感同身受",
   "death.attack.extrabotany.link.player": "%1$s 对 %2$s 的痛苦感同身受",
   "death.attack.extrabotany.link.item": "%1$s 对 %2$s 的痛苦感同身受",
@@ -137,6 +151,7 @@
   "effect.extrabotany.link": "链接",
   "effect.extrabotany.heal_reverse": "治疗反转",
   "effect.extrabotany.discount": "打折",
+  "effect.extrabotany.warm": "温暖",
   
   "entity.extrabotany.aura_fire": "精卫之火",
   "entity.extrabotany.magic_landmine": "盖亚陷阱",
@@ -549,6 +564,14 @@
   "extrabotany.page.more_brews4b": "我将，点燃大海",
   "extrabotany.page.more_brews5a": "一种简单的精酿，它效仿了$(item)漂浮药水$()，服用后，玩家会被给予与之相仿的效果，使玩家获得一个$(thing)漂浮III$()的效果。",
   "extrabotany.page.more_brews5b": "拉普达碎片",
+  
+  "extrabotany.entry.stonesia": "石中姬",
+  "extrabotany.page.stonesia0": "把它摆在你的矿场或者刷石机附近吧！$(item)石中姬$()会吃掉这些石头或者矿物的$(thing)方块$()，以此来产出一定的$(thing)魔力$()。",
+  "extrabotany.page.stonesia1": "石中剑",
+  
+  "extrabotany.entry.edelweiss": "雪绒花",
+  "extrabotany.page.edelweiss0": "许多人都曾想过在冬天挖一捧洁白的雪尝尝，$(item)雪绒花$()则想的是：“怎么在雪傀儡的身上咬下来一口”。$(br2)工作时，$(item)雪绒花$()会吃掉范围内的$(thing)雪傀儡$()来产生$(thing)魔力$()。",
+  "extrabotany.page.edelweiss1": "又到了白色相簿的季节",
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""

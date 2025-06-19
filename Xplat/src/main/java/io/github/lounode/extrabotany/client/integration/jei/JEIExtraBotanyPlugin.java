@@ -21,13 +21,15 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.OrechidRecipe;
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
+import io.github.lounode.extrabotany.api.recipe.StonesiaRecipe;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.brew.BrewUtil;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
@@ -50,18 +52,6 @@ public class JEIExtraBotanyPlugin implements IModPlugin {
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.manaCocktail, interpreter);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.infiniteWine, interpreter);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.holyWaterGrenade, interpreter);
-		/*
-		
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.manaRingMaster, (stack, ctx) -> {
-			int mana = XplatAbstractions.INSTANCE.findManaItem(stack).getMana();
-			return String.valueOf(mana);
-		});
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.natureOrb, (stack, ctx) -> {
-			long energy = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack).getEnergy();
-			return String.valueOf(energy);
-		});
-		
-		*/
 
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ExtraBotanyItems.coreOfTheVoid,
 				(stack, ctx) -> CoreOfTheVoidItem.getVariant(stack));
@@ -75,6 +65,15 @@ public class JEIExtraBotanyPlugin implements IModPlugin {
 	@Override
 	public void registerRecipes(@NotNull IRecipeRegistration registry) {
 		registry.addRecipes(PedestalRecipeCategory.TYPE, sortRecipes(ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE, BY_SMASH_TOOLS.thenComparing(BY_GROUP).thenComparing(BY_ID)));
+		registry.addRecipes(StonesiaRecipeCategory.TYPE, sortRecipes(ExtraBotanyRecipeTypes.STONESIA_RECIPE_TYPE, Comparator.<StonesiaRecipe, Integer>comparing(StonesiaRecipe::getManaOutput)
+				.thenComparing(BY_GROUP)
+				.thenComparing(BY_ID)).stream()
+						.filter(recipe -> {
+							StateIngredient input = recipe.getInput();
+							return !input.getDisplayed().isEmpty();
+						})
+						.collect(Collectors.toList())
+		);
 		registerCocktailRecipes(registry);
 		registerInfiniteWineRecipes(registry);
 		registerHolyWaterGrenadeRecipes(registry);
@@ -95,7 +94,8 @@ public class JEIExtraBotanyPlugin implements IModPlugin {
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
 		registry.addRecipeCategories(
-				new PedestalRecipeCategory(registry.getJeiHelpers().getGuiHelper())
+				new PedestalRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new StonesiaRecipeCategory(registry.getJeiHelpers().getGuiHelper())
 		);
 	}
 
@@ -104,6 +104,8 @@ public class JEIExtraBotanyPlugin implements IModPlugin {
 		for (Block pedestal : ExtraBotanyBlocks.ALL_PEDESTALS) {
 			registry.addRecipeCatalyst(new ItemStack(pedestal), PedestalRecipeCategory.TYPE);
 		}
+		registry.addRecipeCatalyst(new ItemStack(ExtrabotanyFlowerBlocks.stonesia), StonesiaRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ExtrabotanyFlowerBlocks.stonesiaFloating), StonesiaRecipeCategory.TYPE);
 	}
 
 	@Override
@@ -122,17 +124,10 @@ public class JEIExtraBotanyPlugin implements IModPlugin {
 
 	private static final Comparator<Recipe<?>> BY_ID = Comparator.comparing(Recipe::getId);
 	private static final Comparator<Recipe<?>> BY_GROUP = Comparator.comparing(Recipe::getGroup);
-	private static final Comparator<OrechidRecipe> BY_WEIGHT = Comparator.<OrechidRecipe, Integer>comparing(OrechidRecipe::getWeight).reversed();
 	private static final Comparator<PedestalRecipe> BY_SMASH_TOOLS = (l, r) -> {
 		Ingredient left = l.getSmashTools();
 		Ingredient right = r.getSmashTools();
-		if (left == null) {
-			return right == null ? 0 : -1;
-		} else if (right == null) {
-			return 1;
-		} else {
-			return left.toString().compareTo(right.toString());
-		}
+		return left.toString().compareTo(right.toString());
 	};
 
 	private static <T extends Recipe<C>, C extends Container> List<T> sortRecipes(RecipeType<T> type, Comparator<? super T> comparator) {

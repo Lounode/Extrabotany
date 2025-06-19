@@ -50,5 +50,8 @@ public final class EntityRenderers {
 		consumer.register(ExtrabotanyFlowerBlocks.REIKARLILY, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(ExtrabotanyFlowerBlocks.BELLFLOWER, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(ExtrabotanyFlowerBlocks.ANNOYINGFLOWER, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ExtrabotanyFlowerBlocks.STONESIA, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ExtrabotanyFlowerBlocks.EDELWEISS, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ExtrabotanyFlowerBlocks.NOISLING, SpecialFlowerBlockEntityRenderer::new);
 	}
 }

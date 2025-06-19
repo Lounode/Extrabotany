@@ -21,4 +21,8 @@ public class LibBlockNames {
 	public static final ResourceLocation REIKARLILY = prefix("reikarlily");
 	public static final ResourceLocation BELLFLOWER = prefix("bellflower");
 	public static final ResourceLocation ANNOYINGFLOWER = prefix("annoyingflower");
+	public static final ResourceLocation STONESIA = prefix("stonesia");
+	public static final ResourceLocation EDELWEISS = prefix("edelweiss");
+	public static final ResourceLocation DINIVA = prefix("diniva");
+	public static final ResourceLocation NOISLING = prefix("noisling");
 }

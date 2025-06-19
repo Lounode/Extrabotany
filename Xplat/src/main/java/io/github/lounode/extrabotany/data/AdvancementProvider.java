@@ -216,6 +216,11 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
 					.parent(goodtek)
 					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 					.save(consumer, mainId(LibAdvancementNames.MUROMI_SAN));
+			Advancement itsOnlyTheFairyTale = Advancement.Builder.advancement()
+					.display(simple(ExtrabotanyFlowerBlocks.edelweiss, LibAdvancementNames.ITS_ONLY_THE_FAIRY_TALE, FrameType.TASK))
+					.parent(goodtek)
+					.addCriterion(CODE_TRIGGE, new ImpossibleTrigger.TriggerInstance())
+					.save(consumer, mainId(LibAdvancementNames.ITS_ONLY_THE_FAIRY_TALE));
 		}
 	}
 

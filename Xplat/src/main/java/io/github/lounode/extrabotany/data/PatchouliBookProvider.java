@@ -535,6 +535,24 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 								.withFlavor("extrabotany.page.more_brews5b")
 				)
 				.save(consumer, id("more_brews"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.stonesia")
+				.withIcon(ExtrabotanyFlowerBlocks.stonesia)
+				.pages(
+						text("extrabotany.page.stonesia0"),
+						petal(ExtrabotanyFlowerBlocks.stonesia).withText("extrabotany.page.stonesia1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.stonesiaFloating, 1)
+				.save(consumer, id("stonesia"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.edelweiss")
+				.withIcon(ExtrabotanyFlowerBlocks.edelweiss)
+				.pages(
+						text("extrabotany.page.edelweiss0"),
+						petal(ExtrabotanyFlowerBlocks.edelweiss).withText("extrabotany.page.edelweiss1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.edelweissFloating, 1)
+				.save(consumer, id("edelweiss"));
 
 	}
 
