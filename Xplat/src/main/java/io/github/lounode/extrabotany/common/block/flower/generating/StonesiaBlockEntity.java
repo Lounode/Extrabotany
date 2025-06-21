@@ -15,6 +15,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import io.github.lounode.extrabotany.api.recipe.StonesiaRecipe;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
+import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 public class StonesiaBlockEntity extends GeneratingFlowerBlockEntity {
 
@@ -81,12 +82,12 @@ public class StonesiaBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	public int getAfterWorkCooldown() {
-		return COOLDOWN;
+		return ExtraBotanyConfig.common().stonesiaCooldown();
 	}
 
 	@Override
 	public int getMaxMana() {
-		return MAX_MANA;
+		return ExtraBotanyConfig.common().stonesiaMaxMana();
 	}
 
 	public int getCooldown() {

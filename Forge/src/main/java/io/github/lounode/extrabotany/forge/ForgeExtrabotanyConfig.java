@@ -14,7 +14,9 @@ import vazkii.botania.xplat.XplatAbstractions;
 import io.github.lounode.extrabotany.common.block.flower.functional.AnnoyingFlowerBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.BellflowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.EdelweissBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.StonesiaBlockEntity;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
@@ -82,6 +84,10 @@ public class ForgeExtrabotanyConfig {
 		public final ForgeConfigSpec.IntValue annoyingflowerFoodBoostMax;
 		public final ForgeConfigSpec.IntValue annoyingflowerFoodBoostTimes;
 		public final ForgeConfigSpec.DoubleValue annoyingflowerFoodBoostCooldownMultiplier;
+		public final ForgeConfigSpec.IntValue stonesiaMaxMana;
+		public final ForgeConfigSpec.IntValue stonesiaCooldown;
+		public final ForgeConfigSpec.IntValue edelweissMaxMana;
+		public final ForgeConfigSpec.IntValue edelweissCooldown;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 
@@ -268,6 +274,37 @@ public class ForgeExtrabotanyConfig {
 							Cooldown multiplier when food boosted""")
 					.defineInRange("foodBoostCooldownMultiplier", AnnoyingFlowerBlockEntity.FOOD_BOOST_COOLDOWN_MULTIPLIER, 0, 1.0D);
 			builder.pop(); // End annoyingflower
+			builder.comment("""
+					石中姬
+					Stonesia""");
+			builder.push("stonesia");
+			stonesiaMaxMana = builder
+					.comment("""
+							最大魔力值
+							Maximum mana""")
+					.defineInRange("maxMana", StonesiaBlockEntity.MAX_MANA, 0, Integer.MAX_VALUE);
+			stonesiaCooldown = builder
+					.comment("""
+							冷却时间(ticks)
+							Cooldown time in ticks""")
+					.defineInRange("cooldown", StonesiaBlockEntity.COOLDOWN, 0, Integer.MAX_VALUE);
+			builder.pop(); // End stonesia
+
+			builder.comment("""
+					雪绒花
+					Edelweiss""");
+			builder.push("edelweiss");
+			edelweissMaxMana = builder
+					.comment("""
+							最大魔力值
+							Maximum mana""")
+					.defineInRange("maxMana", EdelweissBlockEntity.MAX_MANA, 0, Integer.MAX_VALUE);
+			edelweissCooldown = builder
+					.comment("""
+							冷却时间(ticks)
+							Cooldown time in ticks""")
+					.defineInRange("cooldown", EdelweissBlockEntity.COOLDOWN, 0, Integer.MAX_VALUE);
+			builder.pop(); // End edelweiss
 			builder.pop();//End flower
 			builder.pop();//End server
 		}
@@ -402,6 +439,26 @@ public class ForgeExtrabotanyConfig {
 		@Override
 		public double annoyingflowerFoodBoostCooldownMultiplier() {
 			return annoyingflowerFoodBoostCooldownMultiplier.get();
+		}
+
+		@Override
+		public int stonesiaMaxMana() {
+			return stonesiaMaxMana.get();
+		}
+
+		@Override
+		public int stonesiaCooldown() {
+			return stonesiaCooldown.get();
+		}
+
+		@Override
+		public int edelweissMaxMana() {
+			return edelweissMaxMana.get();
+		}
+
+		@Override
+		public int edelweissCooldown() {
+			return edelweissCooldown.get();
 		}
 	}
 

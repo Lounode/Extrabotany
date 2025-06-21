@@ -1,13 +1,20 @@
 package io.github.lounode.extrabotany.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -19,6 +26,7 @@ import io.github.lounode.extrabotany.api.recipe.EdelweissRecipe;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
+import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import java.util.List;
 
@@ -30,7 +38,7 @@ public class EdelweissBlockEntity extends GeneratingFlowerBlockEntity {
 
 	private static final int RANGE = 1;
 
-	public static final int MAX_MANA = 25000;
+	public static final int MAX_MANA = 12800;
 	public static final int COOLDOWN = 40;
 
 	private int cooldown;
@@ -67,10 +75,21 @@ public class EdelweissBlockEntity extends GeneratingFlowerBlockEntity {
 
 		if (EntityType.SNOW_GOLEM == toEat.getType()) {
 			grantAdvancementToNearby();
+			Vec3 pos = toEat.position();
+			((ServerLevel) getLevel()).sendParticles(
+					new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SNOW_BLOCK.defaultBlockState()),
+					pos.x, pos.y, pos.z,
+					20,
+					0.5, 0.5, 0.5,
+					0.1
+			);
+			getLevel().playSound(null, getEffectivePos(), SoundEvents.SNOW_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
 		}
 
 		addMana(mana);
 		setCooldown(getAfterWorkCooldown());
+		getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_DRINK, SoundSource.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
+		sync();
 	}
 
 	public void grantAdvancementToNearby() {
@@ -96,12 +115,12 @@ public class EdelweissBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	public int getAfterWorkCooldown() {
-		return COOLDOWN;
+		return ExtraBotanyConfig.common().edelweissCooldown();
 	}
 
 	@Override
 	public int getMaxMana() {
-		return MAX_MANA;
+		return ExtraBotanyConfig.common().edelweissMaxMana();
 	}
 
 	public int getCooldown() {

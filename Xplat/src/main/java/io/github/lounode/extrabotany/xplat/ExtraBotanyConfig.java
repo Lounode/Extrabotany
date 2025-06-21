@@ -78,5 +78,13 @@ public class ExtraBotanyConfig {
 		int annoyingflowerFoodBoostMax();
 		int annoyingflowerFoodBoostTimes();
 		double annoyingflowerFoodBoostCooldownMultiplier();
+
+		//Stonesia
+		int stonesiaMaxMana();
+		int stonesiaCooldown();
+
+		//Edelweiss
+		int edelweissMaxMana();
+		int edelweissCooldown();
 	}
 }

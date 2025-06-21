@@ -6,7 +6,9 @@ import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.common.block.flower.functional.AnnoyingFlowerBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.BellflowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.EdelweissBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.StonesiaBlockEntity;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
@@ -99,6 +101,10 @@ public class FabricExtraBotanyConfig {
 		public final PropertyMirror<Integer> annoyingflowerFoodBoostMax = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Integer> annoyingflowerFoodBoostTimes = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Double> annoyingflowerFoodBoostCooldownMultiplier = PropertyMirror.create(DOUBLE);
+		public final PropertyMirror<Integer> stonesiaMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> stonesiaCooldown = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> edelweissMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> edelweissCooldown = PropertyMirror.create(INTEGER);
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder
@@ -290,6 +296,35 @@ public class FabricExtraBotanyConfig {
 							Cooldown multiplier when food boosted""")
 					.finishValue(annoyingflowerFoodBoostCooldownMultiplier::mirror)
 					.finishBranch() // End annoyingflower
+					.fork("stonesia").withComment("""
+							石中姬
+							Stonesia""")
+					.beginValue("maxMana", INTEGER, StonesiaBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(stonesiaMaxMana::mirror)
+					.beginValue("cooldown", INTEGER, StonesiaBlockEntity.COOLDOWN)
+					.withComment("""
+							冷却时间(ticks)
+							Cooldown time in ticks""")
+					.finishValue(stonesiaCooldown::mirror)
+					.finishBranch() // End stonesia
+
+					.fork("edelweiss").withComment("""
+							雪绒花
+							Edelweiss""")
+					.beginValue("maxMana", INTEGER, EdelweissBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(edelweissMaxMana::mirror)
+					.beginValue("cooldown", INTEGER, EdelweissBlockEntity.COOLDOWN)
+					.withComment("""
+							冷却时间(ticks)
+							Cooldown time in ticks""")
+					.finishValue(edelweissCooldown::mirror)
+					.finishBranch() // End edelweiss
 
 					.finishBranch()//End flower
 
@@ -426,6 +461,26 @@ public class FabricExtraBotanyConfig {
 		@Override
 		public double annoyingflowerFoodBoostCooldownMultiplier() {
 			return annoyingflowerFoodBoostCooldownMultiplier.getValue();
+		}
+
+		@Override
+		public int stonesiaMaxMana() {
+			return stonesiaMaxMana.getValue();
+		}
+
+		@Override
+		public int stonesiaCooldown() {
+			return stonesiaCooldown.getValue();
+		}
+
+		@Override
+		public int edelweissMaxMana() {
+			return edelweissMaxMana.getValue();
+		}
+
+		@Override
+		public int edelweissCooldown() {
+			return edelweissCooldown.getValue();
 		}
 	}
 
