@@ -4,6 +4,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -21,6 +22,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.FloatingSpecialFlowerBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
 
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
@@ -173,8 +175,8 @@ public class ExtrabotanyFlowerBlocks {
 		r.accept(new SpecialFlowerBlockItem(edelweiss, props), getId(edelweiss));
 		r.accept(new SpecialFlowerBlockItem(edelweissFloating, props), getId(edelweissFloating));
 
-		//r.accept(new SpecialFlowerBlockItem(noisling, props), getId(noisling));
-		//r.accept(new SpecialFlowerBlockItem(noislingFloating, props), getId(noislingFloating));
+		r.accept(new Hidden(noisling, props), getId(noisling));
+		r.accept(new Hidden(noislingFloating, props), getId(noislingFloating));
 	}
 
 	public static void registerTEs(BiConsumer<BlockEntityType<?>, ResourceLocation> r) {
@@ -206,5 +208,17 @@ public class ExtrabotanyFlowerBlocks {
 				consumer.accept(new ResourceLocation(id.getNamespace(), id.getPath().substring(vazkii.botania.common.lib.LibBlockNames.POTTED_PREFIX.length())), () -> block);
 			}
 		});
+	}
+
+	private static class Hidden extends SpecialFlowerBlockItem implements CustomCreativeTabContents {
+
+		public Hidden(Block block1, Properties props) {
+			super(block1, props);
+		}
+
+		@Override
+		public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+
+		}
 	}
 }
