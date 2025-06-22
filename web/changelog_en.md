@@ -1,4 +1,20 @@
-# Current Version: 1.20.1-1.3.0 Release (2025.6.15)
+# Current Version: 1.20.1-1.4.0 Release (2025.6.22)
+### New
+#### New Generating Flower: `Stonesia`
+Place Stonesia near your mine or cobblestone generator! 
+
+It will eat these Stone or Ore blocks to produce a certain amount of mana.
+#### New Generating Flower: `Edelweiss`
+While working, Edelweiss will eat Snow Golem within range to generate mana.
+
+### Change&Optimize
+- added some `ja_jp` translate
+
+### Bugfix
+- upd eventwrapper to 1.1.1 fix some bug that cause crash when item was in cooldown.
+- Removed Herobrine
+
+## 1.20.1-1.3.0 Release (2025.6.15)
 ### New
 #### New Generating Flower: `Bellflower`
 Bellflower converts wind power into Mana.
