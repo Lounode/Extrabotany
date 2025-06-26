@@ -1,0 +1,19 @@
+{
+  "category": "botania:extrabotanies",
+  "extra_recipe_mappings": {
+    "extrabotany:floating_noisling": 1
+  },
+  "icon": "extrabotany:noisling",
+  "name": "extrabotany.entry.noisling",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "extrabotany.page.noisling0"
+    },
+    {
+      "type": "botania:petal_apothecary",
+      "recipe": "extrabotany:petal_apothecary/noisling",
+      "text": "extrabotany.page.noisling1"
+    }
+  ]
+}

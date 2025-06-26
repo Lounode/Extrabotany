@@ -58,4 +58,9 @@ subprojects {
             importOrderFile rootProject.file('spotless/eclipse.importorder')
         }
     }
+    /*
+    configurations.configureEach {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
+    //*/
 }

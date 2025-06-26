@@ -131,6 +131,11 @@
   "block.extrabotany.potted_edelweiss": "雪绒花盆栽",
   "block.extrabotany.floating_edelweiss": "浮空雪绒花",
   
+  "block.extrabotany.noisling": "闹闹花",
+  "block.extrabotany.noisling.reference": "什么B动静",
+  "block.extrabotany.potted_noisling": "闹闹花盆栽",
+  "block.extrabotany.floating_noisling": "浮空闹闹花",
+  
   "death.attack.extrabotany.link": "%1$s 对别人的痛苦感同身受",
   "death.attack.extrabotany.link.player": "%1$s 对 %2$s 的痛苦感同身受",
   "death.attack.extrabotany.link.item": "%1$s 对 %2$s 的痛苦感同身受",
@@ -570,8 +575,12 @@
   "extrabotany.page.stonesia1": "石中剑",
   
   "extrabotany.entry.edelweiss": "雪绒花",
-  "extrabotany.page.edelweiss0": "许多人都曾想过在冬天挖一捧洁白的雪尝尝，$(item)雪绒花$()则想的是：“怎么在雪傀儡的身上咬下来一口”。$(br2)工作时，$(item)雪绒花$()会吃掉范围内的$(thing)雪傀儡$()来产生$(thing)魔力$()。",
+  "extrabotany.page.edelweiss0": "许多人都曾想过在冬天挖一捧洁白的雪尝尝，$(item)雪绒花$()则想的是：“怎么在雪傀儡的身上咬下来一口”。$(br2)工作时，$(item)雪绒花$()会吃掉一定范围内的$(thing)雪傀儡$()来产生$(thing)魔力$()。",
   "extrabotany.page.edelweiss1": "又到了白色相簿的季节",
+  
+  "extrabotany.entry.noisling": "闹闹花",
+  "extrabotany.page.noisling0": "声音来源于$(thing)魔力$()的共振，$(item)闹闹花$()可以逆转这个过程，生产出一定的$(thing)魔力$()。$(br2)但太多同样的声音也会使得$(item)闹闹花$()对这种声音罢工，除非让它休息一段时间。",
+  "extrabotany.page.noisling1": "三星极制服·奏之装",
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""

@@ -5,10 +5,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.common.block.flower.functional.AnnoyingFlowerBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.generating.BellflowerBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.generating.EdelweissBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.generating.StonesiaBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.*;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
@@ -105,6 +102,8 @@ public class FabricExtraBotanyConfig {
 		public final PropertyMirror<Integer> stonesiaCooldown = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Integer> edelweissMaxMana = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Integer> edelweissCooldown = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> noislingMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> noislingLossPerHeard = PropertyMirror.create(INTEGER);
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder
@@ -325,6 +324,20 @@ public class FabricExtraBotanyConfig {
 							Cooldown time in ticks""")
 					.finishValue(edelweissCooldown::mirror)
 					.finishBranch() // End edelweiss
+					.fork("noisling").withComment("""
+							闹闹花
+							Noisling""")
+					.beginValue("maxMana", INTEGER, NoislingBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(noislingMaxMana::mirror)
+					.beginValue("lossPerHeard", INTEGER, NoislingBlockEntity.MANA_LOSS_PER_HEARD)
+					.withComment("""
+							同种声音重复听到后的魔力生产衰减
+							Mana produce decreases per same sound heard""")
+					.finishValue(noislingLossPerHeard::mirror)
+					.finishBranch() // End noisling
 
 					.finishBranch()//End flower
 
@@ -481,6 +494,16 @@ public class FabricExtraBotanyConfig {
 		@Override
 		public int edelweissCooldown() {
 			return edelweissCooldown.getValue();
+		}
+
+		@Override
+		public int noislingMaxMana() {
+			return noislingMaxMana.getValue();
+		}
+
+		@Override
+		public int noislingLossPerHeard() {
+			return noislingLossPerHeard.getValue();
 		}
 	}
 

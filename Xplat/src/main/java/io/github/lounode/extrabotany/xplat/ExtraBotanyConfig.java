@@ -86,5 +86,9 @@ public class ExtraBotanyConfig {
 		//Edelweiss
 		int edelweissMaxMana();
 		int edelweissCooldown();
+
+		//Noisling
+		int noislingMaxMana();
+		int noislingLossPerHeard();
 	}
 }

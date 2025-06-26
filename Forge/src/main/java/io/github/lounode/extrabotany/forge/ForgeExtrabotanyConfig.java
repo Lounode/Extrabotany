@@ -13,10 +13,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.common.block.flower.functional.AnnoyingFlowerBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.generating.BellflowerBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.generating.EdelweissBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.generating.StonesiaBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.*;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
@@ -88,6 +85,8 @@ public class ForgeExtrabotanyConfig {
 		public final ForgeConfigSpec.IntValue stonesiaCooldown;
 		public final ForgeConfigSpec.IntValue edelweissMaxMana;
 		public final ForgeConfigSpec.IntValue edelweissCooldown;
+		public final ForgeConfigSpec.IntValue noislingMaxMana;
+		public final ForgeConfigSpec.IntValue noislingLossPerHeard;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 
@@ -305,6 +304,21 @@ public class ForgeExtrabotanyConfig {
 							Cooldown time in ticks""")
 					.defineInRange("cooldown", EdelweissBlockEntity.COOLDOWN, 0, Integer.MAX_VALUE);
 			builder.pop(); // End edelweiss
+			builder.comment("""
+					闹闹花
+					Noisling""");
+			builder.push("noisling");
+			noislingMaxMana = builder
+					.comment("""
+							最大魔力值
+							Maximum mana""")
+					.defineInRange("maxMana", NoislingBlockEntity.MAX_MANA, 0, Integer.MAX_VALUE);
+			noislingLossPerHeard = builder
+					.comment("""
+							同种声音重复听到后的魔力生产衰减
+							Mana produce decreases per same sound heard""")
+					.defineInRange("lossPerHeard", NoislingBlockEntity.MANA_LOSS_PER_HEARD, 0, Integer.MAX_VALUE);
+			builder.pop(); // End noisling
 			builder.pop();//End flower
 			builder.pop();//End server
 		}
@@ -459,6 +473,16 @@ public class ForgeExtrabotanyConfig {
 		@Override
 		public int edelweissCooldown() {
 			return edelweissCooldown.get();
+		}
+
+		@Override
+		public int noislingMaxMana() {
+			return noislingMaxMana.get();
+		}
+
+		@Override
+		public int noislingLossPerHeard() {
+			return noislingLossPerHeard.get();
 		}
 	}
 

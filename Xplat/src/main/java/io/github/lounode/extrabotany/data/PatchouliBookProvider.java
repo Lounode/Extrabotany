@@ -553,6 +553,15 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				)
 				.extraRecipeMapping(ExtrabotanyFlowerBlocks.edelweissFloating, 1)
 				.save(consumer, id("edelweiss"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.noisling")
+				.withIcon(ExtrabotanyFlowerBlocks.noisling)
+				.pages(
+						text("extrabotany.page.noisling0"),
+						petal(ExtrabotanyFlowerBlocks.noisling).withText("extrabotany.page.noisling1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.noislingFloating, 1)
+				.save(consumer, id("noisling"));
 
 	}
 

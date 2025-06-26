@@ -14,6 +14,19 @@
           "name": "extrabotany:noisling"
         }
       ],
+      "functions": [
+        {
+          "function": "minecraft:copy_nbt",
+          "ops": [
+            {
+              "op": "replace",
+              "source": "soundHeard",
+              "target": "BlockEntityTag.soundHeard"
+            }
+          ],
+          "source": "block_entity"
+        }
+      ],
       "rolls": 1.0
     }
   ]

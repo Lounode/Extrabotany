@@ -175,8 +175,8 @@ public class ExtrabotanyFlowerBlocks {
 		r.accept(new SpecialFlowerBlockItem(edelweiss, props), getId(edelweiss));
 		r.accept(new SpecialFlowerBlockItem(edelweissFloating, props), getId(edelweissFloating));
 
-		r.accept(new Hidden(noisling, props), getId(noisling));
-		r.accept(new Hidden(noislingFloating, props), getId(noislingFloating));
+		r.accept(new SpecialFlowerBlockItem(noisling, props), getId(noisling));
+		r.accept(new SpecialFlowerBlockItem(noislingFloating, props), getId(noislingFloating));
 	}
 
 	public static void registerTEs(BiConsumer<BlockEntityType<?>, ResourceLocation> r) {

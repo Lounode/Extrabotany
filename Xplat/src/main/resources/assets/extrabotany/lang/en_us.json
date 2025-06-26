@@ -120,6 +120,10 @@
   "block.extrabotany.edelweiss.reference": "Snow Miku",
   "block.extrabotany.potted_edelweiss": "Potted Edelweiss",
   "block.extrabotany.floating_edelweiss": "Floating Edelweiss",
+  "block.extrabotany.noisling": "Noisling",
+  "block.extrabotany.noisling.reference": "WTF this noise?",
+  "block.extrabotany.potted_noisling": "Potted Noisling",
+  "block.extrabotany.floating_noisling": "Floating Noisling",
   "death.attack.extrabotany.link": "%1$s shared in someone else's pain",
   "death.attack.extrabotany.link.player": "%1$s shared in %2$s's pain",
   "death.attack.extrabotany.link.item": "%1$s shared in %2$s's pain using %3$s",
@@ -506,6 +510,9 @@
   "extrabotany.entry.edelweiss": "Edelweiss",
   "extrabotany.page.edelweiss0": "Many people have thought about digging a handful of white snow in winter to taste, but $(item)Edelweiss$() was thinking: \"How to take a bite out of the Snow Golem.\"$(br2)While working, $(item)Edelweiss$() will eat $(thing)Snow Golem$() within range to generate $(thing)mana$().",
   "extrabotany.page.edelweiss1": "It's the season of White Album again...",
+  "extrabotany.entry.noisling": "Noisling",
+  "extrabotany.page.noisling0": "Sounds comes from the resonance of $(thing)mana$(). $(item)Noisling$() can reverse this process and produce a certain amount of $(thing)mana$().$(br2)But too many of the same sounds will cause $(item)Noisling$() to go on strike against this sound unless it is allowed to rest for a while.",
+  "extrabotany.page.noisling1": "Three-star Goku Uniform Symphony Regalia",
   "extrabotany.entry.": "",
   "extrabotany.page.": ""
 }
