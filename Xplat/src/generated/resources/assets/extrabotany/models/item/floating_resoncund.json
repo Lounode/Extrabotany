@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/block",
   "flower": {
-    "parent": "extrabotany:block/noisling"
+    "parent": "extrabotany:block/resoncund"
   },
   "loader": "botania:floating_flower"
 }

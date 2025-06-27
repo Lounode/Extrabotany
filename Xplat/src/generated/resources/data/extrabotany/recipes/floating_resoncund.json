@@ -7,10 +7,10 @@
       "tag": "botania:floating_flowers"
     },
     {
-      "item": "extrabotany:noisling"
+      "item": "extrabotany:resoncund"
     }
   ],
   "result": {
-    "item": "extrabotany:floating_noisling"
+    "item": "extrabotany:floating_resoncund"
   }
 }

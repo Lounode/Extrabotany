@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-public class NoislingBlockEntity extends GeneratingFlowerBlockEntity {
+public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
 
 	public static final String TAG_SOUND_HEARD = "soundHeard";
 
@@ -44,8 +44,8 @@ public class NoislingBlockEntity extends GeneratingFlowerBlockEntity {
 			.expireAfterAccess(30, TimeUnit.SECONDS)
 			.build(CacheLoader.from(() -> 0));
 
-	public NoislingBlockEntity(BlockPos pos, BlockState blockState) {
-		super(ExtrabotanyFlowerBlocks.NOISLING, pos, blockState);
+	public ResoncundBlockEntity(BlockPos pos, BlockState blockState) {
+		super(ExtrabotanyFlowerBlocks.RESONCUND, pos, blockState);
 		EventsWrapper.register(this);
 	}
 
@@ -66,7 +66,7 @@ public class NoislingBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	public int getLossPerHeard() {
-		return ExtraBotanyConfig.common().noislingLossPerHeard();
+		return ExtraBotanyConfig.common().resoncundLossPerHeard();
 	}
 
 	public int getMinProduce() {
@@ -83,7 +83,7 @@ public class NoislingBlockEntity extends GeneratingFlowerBlockEntity {
 
 	@Override
 	public int getMaxMana() {
-		return ExtraBotanyConfig.common().noislingMaxMana();
+		return ExtraBotanyConfig.common().resoncundMaxMana();
 	}
 
 	@Override

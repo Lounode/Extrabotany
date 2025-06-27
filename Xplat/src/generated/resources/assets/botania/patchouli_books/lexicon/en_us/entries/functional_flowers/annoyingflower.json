@@ -1,5 +1,5 @@
 {
-  "category": "botania:extrabotanies",
+  "category": "botania:functional_flowers",
   "extra_recipe_mappings": {
     "extrabotany:floating_annoyingflower": 1
   },

@@ -99,7 +99,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		);
 
 		Block[] generatingSpecialFlowers = {
-				reikarlily, bellflower, stonesia, edelweiss, noisling,
+				reikarlily, bellflower, stonesia, edelweiss, resoncund,
 		};
 		tag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOWERS).add(generatingSpecialFlowers);
 
@@ -123,7 +123,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 				.add(
 						//Generating
-						reikarlilyPotted, bellflowerPotted, stonesiaPotted, edelweissPotted, noislingPotted,
+						reikarlilyPotted, bellflowerPotted, stonesiaPotted, edelweissPotted, resoncundPotted,
 						//Func
 						tradeOrchidPotted, woodieniaPotted, annoyingflowerPotted
 				);

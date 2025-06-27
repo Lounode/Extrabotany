@@ -102,8 +102,8 @@ public class FabricExtraBotanyConfig {
 		public final PropertyMirror<Integer> stonesiaCooldown = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Integer> edelweissMaxMana = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Integer> edelweissCooldown = PropertyMirror.create(INTEGER);
-		public final PropertyMirror<Integer> noislingMaxMana = PropertyMirror.create(INTEGER);
-		public final PropertyMirror<Integer> noislingLossPerHeard = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> resoncundMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> resoncundLossPerHeard = PropertyMirror.create(INTEGER);
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder
@@ -324,20 +324,20 @@ public class FabricExtraBotanyConfig {
 							Cooldown time in ticks""")
 					.finishValue(edelweissCooldown::mirror)
 					.finishBranch() // End edelweiss
-					.fork("noisling").withComment("""
-							闹闹花
-							Noisling""")
-					.beginValue("maxMana", INTEGER, NoislingBlockEntity.MAX_MANA)
+					.fork("resoncund").withComment("""
+							回音花
+							Resoncund""")
+					.beginValue("maxMana", INTEGER, ResoncundBlockEntity.MAX_MANA)
 					.withComment("""
 							最大魔力值
 							Maximum mana""")
-					.finishValue(noislingMaxMana::mirror)
-					.beginValue("lossPerHeard", INTEGER, NoislingBlockEntity.MANA_LOSS_PER_HEARD)
+					.finishValue(resoncundMaxMana::mirror)
+					.beginValue("lossPerHeard", INTEGER, ResoncundBlockEntity.MANA_LOSS_PER_HEARD)
 					.withComment("""
 							同种声音重复听到后的魔力生产衰减
 							Mana produce decreases per same sound heard""")
-					.finishValue(noislingLossPerHeard::mirror)
-					.finishBranch() // End noisling
+					.finishValue(resoncundLossPerHeard::mirror)
+					.finishBranch() // End resoncund
 
 					.finishBranch()//End flower
 
@@ -497,13 +497,13 @@ public class FabricExtraBotanyConfig {
 		}
 
 		@Override
-		public int noislingMaxMana() {
-			return noislingMaxMana.getValue();
+		public int resoncundMaxMana() {
+			return resoncundMaxMana.getValue();
 		}
 
 		@Override
-		public int noislingLossPerHeard() {
-			return noislingLossPerHeard.getValue();
+		public int resoncundLossPerHeard() {
+			return resoncundLossPerHeard.getValue();
 		}
 	}
 

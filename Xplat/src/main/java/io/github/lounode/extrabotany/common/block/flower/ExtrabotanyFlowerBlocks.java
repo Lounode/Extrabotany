@@ -70,9 +70,9 @@ public class ExtrabotanyFlowerBlocks {
 	public static final Block edelweissFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.EDELWEISS);
 	public static final Block edelweissPotted = ExtraBotanyBlocks.flowerPot(edelweiss, 0);
 
-	public static final Block noisling = createSpecialFlowerBlock(MobEffects.MOVEMENT_SPEED, 10 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.NOISLING);
-	public static final Block noislingFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.NOISLING);
-	public static final Block noislingPotted = ExtraBotanyBlocks.flowerPot(noisling, 0);
+	public static final Block resoncund = createSpecialFlowerBlock(MobEffects.MOVEMENT_SPEED, 10 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.RESONCUND);
+	public static final Block resoncundFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.RESONCUND);
+	public static final Block resoncundPotted = ExtraBotanyBlocks.flowerPot(resoncund, 0);
 
 	public static final BlockEntityType<TradeOrchidBlockEntity> TRADE_ORCHID = EXplatAbstractions.INSTANCE.createBlockEntityType(TradeOrchidBlockEntity::new, tradeOrchid, tradeOrchidFloating);
 	public static final BlockEntityType<WoodieniaBlockEntity> WOODIENIA = EXplatAbstractions.INSTANCE.createBlockEntityType(WoodieniaBlockEntity::new, woodienia, woodieniaFloating);
@@ -81,7 +81,7 @@ public class ExtrabotanyFlowerBlocks {
 	public static final BlockEntityType<AnnoyingFlowerBlockEntity> ANNOYINGFLOWER = EXplatAbstractions.INSTANCE.createBlockEntityType(AnnoyingFlowerBlockEntity::new, annoyingflower, annoyingflowerFloating);
 	public static final BlockEntityType<StonesiaBlockEntity> STONESIA = EXplatAbstractions.INSTANCE.createBlockEntityType(StonesiaBlockEntity::new, stonesia, stonesiaFloating);
 	public static final BlockEntityType<EdelweissBlockEntity> EDELWEISS = EXplatAbstractions.INSTANCE.createBlockEntityType(EdelweissBlockEntity::new, edelweiss, edelweissFloating);
-	public static final BlockEntityType<NoislingBlockEntity> NOISLING = EXplatAbstractions.INSTANCE.createBlockEntityType(NoislingBlockEntity::new, noisling, noislingFloating);
+	public static final BlockEntityType<ResoncundBlockEntity> RESONCUND = EXplatAbstractions.INSTANCE.createBlockEntityType(ResoncundBlockEntity::new, resoncund, resoncundFloating);
 
 	private static ResourceLocation floating(ResourceLocation orig) {
 		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
@@ -146,9 +146,9 @@ public class ExtrabotanyFlowerBlocks {
 		r.accept(edelweissFloating, floating(LibBlockNames.EDELWEISS));
 		r.accept(edelweissPotted, potted(LibBlockNames.EDELWEISS));
 
-		r.accept(noisling, LibBlockNames.NOISLING);
-		r.accept(noislingFloating, floating(LibBlockNames.NOISLING));
-		r.accept(noislingPotted, potted(LibBlockNames.NOISLING));
+		r.accept(resoncund, LibBlockNames.RESONCUND);
+		r.accept(resoncundFloating, floating(LibBlockNames.RESONCUND));
+		r.accept(resoncundPotted, potted(LibBlockNames.RESONCUND));
 	}
 
 	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
@@ -175,8 +175,8 @@ public class ExtrabotanyFlowerBlocks {
 		r.accept(new SpecialFlowerBlockItem(edelweiss, props), getId(edelweiss));
 		r.accept(new SpecialFlowerBlockItem(edelweissFloating, props), getId(edelweissFloating));
 
-		r.accept(new SpecialFlowerBlockItem(noisling, props), getId(noisling));
-		r.accept(new SpecialFlowerBlockItem(noislingFloating, props), getId(noislingFloating));
+		r.accept(new SpecialFlowerBlockItem(resoncund, props), getId(resoncund));
+		r.accept(new SpecialFlowerBlockItem(resoncundFloating, props), getId(resoncundFloating));
 	}
 
 	public static void registerTEs(BiConsumer<BlockEntityType<?>, ResourceLocation> r) {
@@ -187,7 +187,7 @@ public class ExtrabotanyFlowerBlocks {
 		r.accept(ANNOYINGFLOWER, getId(annoyingflower));
 		r.accept(STONESIA, getId(stonesia));
 		r.accept(EDELWEISS, getId(edelweiss));
-		r.accept(NOISLING, getId(noisling));
+		r.accept(RESONCUND, getId(resoncund));
 	}
 
 	public static void registerWandHudCaps(BotaniaBlockEntities.BECapConsumer<WandHUD> consumer) {
@@ -195,7 +195,7 @@ public class ExtrabotanyFlowerBlocks {
 				TRADE_ORCHID, WOODIENIA
 		);
 		consumer.accept(be -> new BindableSpecialFlowerBlockEntity.BindableFlowerWandHud<>((GeneratingFlowerBlockEntity) be),
-				REIKARLILY, STONESIA, EDELWEISS, NOISLING
+				REIKARLILY, STONESIA, EDELWEISS, RESONCUND
 		);
 		consumer.accept(be -> new BellflowerBlockEntity.WandHud((BellflowerBlockEntity) be), BELLFLOWER);
 		consumer.accept(be -> new AnnoyingFlowerBlockEntity.WandHud((AnnoyingFlowerBlockEntity) be), ANNOYINGFLOWER);

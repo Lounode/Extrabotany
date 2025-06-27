@@ -85,8 +85,8 @@ public class ForgeExtrabotanyConfig {
 		public final ForgeConfigSpec.IntValue stonesiaCooldown;
 		public final ForgeConfigSpec.IntValue edelweissMaxMana;
 		public final ForgeConfigSpec.IntValue edelweissCooldown;
-		public final ForgeConfigSpec.IntValue noislingMaxMana;
-		public final ForgeConfigSpec.IntValue noislingLossPerHeard;
+		public final ForgeConfigSpec.IntValue resoncundMaxMana;
+		public final ForgeConfigSpec.IntValue resoncundLossPerHeard;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 
@@ -305,20 +305,20 @@ public class ForgeExtrabotanyConfig {
 					.defineInRange("cooldown", EdelweissBlockEntity.COOLDOWN, 0, Integer.MAX_VALUE);
 			builder.pop(); // End edelweiss
 			builder.comment("""
-					闹闹花
-					Noisling""");
-			builder.push("noisling");
-			noislingMaxMana = builder
+					回音花
+					Resoncund""");
+			builder.push("resoncund");
+			resoncundMaxMana = builder
 					.comment("""
 							最大魔力值
 							Maximum mana""")
-					.defineInRange("maxMana", NoislingBlockEntity.MAX_MANA, 0, Integer.MAX_VALUE);
-			noislingLossPerHeard = builder
+					.defineInRange("maxMana", ResoncundBlockEntity.MAX_MANA, 0, Integer.MAX_VALUE);
+			resoncundLossPerHeard = builder
 					.comment("""
 							同种声音重复听到后的魔力生产衰减
 							Mana produce decreases per same sound heard""")
-					.defineInRange("lossPerHeard", NoislingBlockEntity.MANA_LOSS_PER_HEARD, 0, Integer.MAX_VALUE);
-			builder.pop(); // End noisling
+					.defineInRange("lossPerHeard", ResoncundBlockEntity.MANA_LOSS_PER_HEARD, 0, Integer.MAX_VALUE);
+			builder.pop(); // End resoncund
 			builder.pop();//End flower
 			builder.pop();//End server
 		}
@@ -476,13 +476,13 @@ public class ForgeExtrabotanyConfig {
 		}
 
 		@Override
-		public int noislingMaxMana() {
-			return noislingMaxMana.get();
+		public int resoncundMaxMana() {
+			return resoncundMaxMana.get();
 		}
 
 		@Override
-		public int noislingLossPerHeard() {
-			return noislingLossPerHeard.get();
+		public int resoncundLossPerHeard() {
+			return resoncundLossPerHeard.get();
 		}
 	}
 

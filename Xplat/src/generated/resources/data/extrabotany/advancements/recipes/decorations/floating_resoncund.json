@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "extrabotany:noisling"
+              "extrabotany:resoncund"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "extrabotany:floating_noisling"
+        "recipe": "extrabotany:floating_resoncund"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "extrabotany:floating_noisling"
+      "extrabotany:floating_resoncund"
     ]
   },
   "sends_telemetry_event": false

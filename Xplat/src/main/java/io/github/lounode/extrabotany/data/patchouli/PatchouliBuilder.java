@@ -71,7 +71,7 @@ public class PatchouliBuilder {
 	}
 
 	public void save(Consumer<PatchouliEntry> consumer, ResourceLocation id) {
-		consumer.accept(new PatchouliEntry(category, name, icon, pages, id, sortNum, advancement, extraRecipeMappings));
+		consumer.accept(new PatchouliEntry(category, name, icon, pages, ResourceLocation.tryBuild(category.getPath(), id.getPath()), sortNum, advancement, extraRecipeMappings));
 	}
 
 	public PatchouliBuilder extraRecipeMapping(Item item, int pageNum) {

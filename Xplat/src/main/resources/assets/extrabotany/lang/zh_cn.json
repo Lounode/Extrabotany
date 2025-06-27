@@ -131,10 +131,10 @@
   "block.extrabotany.potted_edelweiss": "雪绒花盆栽",
   "block.extrabotany.floating_edelweiss": "浮空雪绒花",
   
-  "block.extrabotany.noisling": "闹闹花",
-  "block.extrabotany.noisling.reference": "什么B动静",
-  "block.extrabotany.potted_noisling": "闹闹花盆栽",
-  "block.extrabotany.floating_noisling": "浮空闹闹花",
+  "block.extrabotany.resoncund": "回音花",
+  "block.extrabotany.resoncund.reference": "我听到了灵魂的回响",
+  "block.extrabotany.potted_resoncund": "回音花盆栽",
+  "block.extrabotany.floating_resoncund": "浮空回音花",
   
   "death.attack.extrabotany.link": "%1$s 对别人的痛苦感同身受",
   "death.attack.extrabotany.link.player": "%1$s 对 %2$s 的痛苦感同身受",
@@ -528,7 +528,7 @@
   "extrabotany.page.shadow_warrior3": "坂田银时",
   "extrabotany.page.shadow_warrior4": "魂魄妖梦",
   
-  "extrabotany.entry.goblin_slayer": "哥布林猎人",
+  "extrabotany.entry.goblin_slayer": "哥布林猎人套装",
   "extrabotany.page.goblin_slayer0": "$(item)光子锭$()制作而成的套装，具有能在白天提高移动速度的优良属性。$(br2)穿戴齐套装时，对$(thing)亡灵生物$()额外造成$(t:50％)一定比例$()的伤害。对于$(thing)哥布林$()，则能够一击必杀。",
   "extrabotany.page.goblin_slayer1": "只人",
   "extrabotany.page.goblin_slayer2": "森人",
@@ -581,6 +581,9 @@
   "extrabotany.entry.noisling": "闹闹花",
   "extrabotany.page.noisling0": "声音来源于$(thing)魔力$()的共振，$(item)闹闹花$()可以逆转这个过程，生产出一定的$(thing)魔力$()。$(br2)但太多同样的声音也会使得$(item)闹闹花$()对这种声音罢工，除非让它休息一段时间。",
   "extrabotany.page.noisling1": "三星极制服·奏之装",
+  "extrabotany.entry.resoncund": "回音花",
+  "extrabotany.page.resoncund0": "声音来源于$(thing)魔力$()的共振，$(item)回音花$()可以逆转这个过程，生产出一定的$(thing)魔力$()。$(br2)但太多同样的声音也会使得$(item)回音花$()对这种声音罢工，除非让它休息一段时间。",
+  "extrabotany.page.resoncund1": "三星极制服·奏之装",
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""

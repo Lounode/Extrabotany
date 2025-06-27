@@ -24,5 +24,5 @@ public class LibBlockNames {
 	public static final ResourceLocation STONESIA = prefix("stonesia");
 	public static final ResourceLocation EDELWEISS = prefix("edelweiss");
 	public static final ResourceLocation DINIVA = prefix("diniva");
-	public static final ResourceLocation NOISLING = prefix("noisling");
+	public static final ResourceLocation RESONCUND = prefix("resoncund");
 }

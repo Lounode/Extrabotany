@@ -29,9 +29,14 @@ import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefixBotania;
 
 public final class PatchouliBookProvider extends PatchouliProvider {
-	private static final ResourceLocation CATEGORY = ResourceLocation.tryParse("botania:extrabotanies");
+	private static final ResourceLocation CATEGORY = prefixBotania("extrabotanies");
+	private static final ResourceLocation GENERATING_FLOWERS = prefixBotania("generating_flowers");
+	private static final ResourceLocation FUNCTIONAL_FLOWERS = prefixBotania("functional_flowers");
+	private static final ResourceLocation BAUBLES = prefixBotania("baubles");
+	private static final ResourceLocation MANA = prefixBotania("mana");
 
 	public PatchouliBookProvider(PackOutput packOutput) {
 		super(packOutput);
@@ -266,7 +271,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 
 				)
 				.save(consumer, id("reward_bags"));
-		PatchouliBuilder.entry(CATEGORY)
+		PatchouliBuilder.entry(MANA)
 				.withName("extrabotany.entry.mana_charger")
 				.withIcon(ExtraBotanyBlocks.manaCharger)
 				.pages(
@@ -321,7 +326,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				.extraRecipeMapping(ExtraBotanyBlocks.smoothElementiumQuartzStairs, 2)
 				.extraRecipeMapping(ExtraBotanyBlocks.smoothElementiumQuartzSlab, 2)
 				.save(consumer, id("quartzs"));
-		PatchouliBuilder.entry(CATEGORY)
+		PatchouliBuilder.entry(FUNCTIONAL_FLOWERS)
 				.withName("extrabotany.entry.trade_orchid")
 				.withIcon(ExtrabotanyFlowerBlocks.tradeOrchid)
 				.pages(
@@ -467,7 +472,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				)
 				.withAdvancement(mainAdvancement(LibAdvancementNames.STYGIAN_TWINS))
 				.save(consumer, id("goblin_slayer"));
-		PatchouliBuilder.entry(CATEGORY)
+		PatchouliBuilder.entry(FUNCTIONAL_FLOWERS)
 				.withName("extrabotany.entry.woodienia")
 				.withIcon(ExtrabotanyFlowerBlocks.woodienia)
 				.pages(
@@ -476,7 +481,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				)
 				.extraRecipeMapping(ExtrabotanyFlowerBlocks.woodieniaFloating, 1)
 				.save(consumer, id("woodienia"));
-		PatchouliBuilder.entry(CATEGORY)
+		PatchouliBuilder.entry(GENERATING_FLOWERS)
 				.withName("extrabotany.entry.reikarlily")
 				.withIcon(ExtrabotanyFlowerBlocks.reikarlily)
 				.pages(
@@ -486,7 +491,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				)
 				.extraRecipeMapping(ExtrabotanyFlowerBlocks.reikarlilyFloating, 2)
 				.save(consumer, id("reikarlily"));
-		PatchouliBuilder.entry(CATEGORY)
+		PatchouliBuilder.entry(GENERATING_FLOWERS)
 				.withName("extrabotany.entry.bellflower")
 				.withIcon(ExtrabotanyFlowerBlocks.bellflower)
 				.pages(
@@ -496,7 +501,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				)
 				.extraRecipeMapping(ExtrabotanyFlowerBlocks.bellflowerFloating, 2)
 				.save(consumer, id("bellflower"));
-		PatchouliBuilder.entry(CATEGORY)
+		PatchouliBuilder.entry(FUNCTIONAL_FLOWERS)
 				.withName("extrabotany.entry.annoyingflower")
 				.withIcon(ExtrabotanyFlowerBlocks.annoyingflower)
 				.pages(
@@ -535,7 +540,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 								.withFlavor("extrabotany.page.more_brews5b")
 				)
 				.save(consumer, id("more_brews"));
-		PatchouliBuilder.entry(CATEGORY)
+		PatchouliBuilder.entry(GENERATING_FLOWERS)
 				.withName("extrabotany.entry.stonesia")
 				.withIcon(ExtrabotanyFlowerBlocks.stonesia)
 				.pages(
@@ -544,7 +549,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				)
 				.extraRecipeMapping(ExtrabotanyFlowerBlocks.stonesiaFloating, 1)
 				.save(consumer, id("stonesia"));
-		PatchouliBuilder.entry(CATEGORY)
+		PatchouliBuilder.entry(GENERATING_FLOWERS)
 				.withName("extrabotany.entry.edelweiss")
 				.withIcon(ExtrabotanyFlowerBlocks.edelweiss)
 				.pages(
@@ -556,6 +561,15 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 		PatchouliBuilder.entry(CATEGORY)
 				.withName("extrabotany.entry.noisling")
 				.withIcon(ExtrabotanyFlowerBlocks.noisling)
+		PatchouliBuilder.entry(GENERATING_FLOWERS)
+				.withName("extrabotany.entry.resoncund")
+				.withIcon(ExtrabotanyFlowerBlocks.resoncund)
+				.pages(
+						text("extrabotany.page.resoncund0"),
+						petal(ExtrabotanyFlowerBlocks.resoncund).withText("extrabotany.page.resoncund1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.resoncundFloating, 1)
+				.save(consumer, id("resoncund"));
 				.pages(
 						text("extrabotany.page.noisling0"),
 						petal(ExtrabotanyFlowerBlocks.noisling).withText("extrabotany.page.noisling1")

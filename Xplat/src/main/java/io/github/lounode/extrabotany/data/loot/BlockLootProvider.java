@@ -37,8 +37,8 @@ import org.jetbrains.annotations.NotNull;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.block.flower.functional.WoodieniaBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.BellflowerBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.generating.NoislingBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.ResoncundBlockEntity;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 
 import java.nio.file.Path;
@@ -87,8 +87,8 @@ public class BlockLootProvider implements DataProvider {
 		functionTable.put(ExtrabotanyFlowerBlocks.reikarlilyFloating, b -> genCopyNbt(b, ReikarlilyBlockEntity.TAG_COOLDOWN));
 		functionTable.put(ExtrabotanyFlowerBlocks.bellflower, b -> genCopyNbt(b, BellflowerBlockEntity.TAG_PASSIVE_DECAY_TICKS));
 		functionTable.put(ExtrabotanyFlowerBlocks.bellflowerFloating, b -> genCopyNbt(b, BellflowerBlockEntity.TAG_PASSIVE_DECAY_TICKS));
-		functionTable.put(ExtrabotanyFlowerBlocks.noisling, b -> genCopyNbt(b, NoislingBlockEntity.TAG_SOUND_HEARD));
-		functionTable.put(ExtrabotanyFlowerBlocks.noislingFloating, b -> genCopyNbt(b, NoislingBlockEntity.TAG_SOUND_HEARD));
+		functionTable.put(ExtrabotanyFlowerBlocks.resoncund, b -> genCopyNbt(b, ResoncundBlockEntity.TAG_SOUND_HEARD));
+		functionTable.put(ExtrabotanyFlowerBlocks.resoncundFloating, b -> genCopyNbt(b, ResoncundBlockEntity.TAG_SOUND_HEARD));
 	}
 
 	@Override
