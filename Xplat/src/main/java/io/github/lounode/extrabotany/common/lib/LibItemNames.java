@@ -75,4 +75,11 @@ public final class LibItemNames {
 	public static final String SHADOW_WARRIOR_LEGGINGS = "shadow_warrior_leggings";
 	public static final String SHADOW_WARRIOR_BOOTS = "shadow_warrior_boots";
 	public static final String FRIED_CHICKEN = "fried_chicken";
+	public static final String FROST_RING = "frost_ring";
+	public static final String DISPERSIVE_RING = "dispersive_ring";
+	public static final String SPIDER_RING = "spider_ring";
+	public static final String JACKIE_CHAN_RING = "jackie_chan_ring";
+	public static final String PARKOUR_RING = "parkour_ring";
+	public static final String CURSE_RING = "curse_ring";
+	public static final String PURE_DAISY_PENDANT = "pure_daisy_pendant";
 }

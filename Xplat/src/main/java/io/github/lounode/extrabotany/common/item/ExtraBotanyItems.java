@@ -29,8 +29,7 @@ import io.github.lounode.extrabotany.common.item.equipment.armor.shadow_warrior.
 import io.github.lounode.extrabotany.common.item.equipment.armor.shadow_warrior.ShadowWarriorHelmetItem;
 import io.github.lounode.extrabotany.common.item.equipment.armor.starry_idol.StarryIdolArmorItem;
 import io.github.lounode.extrabotany.common.item.equipment.armor.starry_idol.StarryIdolHeadgearItem;
-import io.github.lounode.extrabotany.common.item.equipment.bauble.FeatherOfJingweiItem;
-import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
+import io.github.lounode.extrabotany.common.item.equipment.bauble.*;
 import io.github.lounode.extrabotany.common.item.equipment.shield.ManasteelShieldItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.MagicFingerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.*;
@@ -58,6 +57,14 @@ public final class ExtraBotanyItems {
 	public static final Item featherOfJingwei = make(prefix(LibItemNames.FEATHER_OF_JINGWEI), new FeatherOfJingweiItem(unstackable()));
 	public static final Item magicFinger = make(prefix(LibItemNames.MAGIC_FINGER), new MagicFingerItem(unstackable()));
 	public static final Item walkingCane = make(prefix(LibItemNames.WALKING_CANE), new WalkingCaneItem(unstackable()));
+	public static final Item manaRingMaster = make(prefix(LibItemNames.MANA_RING_MASTER), new MasterBandOfManaItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
+	public static final Item frostRing = make(prefix(LibItemNames.FROST_RING), new FrostRingItem(unstackable()));
+	public static final Item curseRing = make(prefix(LibItemNames.CURSE_RING), new CurseRingItem(unstackable()));
+	public static final Item spiderRing = make(prefix(LibItemNames.SPIDER_RING), new SpiderRingItem(unstackable()));
+	public static final Item jackieChanRing = make(prefix(LibItemNames.JACKIE_CHAN_RING), new JackieChanRingItem(unstackable()));
+	public static final Item parkourRing = make(prefix(LibItemNames.PARKOUR_RING), new ParkourRingItem(unstackable()));
+	public static final Item dispersiveRing = make(prefix(LibItemNames.DISPERSIVE_RING), new DispersiveRingItem(unstackable()));
+	public static final Item pureDaisyPendant = make(prefix(LibItemNames.PURE_DAISY_PENDANT), new PureDaisyPendantItem(unstackable()));
 	public static final Item coreOfTheVoid = make(prefix(LibItemNames.CORE_OF_THE_VOID), new CoreOfTheVoidItem(unstackable().rarity(Rarity.UNCOMMON)));
 	public static final Item voidArchives = make(prefix(LibItemNames.VOID_ARCHIVES), new VoidArchivesItem(unstackable().rarity(Rarity.EPIC)));
 
@@ -123,7 +130,6 @@ public final class ExtraBotanyItems {
 			new ShadowWarriorArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()));
 
 	//Relic
-	public static final Item manaRingMaster = make(prefix(LibItemNames.MANA_RING_MASTER), new MasterBandOfManaItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
 	public static final Item camera = make(prefix(LibItemNames.CAMERA), new CameraItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
 	public static final Item failnaught = make(prefix(LibItemNames.FAILNAUGHT), new FailnaughtItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
 	public static final Item excalibur = make(prefix(LibItemNames.EXCALIBUR), new ExcaliburItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
@@ -216,6 +222,7 @@ public final class ExtraBotanyItems {
 	};
 	public static final Item[] MANA_USING_ITEM = {
 			camera, failnaught, excalibur, featherOfJingwei, magicFinger, coreOfTheVoid, voidArchives, walkingCane,
+			dispersiveRing, curseRing,
 			starryIdolHeadgear, starryIdolSuit, starryIdolSkirt, starryIdolBoots,
 			pleiadesCombatMaidHeadgear, pleiadesCombatMaidSuit, pleiadesCombatMaidSkirt, pleiadesCombatMaidBoots, sanguinePleiadesCombatMaidSuit,
 			shadowWarriorHelmet, shadowWarriorChestplate, shadowWarriorLeggings, shadowWarriorBoots,
@@ -227,7 +234,8 @@ public final class ExtraBotanyItems {
 	};
 	//Bauble
 	public static final Item[] RINGS = {
-			manaRingMaster,
+			manaRingMaster, frostRing, dispersiveRing, curseRing,
+			spiderRing, jackieChanRing, parkourRing
 	};
 
 	public static final Item[] BODY = {

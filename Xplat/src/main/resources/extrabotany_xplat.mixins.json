@@ -4,6 +4,7 @@
   "package": "io.github.lounode.extrabotany.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "CustomClimbingItemMixin",
     "DenyJumpMixin",
     "ElementiumHammerFilter",
     "ItemCustomEnchantableEnchantTableSupporter",

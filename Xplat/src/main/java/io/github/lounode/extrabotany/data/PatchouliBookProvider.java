@@ -134,7 +134,6 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 		PatchouliBuilder.entry(CATEGORY)
 				.withName("extrabotany.entry.fuels")
 				.withIcon(ExtraBotanyItems.nightmareFuel)
-				.withAdvancement(ResourceLocation.tryParse("botania:main/mana_pool_pickup"))
 				.pages(
 						text("extrabotany.page.fuels0"),
 						manaInfusion(ExtraBotanyItems.nightmareFuel)
@@ -558,9 +557,6 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				)
 				.extraRecipeMapping(ExtrabotanyFlowerBlocks.edelweissFloating, 1)
 				.save(consumer, id("edelweiss"));
-		PatchouliBuilder.entry(CATEGORY)
-				.withName("extrabotany.entry.noisling")
-				.withIcon(ExtrabotanyFlowerBlocks.noisling)
 		PatchouliBuilder.entry(GENERATING_FLOWERS)
 				.withName("extrabotany.entry.resoncund")
 				.withIcon(ExtrabotanyFlowerBlocks.resoncund)
@@ -570,13 +566,62 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				)
 				.extraRecipeMapping(ExtrabotanyFlowerBlocks.resoncundFloating, 1)
 				.save(consumer, id("resoncund"));
+		PatchouliBuilder.entry(BAUBLES)
+				.withName("extrabotany.entry.frost_ring")
+				.withIcon(ExtraBotanyItems.frostRing)
 				.pages(
-						text("extrabotany.page.noisling0"),
-						petal(ExtrabotanyFlowerBlocks.noisling).withText("extrabotany.page.noisling1")
+						text("extrabotany.page.frost_ring0"),
+						crafting(ExtraBotanyItems.frostRing).withText("extrabotany.page.frost_ring1")
 				)
-				.extraRecipeMapping(ExtrabotanyFlowerBlocks.noislingFloating, 1)
-				.save(consumer, id("noisling"));
-
+				.save(consumer, id("frost_ring"));
+		PatchouliBuilder.entry(BAUBLES)
+				.withName("extrabotany.entry.dispersive_ring")
+				.withIcon(ExtraBotanyItems.dispersiveRing)
+				.pages(
+						text("extrabotany.page.dispersive_ring0"),
+						crafting(ExtraBotanyItems.dispersiveRing).withText("extrabotany.page.dispersive_ring1")
+				)
+				.save(consumer, id("dispersive_ring"));
+		PatchouliBuilder.entry(BAUBLES)
+				.withName("extrabotany.entry.curse_ring")
+				.withIcon(ExtraBotanyItems.curseRing)
+				.pages(
+						text("extrabotany.page.curse_ring0"),
+						crafting(ExtraBotanyItems.curseRing).withText("extrabotany.page.curse_ring1")
+				)
+				.save(consumer, id("curse_ring"));
+		PatchouliBuilder.entry(BAUBLES)
+				.withName("extrabotany.entry.pure_daisy_pendant")
+				.withIcon(ExtraBotanyItems.pureDaisyPendant)
+				.pages(
+						text("extrabotany.page.pure_daisy_pendant0"),
+						crafting(ExtraBotanyItems.pureDaisyPendant).withText("extrabotany.page.pure_daisy_pendant1")
+				)
+				.save(consumer, id("pure_daisy_pendant"));
+		PatchouliBuilder.entry(BAUBLES)
+				.withName("extrabotany.entry.spider_ring")
+				.withIcon(ExtraBotanyItems.spiderRing)
+				.pages(
+						text("extrabotany.page.spider_ring0"),
+						crafting(ExtraBotanyItems.spiderRing).withText("extrabotany.page.spider_ring1")
+				)
+				.save(consumer, id("spider_ring"));
+		PatchouliBuilder.entry(BAUBLES)
+				.withName("extrabotany.entry.jackie_chan_ring")
+				.withIcon(ExtraBotanyItems.jackieChanRing)
+				.pages(
+						text("extrabotany.page.jackie_chan_ring0"),
+						crafting(ExtraBotanyItems.jackieChanRing).withText("extrabotany.page.jackie_chan_ring1")
+				)
+				.save(consumer, id("jackie_chan_ring"));
+		PatchouliBuilder.entry(BAUBLES)
+				.withName("extrabotany.entry.parkour_ring")
+				.withIcon(ExtraBotanyItems.parkourRing)
+				.pages(
+						text("extrabotany.page.parkour_ring0"),
+						crafting(ExtraBotanyItems.parkourRing).withText("extrabotany.page.parkour_ring1")
+				)
+				.save(consumer, id("parkour_ring"));
 	}
 
 	private BrewPage brew(Brew brew) {

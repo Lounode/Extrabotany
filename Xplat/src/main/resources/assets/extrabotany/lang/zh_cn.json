@@ -242,6 +242,18 @@
   "item.extrabotany.goblin_slayer_leggings": "哥布林猎人护腿",
   "item.extrabotany.goblin_slayer_boots": "哥布林猎人靴子",
   "item.extrabotany.fried_chicken": "香香鸡",
+  "item.extrabotany.frost_ring": "霜冻指环",
+  "item.extrabotany.dispersive_ring": "弥散指环",
+  "item.extrabotany.curse_ring": "诅咒指环",
+  "item.extrabotany.spider_ring": "蛛行指环",
+  "item.extrabotany.jackie_chan_ring": "成龙指环",
+  "item.extrabotany.parkour_ring": "跑酷指环",
+  "item.extrabotany.pure_daisy_pendant": "白雏菊项链",
+  "item.extrabotany.lens_push": "魔力透镜：冲击",
+  "item.extrabotany.lens_smelt": "魔力透镜：冶炼",
+  "item.extrabotany.lens_mana": "魔力透镜：魔力",
+  "item.extrabotany.lens_potion": "魔力透镜：药水",
+  "item.extrabotany.lens_trace": "魔力透镜：追踪",
   
   "message.extrabotany.actionbar.mana_left": "魔力: %1$s",
   "message.extrabotany.chat.bad_struct": "无论你多么努力地尝试将%1$s送入信标之中，什么事都没有发生。也许你摆放的仪式结构有问题。",
@@ -386,7 +398,7 @@
   "extrabotany.page.magic_finger1": "双倍的快乐",
   
   "extrabotany.entry.walking_cane": "步行手杖",
-  "extrabotany.page.walking_cane0": "$(item)步行手杖$()是个好东西，将它拿在手里就会提升你的$(thing)移动速度$()。$(br2)消耗少量$(thing)魔力$()$(k:use)蓄力，它还可以带你向前方$(thing)突进$()，方便快速赶路。",
+  "extrabotany.page.walking_cane0": "$(item)步行手杖$()是个好东西，将它拿在手里就会提升你的$(thing)移动速度$()。$(br2)$(k:use)蓄力，它还可以带你向前方$(thing)突进$()，方便快速赶路。",
   "extrabotany.page.walking_cane1": "没有海象牙T-T",
   
   "extrabotany.entry.core_of_the_void": "空之律者核心",
@@ -578,12 +590,37 @@
   "extrabotany.page.edelweiss0": "许多人都曾想过在冬天挖一捧洁白的雪尝尝，$(item)雪绒花$()则想的是：“怎么在雪傀儡的身上咬下来一口”。$(br2)工作时，$(item)雪绒花$()会吃掉一定范围内的$(thing)雪傀儡$()来产生$(thing)魔力$()。",
   "extrabotany.page.edelweiss1": "又到了白色相簿的季节",
   
-  "extrabotany.entry.noisling": "闹闹花",
-  "extrabotany.page.noisling0": "声音来源于$(thing)魔力$()的共振，$(item)闹闹花$()可以逆转这个过程，生产出一定的$(thing)魔力$()。$(br2)但太多同样的声音也会使得$(item)闹闹花$()对这种声音罢工，除非让它休息一段时间。",
-  "extrabotany.page.noisling1": "三星极制服·奏之装",
   "extrabotany.entry.resoncund": "回音花",
   "extrabotany.page.resoncund0": "声音来源于$(thing)魔力$()的共振，$(item)回音花$()可以逆转这个过程，生产出一定的$(thing)魔力$()。$(br2)但太多同样的声音也会使得$(item)回音花$()对这种声音罢工，除非让它休息一段时间。",
   "extrabotany.page.resoncund1": "三星极制服·奏之装",
+  
+  "extrabotany.entry.frost_ring": "霜冻指环",
+  "extrabotany.page.frost_ring0": "佩戴$(item)霜冻指环$()，可以让你在没有$(thing)冰霜行者$()的情况下冻结周围的$(thing)水$()，并凝固周围的$(thing)熔岩$()。$(br2)看向生物时，还会使它们略微减速。",
+  "extrabotany.page.frost_ring1": "我是天灾的冰冻之心",
+  
+  "extrabotany.entry.dispersive_ring": "弥散指环",
+  "extrabotany.page.dispersive_ring0": "$(item)弥散指环$()可以将你身上$(item)魔力石板$()、$(item)魔力之戒$()等储魔物品中的$(thing)魔力$()导出，供给给附近的$(thing)功能花$()使用。",
+  "extrabotany.page.dispersive_ring1": "假面骑士Drive",
+  
+  "extrabotany.entry.curse_ring": "诅咒指环",
+  "extrabotany.page.curse_ring0": "借助$(item)凋灵骷髅头颅$()的力量，$(item)诅咒指环$()能消耗少量的$(thing)魔力$()使小范围内所视的生物获得$(thing)凋零$()和$(thing)霉运$()效果。",
+  "extrabotany.page.curse_ring1": "诅咒锻造",
+  
+  "extrabotany.entry.pure_daisy_pendant": "白雏菊项链",
+  "extrabotany.page.pure_daisy_pendant0": "$(item)白雏菊项链$()可以使佩戴者拥有与$(item)白雏菊$()类似的能力，空手$(thing)$(k:use)$()方块并消耗少量$(thing)魔力$()，就可以使得$(item)原木$()变为$(item)活木原木$()，$(item)石头$()变为$(item)活石$()，等等……",
+  "extrabotany.page.pure_daisy_pendant1": "神之手",
+  
+  "extrabotany.entry.spider_ring": "蛛行指环",
+  "extrabotany.page.spider_ring0": "$(item)蛛行指环$()可以让佩戴者拥有和$(thing)蜘蛛$()一样$(thing)贴墙爬行$()的能力，而无需$(item)梯子$()。",
+  "extrabotany.page.spider_ring1": "能力越大，责任越大",
+  
+  "extrabotany.entry.jackie_chan_ring": "成龙指环",
+  "extrabotany.page.jackie_chan_ring0": "佩戴$(item)成龙指环$()后，装备者便可以贴着墙进行跳跃，在墙壁上飞檐走壁。",
+  "extrabotany.page.jackie_chan_ring1": "只是走楼梯",
+  
+  "extrabotany.entry.parkour_ring": "跑酷指环",
+  "extrabotany.page.parkour_ring0": "将$(item)蛛行指环$()与$(item)成龙指环$()的优点组合在一起，这就是$(item)跑酷指环$()。$(br2)佩戴时免疫摔落伤害。",
+  "extrabotany.page.parkour_ring1": "还是PVP大佬",
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""

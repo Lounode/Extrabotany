@@ -17,8 +17,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.mana.ManaItemHandler;
-
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.common.util.SoundEventUtil;
 
@@ -58,18 +56,18 @@ public class WalkingCaneItem extends Item implements Vanishable {
 		}
 
 		int time = getUseDuration(stack) - timeLeft;
-		if (ManaItemHandler.instance().requestManaExactForTool(stack, player, getManaPerUse(), true)) {
-			player.getFoodData().addExhaustion(getExhaustion());
-			player.setSprinting(true);
+		//if (ManaItemHandler.instance().requestManaExactForTool(stack, player, getManaPerUse(), true)) {
+		player.getFoodData().addExhaustion(getExhaustion());
+		player.setSprinting(true);
 
-			player.addDeltaMovement(getAdditionDeltaMovement(player, time));
+		player.addDeltaMovement(getAdditionDeltaMovement(player, time));
 
-			if (level.isClientSide()) {
-				player.playNotifySound(ExtraBotanySounds.WALKING_CANE_USE, SoundSource.PLAYERS, 1.0F, SoundEventUtil.randomPitch(level));
-			}
-
-			player.getCooldowns().addCooldown(this, getCooldownTicks());
+		if (level.isClientSide()) {
+			player.playNotifySound(ExtraBotanySounds.WALKING_CANE_USE, SoundSource.PLAYERS, 1.0F, SoundEventUtil.randomPitch(level));
 		}
+
+		player.getCooldowns().addCooldown(this, getCooldownTicks());
+		//}
 	}
 
 	public Vec3 getAdditionDeltaMovement(Player player, int time) {

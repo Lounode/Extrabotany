@@ -15,6 +15,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.FloatingSpecialFlowerBlock;
 import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
 import vazkii.botania.common.item.BotaniaItems;
@@ -155,6 +156,57 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
 				.requires(BotaniaItems.dice)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.dice))
 				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.pureDaisyPendant)
+				.define('P', BotaniaFlowerBlocks.pureDaisy)
+				.define('E', BotaniaTags.Items.NUGGETS_ELEMENTIUM)
+				.pattern("PEP")
+				.pattern(" P ")
+				.pattern("   ")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaFlowerBlocks.pureDaisy))
+				.save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, ExtraBotanyItems.dispersiveRing)
+				.requires(BotaniaItems.manaRing)
+				.requires(BotaniaItems.runeMana)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaRing))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.frostRing)
+				.define('M', BotaniaTags.Items.INGOTS_MANASTEEL)
+				.define('I', Items.ICE)
+				.pattern("IM ")
+				.pattern("M M")
+				.pattern(" M ")
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.curseRing)
+				.define('M', BotaniaTags.Items.INGOTS_MANASTEEL)
+				.define('S', Items.WITHER_SKELETON_SKULL)
+				.pattern("SM ")
+				.pattern("M M")
+				.pattern(" M ")
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.spiderRing)
+				.define('M', BotaniaTags.Items.INGOTS_MANASTEEL)
+				.define('S', Items.SPIDER_EYE)
+				.pattern("SM ")
+				.pattern("M M")
+				.pattern(" M ")
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ExtraBotanyItems.jackieChanRing)
+				.define('M', BotaniaTags.Items.INGOTS_MANASTEEL)
+				.define('S', Items.STICKY_PISTON)
+				.pattern("SM ")
+				.pattern("M M")
+				.pattern(" M ")
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
+				.save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, ExtraBotanyItems.parkourRing)
+				.requires(ExtraBotanyItems.spiderRing)
+				.requires(ExtraBotanyItems.jackieChanRing)
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
+				.save(consumer);
+
 	}
 
 	private void registerTools(Consumer<FinishedRecipe> consumer) {

@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.StateIngredient;
+import vazkii.botania.client.integration.jei.PureDaisyRecipeCategory;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.brew.BaseBrewItem;
@@ -106,6 +107,7 @@ public class JEIExtraBotanyPlugin implements IModPlugin {
 		}
 		registry.addRecipeCatalyst(new ItemStack(ExtrabotanyFlowerBlocks.stonesia), StonesiaRecipeCategory.TYPE);
 		registry.addRecipeCatalyst(new ItemStack(ExtrabotanyFlowerBlocks.stonesiaFloating), StonesiaRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ExtraBotanyItems.pureDaisyPendant), PureDaisyRecipeCategory.TYPE);
 	}
 
 	@Override

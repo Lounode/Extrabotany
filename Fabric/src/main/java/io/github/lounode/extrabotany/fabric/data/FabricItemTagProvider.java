@@ -43,6 +43,7 @@ public class FabricItemTagProvider extends ItemTagProvider {
 	private void generateAccessoryTags() {
 		this.tag(accessory("hand/ring")).add(RINGS);
 		this.tag(accessory("offhand/ring")).add(RINGS);
+		this.tag(accessory("chest/necklace")).add(pureDaisyPendant);
 		this.tag(accessory("all")).add(ALL_SLOT);
 		this.tag(accessory("chest/cape")).add(BODY);
 	}

@@ -64,11 +64,11 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
 
 		this.generateToolTags();
 		this.generateAccessoryTags();
-		//TODO 盖亚bossTag
 	}
 
 	private void generateAccessoryTags() {
 		tag(accessory("ring")).add(RINGS);
+		tag(accessory("necklace")).add(pureDaisyPendant);
 		tag(accessory(("body"))).add(BODY);
 		tag(accessory("curio")).add(ALL_SLOT);
 	}
