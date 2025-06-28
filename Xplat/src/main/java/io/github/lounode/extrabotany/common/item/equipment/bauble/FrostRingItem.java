@@ -55,7 +55,7 @@ public class FrostRingItem extends BaubleItem {
 		double d0 = vec31.length();
 		vec31 = vec31.normalize();
 		double d1 = vec3.dot(vec31);
-		return d1 > (double) 1.0F - 0.025 / d0 ? from.hasLineOfSight(toCheck) : false;
+		return d1 > (double) 1.0F - 0.025 / d0 && from.hasLineOfSight(toCheck);
 	}
 
 	public static void freezeLava(LivingEntity living, Level level, BlockPos pos, int levelConflicting) {
