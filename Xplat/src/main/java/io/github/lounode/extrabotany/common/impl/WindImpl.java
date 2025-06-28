@@ -3,6 +3,9 @@ package io.github.lounode.extrabotany.common.impl;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import io.github.lounode.eventwrapper.event.level.LevelEventWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
+import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.api.level.Wind;
 
 import java.util.LinkedHashMap;
@@ -84,16 +87,19 @@ public class WindImpl implements Wind {
 		}
 	}
 
-	//@EventBusSubscriberWrapper
+	@EventBusSubscriberWrapper
 	public static class EventHandler {
-		//public static void onLevelLoad()
-		public static void onLevelLoad(Level level) {
+
+		@SubscribeEventWrapper
+		public static void onLevelLoad(LevelEventWrapper.Load event) {
+			Level level = (Level) event.getLevel();
 			if (!WIND_MAP.containsKey(level)) {
 				WIND_MAP.put(level, new LevelWind(level));
 			}
 		}
 
-		public static void onLevelUnLoad(Level level) {
+		public static void onLevelUnLoad(LevelEventWrapper.Unload event) {
+			Level level = (Level) event.getLevel();
 			WIND_MAP.remove(level);
 		}
 

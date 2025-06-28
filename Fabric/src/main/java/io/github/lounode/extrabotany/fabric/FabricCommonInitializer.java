@@ -2,7 +2,6 @@ package io.github.lounode.extrabotany.fabric;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -147,8 +146,6 @@ public class FabricCommonInitializer implements ModInitializer {
 			}
 		});
 
-		ServerWorldEvents.LOAD.register((server, level) -> WindImpl.EventHandler.onLevelLoad(level));
-		ServerWorldEvents.UNLOAD.register((server, level) -> WindImpl.EventHandler.onLevelUnLoad(level));
 		ServerTickEvents.START_WORLD_TICK.register(WindImpl.EventHandler::onLevelTick);
 
 		RewardBagManager.registerListener();

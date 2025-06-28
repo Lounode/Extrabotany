@@ -23,6 +23,7 @@ import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.brew.effect.BloodthirstMobEffect;
 
 import io.github.lounode.eventwrapper.event.entity.living.LivingDamageEventWrapper;
+import io.github.lounode.eventwrapper.event.entity.living.LivingDeathEventWrapper;
 import io.github.lounode.eventwrapper.event.entity.living.MobEffectEventWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
@@ -103,12 +104,8 @@ public class SanguinePleiadesCombatMaidSuitItem extends PleiadesCombatMaidSuitIt
 			bloodthirstKilled.put(serverPlayer.getUUID(), 0);
 		}
 
-		//TODO LivingDeathEvent
 		@SubscribeEventWrapper
-		public static void onKilled(LivingDamageEventWrapper event) {
-			if (event.getEntity().getHealth() - event.getAmount() > 0) {
-				return;
-			}
+		public static void onKilled(LivingDeathEventWrapper event) {
 			if (!(event.getSource().getEntity() instanceof ServerPlayer serverPlayer)) {
 				return;
 			}

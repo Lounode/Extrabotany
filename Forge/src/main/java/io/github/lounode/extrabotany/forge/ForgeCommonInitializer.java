@@ -22,7 +22,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -176,8 +175,6 @@ public class ForgeCommonInitializer {
 		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
 		bus.addGenericListener(Level.class, this::attachLevelCaps);
 
-		bus.addListener((LevelEvent.Load event) -> WindImpl.EventHandler.onLevelLoad((Level) event.getLevel()));
-		bus.addListener((LevelEvent.Unload event) -> WindImpl.EventHandler.onLevelUnLoad((Level) event.getLevel()));
 		bus.addListener((TickEvent.LevelTickEvent event) -> WindImpl.EventHandler.onLevelTick(event.level));
 
 		RewardBagManager.registerListener();
