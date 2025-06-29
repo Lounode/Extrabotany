@@ -1,4 +1,37 @@
-# Current Version: 1.20.1-1.4.0 Release (2025.6.22)
+# Current Version: 1.20.1-1.5.0 Release (2025.6.29)
+### New
+#### New Generating Flower: `Resoncund`
+Sounds comes from the resonance of mana. Resoncund can reverse this process and produce a certain amount of mana.
+
+But too many of the same sounds will cause Resoncund to go on strike against this sound unless it is allowed to rest for a while.
+#### New Bauble: `Pure Daisy Pendant`
+Pure Daisy Pendant gives the wearer abilities similar to the Pure Daisy. 
+
+`Right Click` a block using empty hand and consuming a small amount of mana, it can turn `Logs` into `Livingwood Logs`, `Stones` into `Livingrocks`, and so on...
+#### New Bauble: `Dispersive Ring`
+Dispersive Ring can export the mana from your Mana Tablet, Mana Ring or other mana storage items, and supply it to nearby Functional Flowers for use.
+#### New Bauble: `Frost Ring`
+Wearing a Frost Ring allows you to freeze surrounding Water and solidify surrounding Lava without a Frost Walker. Looking at mobs will also slow them down slightly.
+#### New Bauble: `Curse Ring`
+With the power of Wither Skeleton Skull, Cursed Ring can consume a small amount of Mana to make entities in a small area gain Wither and Bad Luck effects.
+#### New Bauble: `Spider Ring`
+Spider Ring allows the wearer to have the ability to climbing the walls like a Spider, without the need for Ladders.
+#### New Bauble: `Jackie Chan Ring`
+When equipped the Jackie Chan Ring, wearer can jump along the wall.
+#### New Bauble: `Parkour Ring`
+Combining the advantages of Spider Ring and Jackie Chan Ring, this is Parkour Ring. 
+
+Immune to fall damage while wearing it.
+
+### Change&Optimize
+- Updated `Event Wrapper` require to 1.1.2
+- Removed mana require when using Walking Cane
+- Moved some Patchouli page to other category
+- Changed sorting of some items in creative mode
+### Bugfix
+- Fixed some wrong text in Patchouli book
+- Removed Herobrine
+## 1.20.1-1.4.0 Release (2025.6.22)
 ### New
 #### New Generating Flower: `Stonesia`
 Place Stonesia near your mine or cobblestone generator! 
