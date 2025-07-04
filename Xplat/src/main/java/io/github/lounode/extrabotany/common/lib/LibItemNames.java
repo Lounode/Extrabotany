@@ -82,4 +82,11 @@ public final class LibItemNames {
 	public static final String PARKOUR_RING = "parkour_ring";
 	public static final String CURSE_RING = "curse_ring";
 	public static final String PURE_DAISY_PENDANT = "pure_daisy_pendant";
+	public static final String LENS_PUSH = "lens_push";
+	public static final String LENS_SMELT = "lens_smelt";
+	public static final String LENS_MANA = "lens_mana";
+	public static final String LENS_POTION = "lens_potion";
+	public static final String LENS_CLOUD = "lens_cloud";
+	public static final String LENS_TRACE = "lens_trace";
+	public static final String LENS_SUPERCONDUCTOR = "lens_superconductor";
 }

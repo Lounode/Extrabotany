@@ -25,4 +25,11 @@ public class LibBlockNames {
 	public static final ResourceLocation EDELWEISS = prefix("edelweiss");
 	public static final ResourceLocation DINIVA = prefix("diniva");
 	public static final ResourceLocation RESONCUND = prefix("resoncund");
+	public static final ResourceLocation MOONLIGHT_LILY = prefix("moonlight_lily");
+	public static final ResourceLocation SUNSHINE_LILY = prefix("sunshine_lily");
+	public static final ResourceLocation SERENITIAN = prefix("serenitian");
+	public static final ResourceLocation TWINSTAR = prefix("twinstar");
+	public static final ResourceLocation OMNIVIOLET = prefix("omniviolet");
+	public static final ResourceLocation TINKLE = prefix("tinkle");
+	public static final ResourceLocation BLOOD_ENCHANTRESS = prefix("blood_enchantress");
 }

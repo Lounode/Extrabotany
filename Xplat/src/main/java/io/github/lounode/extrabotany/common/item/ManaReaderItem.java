@@ -10,6 +10,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -64,7 +65,9 @@ public class ManaReaderItem extends Item {
 	}
 
 	public static boolean canReadMana(BlockEntity tile) {
-		return tile instanceof ManaReceiver || tile instanceof GeneratingFlowerBlockEntity;
+		return tile instanceof ManaReceiver ||
+				tile instanceof GeneratingFlowerBlockEntity ||
+				tile instanceof FunctionalFlowerBlockEntity;
 	}
 
 	public static int tryReadMana(BlockEntity tile) {
@@ -73,6 +76,8 @@ public class ManaReaderItem extends Item {
 			mana = receiver.getCurrentMana();
 		} else if (tile instanceof GeneratingFlowerBlockEntity genFlower) {
 			mana = genFlower.getMana();
+		} else if (tile instanceof FunctionalFlowerBlockEntity funcFlower) {
+			mana = funcFlower.getMana();
 		}
 
 		return mana;

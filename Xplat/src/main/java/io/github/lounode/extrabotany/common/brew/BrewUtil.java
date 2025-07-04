@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.common.brew;
 
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
@@ -7,21 +8,32 @@ import net.minecraft.world.item.Items;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BrewUtil {
 	public static final String TAG_BREW_KEY = "brewKey";
 
 	public static Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.instance().getBrewRegistry().get(ResourceLocation.tryParse(key));
+		Registry<Brew> registry = BotaniaAPI.instance().getBrewRegistry();
+		if (registry == null) {
+			return BotaniaBrews.fallbackBrew;
+		}
+		ResourceLocation location = ResourceLocation.tryParse(key);
+		if (location == null) {
+			return BotaniaBrews.fallbackBrew;
+		}
+		Brew brew = registry.get(location);
+		return brew != null ? brew : BotaniaBrews.fallbackBrew;
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		ResourceLocation id = BotaniaAPI.instance().getBrewRegistry().getKey(brew);
+		ResourceLocation id = Objects.requireNonNull(BotaniaAPI.instance().getBrewRegistry()).getKey(brew);
 		ItemNBTHelper.setString(stack, TAG_BREW_KEY, id.toString());
 	}
 

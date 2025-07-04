@@ -4,6 +4,7 @@
   "package": "io.github.lounode.extrabotany.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "GetBlockEnchantLevelMixin",
     "ServerPlayerGameModeFabricMixin"
   ],
   "injectors": {

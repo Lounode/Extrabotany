@@ -49,6 +49,14 @@ public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
 		EventsWrapper.register(this);
 	}
 
+	@Override
+	public void tickFlower() {
+		super.tickFlower();
+		if (ticksExisted % 20 == 0) {
+			sync();
+		}
+	}
+
 	public void onSoundHeard(SoundEvent soundEvent) {
 		int count = SOUND_HEARD.getUnchecked(soundEvent);
 		if (count > Integer.MAX_VALUE - 1) {
@@ -60,7 +68,6 @@ public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
 		produce = Math.max(getMinProduce(), produce);
 
 		addMana(produce);
-		sync();
 
 		SOUND_HEARD.put(soundEvent, count + 1);
 	}

@@ -4,6 +4,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.common.block.flower.functional.AnnoyingFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.functional.SerenitianBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.generating.*;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
@@ -104,6 +105,19 @@ public class FabricExtraBotanyConfig {
 		public final PropertyMirror<Integer> edelweissCooldown = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Integer> resoncundMaxMana = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Integer> resoncundLossPerHeard = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> sunshineLilyMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> sunshineLilyProduceMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> moonlightLilyMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> moonlightLilyProduceMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> twinstarMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> twinstarMaxTemperature = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> twinstarMinTemperature = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> omnivioletMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> tinkleMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> tinkleProduceMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> bloodEnchantressMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> bloodEnchantressProduceMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> serenitianRange = PropertyMirror.create(INTEGER);
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder
@@ -338,6 +352,105 @@ public class FabricExtraBotanyConfig {
 							Mana produce decreases per same sound heard""")
 					.finishValue(resoncundLossPerHeard::mirror)
 					.finishBranch() // End resoncund
+					.fork("sunshineLily").withComment("""
+							日曜百合
+							Sunshine Lily""")
+					.beginValue("maxMana", INTEGER, SunshineLilyBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(sunshineLilyMaxMana::mirror)
+					.beginValue("produceMana", INTEGER, SunshineLilyBlockEntity.MANA_PER_GENERATE)
+					.withComment("""
+							每次生成的魔力量
+							Mana generated per produce""")
+					.finishValue(sunshineLilyProduceMana::mirror)
+					.finishBranch()//End sunshineLily
+
+					.fork("moonlightLily").withComment("""
+							月耀百合
+							Moonlight Lily""")
+					.beginValue("maxMana", INTEGER, MoonlightLilyBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(moonlightLilyMaxMana::mirror)
+					.beginValue("produceMana", INTEGER, MoonlightLilyBlockEntity.MANA_PER_GENERATE)
+					.withComment("""
+							每次生成的魔力量
+							Mana generated per produce""")
+					.finishValue(moonlightLilyProduceMana::mirror)
+					.finishBranch()//End moonlightLily
+
+					.fork("twinstar").withComment("""
+							双子兰
+							Twinstar""")
+					.beginValue("maxMana", INTEGER, TwinstarBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(twinstarMaxMana::mirror)
+					.beginValue("maxTemperatureCap", INTEGER, TwinstarBlockEntity.TEMPERATURE_MAX)
+					.withComment("""
+							最大接受流体温度
+							Maximum accepted temperature cap for liquid""")
+					.finishValue(twinstarMaxTemperature::mirror)
+					.beginValue("minTemperatureCap", INTEGER, TwinstarBlockEntity.TEMPERATURE_MIN)
+					.withComment("""
+							最低接受流体温度
+							Minimum accepted temperature cap for liquid""")
+					.finishValue(twinstarMinTemperature::mirror)
+					.finishBranch()//End twinstar
+
+					.fork("omniviolet").withComment("""
+							全知瑾
+							Omniviolet""")
+					.beginValue("maxMana", INTEGER, OmnivioletBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(omnivioletMaxMana::mirror)
+					.finishBranch()//End omniviolet
+
+					.fork("tinkle").withComment("""
+							叮当花
+							Tinkle""")
+					.beginValue("maxMana", INTEGER, TinkleBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(tinkleMaxMana::mirror)
+					.beginValue("produceMana", INTEGER, TinkleBlockEntity.PRODUCE_MANA)
+					.withComment("""
+							每次生成的魔力量
+							Mana generated per produce""")
+					.finishValue(tinkleProduceMana::mirror)
+					.finishBranch()//End tinkle
+
+					.fork("bloodEnchantress").withComment("""
+							鲜血妖姬
+							Blood Enchantress""")
+					.beginValue("maxMana", INTEGER, BloodEnchantressBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(bloodEnchantressMaxMana::mirror)
+					.beginValue("produceMana", INTEGER, BloodEnchantressBlockEntity.PRODUCE_MANA)
+					.withComment("""
+							每次生成的魔力量
+							Mana generated per produce""")
+					.finishValue(bloodEnchantressProduceMana::mirror)
+					.finishBranch()//End bloodEnchantress
+
+					.fork("serenitian").withComment("""
+							永寂龙胆
+							Serenitian""")
+					.beginValue("range", INTEGER, SerenitianBlockEntity.RANGE)
+					.withComment("""
+							作用范围(方块半径)
+							Working range in blocks""")
+					.finishValue(serenitianRange::mirror)
+					.finishBranch()//End serenitian
 
 					.finishBranch()//End flower
 
@@ -504,6 +617,71 @@ public class FabricExtraBotanyConfig {
 		@Override
 		public int resoncundLossPerHeard() {
 			return resoncundLossPerHeard.getValue();
+		}
+
+		@Override
+		public int sunshineLilyMaxMana() {
+			return sunshineLilyMaxMana.getValue();
+		}
+
+		@Override
+		public int sunshineLilyProduceMana() {
+			return sunshineLilyProduceMana.getValue();
+		}
+
+		@Override
+		public int moonlightLilyMaxMana() {
+			return moonlightLilyMaxMana.getValue();
+		}
+
+		@Override
+		public int moonlightLilyProduceMana() {
+			return moonlightLilyProduceMana.getValue();
+		}
+
+		@Override
+		public int twinstarMaxMana() {
+			return twinstarMaxMana.getValue();
+		}
+
+		@Override
+		public int twinstarMaxTemperature() {
+			return twinstarMaxTemperature.getValue();
+		}
+
+		@Override
+		public int twinstarMinTemperature() {
+			return twinstarMinTemperature.getValue();
+		}
+
+		@Override
+		public int omnivioletMaxMana() {
+			return omnivioletMaxMana.getValue();
+		}
+
+		@Override
+		public int tinkleMaxMana() {
+			return tinkleMaxMana.getValue();
+		}
+
+		@Override
+		public int tinkleProduceMana() {
+			return tinkleProduceMana.getValue();
+		}
+
+		@Override
+		public int bloodEnchantressMaxMana() {
+			return bloodEnchantressMaxMana.getValue();
+		}
+
+		@Override
+		public int bloodEnchantressProduceMana() {
+			return bloodEnchantressProduceMana.getValue();
+		}
+
+		@Override
+		public int serenitianRange() {
+			return serenitianRange.getValue();
 		}
 	}
 

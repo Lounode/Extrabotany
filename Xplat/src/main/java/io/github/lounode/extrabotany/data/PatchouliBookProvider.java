@@ -622,6 +622,69 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						crafting(ExtraBotanyItems.parkourRing).withText("extrabotany.page.parkour_ring1")
 				)
 				.save(consumer, id("parkour_ring"));
+		PatchouliBuilder.entry(GENERATING_FLOWERS)
+				.withName("extrabotany.entry.sunshine_lily")
+				.withIcon(ExtrabotanyFlowerBlocks.sunshineLily)
+				.pages(
+						text("extrabotany.page.sunshine_lily0"),
+						petal(ExtrabotanyFlowerBlocks.sunshineLily).withText("extrabotany.page.sunshine_lily1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.sunshineLilyFloating, 1)
+				.save(consumer, id("sunshine_lily"));
+		PatchouliBuilder.entry(GENERATING_FLOWERS)
+				.withName("extrabotany.entry.moonlight_lily")
+				.withIcon(ExtrabotanyFlowerBlocks.moonlightLily)
+				.pages(
+						text("extrabotany.page.moonlight_lily0"),
+						petal(ExtrabotanyFlowerBlocks.moonlightLily).withText("extrabotany.page.moonlight_lily1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.moonlightLily, 1)
+				.save(consumer, id("moonlight_lily"));
+		PatchouliBuilder.entry(FUNCTIONAL_FLOWERS)
+				.withName("extrabotany.entry.serenitian")
+				.withIcon(ExtrabotanyFlowerBlocks.serenitian)
+				.pages(
+						text("extrabotany.page.serenitian0"),
+						petal(ExtrabotanyFlowerBlocks.serenitian).withText("extrabotany.page.serenitian1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.serenitian, 1)
+				.save(consumer, id("serenitian"));
+		PatchouliBuilder.entry(GENERATING_FLOWERS)
+				.withName("extrabotany.entry.twinstar")
+				.withIcon(ExtrabotanyFlowerBlocks.twinstar)
+				.pages(
+						text("extrabotany.page.twinstar0"),
+						petal(ExtrabotanyFlowerBlocks.twinstar).withText("extrabotany.page.twinstar1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.twinstar, 1)
+				.save(consumer, id("twinstar"));
+		PatchouliBuilder.entry(GENERATING_FLOWERS)
+				.withName("extrabotany.entry.omniviolet")
+				.withIcon(ExtrabotanyFlowerBlocks.omniviolet)
+				.pages(
+						text("extrabotany.page.omniviolet0"),
+						petal(ExtrabotanyFlowerBlocks.omniviolet).withText("extrabotany.page.omniviolet1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.omniviolet, 1)
+				.save(consumer, id("omniviolet"));
+		PatchouliBuilder.entry(GENERATING_FLOWERS)
+				.withName("extrabotany.entry.tinkle")
+				.withIcon(ExtrabotanyFlowerBlocks.tinkle)
+				.pages(
+						text("extrabotany.page.tinkle0"),
+						petal(ExtrabotanyFlowerBlocks.tinkle).withText("extrabotany.page.tinkle1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.tinkle, 1)
+				.save(consumer, id("tinkle"));
+		PatchouliBuilder.entry(GENERATING_FLOWERS)
+				.withName("extrabotany.entry.blood_enchantress")
+				.withIcon(ExtrabotanyFlowerBlocks.bloodEnchantress)
+				.pages(
+						text("extrabotany.page.blood_enchantress0"),
+						petal(ExtrabotanyFlowerBlocks.bloodEnchantress).withText("extrabotany.page.blood_enchantress1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.bloodEnchantress, 2)
+				.save(consumer, id("blood_enchantress"));
 	}
 
 	private BrewPage brew(Brew brew) {

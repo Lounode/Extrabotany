@@ -54,9 +54,46 @@ public class ExtraBotanyConfig {
 		int reikarlilySpawnLightningCooldown();
 		int reikarlilyPassiveGenerateTime();
 		int reikarlilyPassiveGenerateMana();
+
 		//Bellflower
 		int bellflowerMaxMana();
 		double bellflowerGenerateModify();
+
+		//Stonesia
+		int stonesiaMaxMana();
+		int stonesiaCooldown();
+
+		//Edelweiss
+		int edelweissMaxMana();
+		int edelweissCooldown();
+
+		//Resoncund
+		int resoncundMaxMana();
+		int resoncundLossPerHeard();
+
+		//SunshineLily
+		int sunshineLilyMaxMana();
+		int sunshineLilyProduceMana();
+
+		//MoonlightLily
+		int moonlightLilyMaxMana();
+		int moonlightLilyProduceMana();
+
+		//Twinstar
+		int twinstarMaxMana();
+		int twinstarMaxTemperature();
+		int twinstarMinTemperature();
+
+		//Omniviolet
+		int omnivioletMaxMana();
+
+		//Tinkle
+		int tinkleMaxMana();
+		int tinkleProduceMana();
+
+		//BloodEnchantress
+		int bloodEnchantressMaxMana();
+		int bloodEnchantressProduceMana();
 
 		//Functional
 		//TradeOrchid
@@ -79,16 +116,7 @@ public class ExtraBotanyConfig {
 		int annoyingflowerFoodBoostTimes();
 		double annoyingflowerFoodBoostCooldownMultiplier();
 
-		//Stonesia
-		int stonesiaMaxMana();
-		int stonesiaCooldown();
-
-		//Edelweiss
-		int edelweissMaxMana();
-		int edelweissCooldown();
-
-		//Resoncund
-		int resoncundMaxMana();
-		int resoncundLossPerHeard();
+		//Serenitian
+		int serenitianRange();
 	}
 }

@@ -36,9 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.block.flower.functional.WoodieniaBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.generating.BellflowerBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.generating.ReikarlilyBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.generating.ResoncundBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.generating.*;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 
 import java.nio.file.Path;
@@ -89,6 +87,10 @@ public class BlockLootProvider implements DataProvider {
 		functionTable.put(ExtrabotanyFlowerBlocks.bellflowerFloating, b -> genCopyNbt(b, BellflowerBlockEntity.TAG_PASSIVE_DECAY_TICKS));
 		functionTable.put(ExtrabotanyFlowerBlocks.resoncund, b -> genCopyNbt(b, ResoncundBlockEntity.TAG_SOUND_HEARD));
 		functionTable.put(ExtrabotanyFlowerBlocks.resoncundFloating, b -> genCopyNbt(b, ResoncundBlockEntity.TAG_SOUND_HEARD));
+		functionTable.put(ExtrabotanyFlowerBlocks.sunshineLily, b -> genCopyNbt(b, SunshineLilyBlockEntity.TAG_PASSIVE_DECAY_TICKS));
+		functionTable.put(ExtrabotanyFlowerBlocks.sunshineLilyFloating, b -> genCopyNbt(b, SunshineLilyBlockEntity.TAG_PASSIVE_DECAY_TICKS));
+		functionTable.put(ExtrabotanyFlowerBlocks.moonlightLily, b -> genCopyNbt(b, MoonlightLilyBlockEntity.TAG_PASSIVE_DECAY_TICKS));
+		functionTable.put(ExtrabotanyFlowerBlocks.moonlightLilyFloating, b -> genCopyNbt(b, MoonlightLilyBlockEntity.TAG_PASSIVE_DECAY_TICKS));
 	}
 
 	@Override

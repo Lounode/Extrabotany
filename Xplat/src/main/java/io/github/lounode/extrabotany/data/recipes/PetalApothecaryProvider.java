@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.data.recipes;
 
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import vazkii.botania.common.item.BotaniaItems;
@@ -65,6 +66,13 @@ public class PetalApothecaryProvider extends vazkii.botania.data.recipes.PetalAp
 		consumer.accept(make(ExtrabotanyFlowerBlocks.stonesia, gray, gray, black, gaiaSpirit, runeAutumn, runeGluttony));
 		consumer.accept(make(ExtrabotanyFlowerBlocks.edelweiss, white, white, white, lightBlue, lightBlue, manaDust, runeMana, runeWinter));
 		consumer.accept(make(ExtrabotanyFlowerBlocks.resoncund, magenta, magenta, orange, orange, runeLust, runeGluttony));
+		consumer.accept(make(ExtrabotanyFlowerBlocks.sunshineLily, yellow, yellow, orange, lightBlue));
+		consumer.accept(make(ExtrabotanyFlowerBlocks.moonlightLily, black, black, purple, gray));
+		consumer.accept(make(ExtrabotanyFlowerBlocks.serenitian, purple, purple, blue, blue, runeMana, runeSloth, runeGreed, gaiaSpirit, Ingredient.of(Items.WITHER_ROSE)));
+		consumer.accept(make(ExtrabotanyFlowerBlocks.twinstar, yellow, yellow, yellow, orange, orange, orange, manaDust, manaDust));
+		consumer.accept(make(ExtrabotanyFlowerBlocks.omniviolet, purple, purple, blue, blue, runeSpring, runeMana, runeLust));
+		consumer.accept(make(ExtrabotanyFlowerBlocks.tinkle, yellow, yellow, green, lime, runeWater, runeEarth, manaDust, spritFragment, spritFragment));
+		consumer.accept(make(ExtrabotanyFlowerBlocks.bloodEnchantress, red, red, red, red, runeFire, runeSummer, runeWrath));
 
 	}
 

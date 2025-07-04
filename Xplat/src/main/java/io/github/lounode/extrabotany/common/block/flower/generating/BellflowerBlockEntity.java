@@ -22,6 +22,7 @@ import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.flower.functional.DaffomillBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
 
+import io.github.lounode.extrabotany.api.block.PassiveFlower;
 import io.github.lounode.extrabotany.api.level.Wind;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
@@ -33,14 +34,12 @@ import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
-public class BellflowerBlockEntity extends GeneratingFlowerBlockEntity {
+public class BellflowerBlockEntity extends GeneratingFlowerBlockEntity implements PassiveFlower {
 
-	public static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
 	public static final String TAG_DYING = "dying";
 
 	public static int MAX_MANA = 300;
 	public static final double GENERATE_MODIFY = 1;
-	public static final int DECAY_TIME = 72000;
 	private static final int SPACE_REQUIRE = 2;
 	private static final double WIND_LEVEL_MODIFY = 0.5D;
 
@@ -67,7 +66,7 @@ public class BellflowerBlockEntity extends GeneratingFlowerBlockEntity {
 			return;
 		}
 
-		checkToDecay();
+		checkToDecay(this);
 
 		if (!getLevel().canSeeSky(getEffectivePos())) {
 			return;
@@ -157,16 +156,6 @@ public class BellflowerBlockEntity extends GeneratingFlowerBlockEntity {
 		return negative;
 	}
 
-	public void checkToDecay() {
-		passiveDecayTicks++;
-		if (passiveDecayTicks > DECAY_TIME) {
-			getLevel().destroyBlock(getBlockPos(), false);
-			if (Blocks.DEAD_BUSH.defaultBlockState().canSurvive(getLevel(), getBlockPos())) {
-				getLevel().setBlockAndUpdate(getBlockPos(), Blocks.DEAD_BUSH.defaultBlockState());
-			}
-		}
-	}
-
 	public void checkBeBlew(BlockPos daffomillPos) {
 		var tile = getLevel().getBlockEntity(daffomillPos);
 		if (!(tile instanceof DaffomillBlockEntity daffomill)) {
@@ -218,15 +207,25 @@ public class BellflowerBlockEntity extends GeneratingFlowerBlockEntity {
 	@Override
 	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
-		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
+		setPassiveDecayTicks(cmp.getInt(TAG_PASSIVE_DECAY_TICKS));
 		dying = cmp.getBoolean(TAG_DYING);
 	}
 
 	@Override
 	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
-		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
+		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, getPassiveDecayTicks());
 		cmp.putBoolean(TAG_DYING, dying);
+	}
+
+	@Override
+	public int getPassiveDecayTicks() {
+		return passiveDecayTicks;
+	}
+
+	@Override
+	public void setPassiveDecayTicks(int ticks) {
+		this.passiveDecayTicks = ticks;
 	}
 
 	public boolean isDying() {

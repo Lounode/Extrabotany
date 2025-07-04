@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.client.renderer;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.util.Mth;
@@ -10,6 +11,7 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.item.equipment.bauble.TaintedBloodPendantItem;
+import vazkii.botania.common.item.lens.LensItem;
 
 import io.github.lounode.extrabotany.common.brew.BrewUtil;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
@@ -56,5 +58,9 @@ public class ColorHandler {
 				ExtraBotanyItems.holyWaterGrenade,
 				ExtraBotanyItems.voidArchives
 		);
+		ItemColor lensHandler = (s, t) -> t == 0 ? ((LensItem) s.getItem()).getLensColor(s, Minecraft.getInstance().level) : -1;
+		items.register(lensHandler,
+				ExtraBotanyItems.lensPush, ExtraBotanyItems.lensSmelt, ExtraBotanyItems.lensMana,
+				ExtraBotanyItems.lensPotion, ExtraBotanyItems.lensTrace);
 	}
 }

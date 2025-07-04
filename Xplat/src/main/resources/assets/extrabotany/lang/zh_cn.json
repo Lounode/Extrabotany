@@ -65,6 +65,8 @@
   "advancement.extrabotany:muromi_san.desc": "使用神烦花钓到宝藏",
   "advancement.extrabotany:its_only_the_fairy_tale": "It's Only The Fairy Tale",
   "advancement.extrabotany:its_only_the_fairy_tale.desc": "使用雪绒花吞噬一只雪傀儡",
+  "advancement.extrabotany:sekai_no_hakoniwa": "世界的箱庭",
+  "advancement.extrabotany:sekai_no_hakoniwa.desc": "合成出王之花园",
   
   "advancement.extrabotany:": "",
   
@@ -135,6 +137,41 @@
   "block.extrabotany.resoncund.reference": "我听到了灵魂的回响",
   "block.extrabotany.potted_resoncund": "回音花盆栽",
   "block.extrabotany.floating_resoncund": "浮空回音花",
+  
+  "block.extrabotany.sunshine_lily": "日曜百合",
+  "block.extrabotany.sunshine_lily.reference": "日曜赞歌",
+  "block.extrabotany.potted_sunshine_lily": "日曜百合盆栽",
+  "block.extrabotany.floating_sunshine_lily": "浮空日曜百合",
+  
+  "block.extrabotany.moonlight_lily": "月耀百合",
+  "block.extrabotany.moonlight_lily.reference": "困难模式",
+  "block.extrabotany.potted_moonlight_lily": "月耀百合盆栽",
+  "block.extrabotany.floating_moonlight_lily": "浮空月耀百合",
+  
+  "block.extrabotany.serenitian":"永寂龙胆",
+  "block.extrabotany.serenitian.reference":"无念，断绝",
+  "block.extrabotany.potted_serenitian": "永寂龙胆盆栽",
+  "block.extrabotany.floating_serenitian":"浮空永寂龙胆",
+  
+  "block.extrabotany.twinstar":"双子兰",
+  "block.extrabotany.twinstar.reference":"为什么乌鸦像写字台？",
+  "block.extrabotany.potted_twinstar":"双子兰盆栽",
+  "block.extrabotany.floating_twinstar":"浮空双子兰",
+  
+  "block.extrabotany.omniviolet":"全知瑾",
+  "block.extrabotany.omniviolet.reference":"我知万物",
+  "block.extrabotany.potted_omniviolet":"全知瑾盆栽",
+  "block.extrabotany.floating_omniviolet":"浮空全知瑾",
+  
+  "block.extrabotany.tinkle":"叮当舞花",
+  "block.extrabotany.tinkle.reference":"接下来是我的回合",
+  "block.extrabotany.potted_tinkle":"叮当舞花盆栽",
+  "block.extrabotany.floating_tinkle":"浮空叮当舞花",
+  
+  "block.extrabotany.blood_enchantress":"鲜血妖姬",
+  "block.extrabotany.blood_enchantress.reference":"用鲜血和暗影缔结契约吧",
+  "block.extrabotany.potted_blood_enchantress":"鲜血妖姬盆栽",
+  "block.extrabotany.floating_blood_enchantress":"浮空鲜血妖姬",
   
   "death.attack.extrabotany.link": "%1$s 对别人的痛苦感同身受",
   "death.attack.extrabotany.link.player": "%1$s 对 %2$s 的痛苦感同身受",
@@ -250,10 +287,15 @@
   "item.extrabotany.parkour_ring": "跑酷指环",
   "item.extrabotany.pure_daisy_pendant": "白雏菊项链",
   "item.extrabotany.lens_push": "魔力透镜：冲击",
+  "item.extrabotany.lens_push.short": "冲击",
   "item.extrabotany.lens_smelt": "魔力透镜：冶炼",
+  "item.extrabotany.lens_smelt.short": "冶炼",
   "item.extrabotany.lens_mana": "魔力透镜：魔力",
+  "item.extrabotany.lens_mana.short": "魔力",
   "item.extrabotany.lens_potion": "魔力透镜：药水",
+  "item.extrabotany.lens_potion.short": "药水",
   "item.extrabotany.lens_trace": "魔力透镜：追踪",
+  "item.extrabotany.lens_trace.short": "追踪",
   
   "message.extrabotany.actionbar.mana_left": "魔力: %1$s",
   "message.extrabotany.chat.bad_struct": "无论你多么努力地尝试将%1$s送入信标之中，什么事都没有发生。也许你摆放的仪式结构有问题。",
@@ -621,6 +663,34 @@
   "extrabotany.entry.parkour_ring": "跑酷指环",
   "extrabotany.page.parkour_ring0": "将$(item)蛛行指环$()与$(item)成龙指环$()的优点组合在一起，这就是$(item)跑酷指环$()。$(br2)佩戴时免疫摔落伤害。",
   "extrabotany.page.parkour_ring1": "还是PVP大佬",
+  
+  "extrabotany.entry.sunshine_lily": "日曜百合",
+  "extrabotany.page.sunshine_lily0": "$(item)日曜百合$()拥有着和$(item)太阳花$()一样的能力，能将阳光转化为$(thing)魔力$()。$(br2)同$(item)水绣球$()一样，它们会在大约三天后枯萎。",
+  "extrabotany.page.sunshine_lily1": "有小花在你的草坪上",
+  
+  "extrabotany.entry.moonlight_lily": "月曜百合",
+  "extrabotany.page.moonlight_lily0": "$(item)月曜百合$()拥有着和$(item)夜颠茄$()一样的能力，能在夜晚产生$(thing)魔力$(0)。$(br2)同$(item)水绣球$()一样，它们会在大约三天后枯萎。",
+  "extrabotany.page.moonlight_lily1": "愚者的播种",
+  
+  "extrabotany.entry.serenitian": "永寂龙胆",
+  "extrabotany.page.serenitian0": "$(item)永寂龙胆$()可以使周围$(thing)同一平面$()上的被动产能花停止枯萎的进程，并使进程归零。",
+  "extrabotany.page.serenitian1": "事事皆虚空",
+  
+  "extrabotany.entry.twinstar":"双子兰",
+  "extrabotany.page.twinstar0":"$(item)双子兰$()相当于一台温差发电机，假如你在其周围一格倒入岩浆，一格倒入水，它就会开始产出$(thing)魔力$()。$(br2)周围的液体$(thing)温差$()越大，$(thing)魔力$()产出也就越快。$(br2)随着时间推移，温差效应会使得它逐渐凋零，变为$(item)枯死的灌木$()。",
+  "extrabotany.page.twinstar1":"镜音双子",
+  
+  "extrabotany.entry.omniviolet":"全知瑾",
+  "extrabotany.page.omniviolet0":"知识就是力量，$(item)全知瑾$()能够将书本或成书转化为$(thing)魔力$()。$(br2)周围放置的$(item)书架$()可以起到催化剂的效果，增加其产魔效率。",
+  "extrabotany.page.omniviolet1":"阿卡夏记录",
+  
+  "extrabotany.entry.tinkle":"叮当舞花",
+  "extrabotany.page.tinkle0":"$(item)叮当舞花$()可以将玩家的动能变为$(thing)魔力$()。$(br2)玩家在其附近快速跑跳时会产出$(thing)魔力$()，但也会加速玩家的饱食度消耗。",
+  "extrabotany.page.tinkle1":"叮咚，我来找你了哦",
+  
+  "extrabotany.entry.blood_enchantress":"鲜血妖姬",
+  "extrabotany.page.blood_enchantress0":"$(item)鲜血妖姬$()能够将生物的生命值转化为$(thing)魔力$()，一旦有生物在其附近就会开始$(thing)魔力$()的转化，效率较为可观。$(br2)每次噬咬，$(item)鲜血妖姬$()都会标记这名生物，每层标记都会降低其产魔，且周围生物的标记总和超过一定值时会停止工作。",
+  "extrabotany.page.blood_enchantress1":"死亡是唯一的解药",
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""

@@ -5,11 +5,15 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.item.CustomCreativeTabContents;
+import vazkii.botania.common.item.lens.Lens;
+import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFormFlaskRecipe;
@@ -33,6 +37,7 @@ import io.github.lounode.extrabotany.common.item.equipment.bauble.*;
 import io.github.lounode.extrabotany.common.item.equipment.shield.ManasteelShieldItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.MagicFingerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.*;
+import io.github.lounode.extrabotany.common.item.lens.*;
 import io.github.lounode.extrabotany.common.item.material.ChallangeTicketItem;
 import io.github.lounode.extrabotany.common.item.material.GildedPotatoItem;
 import io.github.lounode.extrabotany.common.item.material.HammerTiers;
@@ -147,6 +152,11 @@ public final class ExtraBotanyItems {
 	public static final Item gaiaQuartz = make(prefix(LibItemNames.GAIA_QUARTZ), new Item(defaultBuilder()));
 	public static final Item elementiumQuartz = make(prefix(LibItemNames.ELEMENTIUM_QUARTZ), new Item(defaultBuilder()));
 
+	public static final Item lensPush = make(prefix(LibItemNames.LENS_PUSH), new HiddenLensItem(stackTo16(), new PushLens(), LensItem.PROP_INTERACTION | LensItem.PROP_TOUCH));
+	public static final Item lensSmelt = make(prefix(LibItemNames.LENS_SMELT), new HiddenLensItem(stackTo16(), new SmeltLens(), LensItem.PROP_TOUCH | LensItem.PROP_INTERACTION));
+	public static final Item lensMana = make(prefix(LibItemNames.LENS_MANA), new HiddenLensItem(stackTo16(), new ManaLens(), LensItem.PROP_TOUCH | LensItem.PROP_INTERACTION));
+	public static final Item lensPotion = make(prefix(LibItemNames.LENS_POTION), new HiddenLensItem(stackTo16(), new PotionLens(), LensItem.PROP_INTERACTION));
+	public static final Item lensTrace = make(prefix(LibItemNames.LENS_TRACE), new HiddenLensItem(stackTo16(), new TraceLens(), LensItem.PROP_CONTROL));
 	public static final Item dasRheingold = make(prefix(LibItemNames.DAS_RHEINGOLD), new DasRheingoldItem(defaultBuilder()));
 	public static final Item gildedPotato = make(prefix(LibItemNames.GILDED_POTATO), new GildedPotatoItem(defaultBuilder()));
 	public static final Item gildedPotatoMashed = make(prefix(LibItemNames.GILDED_POTATO_MASHED), new Item(defaultBuilder()));
@@ -263,7 +273,7 @@ public final class ExtraBotanyItems {
 	}
 
 	public static Item.Properties defaultBuilder() {
-		return new Item.Properties();
+		return XplatAbstractions.INSTANCE.defaultItemBuilder();
 	}
 
 	private static Item.Properties stackTo16() {
@@ -288,6 +298,18 @@ public final class ExtraBotanyItems {
 	public static void registerItems(BiConsumer<Item, ResourceLocation> r) {
 		for (var e : ALL.entrySet()) {
 			r.accept(e.getValue(), e.getKey());
+		}
+	}
+
+	private static class HiddenLensItem extends LensItem implements CustomCreativeTabContents {
+
+		public HiddenLensItem(Properties builder, Lens lens, int props) {
+			super(builder, lens, props);
+		}
+
+		@Override
+		public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+
 		}
 	}
 }

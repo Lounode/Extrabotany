@@ -17,7 +17,10 @@ public class JackieChanRingItem extends BaubleItem {
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
 		super.onWornTick(stack, entity);
 		entity.fallDistance = 0;
-		handleClientJumpLogic(stack, entity);
+
+		if (entity.level().isClientSide()) {
+			handleClientJumpLogic(stack, entity);
+		}
 	}
 
 	private static void handleClientJumpLogic(ItemStack stack, LivingEntity entity) {
