@@ -1,4 +1,46 @@
-# Current Version: 1.20.1-1.5.0 Release (2025.6.29)
+# Current Version:1.20.1-1.6.0 Release (2025.7.6)
+### New
+#### New Generating Flower: `Sunshine Lily`
+Sunshine Lily have the same ability as Daybloom, converting sunlight into mana.
+
+Like Hydroangeas, they will decay after about three days.
+
+#### New Generating Flower:  `Moonlight Lily`
+Moonlight Lily has the same ability as Nightshade, generating mana at night.
+
+Like Hydroangeas, they will decay after about three days.
+
+#### New Functional Flower: `Serenitian`
+Serenitian could prevent passive flowers nearby at the same floor from decay, and set the decay progress to zero.
+
+#### New Generating Flower: `Twinstar`
+Twinstar like a thermoelectric generator, If you pour lava in one block and water in one block around it, it will start producing mana.
+
+The greater the temperature difference of the surrounding liquid, the faster the mana is produced.
+
+Time goes by, the temperature difference will cause it decay and turn into a Dead Bush.
+
+#### New Generating Flower: `Omniviolet`
+Knowledge is power, Omniviolet converts Books or Written Books into Mana.
+
+Placing Bookshelves around it can increase its mana production efficiency.
+
+#### New Generating Flower: `Tinkle`
+Tinkle converts kinetic energy of nearby moving players into Mana. It will also increase players' energy consumption.
+
+#### New Generating Flower: `Blood Enchantress`
+Blood Enchantress creates Mana by consuming nearby entity's life.
+
+Each time it consumes, this entity is marked. Marks reduce its mana generation, and it will stop working when the total number of marks on nearby creatures exceeds a certain threshold.
+
+- Added `ru_ru` translate (by CurseForge: yogino)
+
+### Bugfix
+- Fixed bug that `Mana Reader` could not read mana form Functional Flower
+- Fixed bug that cause server crash on server when players equipped `Jackie Chan Ring` or `Parkour Ring`
+- Removed Herobrine
+
+## Current Version: 1.20.1-1.5.0 Release (2025.6.29)
 ### New
 #### New Generating Flower: `Resoncund`
 Sounds comes from the resonance of mana. Resoncund can reverse this process and produce a certain amount of mana.
