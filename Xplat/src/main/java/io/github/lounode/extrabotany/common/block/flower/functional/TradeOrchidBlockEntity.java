@@ -74,6 +74,7 @@ public class TradeOrchidBlockEntity extends FunctionalFlowerBlockEntity {
 			}
 
 			addMana(-getManaPerUse());
+			sync();
 		}
 
 		for (var villager : farVillagers) {

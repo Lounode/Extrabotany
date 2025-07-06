@@ -112,6 +112,7 @@ public class AnnoyingFlowerBlockEntity extends FunctionalFlowerBlockEntity {
 		setCooldown(cooldown);
 		getLevel().addFreshEntity(entity);
 		getLevel().playSound(null, getEffectivePos(), SoundEvents.FISHING_BOBBER_SPLASH, SoundSource.BLOCKS, 1F, 1F);
+		sync();
 
 		if (boosted) {
 			var players = PlayerHelper.getRealPlayersIn(getLevel(), new AABB(getBlockPos()).inflate(16));

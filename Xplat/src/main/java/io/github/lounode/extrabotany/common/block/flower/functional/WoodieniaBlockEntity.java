@@ -81,6 +81,7 @@ public class WoodieniaBlockEntity extends FunctionalFlowerBlockEntity {
 		breakBlock(getLevel(), breakCoords, player);
 		setCooldown(getAfterEatCooldown());
 		addMana(-getManaPerUse());
+		sync();
 	}
 
 	@Nullable
