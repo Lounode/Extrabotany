@@ -60,5 +60,11 @@ public final class EntityRenderers {
 		consumer.register(ExtrabotanyFlowerBlocks.OMNIVIOLET, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(ExtrabotanyFlowerBlocks.TINKLE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(ExtrabotanyFlowerBlocks.BLOOD_ENCHANTRESS, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ExtrabotanyFlowerBlocks.MIRROWTUNIA, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ExtrabotanyFlowerBlocks.NECROFLEUR, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ExtrabotanyFlowerBlocks.NECROFLEUR_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ExtrabotanyFlowerBlocks.MANALINK, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ExtrabotanyFlowerBlocks.ENCHANTER, SpecialFlowerBlockEntityRenderer::new);
+
 	}
 }

@@ -32,4 +32,8 @@ public class LibBlockNames {
 	public static final ResourceLocation OMNIVIOLET = prefix("omniviolet");
 	public static final ResourceLocation TINKLE = prefix("tinkle");
 	public static final ResourceLocation BLOOD_ENCHANTRESS = prefix("blood_enchantress");
+	public static final ResourceLocation MIRROWTUNIA = prefix("mirrowtunia");
+	public static final ResourceLocation NECROFLEUR = prefix("necrofleur");
+	public static final ResourceLocation MANALINK = prefix("manalink");
+	public static final ResourceLocation ENCHANTER = prefix("enchanter");
 }

@@ -7,6 +7,8 @@ import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
+import org.jetbrains.annotations.Nullable;
+
 import io.github.lounode.extrabotany.data.patchouli.page.IPatchouliPage;
 
 import java.util.List;
@@ -25,7 +27,11 @@ public class PatchouliEntry {
 			ResourceLocation id,
 			int sortNum,
 			ResourceLocation advancement,
-			Map<ResourceLocation, Integer> extraRecipeMappings) {
+			Map<ResourceLocation, Integer> extraRecipeMappings,
+			boolean priority,
+			boolean secret,
+			boolean read,
+			@Nullable Integer color) {
 		object.addProperty("category", category.toString());
 		object.addProperty("name", name);
 		object.addProperty("icon", getRegistryName(icon.asItem()).toString());
@@ -52,6 +58,22 @@ public class PatchouliEntry {
 			}
 
 			this.object.add("extra_recipe_mappings", mappings);
+		}
+
+		if (priority) {
+			this.object.addProperty("priority", true);
+		}
+
+		if (secret) {
+			this.object.addProperty("secret", true);
+		}
+
+		if (read) {
+			this.object.addProperty("read_by_default", true);
+		}
+
+		if (color != null) {
+			this.object.addProperty("entry_color", color.toString());
 		}
 
 		this.id = id;

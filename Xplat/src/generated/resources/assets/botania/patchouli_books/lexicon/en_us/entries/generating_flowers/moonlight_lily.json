@@ -1,7 +1,7 @@
 {
   "category": "botania:generating_flowers",
   "extra_recipe_mappings": {
-    "extrabotany:moonlight_lily": 1
+    "extrabotany:floating_moonlight_lily": 1
   },
   "icon": "extrabotany:moonlight_lily",
   "name": "extrabotany.entry.moonlight_lily",

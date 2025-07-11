@@ -27,10 +27,7 @@ import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
 
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
-import io.github.lounode.extrabotany.common.block.flower.functional.AnnoyingFlowerBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.functional.SerenitianBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.functional.WoodieniaBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.functional.*;
 import io.github.lounode.extrabotany.common.block.flower.generating.*;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
@@ -105,6 +102,25 @@ public class ExtrabotanyFlowerBlocks {
 	public static final Block bloodEnchantressFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.BLOOD_ENCHANTRESS);
 	public static final Block bloodEnchantressPotted = ExtraBotanyBlocks.flowerPot(bloodEnchantress, 0);
 
+	public static final Block mirrowtunia = createSpecialFlowerBlock(ExtraBotanyMobEffects.THIRROR, 10 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.MIRROWTUNIA);
+	public static final Block mirrowtuniaFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.MIRROWTUNIA);
+	public static final Block mirrowtuniaPotted = ExtraBotanyBlocks.flowerPot(mirrowtunia, 0);
+
+	public static final Block necrofleur = createSpecialFlowerBlock(ExtraBotanyMobEffects.HEAL_REVERSE, 10 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.NECROFLEUR);
+	public static final Block necrofleurChibi = createSpecialFlowerBlock(ExtraBotanyMobEffects.HEAL_REVERSE, 10 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.NECROFLEUR_CHIBI);
+	public static final Block necrofleurFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.NECROFLEUR);
+	public static final Block necrofleurChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.NECROFLEUR_CHIBI);
+	public static final Block necrofleurPotted = ExtraBotanyBlocks.flowerPot(necrofleur, 0);
+	public static final Block necrofleurChibiPotted = ExtraBotanyBlocks.flowerPot(necrofleurChibi, 0);
+
+	public static final Block manalink = createSpecialFlowerBlock(MobEffects.INVISIBILITY, 10 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.MANALINK);
+	public static final Block manalinkFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.MANALINK);
+	public static final Block manalinkPotted = ExtraBotanyBlocks.flowerPot(manalink, 0);
+
+	public static final Block enchanter = createSpecialFlowerBlock(MobEffects.HEAL, 0, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.ENCHANTER);
+	public static final Block enchanterFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.ENCHANTER);
+	public static final Block enchanterPotted = ExtraBotanyBlocks.flowerPot(enchanter, 0);
+
 	public static final BlockEntityType<TradeOrchidBlockEntity> TRADE_ORCHID = EXplatAbstractions.INSTANCE.createBlockEntityType(TradeOrchidBlockEntity::new, tradeOrchid, tradeOrchidFloating);
 	public static final BlockEntityType<WoodieniaBlockEntity> WOODIENIA = EXplatAbstractions.INSTANCE.createBlockEntityType(WoodieniaBlockEntity::new, woodienia, woodieniaFloating);
 	public static final BlockEntityType<ReikarlilyBlockEntity> REIKARLILY = EXplatAbstractions.INSTANCE.createBlockEntityType(ReikarlilyBlockEntity::new, reikarlily, reikarlilyFloating);
@@ -120,6 +136,11 @@ public class ExtrabotanyFlowerBlocks {
 	public static final BlockEntityType<OmnivioletBlockEntity> OMNIVIOLET = EXplatAbstractions.INSTANCE.createBlockEntityType(OmnivioletBlockEntity::new, omniviolet, omnivioletFloating);
 	public static final BlockEntityType<TinkleBlockEntity> TINKLE = EXplatAbstractions.INSTANCE.createBlockEntityType(TinkleBlockEntity::new, tinkle, tinkleFloating);
 	public static final BlockEntityType<BloodEnchantressBlockEntity> BLOOD_ENCHANTRESS = EXplatAbstractions.INSTANCE.createBlockEntityType(BloodEnchantressBlockEntity::new, bloodEnchantress, bloodEnchantressFloating);
+	public static final BlockEntityType<MirrowtuniaBlockEntity> MIRROWTUNIA = EXplatAbstractions.INSTANCE.createBlockEntityType(MirrowtuniaBlockEntity::new, mirrowtunia, mirrowtuniaFloating);
+	public static final BlockEntityType<NecrofleurBlockEntity> NECROFLEUR = EXplatAbstractions.INSTANCE.createBlockEntityType(NecrofleurBlockEntity::new, necrofleur, necrofleurFloating);
+	public static final BlockEntityType<NecrofleurBlockEntity.Mini> NECROFLEUR_CHIBI = EXplatAbstractions.INSTANCE.createBlockEntityType(NecrofleurBlockEntity.Mini::new, necrofleurChibi, necrofleurChibiFloating);
+	public static final BlockEntityType<ManalinkBlockEntity> MANALINK = EXplatAbstractions.INSTANCE.createBlockEntityType(ManalinkBlockEntity::new, manalink, manalinkFloating);
+	public static final BlockEntityType<EnchanterBlockEntity> ENCHANTER = EXplatAbstractions.INSTANCE.createBlockEntityType(EnchanterBlockEntity::new, enchanter, enchanterFloating);
 
 	private static ResourceLocation floating(ResourceLocation orig) {
 		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
@@ -215,6 +236,26 @@ public class ExtrabotanyFlowerBlocks {
 		r.accept(bloodEnchantress, LibBlockNames.BLOOD_ENCHANTRESS);
 		r.accept(bloodEnchantressFloating, floating(LibBlockNames.BLOOD_ENCHANTRESS));
 		r.accept(bloodEnchantressPotted, potted(LibBlockNames.BLOOD_ENCHANTRESS));
+
+		r.accept(mirrowtunia, LibBlockNames.MIRROWTUNIA);
+		r.accept(mirrowtuniaFloating, floating(LibBlockNames.MIRROWTUNIA));
+		r.accept(mirrowtuniaPotted, potted(LibBlockNames.MIRROWTUNIA));
+
+		r.accept(necrofleur, LibBlockNames.NECROFLEUR);
+		r.accept(necrofleurChibi, chibi(LibBlockNames.NECROFLEUR));
+		r.accept(necrofleurFloating, floating(LibBlockNames.NECROFLEUR));
+		r.accept(necrofleurChibiFloating, chibi(floating(LibBlockNames.NECROFLEUR)));
+		r.accept(necrofleurPotted, potted(LibBlockNames.NECROFLEUR));
+		r.accept(necrofleurChibiPotted, potted(chibi(LibBlockNames.NECROFLEUR)));
+
+		r.accept(manalink, LibBlockNames.MANALINK);
+		r.accept(manalinkFloating, floating(LibBlockNames.MANALINK));
+		r.accept(manalinkPotted, potted(LibBlockNames.MANALINK));
+
+		r.accept(enchanter, LibBlockNames.ENCHANTER);
+		r.accept(enchanterFloating, floating(LibBlockNames.ENCHANTER));
+		r.accept(enchanterPotted, potted(LibBlockNames.ENCHANTER));
+
 	}
 
 	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
@@ -262,6 +303,21 @@ public class ExtrabotanyFlowerBlocks {
 
 		r.accept(new SpecialFlowerBlockItem(bloodEnchantress, props()), getId(bloodEnchantress));
 		r.accept(new SpecialFlowerBlockItem(bloodEnchantressFloating, props()), getId(bloodEnchantressFloating));
+
+		r.accept(new SpecialFlowerBlockItem(mirrowtunia, props()), getId(mirrowtunia));
+		r.accept(new SpecialFlowerBlockItem(mirrowtuniaFloating, props()), getId(mirrowtuniaFloating));
+
+		r.accept(new SpecialFlowerBlockItem(necrofleur, props()), getId(necrofleur));
+		r.accept(new SpecialFlowerBlockItem(necrofleurChibi, props()), getId(necrofleurChibi));
+		r.accept(new SpecialFlowerBlockItem(necrofleurFloating, props()), getId(necrofleurFloating));
+		r.accept(new SpecialFlowerBlockItem(necrofleurChibiFloating, props()), getId(necrofleurChibiFloating));
+
+		r.accept(new SpecialFlowerBlockItem(manalink, props()), getId(manalink));
+		r.accept(new SpecialFlowerBlockItem(manalinkFloating, props()), getId(manalinkFloating));
+
+		r.accept(new SpecialFlowerBlockItem(enchanter, props()), getId(enchanter));
+		r.accept(new SpecialFlowerBlockItem(enchanterFloating, props()), getId(enchanterFloating));
+
 	}
 
 	private static Item.Properties props() {
@@ -284,11 +340,16 @@ public class ExtrabotanyFlowerBlocks {
 		r.accept(OMNIVIOLET, getId(omniviolet));
 		r.accept(TINKLE, getId(tinkle));
 		r.accept(BLOOD_ENCHANTRESS, getId(bloodEnchantress));
+		r.accept(MIRROWTUNIA, getId(mirrowtunia));
+		r.accept(NECROFLEUR, getId(necrofleur));
+		r.accept(NECROFLEUR_CHIBI, getId(necrofleurChibi));
+		r.accept(MANALINK, getId(manalink));
+		r.accept(ENCHANTER, getId(enchanter));
 	}
 
 	public static void registerWandHudCaps(BotaniaBlockEntities.BECapConsumer<WandHUD> consumer) {
 		consumer.accept(be -> new BindableSpecialFlowerBlockEntity.BindableFlowerWandHud<>((FunctionalFlowerBlockEntity) be),
-				TRADE_ORCHID, WOODIENIA, SERENITIAN
+				TRADE_ORCHID, WOODIENIA, SERENITIAN, MIRROWTUNIA, NECROFLEUR, NECROFLEUR_CHIBI
 		);
 		consumer.accept(be -> new BindableSpecialFlowerBlockEntity.BindableFlowerWandHud<>((GeneratingFlowerBlockEntity) be),
 				REIKARLILY, STONESIA, EDELWEISS, RESONCUND, SUNSHINE_LILY, MOONLIGHT_LILY,
@@ -296,6 +357,8 @@ public class ExtrabotanyFlowerBlocks {
 		);
 		consumer.accept(be -> new BellflowerBlockEntity.WandHud((BellflowerBlockEntity) be), BELLFLOWER);
 		consumer.accept(be -> new AnnoyingFlowerBlockEntity.WandHud((AnnoyingFlowerBlockEntity) be), ANNOYINGFLOWER);
+		consumer.accept(be -> new ManalinkBlockEntity.WandHUD((ManalinkBlockEntity) be), MANALINK);
+		consumer.accept(be -> new EnchanterBlockEntity.WandHUD((EnchanterBlockEntity) be), ENCHANTER);
 	}
 
 	public static void registerFlowerPotPlants(BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer) {

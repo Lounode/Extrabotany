@@ -15,6 +15,7 @@
     "botania.DisplayWindLevel",
     "botania.GaiaGuardianAdditionalSpawnCheck",
     "botania.MagicMissileTargetBypassGaiaIII",
+    "botania.WandOfTheForestExtension",
     "client.PatchouliTemplateXModMixin",
     "client.PatchouliTemplateXModMixinBuilder"
   ],

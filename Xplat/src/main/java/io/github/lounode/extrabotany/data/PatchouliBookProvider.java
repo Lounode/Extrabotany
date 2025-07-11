@@ -5,6 +5,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
@@ -13,6 +14,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.block.block_entity.PedestalBlockEntity;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
+import io.github.lounode.extrabotany.common.block.flower.functional.ManalinkBlockEntity;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
@@ -638,7 +640,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						text("extrabotany.page.moonlight_lily0"),
 						petal(ExtrabotanyFlowerBlocks.moonlightLily).withText("extrabotany.page.moonlight_lily1")
 				)
-				.extraRecipeMapping(ExtrabotanyFlowerBlocks.moonlightLily, 1)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.moonlightLilyFloating, 1)
 				.save(consumer, id("moonlight_lily"));
 		PatchouliBuilder.entry(FUNCTIONAL_FLOWERS)
 				.withName("extrabotany.entry.serenitian")
@@ -647,7 +649,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						text("extrabotany.page.serenitian0"),
 						petal(ExtrabotanyFlowerBlocks.serenitian).withText("extrabotany.page.serenitian1")
 				)
-				.extraRecipeMapping(ExtrabotanyFlowerBlocks.serenitian, 1)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.serenitianFloating, 1)
 				.save(consumer, id("serenitian"));
 		PatchouliBuilder.entry(GENERATING_FLOWERS)
 				.withName("extrabotany.entry.twinstar")
@@ -656,7 +658,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						text("extrabotany.page.twinstar0"),
 						petal(ExtrabotanyFlowerBlocks.twinstar).withText("extrabotany.page.twinstar1")
 				)
-				.extraRecipeMapping(ExtrabotanyFlowerBlocks.twinstar, 1)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.twinstarFloating, 1)
 				.save(consumer, id("twinstar"));
 		PatchouliBuilder.entry(GENERATING_FLOWERS)
 				.withName("extrabotany.entry.omniviolet")
@@ -665,7 +667,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						text("extrabotany.page.omniviolet0"),
 						petal(ExtrabotanyFlowerBlocks.omniviolet).withText("extrabotany.page.omniviolet1")
 				)
-				.extraRecipeMapping(ExtrabotanyFlowerBlocks.omniviolet, 1)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.omnivioletFloating, 1)
 				.save(consumer, id("omniviolet"));
 		PatchouliBuilder.entry(GENERATING_FLOWERS)
 				.withName("extrabotany.entry.tinkle")
@@ -674,7 +676,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						text("extrabotany.page.tinkle0"),
 						petal(ExtrabotanyFlowerBlocks.tinkle).withText("extrabotany.page.tinkle1")
 				)
-				.extraRecipeMapping(ExtrabotanyFlowerBlocks.tinkle, 1)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.tinkleFloating, 1)
 				.save(consumer, id("tinkle"));
 		PatchouliBuilder.entry(GENERATING_FLOWERS)
 				.withName("extrabotany.entry.blood_enchantress")
@@ -683,8 +685,56 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						text("extrabotany.page.blood_enchantress0"),
 						petal(ExtrabotanyFlowerBlocks.bloodEnchantress).withText("extrabotany.page.blood_enchantress1")
 				)
-				.extraRecipeMapping(ExtrabotanyFlowerBlocks.bloodEnchantress, 2)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.bloodEnchantressFloating, 2)
 				.save(consumer, id("blood_enchantress"));
+		PatchouliBuilder.entry(FUNCTIONAL_FLOWERS)
+				.withName("extrabotany.entry.mirrowtunia")
+				.withIcon(ExtrabotanyFlowerBlocks.mirrowtunia)
+				.pages(
+						text("extrabotany.page.mirrowtunia0"),
+						petal(ExtrabotanyFlowerBlocks.mirrowtunia).withText("extrabotany.page.mirrowtunia1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.mirrowtuniaFloating, 1)
+				.save(consumer, id("mirrowtunia"));
+		PatchouliBuilder.entry(FUNCTIONAL_FLOWERS)
+				.withName("extrabotany.entry.necrofleur")
+				.withIcon(ExtrabotanyFlowerBlocks.necrofleur)
+				.pages(
+						text("extrabotany.page.necrofleur0"),
+						petal(ExtrabotanyFlowerBlocks.necrofleur).withText("extrabotany.page.necrofleur1"),
+						text("extrabotany.page.necrofleur2"),
+						manaInfusion(ExtrabotanyFlowerBlocks.necrofleurChibi).withText("extrabotany.page.necrofleur3")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.necrofleurFloating, 1)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.necrofleurChibiFloating, 3)
+				.save(consumer, id("necrofleur"));
+		PatchouliBuilder.entry(MANA)
+				.withName("extrabotany.entry.manalink")
+				.withIcon(ExtrabotanyFlowerBlocks.manalink)
+				.pages(
+						text("extrabotany.page.manalink0"),
+						multiBlock("extrabotany.multiblock.manalink", ManalinkBlockEntity.PATCHOULI_PATTERN)
+								.withMapping("D", RegistryHelper.getRegistryName(Blocks.GRASS_BLOCK).toString())
+								.withMapping("Q", RegistryHelper.getRegistryName(Blocks.QUARTZ_BLOCK).toString())
+								.withMapping("L", RegistryHelper.getRegistryName(Blocks.LAPIS_BLOCK).toString())
+								.withMapping("O", RegistryHelper.getRegistryName(Blocks.OBSIDIAN).toString())
+								.withMapping("0", RegistryHelper.getRegistryName(ExtrabotanyFlowerBlocks.manalink).toString())
+								.withMapping("A", RegistryHelper.getRegistryName(Blocks.AIR).toString()),
+						text("extrabotany.page.manalink1"),
+						petal(ExtrabotanyFlowerBlocks.manalink).withText("extrabotany.page.manalink2")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.manalinkFloating, 1)
+				.priority()
+				.save(consumer, id("manalink"));
+		PatchouliBuilder.entry(FUNCTIONAL_FLOWERS)
+				.withName("extrabotany.entry.enchanter")
+				.withIcon(ExtrabotanyFlowerBlocks.enchanter)
+				.pages(
+						text("extrabotany.page.enchanter0"),
+						petal(ExtrabotanyFlowerBlocks.enchanter).withText("extrabotany.page.enchanter1")
+				)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.enchanterFloating, 1)
+				.save(consumer, id("enchanter"));
 	}
 
 	private BrewPage brew(Brew brew) {

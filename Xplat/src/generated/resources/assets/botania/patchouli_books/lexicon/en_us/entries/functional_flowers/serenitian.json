@@ -1,7 +1,7 @@
 {
   "category": "botania:functional_flowers",
   "extra_recipe_mappings": {
-    "extrabotany:serenitian": 1
+    "extrabotany:floating_serenitian": 1
   },
   "icon": "extrabotany:serenitian",
   "name": "extrabotany.entry.serenitian",

@@ -20,6 +20,7 @@ import vazkii.botania.common.crafting.StateIngredientHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
+import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 
 import java.util.function.Consumer;
@@ -51,6 +52,8 @@ public class ManaInfusionProvider extends ExtraBotanyRecipeProvider {
 		consumer.accept(FinishedRecipe.dimension(id("blaze_rod_dupe"), new ItemStack(Items.BLAZE_ROD, 2), ingr(Items.BLAZE_ROD), 2000));
 		consumer.accept(FinishedRecipe.dimension(id("nether_star_to_totem_of_undying"), new ItemStack(Items.TOTEM_OF_UNDYING), ingr(Items.NETHER_STAR), 50000));
 		consumer.accept(FinishedRecipe.dimension(id("the_origin_to_elytra"), new ItemStack(Items.ELYTRA), ingr(ExtraBotanyItems.theOrigin), 50000));
+		//Mini
+		consumer.accept(mini(ExtrabotanyFlowerBlocks.necrofleurChibi, ExtrabotanyFlowerBlocks.necrofleur));
 	}
 
 	protected void cycle(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer, int cost, String group, ItemLike... items) {

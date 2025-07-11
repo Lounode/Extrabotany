@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.common.proxy;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 
 import vazkii.botania.xplat.XplatAbstractions;
@@ -22,6 +23,10 @@ public interface Proxy extends vazkii.botania.common.proxy.Proxy {
 	}
 
 	default void removeBoss(LivingEntity boss) {
+
+	}
+
+	default void displayClientMessage(Component chatComponent, boolean actionBar) {
 
 	}
 }

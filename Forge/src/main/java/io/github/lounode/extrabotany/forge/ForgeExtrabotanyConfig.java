@@ -11,9 +11,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
-import io.github.lounode.extrabotany.common.block.flower.functional.AnnoyingFlowerBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.functional.SerenitianBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.functional.*;
 import io.github.lounode.extrabotany.common.block.flower.generating.*;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
@@ -101,6 +99,12 @@ public class ForgeExtrabotanyConfig {
 		public final ForgeConfigSpec.IntValue bloodEnchantressMaxMana;
 		public final ForgeConfigSpec.IntValue bloodEnchantressProduceMana;
 		public final ForgeConfigSpec.IntValue serenitianRange;
+		public final ForgeConfigSpec.IntValue mirrowtuniaMaxMana;
+		public final ForgeConfigSpec.IntValue mirrowtuniaEffectCost;
+		public final ForgeConfigSpec.IntValue necrofleurMaxMana;
+		public final ForgeConfigSpec.IntValue manalinkTransferSpeed;
+		public final ForgeConfigSpec.IntValue enchanterTransformCost;
+		public final ForgeConfigSpec.IntValue enchanterConsumeSpeed;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 
@@ -433,6 +437,59 @@ public class ForgeExtrabotanyConfig {
 							Working range in blocks""")
 					.defineInRange("range", SerenitianBlockEntity.RANGE, 1, 16);
 			builder.pop();//End serenitian
+			builder.comment("""
+					镜姬
+					Mirrowtunia""");
+			builder.push("mirrowtunia");
+			mirrowtuniaMaxMana = builder
+					.comment("""
+							最大魔力值
+							Maximum mana""")
+					.defineInRange("maxMana", MirrowtuniaBlockEntity.MAX_MANA, 0, Integer.MAX_VALUE);
+			mirrowtuniaEffectCost = builder
+					.comment("""
+							施加效果消耗的魔力量
+							Mana cost per effect""")
+					.defineInRange("effectCost", MirrowtuniaBlockEntity.EFFECT_COST, 0, Integer.MAX_VALUE);
+			builder.pop(); // End mirrowtunia
+
+			builder.comment("""
+					死之花
+					Necrofleur""");
+			builder.push("necrofleur");
+			necrofleurMaxMana = builder
+					.comment("""
+							最大魔力值
+							Maximum mana""")
+					.defineInRange("maxMana", NecrofleurBlockEntity.MAX_MANA, 0, Integer.MAX_VALUE);
+			builder.pop(); // End necrofleur
+
+			builder.comment("""
+					魔链星
+					Manalink""");
+			builder.push("manalink");
+			manalinkTransferSpeed = builder
+					.comment("""
+							魔力传输速度
+							Mana transfer speed""")
+					.defineInRange("transferSpeed", ManalinkBlockEntity.TRANSFER_SPEED, 0, Integer.MAX_VALUE);
+			builder.pop(); // End manalink
+
+			builder.comment("""
+					蕴魔瑾
+					Enchanter""");
+			builder.push("enchanter");
+			enchanterTransformCost = builder
+					.comment("""
+							转换草方块为蕴魔土的总消耗
+							Total mana cost to transform grass to enchanted soil""")
+					.defineInRange("transformCost", EnchanterBlockEntity.TRANSFORM_COST, 0, Integer.MAX_VALUE);
+			enchanterConsumeSpeed = builder
+					.comment("""
+							魔力消耗速度
+							Mana consume speed""")
+					.defineInRange("consumeSpeed", EnchanterBlockEntity.CONSUME_SPEED, 0, Integer.MAX_VALUE);
+			builder.pop(); // End enchanter
 
 			builder.pop();//End flower
 			builder.pop();//End server
@@ -663,6 +720,36 @@ public class ForgeExtrabotanyConfig {
 		@Override
 		public int serenitianRange() {
 			return serenitianRange.get();
+		}
+
+		@Override
+		public int mirrowtuniaMaxMana() {
+			return mirrowtuniaMaxMana.get();
+		}
+
+		@Override
+		public int mirrowtuniaEffectCost() {
+			return mirrowtuniaEffectCost.get();
+		}
+
+		@Override
+		public int necrofleurMaxMana() {
+			return necrofleurMaxMana.get();
+		}
+
+		@Override
+		public int manalinkTransferSpeed() {
+			return manalinkTransferSpeed.get();
+		}
+
+		@Override
+		public int enchanterTransformCost() {
+			return enchanterTransformCost.get();
+		}
+
+		@Override
+		public int enchanterConsumeSpeed() {
+			return enchanterConsumeSpeed.get();
 		}
 	}
 

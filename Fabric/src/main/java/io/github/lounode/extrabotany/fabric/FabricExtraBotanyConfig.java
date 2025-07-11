@@ -3,9 +3,7 @@ package io.github.lounode.extrabotany.fabric;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
-import io.github.lounode.extrabotany.common.block.flower.functional.AnnoyingFlowerBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.functional.SerenitianBlockEntity;
-import io.github.lounode.extrabotany.common.block.flower.functional.TradeOrchidBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.functional.*;
 import io.github.lounode.extrabotany.common.block.flower.generating.*;
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
@@ -118,6 +116,12 @@ public class FabricExtraBotanyConfig {
 		public final PropertyMirror<Integer> bloodEnchantressMaxMana = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Integer> bloodEnchantressProduceMana = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Integer> serenitianRange = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> mirrowtuniaMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> mirrowtuniaEffectCost = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> necrofleurMaxMana = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> manalinkTransferSpeed = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> enchanterTransformCost = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<Integer> enchanterConsumeSpeed = PropertyMirror.create(INTEGER);
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder
@@ -451,6 +455,55 @@ public class FabricExtraBotanyConfig {
 							Working range in blocks""")
 					.finishValue(serenitianRange::mirror)
 					.finishBranch()//End serenitian
+					.fork("mirrowtunia").withComment("""
+							镜姬
+							Mirrowtunia""")
+					.beginValue("maxMana", INTEGER, MirrowtuniaBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(mirrowtuniaMaxMana::mirror)
+					.beginValue("effectCost", INTEGER, MirrowtuniaBlockEntity.EFFECT_COST)
+					.withComment("""
+							施加效果消耗的魔力量
+							Mana cost per effect""")
+					.finishValue(mirrowtuniaEffectCost::mirror)
+					.finishBranch() // End mirrowtunia
+
+					.fork("necrofleur").withComment("""
+							死之花
+							Necrofleur""")
+					.beginValue("maxMana", INTEGER, NecrofleurBlockEntity.MAX_MANA)
+					.withComment("""
+							最大魔力值
+							Maximum mana""")
+					.finishValue(necrofleurMaxMana::mirror)
+					.finishBranch() // End necrofleur
+
+					.fork("manalink").withComment("""
+							魔链星
+							Manalink""")
+					.beginValue("transferSpeed", INTEGER, ManalinkBlockEntity.TRANSFER_SPEED)
+					.withComment("""
+							魔力传输速度
+							Mana transfer speed""")
+					.finishValue(manalinkTransferSpeed::mirror)
+					.finishBranch() // End manalink
+
+					.fork("enchanter").withComment("""
+							蕴魔瑾
+							Enchanter""")
+					.beginValue("transformCost", INTEGER, EnchanterBlockEntity.TRANSFORM_COST)
+					.withComment("""
+							转换草方块为蕴魔土的总消耗
+							Total mana cost to transform grass to enchanted soil""")
+					.finishValue(enchanterTransformCost::mirror)
+					.beginValue("consumeSpeed", INTEGER, EnchanterBlockEntity.CONSUME_SPEED)
+					.withComment("""
+							魔力消耗速度
+							Mana consume speed""")
+					.finishValue(enchanterConsumeSpeed::mirror)
+					.finishBranch() // End enchanter
 
 					.finishBranch()//End flower
 
@@ -682,6 +735,36 @@ public class FabricExtraBotanyConfig {
 		@Override
 		public int serenitianRange() {
 			return serenitianRange.getValue();
+		}
+
+		@Override
+		public int mirrowtuniaMaxMana() {
+			return mirrowtuniaMaxMana.getValue();
+		}
+
+		@Override
+		public int mirrowtuniaEffectCost() {
+			return mirrowtuniaEffectCost.getValue();
+		}
+
+		@Override
+		public int necrofleurMaxMana() {
+			return necrofleurMaxMana.getValue();
+		}
+
+		@Override
+		public int manalinkTransferSpeed() {
+			return manalinkTransferSpeed.getValue();
+		}
+
+		@Override
+		public int enchanterTransformCost() {
+			return enchanterTransformCost.getValue();
+		}
+
+		@Override
+		public int enchanterConsumeSpeed() {
+			return enchanterConsumeSpeed.getValue();
 		}
 	}
 

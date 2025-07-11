@@ -106,7 +106,9 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOWERS).add(generatingSpecialFlowers);
 
 		Block[] functionalSpecialFlowers = {
-				tradeOrchid, woodienia, annoyingflower, serenitian
+				tradeOrchid, woodienia, annoyingflower, serenitian,
+				mirrowtunia, necrofleur, necrofleurChibi, manalink,
+				enchanter
 		};
 		tag(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS).add(functionalSpecialFlowers);
 
@@ -129,7 +131,8 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						sunshineLilyPotted, moonlightLilyPotted, twinstarPotted, omnivioletPotted,
 						tinklePotted, bloodEnchantressPotted,
 						//Func
-						tradeOrchidPotted, woodieniaPotted, annoyingflowerPotted, serenitianPotted
+						tradeOrchidPotted, woodieniaPotted, annoyingflowerPotted, serenitianPotted, mirrowtuniaPotted,
+						necrofleurPotted, necrofleurChibiPotted, manalinkPotted, enchanterPotted
 				);
 
 		registerMiningTags();

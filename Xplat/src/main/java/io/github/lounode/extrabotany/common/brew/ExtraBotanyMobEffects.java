@@ -20,6 +20,7 @@ public class ExtraBotanyMobEffects {
 	public static final MobEffect HEAL_REVERSE = new HealReverseMobEffect(MobEffectCategory.HARMFUL, 0X4B0082);
 	public static final MobEffect DISCOUNT = new DiscountMobEffect(MobEffectCategory.NEUTRAL, 0x54eb89);
 	public static final MobEffect WARM = new WarmMobEffect(MobEffectCategory.BENEFICIAL, 16750848);
+	public static final MobEffect THIRROR = new ThirrorMobEffect(MobEffectCategory.BENEFICIAL, 0X4169E1);
 
 	public static void registerPotions(BiConsumer<MobEffect, ResourceLocation> r) {
 		r.accept(IMMOBILIZE, prefix(LibPotionNames.IMMOBILIZE));
@@ -27,5 +28,6 @@ public class ExtraBotanyMobEffects {
 		r.accept(HEAL_REVERSE, prefix(LibPotionNames.HEAL_REVERSE));
 		r.accept(DISCOUNT, prefix(LibPotionNames.DISCOUNT));
 		r.accept(WARM, prefix(LibPotionNames.WARM));
+		r.accept(THIRROR, prefix(LibPotionNames.THIRROR));
 	}
 }

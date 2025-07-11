@@ -1,7 +1,7 @@
 {
   "category": "botania:generating_flowers",
   "extra_recipe_mappings": {
-    "extrabotany:twinstar": 1
+    "extrabotany:floating_twinstar": 1
   },
   "icon": "extrabotany:twinstar",
   "name": "extrabotany.entry.twinstar",

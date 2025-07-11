@@ -10,6 +10,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
+import org.jetbrains.annotations.Nullable;
+
 import io.github.lounode.extrabotany.common.lib.RegistryHelper;
 import io.github.lounode.extrabotany.data.patchouli.page.AbstractPage;
 import io.github.lounode.extrabotany.data.patchouli.page.IPatchouliPage;
@@ -28,6 +30,12 @@ public class PatchouliBuilder {
 	private ResourceLocation advancement;
 	private final List<IPatchouliPage> pages = new ArrayList<>();
 	private final Map<ResourceLocation, Integer> extraRecipeMappings = new HashMap<>();
+	private boolean priority;
+	private boolean secret;
+	private boolean read;
+
+	@Nullable
+	private Integer color;
 
 	public PatchouliBuilder(ResourceLocation category, @Translatable String name, ItemLike icon, int sortNum) {
 		this.category = category;
@@ -71,7 +79,8 @@ public class PatchouliBuilder {
 	}
 
 	public void save(Consumer<PatchouliEntry> consumer, ResourceLocation id) {
-		consumer.accept(new PatchouliEntry(category, name, icon, pages, ResourceLocation.tryBuild(category.getPath(), id.getPath()), sortNum, advancement, extraRecipeMappings));
+		consumer.accept(new PatchouliEntry(category, name, icon, pages, ResourceLocation.tryBuild(category.getPath(), id.getPath()),
+				sortNum, advancement, extraRecipeMappings, priority, secret, read, color));
 	}
 
 	public PatchouliBuilder extraRecipeMapping(Item item, int pageNum) {
@@ -90,6 +99,26 @@ public class PatchouliBuilder {
 		}
 		ResourceLocation location = RegistryHelper.getRegistryName(block);
 		this.extraRecipeMappings.put(location, pageNum);
+		return this;
+	}
+
+	public PatchouliBuilder priority() {
+		this.priority = true;
+		return this;
+	}
+
+	public PatchouliBuilder secret() {
+		this.secret = true;
+		return this;
+	}
+
+	public PatchouliBuilder defaultRead() {
+		this.read = true;
+		return this;
+	}
+
+	public PatchouliBuilder color(int color) {
+		this.color = color;
 		return this;
 	}
 }

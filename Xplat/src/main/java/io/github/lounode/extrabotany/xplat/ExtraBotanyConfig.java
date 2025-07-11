@@ -118,5 +118,20 @@ public class ExtraBotanyConfig {
 
 		//Serenitian
 		int serenitianRange();
+
+		//Mirrowtunia
+		int mirrowtuniaMaxMana();
+		int mirrowtuniaEffectCost();
+
+		//Necrofleur
+		int necrofleurMaxMana();
+
+		//Manalink
+		int manalinkTransferSpeed();
+
+		//Enchanter
+		int enchanterTransformCost();
+		int enchanterConsumeSpeed();
+
 	}
 }

@@ -40,7 +40,7 @@
   "advancement.extrabotany:the_original_divine_key": "原初神之键",
   "advancement.extrabotany:the_original_divine_key.desc": "获得虚空万藏",
   "advancement.extrabotany:soulsteel": "魂钢",
-  "advancement.extrabotany:soulsteel.desc": "合成出奥力哈钢",
+  "advancement.extrabotany:soulsteel.desc": "合成出奥利哈钢",
   "advancement.extrabotany:sky_is_not_the_limit": "天空不为极限",
   "advancement.extrabotany:sky_is_not_the_limit.desc": "合成出天空锭",
   "advancement.extrabotany:potato_server": "镀金服务器",
@@ -173,6 +173,30 @@
   "block.extrabotany.potted_blood_enchantress":"鲜血妖姬盆栽",
   "block.extrabotany.floating_blood_enchantress":"浮空鲜血妖姬",
   
+  "block.extrabotany.mirrowtunia":"镜姬",
+  "block.extrabotany.mirrowtunia.reference":"魔镜啊魔镜",
+  "block.extrabotany.potted_mirrowtunia":"镜姬盆栽",
+  "block.extrabotany.floating_mirrowtunia":"浮空镜姬",
+  
+  "block.extrabotany.necrofleur":"死之花",
+  "block.extrabotany.necrofleur.reference":"杀手皇后",
+  "block.extrabotany.potted_necrofleur":"死之花盆栽",
+  "block.extrabotany.floating_necrofleur":"浮空死之花",
+  "block.extrabotany.necrofleur_chibi":"小死之花",
+  "block.extrabotany.necrofleur_chibi.reference":"杀手皇后",
+  "block.extrabotany.potted_necrofleur_chibi":"小死之花盆栽",
+  "block.extrabotany.floating_necrofleur_chibi":"浮空小死之花",
+  
+  "block.extrabotany.manalink":"魔链星",
+  "block.extrabotany.manalink.reference":"星链",
+  "block.extrabotany.potted_manalink":"魔链星盆栽",
+  "block.extrabotany.floating_manalink":"浮空魔链星",
+  
+  "block.extrabotany.enchanter":"蕴魔瑾",
+  "block.extrabotany.enchanter.reference":"附魔师",
+  "block.extrabotany.potted_enchanter":"蕴魔瑾盆栽",
+  "block.extrabotany.floating_enchanter":"浮空蕴魔瑾",
+  
   "death.attack.extrabotany.link": "%1$s 对别人的痛苦感同身受",
   "death.attack.extrabotany.link.player": "%1$s 对 %2$s 的痛苦感同身受",
   "death.attack.extrabotany.link.item": "%1$s 对 %2$s 的痛苦感同身受",
@@ -194,6 +218,7 @@
   "effect.extrabotany.heal_reverse": "治疗反转",
   "effect.extrabotany.discount": "打折",
   "effect.extrabotany.warm": "温暖",
+  "effect.extrabotany.thirror": "镜棘",
   
   "entity.extrabotany.aura_fire": "精卫之火",
   "entity.extrabotany.magic_landmine": "盖亚陷阱",
@@ -237,7 +262,7 @@
   "item.extrabotany.photonium_hammer": "光子锤",
   "item.extrabotany.shadowium_hammer": "暗影锤",
   "item.extrabotany.aerialite_hammer": "天空锤",
-  "item.extrabotany.orichalcos_hammer": "奥力哈钢锤",
+  "item.extrabotany.orichalcos_hammer": "奥利哈钢锤",
   "item.extrabotany.rhein_hammer": "莱茵锤",
   "item.extrabotany.camera": "文文的相机",
   "item.extrabotany.failnaught": "百中弓",
@@ -302,6 +327,8 @@
   "message.extrabotany.chat.unsafe_inventory": "无论你怎么呼唤守护者，始终没有回应。或许周围人身上只携带与原版或者与植物魔法有关的物品是个好主意。",
   "message.extrabotany.chat.wind_level": "风力：%1$s",
   "message.extrabotany.gui.food_level": "饱食度：%1$s",
+  "message.extrabotany.actionbar.selected_pos": "已选择：%1$s",
+  "message.extrabotany.actionbar.bind_to_pos": "绑定到：%1$s",
   
   "subtitles.extrabotany:item.camera.use": "相机：闪烁",
   "subtitles.extrabotany:item.camera.charge": "相机：装填完毕",
@@ -403,7 +430,7 @@
   "extrabotany.page.hammers11": "苏菲·托莱特",
   "extrabotany.page.hammers12": "$(item)天空锤$()是最自由的一种锤子了，只需要一点点$(item)魔力$()的代价，它就能给你提供$(thing)急迫$()效果。$(br2)可惜它$(item)不能$()够范围挖掘，真是件惋惜事。",
   "extrabotany.page.hammers13": "天空之城",
-  "extrabotany.page.hammers14": "$(item)奥力哈钢$()做成的锤子不得了，它整体上是$(item)泰拉碾压者$()的上位，更好，更大，更强！$(br2)不仅$(thing)防火$()，还$(thing)防爆炸$()。",
+  "extrabotany.page.hammers14": "$(item)奥利哈钢$()做成的锤子不得了，它整体上是$(item)泰拉碾压者$()的上位，更好，更大，更强！$(br2)不仅$(thing)防火$()，还$(thing)防爆炸$()。",
   "extrabotany.page.hammers15": "加油，奥利给！",
   "extrabotany.page.hammers16": "$(item)莱茵河的黄金$()？你为什么会想到用这种物质做锤子……好吧，那是可以的。$(br2)$(item)莱茵锤$()既有$(thing)急迫$()，也有$(thing)速度$()和$(thing)夜视$()、$(thing)防火$()，简直是天生为采矿而生。",
   "extrabotany.page.hammers17": "一切都建立在大量的$(thing)耗魔$()之上，一旦失去$(thing)魔力$()供给，这把锤子瞬间就会变得连最基本的$(thing)挖掘方块$()功能都$(thing)做不到$()。",
@@ -543,7 +570,7 @@
   "extrabotany.page.universe_medium4": "伪似的阴阳共生",
   "extrabotany.page.universe_medium5": "边界曲面的命运石之门",
   
-  "extrabotany.entry.orichalcos": "奥力哈钢",
+  "extrabotany.entry.orichalcos": "奥利哈钢",
   "extrabotany.page.orichalcos0": "消耗大量$(thing)魔力$()与$(item)盖亚之魂$()的魂力制作出的一种上等合金。$(br2)不仅防火，还具有相当的稳定性与防爆性。",
   "extrabotany.page.orichalcos1": "$(o)$(7)魂钢",
   
@@ -691,6 +718,26 @@
   "extrabotany.entry.blood_enchantress":"鲜血妖姬",
   "extrabotany.page.blood_enchantress0":"$(item)鲜血妖姬$()能够将生物的生命值转化为$(thing)魔力$()，一旦有生物在其附近就会开始$(thing)魔力$()的转化，效率较为可观。$(br2)每次噬咬，$(item)鲜血妖姬$()都会标记这名生物，每层标记都会降低其产魔，且周围生物的标记总和超过一定值时会停止工作。",
   "extrabotany.page.blood_enchantress1":"死亡是唯一的解药",
+  
+  "extrabotany.entry.mirrowtunia": "镜姬",
+  "extrabotany.page.mirrowtunia0": "$(item)镜姬$()可以像信标一样为周围的玩家不断提供$(thing)镜棘$()效果。$(br2)拥有$(thing)镜棘$()效果的玩家可以像$(thing)荆棘$()附魔一样，将受到的伤害部分返还给伤害者。",
+  "extrabotany.page.mirrowtunia1": "该死的双关梗",
+  
+  "extrabotany.entry.necrofleur": "死之花",
+  "extrabotany.page.necrofleur0": "$(item)死之花$()的信条是收割，它会对自身血量低于生命值上限一定比例的实体造成伤害，并使得它们在接下来的一定时间内$(thing)治疗反转$()。",
+  "extrabotany.page.necrofleur1": "死后文",
+  "extrabotany.page.necrofleur2": "$(item)死之花$()也可以被做成$(item)小死之花$()，在这种情况下它的攻击范围和伤害都会有所降低。",
+  "extrabotany.page.necrofleur3": "若娜瓦",
+  
+  "extrabotany.entry.manalink": "魔链星",
+  "extrabotany.page.manalink0": "魔链星可以十分方便地将$(thing)魔力$()远距离输送至另一个绑定的$(item)魔力池$()中。$(br2)要使用$(item)魔链星$()，首先要使用$(item)石英块$()、$(item)黑曜石$()、$(item)青金石块$()搭建一个如右图所示的多方块结构，底面的草地不能换成$(item)蕴魔土$()。",
+  "extrabotany.page.manalink1": "搭建好$(item)魔链星$()多方块结构后，就可以开始将$(item)魔链星$()与要远程传输$(thing)魔力$()的$(item)魔力池$()绑定了。$(br2)使用$(item)森林法杖$()的$(thing)绑定模式$()$(k:sneak)$()$(k:use)记录$(item)魔力池$()，见到$(a)已选择$()提示后，再$(k:sneak)$()$(k:use)要绑定的$(item)魔链星$()建立链接。",
+  "extrabotany.page.manalink2": "全球高速魔力网",
+  "extrabotany.multiblock.manalink": "魔链星多方块结构",
+  
+  "extrabotany.entry.enchanter": "蕴魔瑾",
+  "extrabotany.page.enchanter0": "消耗大量的$(thing)魔力$()和漫长的转化时间，$(item)蕴魔瑾$()可以将周围的$(item)草方块$()转化为$(item)蕴魔土$()。$(br2)转化的过程会不断吸取$(thing)魔力$()，这个过程的进度可以通过$(item)森林法杖$()观测。",
+  "extrabotany.page.enchanter1": "无穷无尽的知识就是我的力量",
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""
