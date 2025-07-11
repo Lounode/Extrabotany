@@ -41,12 +41,22 @@ public class PlayerUtil {
 		}
 		ItemStack save = player.getMainHandItem();
 		player.setItemInHand(InteractionHand.MAIN_HAND, stack);
-		boolean result = ((ServerPlayer) player).gameMode.destroyBlock(pos);
+
+		SimulateDestroyBlockPos simulatePos = new SimulateDestroyBlockPos(pos.getX(), pos.getY(), pos.getZ());
+
+		boolean result = ((ServerPlayer) player).gameMode.destroyBlock(simulatePos);
 		if (result) {
 			((ServerPlayer) player).connection.send(
 					new ClientboundLevelEventPacket(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(blockstate), false));
 		}
 		player.setItemInHand(InteractionHand.MAIN_HAND, save);
 		return result;
+	}
+
+	public static class SimulateDestroyBlockPos extends BlockPos {
+
+		public SimulateDestroyBlockPos(int x, int y, int z) {
+			super(x, y, z);
+		}
 	}
 }

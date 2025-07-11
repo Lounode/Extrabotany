@@ -4,6 +4,7 @@
   "package": "io.github.lounode.extrabotany.forge.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "SimulateDestroyMixinForge",
     "client.ItemStarryIdolArmorForgeMixin"
   ],
   "client": [

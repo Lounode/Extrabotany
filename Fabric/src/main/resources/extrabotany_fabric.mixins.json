@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "GetBlockEnchantLevelMixin",
-    "ServerPlayerGameModeFabricMixin"
+    "ServerPlayerGameModeFabricMixin",
+    "SimulateDestroyMixinFabric"
   ],
   "injectors": {
     "defaultRequire": 1
