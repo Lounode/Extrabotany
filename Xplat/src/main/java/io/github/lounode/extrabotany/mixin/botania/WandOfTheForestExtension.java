@@ -56,7 +56,8 @@ public abstract class WandOfTheForestExtension {
 			target = "Lnet/minecraft/world/level/Level;getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;",
 			shift = At.Shift.AFTER
 		),
-		cancellable = true
+		cancellable = true,
+		remap = true
 	)
 	private void bindForManaLink(UseOnContext ctx, CallbackInfoReturnable<InteractionResult> cir) {
 		ItemStack stack = ctx.getItemInHand();

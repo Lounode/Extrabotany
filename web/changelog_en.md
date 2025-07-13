@@ -1,4 +1,23 @@
-# Current Version:1.20.1-1.6.0 Release (2025.7.6)
+# Current Version: 1.20.1-1.7.0 Release (2025.7.13)
+### New
+#### New Functional Flower: `Mirrowtunia`
+Mirrowtunia can continuously provide `Thirror` effect to surrounding players like a beacon.
+
+Players with the `Thirror` effect can return some of the damage they take to the entity who caused it, just like the `Thorns` enchantment.
+#### New Functional Flower: `Necrofleur`
+The creed of the Necrofleur is to harvest life. It damages entities whose health falls below a certain percentage of their maximum health, let them in `heal reverse` for the next few seconds.
+#### New Functional Flower: `Manalink`
+Manalink can easily transfer mana to a bound Mana Pool over a long distance.
+#### New Functional Flower: `Enchanter`
+By consuming a large amount of mana and a long conversion time, Enchanter can convert the Grass Block into Enchanted Soil.
+### Change&Optimize
+- Updated `Twinstar`, `Omniviolet`, `Tinkle` and `Blood Enchantress`'s texture
+### Bugfix
+- Fixed bug that caused some floating flower Patchouli entry to have incorrect indexes
+- Fixed bug that the `Pure Daisy Necklace` would drop logs abnormally when converting living wood
+- Fixed some text errors in `zh_cn`
+- Removed Herobrine
+## 1.20.1-1.6.0 Release (2025.7.6)
 ### New
 #### New Generating Flower: `Sunshine Lily`
 Sunshine Lily have the same ability as Daybloom, converting sunlight into mana.
@@ -40,7 +59,7 @@ Each time it consumes, this entity is marked. Marks reduce its mana generation, 
 - Fixed bug that cause server crash on server when players equipped `Jackie Chan Ring` or `Parkour Ring`
 - Removed Herobrine
 
-## Current Version: 1.20.1-1.5.0 Release (2025.6.29)
+## 1.20.1-1.5.0 Release (2025.6.29)
 ### New
 #### New Generating Flower: `Resoncund`
 Sounds comes from the resonance of mana. Resoncund can reverse this process and produce a certain amount of mana.
