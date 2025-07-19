@@ -227,7 +227,8 @@ public class ForgeCommonInitializer {
 			ExtraBotanyItems.pandorasBox, PandorasBoxItem::makeRelic,
 			ExtraBotanyItems.infiniteWine, InfiniteWineItem::makeRelic,
 			ExtraBotanyItems.voidArchives, VoidArchivesItem::makeRelic,
-			ExtraBotanyItems.rheinHammer, RheinHammerItem::makeRelic
+			ExtraBotanyItems.rheinHammer, RheinHammerItem::makeRelic,
+			ExtraBotanyItems.achillesShield, AchillesShieldItem::makeRelic
 	));
 
 	private static <T> void bind(IEventBus modEventBus, ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {

@@ -9,7 +9,8 @@ import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import java.util.function.Supplier;
 
 public enum ItemTiers implements Tier {
-	EXCALIBUR(2031, 9.0F, 4, 4, 30, () -> ExtraBotanyItems.dasRheingold);
+	EXCALIBUR(2031, 9.0F, 4, 4, 30, () -> ExtraBotanyItems.dasRheingold),
+	ACHILLES_SHIELD(4600, 9.0F, 4.0F, 4, 26, () -> ExtraBotanyItems.orichalcos);
 
 	private final int maxUses;
 	private final float efficiency;

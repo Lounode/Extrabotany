@@ -20,9 +20,14 @@ import java.util.Comparator;
 public class TraceLens extends Lens {
 
 	public static final double SEARCH_TARGET_RADIUS = 5.0D;
+	public static final int INIT_TICKS = 5;
 
 	@Override
 	public void updateBurst(ManaBurst burst, ItemStack stack) {
+		ThrowableProjectile burstEntity = burst.entity();
+		if (burstEntity.tickCount < INIT_TICKS) {
+			return;
+		}
 		rotateToEnemy(burst);
 	}
 

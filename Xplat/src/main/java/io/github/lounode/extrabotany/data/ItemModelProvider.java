@@ -272,6 +272,39 @@ public class ItemModelProvider implements DataProvider {
 				consumer);
 
 		items.remove(excalibur);
+
+		Item[] shields = new Item[] { manasteelShield, elementiumShield, terrasteelShield, achillesShield };
+
+		for (var shield : shields) {
+			ResourceLocation shieldModel = ModelLocationUtils.getModelLocation(shield);
+
+			var shieldModelTemplate = new ModelWithOverrides(prefix("item/template/shield"), TextureSlot.LAYER0);
+			var blockingModelTemplate = new ModelTemplate(Optional.of(prefix("item/template/shield_blocking")), Optional.empty(), TextureSlot.LAYER0);
+
+			var overrides = new OverrideHolder();
+			if (shield == achillesShield) {
+				HANDHELD_0.create(shieldModel.withSuffix("_released"),
+						TextureMapping.layer0(shieldModel.withSuffix("_released")),
+						consumer);
+				overrides.add(shieldModel.withSuffix("_blocking"),
+						Pair.of(prefix("blocking"), 1.0),
+						Pair.of(prefix("released"), 0.0));
+				overrides.add(shieldModel.withSuffix("_released"),
+						Pair.of(prefix("blocking"), 0.0),
+						Pair.of(prefix("released"), 1.0));
+			} else {
+				overrides.add(shieldModel.withSuffix("_blocking"), Pair.of(prefix("blocking"), 1.0));
+			}
+			shieldModelTemplate.create(shieldModel,
+					TextureMapping.layer0(shield),
+					overrides,
+					consumer);
+			blockingModelTemplate.create(shieldModel.withSuffix("_blocking"),
+					TextureMapping.layer0(shield),
+					consumer);
+
+			items.remove(shield);
+		}
 	}
 
 	@NotNull

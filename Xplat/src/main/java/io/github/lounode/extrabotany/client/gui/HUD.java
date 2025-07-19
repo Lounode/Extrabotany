@@ -163,6 +163,7 @@ public final class HUD {
 		return bossOverlay;
 	}
 
+	//TODO ClientPlayerNetworkEvent
 	@SubscribeEventWrapper
 	public static void onDisconnected(PlayerEventWrapper.PlayerLoggedOutEvent event) {
 		HUD.getInstance().getBossOverlay().reset();

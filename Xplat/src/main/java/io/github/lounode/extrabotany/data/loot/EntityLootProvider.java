@@ -41,6 +41,11 @@ public class EntityLootProvider extends EntityLootSubProviderFix {
 						.add(LootItem.lootTableItem(ExtraBotanyItems.pandorasBox)
 								.apply(ExtendBindUUID.bindUUID()))
 				)
+				.withPool(LootPool.lootPool()
+						.when(() -> RealPlayerCondition.INSTANCE)
+						.setRolls(ConstantValue.exactly(0.33F))
+						.add(LootItem.lootTableItem(ExtraBotanyItems.recordGaia3))
+				)
 		);
 	}
 }

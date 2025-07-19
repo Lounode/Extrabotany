@@ -86,6 +86,7 @@ public class VoidArchivesItem extends Item implements CustomCreativeTabContents 
 			}
 			if (getVariant(stack) != VoidArchivesVariant.DEFAULT &&
 					!ManaItemHandler.instance().requestManaExactForTool(stack, player, getKeepVariantRequire(), true)) {
+
 				setVariant(stack, VoidArchivesVariant.DEFAULT);
 			}
 		}
@@ -107,16 +108,18 @@ public class VoidArchivesItem extends Item implements CustomCreativeTabContents 
 		String nextKey = new ArrayList<>(variants.keySet()).get(nextIndex);
 		VoidArchivesVariant nextVariant = variants.get(nextKey);
 
-		current.onInactive(stack);
 		setVariant(stack, nextVariant);
-		nextVariant.onActive(stack);
 	}
 
 	public static void setVariant(ItemStack stack, VoidArchivesVariant variant) {
 		if (!(stack.getItem() instanceof VoidArchivesItem)) {
 			return;
 		}
+		VoidArchivesVariant current = getVariant(stack);
+
+		current.onInactive(stack);
 		ItemNBTHelper.setString(stack, TAG_VARIANT, variant.getId());
+		variant.onActive(stack);
 	}
 
 	public static VoidArchivesVariant getVariant(ItemStack stack) {

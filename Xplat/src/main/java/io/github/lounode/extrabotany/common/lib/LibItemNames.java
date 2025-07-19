@@ -86,7 +86,12 @@ public final class LibItemNames {
 	public static final String LENS_SMELT = "lens_smelt";
 	public static final String LENS_MANA = "lens_mana";
 	public static final String LENS_POTION = "lens_potion";
-	public static final String LENS_CLOUD = "lens_cloud";
+	//public static final String LENS_CLOUD = "lens_cloud";
 	public static final String LENS_TRACE = "lens_trace";
 	public static final String LENS_SUPERCONDUCTOR = "lens_superconductor";
+	public static final String ELEMENTIUM_SHIELD = "elementium_shield";
+	public static final String TERRASTEEL_SHIELD = "terrasteel_shield";
+	public static final String ACHILLES_SHIELD = "achilles_shield";
+	public static final String RECORD_GAIA3 = "music_disc_gaia3";
+	public static final String RECORD_HERRSCHER_OF_THE_VOID = "music_disc_herrscher_of_the_void";
 }

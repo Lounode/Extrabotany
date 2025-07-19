@@ -31,7 +31,7 @@ subprojects {
     }
 
     pmd {
-        toolVersion = '6.35.0'
+        toolVersion = '7.15.0'
         incrementalAnalysis.set(true)
         ruleSetFiles = rootProject.files("spotless/pmd-ruleset.xml")
     }

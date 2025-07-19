@@ -78,6 +78,7 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
 		this.tag(Tags.Items.ARMORS_CHESTPLATES).add(starryIdolSuit, pleiadesCombatMaidSuit, sanguinePleiadesCombatMaidSuit, shadowWarriorChestplate, goblinSlayerChestplate);
 		this.tag(Tags.Items.ARMORS_LEGGINGS).add(starryIdolSkirt, pleiadesCombatMaidSkirt, shadowWarriorLeggings, goblinSlayerLeggings);
 		this.tag(Tags.Items.ARMORS_BOOTS).add(starryIdolBoots, pleiadesCombatMaidBoots, shadowWarriorBoots, goblinSlayerBoots);
+		this.tag(Items.TOOLS_SHIELDS).add(SHIELDS);
 	}
 
 	private static TagKey<Item> accessory(String name) {

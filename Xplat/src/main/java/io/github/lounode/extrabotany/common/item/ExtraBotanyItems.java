@@ -10,16 +10,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.lens.Lens;
 import vazkii.botania.common.item.lens.LensItem;
+import vazkii.botania.common.item.record.BotaniaRecordItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFormFlaskRecipe;
-import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFromManaCocktailRecipe;
-import io.github.lounode.extrabotany.common.crafting.recipe.DasRheingoldSoulbindRecipe;
-import io.github.lounode.extrabotany.common.crafting.recipe.WandOfTheForestExtendRecipe;
+import io.github.lounode.extrabotany.common.crafting.recipe.*;
 import io.github.lounode.extrabotany.common.item.brew.HolyWaterGrenadeItem;
 import io.github.lounode.extrabotany.common.item.brew.InfiniteWineItem;
 import io.github.lounode.extrabotany.common.item.brew.ManaCocktailItem;
@@ -34,7 +31,9 @@ import io.github.lounode.extrabotany.common.item.equipment.armor.shadow_warrior.
 import io.github.lounode.extrabotany.common.item.equipment.armor.starry_idol.StarryIdolArmorItem;
 import io.github.lounode.extrabotany.common.item.equipment.armor.starry_idol.StarryIdolHeadgearItem;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.*;
+import io.github.lounode.extrabotany.common.item.equipment.shield.ElementiumShieldItem;
 import io.github.lounode.extrabotany.common.item.equipment.shield.ManasteelShieldItem;
+import io.github.lounode.extrabotany.common.item.equipment.shield.TerrasteelShieldItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.MagicFingerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.*;
 import io.github.lounode.extrabotany.common.item.lens.*;
@@ -45,6 +44,7 @@ import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
+import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -94,7 +94,14 @@ public final class ExtraBotanyItems {
 			new RheinHammerItem(unstackableCustomDamage().rarity(Rarity.EPIC).fireResistant()));
 	//Shield
 	public static final Item manasteelShield = make(prefix(LibItemNames.MANASTEEL_SHIELD),
-			new ManasteelShieldItem(unstackable().durability(BotaniaAPI.instance().getManasteelItemTier().getUses())));
+			new ManasteelShieldItem(unstackableCustomDamage()));
+	public static final Item elementiumShield = make(prefix(LibItemNames.ELEMENTIUM_SHIELD),
+			new ElementiumShieldItem(unstackableCustomDamage()));
+	public static final Item terrasteelShield = make(prefix(LibItemNames.TERRASTEEL_SHIELD),
+			new TerrasteelShieldItem(unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
+	public static final Item achillesShield = make(prefix(LibItemNames.ACHILLES_SHIELD),
+			new AchillesShieldItem(unstackableCustomDamage().rarity(Rarity.EPIC).fireResistant()));
+
 	//Armor
 	public static final Item starryIdolHeadgear = make(prefix(LibItemNames.STARRY_IDOL_HEADGEAR),
 			new StarryIdolHeadgearItem(unstackableCustomDamage()));
@@ -152,11 +159,11 @@ public final class ExtraBotanyItems {
 	public static final Item gaiaQuartz = make(prefix(LibItemNames.GAIA_QUARTZ), new Item(defaultBuilder()));
 	public static final Item elementiumQuartz = make(prefix(LibItemNames.ELEMENTIUM_QUARTZ), new Item(defaultBuilder()));
 
-	public static final Item lensPush = make(prefix(LibItemNames.LENS_PUSH), new HiddenLensItem(stackTo16(), new PushLens(), LensItem.PROP_INTERACTION | LensItem.PROP_TOUCH));
-	public static final Item lensSmelt = make(prefix(LibItemNames.LENS_SMELT), new HiddenLensItem(stackTo16(), new SmeltLens(), LensItem.PROP_TOUCH | LensItem.PROP_INTERACTION));
-	public static final Item lensMana = make(prefix(LibItemNames.LENS_MANA), new HiddenLensItem(stackTo16(), new ManaLens(), LensItem.PROP_TOUCH | LensItem.PROP_INTERACTION));
-	public static final Item lensPotion = make(prefix(LibItemNames.LENS_POTION), new HiddenLensItem(stackTo16(), new PotionLens(), LensItem.PROP_INTERACTION));
-	public static final Item lensTrace = make(prefix(LibItemNames.LENS_TRACE), new HiddenLensItem(stackTo16(), new TraceLens(), LensItem.PROP_CONTROL));
+	public static final Item lensPush = make(prefix(LibItemNames.LENS_PUSH), new LensItem(stackTo16(), new PushLens(), LensItem.PROP_INTERACTION | LensItem.PROP_TOUCH));
+	public static final Item lensSmelt = make(prefix(LibItemNames.LENS_SMELT), new LensItem(stackTo16(), new SmeltLens(), LensItem.PROP_TOUCH | LensItem.PROP_INTERACTION));
+	public static final Item lensMana = make(prefix(LibItemNames.LENS_MANA), new LensItem(stackTo16(), new ManaLens(), LensItem.PROP_TOUCH | LensItem.PROP_INTERACTION));
+	public static final Item lensPotion = make(prefix(LibItemNames.LENS_POTION), new PotionLensItem(stackTo16(), new PotionLens(), LensItem.PROP_INTERACTION));
+	public static final Item lensTrace = make(prefix(LibItemNames.LENS_TRACE), new LensItem(stackTo16(), new TraceLens(), LensItem.PROP_TOUCH | LensItem.PROP_INTERACTION));
 	public static final Item dasRheingold = make(prefix(LibItemNames.DAS_RHEINGOLD), new DasRheingoldItem(defaultBuilder()));
 	public static final Item gildedPotato = make(prefix(LibItemNames.GILDED_POTATO), new GildedPotatoItem(defaultBuilder()));
 	public static final Item gildedPotatoMashed = make(prefix(LibItemNames.GILDED_POTATO_MASHED), new Item(defaultBuilder()));
@@ -205,6 +212,9 @@ public final class ExtraBotanyItems {
 	public static final Item nineAndThreeQuartersRewardBag = make(prefix(LibItemNames.NINE_AND_THREE_QUARTERS_REWARD_BAG), new RewardBagItem(defaultBuilder(), prefix("nine_and_three_quarters")));
 	public static final Item pandorasBox = make(prefix(LibItemNames.PANDORAS_BOX), new PandorasBoxItem(unstackable().rarity(Rarity.UNCOMMON), prefix("pandoras_box")));
 
+	public static final Item recordGaia3 = make(prefix(LibItemNames.RECORD_GAIA3), new BotaniaRecordItem(1, ExtraBotanySounds.MUSIC_GAIA3, unstackable().rarity(Rarity.EPIC), 201));
+	//public static final Item recordHerrscherOfTheVoid = make(prefix(LibItemNames.RECORD_HERRSCHER_OF_THE_VOID), new BotaniaRecordItem(1, ExtraBotanySounds.MUSIC_GAIA3, unstackable().rarity(Rarity.EPIC), 201));
+
 	//Brews
 	public static final Item manaCocktail = make(prefix(LibItemNames.MANA_COCKTAIL), new ManaCocktailItem(unstackable().craftRemainder(manaGlassBottle), 8, 32, () -> manaGlassBottle));
 	public static final Item infiniteWine = make(prefix(LibItemNames.INFINITE_WINE), new InfiniteWineItem(unstackable().rarity(Rarity.RARE).craftRemainder(manaGlassBottle), 12, 18, () -> manaGlassBottle));
@@ -230,9 +240,12 @@ public final class ExtraBotanyItems {
 	public static final Item[] BOWS = {
 			failnaught
 	};
+	public static final Item[] SHIELDS = {
+			manasteelShield, elementiumShield, terrasteelShield, achillesShield
+	};
 	public static final Item[] MANA_USING_ITEM = {
-			camera, failnaught, excalibur, featherOfJingwei, magicFinger, coreOfTheVoid, voidArchives, walkingCane,
-			dispersiveRing, curseRing,
+			camera, failnaught, excalibur, featherOfJingwei, magicFinger, coreOfTheVoid, voidArchives,
+			dispersiveRing, curseRing, pureDaisyPendant,
 			starryIdolHeadgear, starryIdolSuit, starryIdolSkirt, starryIdolBoots,
 			pleiadesCombatMaidHeadgear, pleiadesCombatMaidSuit, pleiadesCombatMaidSkirt, pleiadesCombatMaidBoots, sanguinePleiadesCombatMaidSuit,
 			shadowWarriorHelmet, shadowWarriorChestplate, shadowWarriorLeggings, shadowWarriorBoots,
@@ -293,6 +306,7 @@ public final class ExtraBotanyItems {
 		r.accept(CopyBrewFormFlaskRecipe.SERIALIZER, prefix("copy_brew_from_flask"));
 		r.accept(CopyBrewFromManaCocktailRecipe.SERIALIZER, prefix("copy_brew_from_mana_cocktail"));
 		r.accept(DasRheingoldSoulbindRecipe.SERIALIZER, prefix("das_rheingold_change_bind"));
+		r.accept(PotionLensChangePotionRecipe.SERIALIZER, prefix("potion_lens_change_potion"));
 	}
 
 	public static void registerItems(BiConsumer<Item, ResourceLocation> r) {

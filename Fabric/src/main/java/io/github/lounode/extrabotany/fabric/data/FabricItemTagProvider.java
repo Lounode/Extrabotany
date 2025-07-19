@@ -36,7 +36,7 @@ public class FabricItemTagProvider extends ItemTagProvider {
 
 	private void generateToolTags() {
 		this.tag(ConventionalItemTags.BOWS).add(BOWS);
-
+		this.tag(ConventionalItemTags.SHIELDS).add(SHIELDS);
 		this.tag(ConventionalItemTags.QUARTZ).add(gaiaQuartz, elementiumQuartz);
 	}
 

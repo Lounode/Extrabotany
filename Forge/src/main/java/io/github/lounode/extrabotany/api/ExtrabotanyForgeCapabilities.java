@@ -9,5 +9,5 @@ import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
 public final class ExtrabotanyForgeCapabilities {
 	private ExtrabotanyForgeCapabilities() {}
 
-	public static final Capability<NatureEnergyItem> NATURE_ENERGY_ITEM = CapabilityManager.get(new CapabilityToken<NatureEnergyItem>() {});
+	public static final Capability<NatureEnergyItem> NATURE_ENERGY_ITEM = CapabilityManager.get(new CapabilityToken<>() {});
 }

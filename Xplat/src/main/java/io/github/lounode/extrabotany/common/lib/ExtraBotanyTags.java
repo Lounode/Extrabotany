@@ -33,6 +33,7 @@ public class ExtraBotanyTags {
 		public static final TagKey<Item> MANA_POOLS = tag("botania", "mana_pools");
 		public static final TagKey<Item> CHARGERS = tag("chargers");
 		public static final TagKey<Item> ANNOYING_FLOWER_EATABLE = tag("annoying_flower_eatable");
+		public static final TagKey<Item> SHIELDS = tag("shields");
 
 		private static TagKey<Item> tag(String name) {
 			return TagKey.create(Registries.ITEM, prefix(name));

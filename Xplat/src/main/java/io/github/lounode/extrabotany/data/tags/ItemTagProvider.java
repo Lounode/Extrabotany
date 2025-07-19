@@ -85,18 +85,20 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.forEach(item -> builder.add(ResourceKey.create(Registries.ITEM, item)));
 
 		this.tag(ItemTags.PIGLIN_LOVED).add(gildedPotato, gildedPotatoMashed, dasRheingold);
-		this.tag(ItemTags.MUSIC_DISCS);//TODO 盖亚唱片
+		this.tag(ItemTags.MUSIC_DISCS).add(recordGaia3);
 		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(HAMMERS);
 
 		this.tag(BotaniaTags.Items.RUNES);
 		//ManaUsingItem
 		this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(ExtraBotanyItems.MANA_USING_ITEM);
 		this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(HAMMERS);
+		this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(SHIELDS);
 
 		this.tag(ExtraBotanyTags.Items.REWARD_BAGS).add(REWARD_BAGS);
 		this.copy(ExtraBotanyTags.Blocks.PEDESTALS, ExtraBotanyTags.Items.PEDESTALS);
 		this.copy(ExtraBotanyTags.Blocks.MANA_POOLS, ExtraBotanyTags.Items.MANA_POOLS);
 		this.copy(ExtraBotanyTags.Blocks.CHARGERS, ExtraBotanyTags.Items.CHARGERS);
 		this.tag(ExtraBotanyTags.Items.ANNOYING_FLOWER_EATABLE).add(friedChicken);
+		this.tag(ExtraBotanyTags.Items.SHIELDS).add(manasteelShield, elementiumShield, terrasteelShield, achillesShield);
 	}
 }

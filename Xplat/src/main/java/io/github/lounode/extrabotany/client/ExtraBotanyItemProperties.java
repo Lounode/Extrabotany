@@ -13,6 +13,7 @@ import io.github.lounode.extrabotany.common.item.equipment.armor.pleiades_combat
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.OrichalcosHammer;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.RheinHammerItem;
 import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.TerrasteelHammerItem;
+import io.github.lounode.extrabotany.common.item.relic.AchillesShieldItem;
 import io.github.lounode.extrabotany.common.item.relic.ExcaliburItem;
 import io.github.lounode.extrabotany.common.item.relic.FailnaughtItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
@@ -92,5 +93,28 @@ public class ExtraBotanyItemProperties {
 				(stack, world, entity, seed) -> SanguinePleiadesCombatMaidSuitItem.isSenketsu(stack) ? 1 : 0);
 		consumer.accept(ExtraBotanyItems.excalibur, prefix("saber"),
 				(stack, world, entity, seed) -> ExcaliburItem.isSaber(stack) ? 1 : 0);
+		consumer.accept(ExtraBotanyItems.manasteelShield, prefix("blocking"),
+				(stack, world, entity, seed) -> (entity == null || !entity.isUsingItem()) ? 0 : 1);
+		consumer.accept(ExtraBotanyItems.elementiumShield, prefix("blocking"),
+				(stack, world, entity, seed) -> (entity == null || !entity.isUsingItem()) ? 0 : 1);
+		consumer.accept(ExtraBotanyItems.terrasteelShield, prefix("blocking"),
+				(stack, world, entity, seed) -> (entity == null || !entity.isUsingItem()) ? 0 : 1);
+		consumer.accept(ExtraBotanyItems.achillesShield, prefix("blocking"),
+				(stack, world, entity, seed) -> {
+					if (entity == null) {
+						return 0;
+					}
+					if (AchillesShieldItem.isReleased(stack)) {
+						return 0;
+					}
+					return entity.isUsingItem() ? 1 : 0;
+				});
+		consumer.accept(ExtraBotanyItems.achillesShield, prefix("released"),
+				(stack, world, entity, seed) -> {
+					if (entity == null) {
+						return 0;
+					}
+					return AchillesShieldItem.isReleased(stack) ? 1 : 0;
+				});
 	}
 }

@@ -295,6 +295,9 @@
   "item.extrabotany.pleiades_combat_maid_skirt": "昴宿星团战斗女仆裙甲",
   "item.extrabotany.pleiades_combat_maid_boots": "昴宿星团战斗女仆靴",
   "item.extrabotany.manasteel_shield": "魔力钢盾牌",
+  "item.extrabotany.elementium_shield": "源质钢盾牌",
+  "item.extrabotany.terrasteel_shield": "泰拉钢盾牌",
+  "item.extrabotany.achilles_shield": "勇士盾",
   "item.extrabotany.shadow_warrior_helmet": "暗影武士头盔",
   "item.extrabotany.shadow_warrior_chestplate": "暗影武士胸甲",
   "item.extrabotany.shadow_warrior_leggings": "暗影武士护腿",
@@ -321,6 +324,8 @@
   "item.extrabotany.lens_potion.short": "药水",
   "item.extrabotany.lens_trace": "魔力透镜：追踪",
   "item.extrabotany.lens_trace.short": "追踪",
+  "item.extrabotany.music_disc_gaia3": "破损的唱片",
+  "item.extrabotany.music_disc_gaia3.desc": "いけないボーダーライン",
   
   "message.extrabotany.actionbar.mana_left": "魔力: %1$s",
   "message.extrabotany.chat.bad_struct": "无论你多么努力地尝试将%1$s送入信标之中，什么事都没有发生。也许你摆放的仪式结构有问题。",
@@ -738,6 +743,34 @@
   "extrabotany.entry.enchanter": "蕴魔瑾",
   "extrabotany.page.enchanter0": "消耗大量的$(thing)魔力$()和漫长的转化时间，$(item)蕴魔瑾$()可以将周围的$(item)草方块$()转化为$(item)蕴魔土$()。$(br2)转化的过程会不断吸取$(thing)魔力$()，这个过程的进度可以通过$(item)森林法杖$()观测。",
   "extrabotany.page.enchanter1": "无穷无尽的知识就是我的力量",
+  
+  "extrabotany.entry.shields": "各式盾牌",
+  "extrabotany.page.shields0": "蕴含有$(thing)魔力$()的金属也可以被镶嵌在$(item)盾牌$()上，为$(item)盾牌$()提高各类性能，以及在损伤时消耗$(thing)魔力$()自我复原。$(br2)镶嵌有$(item)魔力钢$()的$(item)盾牌$()相比普通$(item)盾牌$()而言，耐久度更高，而且可以消耗$(thing)魔力$()自我修复。",
+  "extrabotany.page.shields1": "蓝斯",
+  "extrabotany.page.shields2": "镶嵌有$(item)源质钢$()的盾牌拥有更高的耐久度，而且会在格挡成功后$(thing)点燃$()攻击者，并有几率召唤出$(thing)小精灵$()反击。",
+  "extrabotany.page.shields3": "红城永久",
+  "extrabotany.page.shields4": "镶嵌有$(item)泰拉刚$()的盾牌会将格挡的伤害部分返还给攻击者，还会为使用者提供部分$(thing)生命恢复$()效果。",
+  "extrabotany.page.shields5": "绿川直",
+  
+  "extrabotany.entry.achille_shield": "勇士盾",
+  "extrabotany.page.achille_shield0": "拥有终极防御的$(item)勇士盾$()，可以抵御$(thing)崩坏能$()造成的侵蚀，并将敌人攻击造成的格挡伤害$(thing)全数$()返还给敌人。$(br2)使用$(item)勇士盾$()每次攻击时都会叠加$(thing)伤害吸收$()，当$(thing)伤害吸收$()超过上限的一半时，$(k:sneak)$()$(k:use)来开启超解模式，此时可以将勇士盾当做一把剑来使用，并在$(thing)伤害吸收$()耗尽时变回原态。",
+  "extrabotany.page.achille_shield1": "盾之勇者成名录",
+  
+  "extrabotany.entry.records": "盖亚专辑",
+  "extrabotany.page.records0": "有些时候，$(thing)盖亚守护者$()死亡后，会掉落一张由其残存神志构成的$(item)唱片$()，记录着你与祂战斗的旋律。",
+  "extrabotany.page.records1": "$(thing)盖亚守护者III$()的稀有掉落物，记录着与祂战斗时的旋律。",
+  
+  "extrabotany.entry.more_lens": "更多魔力透镜",
+  "extrabotany.page.more_lens0": "你现在可以制作更多实用的$(item)魔力透镜$()了，以下是它们的配方与效果：$(br2)$(item)冲击透镜$()会使魔力脉冲推动所有接触到的生物，强制它们跟随着魔力脉冲移动。",
+  "extrabotany.page.more_lens1": "暗杀教室",
+  "extrabotany.page.more_lens2": "$(item)冶炼透镜$()会破坏魔力脉冲所触碰到的方块，并掉落冶炼成品。",
+  "extrabotany.page.more_lens3": "钢之炼金术师",
+  "extrabotany.page.more_lens4": "$(item)魔力透镜$()能够模拟魔力池，使魔力脉冲触碰的物品接受魔力灌注。$(br2)如果物品下方存在$(item)炼金催化器$()或$(item)炼造催化器$()也会有对应的效果。",
+  "extrabotany.page.more_lens5": "侵略！乌贼娘",
+  "extrabotany.page.more_lens6": "$(item)药水透镜$()会使魔力脉冲所触碰到的第一个生物获得对应的药水效果。$(br2)与满杯任意$(thing)鸡尾酒$()合成切换其药水效果。",
+  "extrabotany.page.more_lens7": "别当欧尼酱了",
+  "extrabotany.page.more_lens8": "$(item)追踪透镜$()会使魔力脉冲锁定其周围的生物并持续追踪，直到其中一方消失。",
+  "extrabotany.page.more_lens9": "我家的女仆有够烦",
   
   "extrabotany.entry.": "",
   "extrabotany.page.": ""

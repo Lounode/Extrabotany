@@ -163,6 +163,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> InfiniteWineItem.makeRelic(st), ExtraBotanyItems.infiniteWine);
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> VoidArchivesItem.makeRelic(st), ExtraBotanyItems.voidArchives);
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> RheinHammerItem.makeRelic(st), ExtraBotanyItems.rheinHammer);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> AchillesShieldItem.makeRelic(st), ExtraBotanyItems.achillesShield);
 	}
 
 	private void registerFuels() {

@@ -8,9 +8,9 @@
     "extrabotany:magic_finger",
     "extrabotany:core_of_the_void",
     "extrabotany:void_archives",
-    "extrabotany:walking_cane",
     "extrabotany:dispersive_ring",
     "extrabotany:curse_ring",
+    "extrabotany:pure_daisy_pendant",
     "extrabotany:starry_idol_headgear",
     "extrabotany:starry_idol_suit",
     "extrabotany:starry_idol_skirt",
@@ -36,6 +36,10 @@
     "extrabotany:shadowium_hammer",
     "extrabotany:aerialite_hammer",
     "extrabotany:orichalcos_hammer",
-    "extrabotany:rhein_hammer"
+    "extrabotany:rhein_hammer",
+    "extrabotany:manasteel_shield",
+    "extrabotany:elementium_shield",
+    "extrabotany:terrasteel_shield",
+    "extrabotany:achilles_shield"
   ]
 }

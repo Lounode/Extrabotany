@@ -26,6 +26,7 @@ import vazkii.botania.data.recipes.WrapperResult;
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
 import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFormFlaskRecipe;
 import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFromManaCocktailRecipe;
+import io.github.lounode.extrabotany.common.crafting.recipe.PotionLensChangePotionRecipe;
 import io.github.lounode.extrabotany.common.crafting.recipe.WandOfTheForestExtendRecipe;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
@@ -44,11 +45,15 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
 
 	@Override
 	public void buildRecipes(Consumer<FinishedRecipe> consumer) {
+
+		specialRecipe(consumer, PotionLensChangePotionRecipe.SERIALIZER);
+
 		registerMain(consumer);
 		registerMisc(consumer);
 		registerTools(consumer);
 		registerArmors(consumer);
 		registerTrinkets(consumer);
+		registerLenses(consumer);
 		registerConversions(consumer);
 		registerDecor(consumer);
 		registerFloatingFlowers(consumer);
@@ -209,6 +214,40 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
 
 	}
 
+	private void registerLenses(Consumer<FinishedRecipe> consumer) {
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ExtraBotanyItems.lensPush)
+				.requires(BotaniaItems.lensNormal)
+				.requires(BotaniaItems.runeEarth)
+				.requires(BotaniaTags.Items.DUSTS_MANA)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
+				.save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ExtraBotanyItems.lensSmelt)
+				.requires(BotaniaItems.lensNormal)
+				.requires(BotaniaItems.runeFire)
+				.requires(BotaniaTags.Items.DUSTS_MANA)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
+				.save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ExtraBotanyItems.lensMana)
+				.requires(BotaniaItems.lensNormal)
+				.requires(BotaniaItems.runeMana)
+				.requires(BotaniaTags.Items.DUSTS_MANA)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
+				.save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ExtraBotanyItems.lensPotion)
+				.requires(BotaniaItems.lensNormal)
+				.requires(BotaniaItems.runeSpring)
+				.requires(BotaniaTags.Items.DUSTS_MANA)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
+				.save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ExtraBotanyItems.lensTrace)
+				.requires(BotaniaItems.lensNormal)
+				.requires(BotaniaItems.runeGreed)
+				.requires(BotaniaTags.Items.DUSTS_MANA)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
+				.save(consumer);
+
+	}
+
 	private void registerTools(Consumer<FinishedRecipe> consumer) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.failnaught)
 				.define('O', ExtraBotanyTags.Items.INGOTS_ORICHALCOS)
@@ -342,6 +381,31 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
 				.pattern("   ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
 				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.manasteelShield)
+				.define('I', BotaniaTags.Items.INGOTS_MANASTEEL)
+				.define('S', Items.SHIELD)
+				.pattern("I I")
+				.pattern("ISI")
+				.pattern(" I ")
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.elementiumShield)
+				.define('I', BotaniaTags.Items.INGOTS_ELEMENTIUM)
+				.define('S', Items.SHIELD)
+				.pattern("I I")
+				.pattern("ISI")
+				.pattern(" I ")
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ExtraBotanyItems.terrasteelShield)
+				.define('I', BotaniaTags.Items.INGOTS_TERRASTEEL)
+				.define('S', Items.SHIELD)
+				.pattern("I I")
+				.pattern("ISI")
+				.pattern(" I ")
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
+				.save(consumer);
+
 	}
 
 	private void registerConversions(Consumer<FinishedRecipe> consumer) {

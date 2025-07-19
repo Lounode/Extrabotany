@@ -161,7 +161,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				.withAdvancement(mainAdvancement(LibAdvancementNames.THE_SOURCE_OF_HONKAI))
 				.pages(
 						text("extrabotany.page.excalibur0"),
-						new SmithingPage("extrabotany:smithing/excalibur")
+						smithing(ExtraBotanyItems.excalibur)
 								.withText("extrabotany.page.excalibur1")
 				)
 				.save(consumer, id("excalibur"));
@@ -685,7 +685,7 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 						text("extrabotany.page.blood_enchantress0"),
 						petal(ExtrabotanyFlowerBlocks.bloodEnchantress).withText("extrabotany.page.blood_enchantress1")
 				)
-				.extraRecipeMapping(ExtrabotanyFlowerBlocks.bloodEnchantressFloating, 2)
+				.extraRecipeMapping(ExtrabotanyFlowerBlocks.bloodEnchantressFloating, 1)
 				.save(consumer, id("blood_enchantress"));
 		PatchouliBuilder.entry(FUNCTIONAL_FLOWERS)
 				.withName("extrabotany.entry.mirrowtunia")
@@ -735,6 +735,51 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				)
 				.extraRecipeMapping(ExtrabotanyFlowerBlocks.enchanterFloating, 1)
 				.save(consumer, id("enchanter"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.shields")
+				.withIcon(ExtraBotanyItems.manasteelShield)
+				.pages(
+						text("extrabotany.page.shields0"),
+						crafting(ExtraBotanyItems.manasteelShield).withText("extrabotany.page.shields1"),
+						text("extrabotany.page.shields2"),
+						crafting(ExtraBotanyItems.elementiumShield).withText("extrabotany.page.shields3"),
+						text("extrabotany.page.shields4"),
+						crafting(ExtraBotanyItems.terrasteelShield).withText("extrabotany.page.shields5")
+				)
+				.save(consumer, id("shields"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.achille_shield")
+				.withIcon(ExtraBotanyItems.achillesShield)
+				.pages(
+						text("extrabotany.page.achille_shield0"),
+						smithing(ExtraBotanyItems.achillesShield).withText("extrabotany.page.achille_shield1")
+				)
+				.save(consumer, id("achille_shield"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.records")
+				.withIcon(ExtraBotanyItems.recordGaia3)
+				.pages(
+						text("extrabotany.page.records0"),
+						spotlight(ExtraBotanyItems.recordGaia3).withText("extrabotany.page.records1")
+				)
+				.save(consumer, id("records"));
+		PatchouliBuilder.entry(CATEGORY)
+				.withName("extrabotany.entry.more_lens")
+				.withIcon(ExtraBotanyItems.lensMana)
+				.pages(
+						text("extrabotany.page.more_lens0"),
+						crafting(ExtraBotanyItems.lensPush).withText("extrabotany.page.more_lens1"),
+						text("extrabotany.page.more_lens2"),
+						crafting(ExtraBotanyItems.lensSmelt).withText("extrabotany.page.more_lens3"),
+						text("extrabotany.page.more_lens4"),
+						crafting(ExtraBotanyItems.lensMana).withText("extrabotany.page.more_lens5"),
+						text("extrabotany.page.more_lens6"),
+						crafting(ExtraBotanyItems.lensPotion).withText("extrabotany.page.more_lens7"),
+						text("extrabotany.page.more_lens8"),
+						crafting(ExtraBotanyItems.lensTrace).withText("extrabotany.page.more_lens9")
+				)
+				.save(consumer, id("more_lens"));
+
 	}
 
 	private BrewPage brew(Brew brew) {
@@ -782,6 +827,12 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 		ResourceLocation location = BuiltInRegistries.ITEM.getKey(item.asItem());
 		ResourceLocation recipeLocation = location.withPrefix("terra_plate/");
 		return new TerraPlatePage(recipeLocation.toString());
+	}
+
+	private SmithingPage smithing(ItemLike item) {
+		ResourceLocation location = BuiltInRegistries.ITEM.getKey(item.asItem());
+		ResourceLocation recipeLocation = location.withPrefix("smithing/");
+		return new SmithingPage(recipeLocation.toString());
 	}
 
 	private static ResourceLocation mainAdvancement(String name) {
