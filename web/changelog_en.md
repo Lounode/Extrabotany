@@ -1,4 +1,37 @@
-# Current Version: 1.20.1-1.7.0 Release (2025.7.13)
+# Important
+The upcoming version `1.9.0` in next week will be the `Final` update before the `Herrscher of the Void` is released.
+
+After this version, updates will no longer follow the current pace and will be `paused` until all related content is completed and released together.
+
+# Current Version: 1.20.1-1.8.0 Release (2025.7.20)
+### New
+#### New Item `Manasteel Shield`
+Manasteel can be inlaid on Shield to improve its properties, and can also consume mana to self repair when damaged.
+#### New Item `Elementium Shield`
+A shield inlaid with Elementium has higher durability, and will Ignite the attacker after a successful block, and has a chance to summon Pixie to counterattack.
+#### New Item `Terrasteel Shield`
+A shield inlaid with Terrasteel will return some of the blocked damage to the attacker, and also provide Regeneration effect to the defender.
+#### New Item `Achilles Shield`
+Achille Shield can block the erosion from Honkai Energy. Also can return All the blocked damage to the enemy.
+#### New Item `Scathed Music Disc`
+A rare drop from Guardian of Gaia III, recording the melody of fighting him.
+#### New Item `Push Lens`
+Push Lens causes the Mana Burst to push all mobs it touches, forcing them to move with the Mana Burst.
+#### New Item `Smelt Lens`
+Smelt Lens will destroy blocks collided by the Mana Burst and drop the smelted items.
+#### New Item `Mana Lens"`
+Mana Lens is like a Mana Pool, it will infuse the item with mana. If you place a Alchemy Catalyst or a Conjuration Catalyst under the item, it will do the corresponding work.
+#### New Item `Potion Lens`
+Potion Lens will add potion effects to the first entity collided. Craft the lens with the brew flask to decide its effect.
+#### New Item `Trace Lens`
+Trace Lens causes Mana Burst to lock onto nearby mobs and continue tracking them until one of them disappears.
+### Change&Optimize
+- Updated `Event Wrapper` require to 1.1.3
+### Bugfix
+- Fixed bug that some item do not have tag that it should have
+- Fixed bug that caused Void Archives have multiply damage attribute
+- Removed Herobrine
+## 1.20.1-1.7.0 Release (2025.7.13)
 ### New
 #### New Functional Flower: `Mirrowtunia`
 Mirrowtunia can continuously provide `Thirror` effect to surrounding players like a beacon.
@@ -136,7 +169,7 @@ Reikarlily turns the tremendous energy of lightning into Mana.
 
 When a lightning bolt hits nearby, it will generate a great amount of Mana immediately and continue to produce Mana for a long time.
 #### New Functional Flower: `Woodienia`
-Just need a little bit of Mana, Woodienia can help you harvest the Logs$ within a certain range.
+Just need a little bit of Mana, Woodienia can help you harvest the Logs within a certain range.
 
 Built your cabin near the Woodienia might not a good idea.
 

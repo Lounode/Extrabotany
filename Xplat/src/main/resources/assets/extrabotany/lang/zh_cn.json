@@ -745,7 +745,7 @@
   "extrabotany.page.enchanter1": "无穷无尽的知识就是我的力量",
   
   "extrabotany.entry.shields": "各式盾牌",
-  "extrabotany.page.shields0": "蕴含有$(thing)魔力$()的金属也可以被镶嵌在$(item)盾牌$()上，为$(item)盾牌$()提高各类性能，以及在损伤时消耗$(thing)魔力$()自我复原。$(br2)镶嵌有$(item)魔力钢$()的$(item)盾牌$()相比普通$(item)盾牌$()而言，耐久度更高，而且可以消耗$(thing)魔力$()自我修复。",
+  "extrabotany.page.shields0": "$(item)魔力钢$()也可以被镶嵌在$(item)盾牌$()上，为$(item)盾牌$()提高各类性能，以及在损伤时消耗$(thing)魔力$()自我复原。",
   "extrabotany.page.shields1": "蓝斯",
   "extrabotany.page.shields2": "镶嵌有$(item)源质钢$()的盾牌拥有更高的耐久度，而且会在格挡成功后$(thing)点燃$()攻击者，并有几率召唤出$(thing)小精灵$()反击。",
   "extrabotany.page.shields3": "红城永久",
@@ -753,8 +753,9 @@
   "extrabotany.page.shields5": "绿川直",
   
   "extrabotany.entry.achille_shield": "勇士盾",
-  "extrabotany.page.achille_shield0": "拥有终极防御的$(item)勇士盾$()，可以抵御$(thing)崩坏能$()造成的侵蚀，并将敌人攻击造成的格挡伤害$(thing)全数$()返还给敌人。$(br2)使用$(item)勇士盾$()每次攻击时都会叠加$(thing)伤害吸收$()，当$(thing)伤害吸收$()超过上限的一半时，$(k:sneak)$()$(k:use)来开启超解模式，此时可以将勇士盾当做一把剑来使用，并在$(thing)伤害吸收$()耗尽时变回原态。",
-  "extrabotany.page.achille_shield1": "盾之勇者成名录",
+  "extrabotany.page.achille_shield0": "拥有终极防御的$(item)勇士盾$()，可以抵御$(thing)崩坏能$()造成的侵蚀，并将敌人攻击造成的格挡伤害$(thing)全数$()返还给敌人。$(br2)使用$(item)勇士盾$()每次攻击时都会叠加$(thing)伤害吸收$()，当$(thing)伤害吸收$()超过上限的一半时，$(k:sneak)$()$(k:use)来开启超解模式。",
+  "extrabotany.page.achille_shield1": "处于超解模式时，勇士盾可以被当做一把剑来使用，并在$(thing)伤害吸收$()耗尽时变回原态。",
+  "extrabotany.page.achille_shield2": "盾之勇者成名录",
   
   "extrabotany.entry.records": "盖亚专辑",
   "extrabotany.page.records0": "有些时候，$(thing)盖亚守护者$()死亡后，会掉落一张由其残存神志构成的$(item)唱片$()，记录着你与祂战斗的旋律。",

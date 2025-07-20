@@ -99,7 +99,7 @@ public class SmeltLens extends Lens {
 						for (ItemStack stack_ : items) {
 							var recipe = world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(stack_), world).orElse(null);
 							if (recipe != null && !recipe.getResultItem(world.registryAccess()).isEmpty()) {
-								stack_ = recipe.getResultItem(world.registryAccess());
+								stack_ = recipe.getResultItem(world.registryAccess()).copy();
 							}
 
 							ItemEntity itemEntity = new ItemEntity(world, dropPosition.x, dropPosition.y, dropPosition.z, stack_);

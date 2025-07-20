@@ -752,7 +752,8 @@ public final class PatchouliBookProvider extends PatchouliProvider {
 				.withIcon(ExtraBotanyItems.achillesShield)
 				.pages(
 						text("extrabotany.page.achille_shield0"),
-						smithing(ExtraBotanyItems.achillesShield).withText("extrabotany.page.achille_shield1")
+						text("extrabotany.page.achille_shield1"),
+						smithing(ExtraBotanyItems.achillesShield).withText("extrabotany.page.achille_shield2")
 				)
 				.save(consumer, id("achille_shield"));
 		PatchouliBuilder.entry(CATEGORY)

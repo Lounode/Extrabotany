@@ -8,9 +8,13 @@
       "text": "extrabotany.page.achille_shield0"
     },
     {
+      "type": "patchouli:text",
+      "text": "extrabotany.page.achille_shield1"
+    },
+    {
       "type": "extrabotany:smithing",
       "recipe": "extrabotany:smithing/achilles_shield",
-      "text": "extrabotany.page.achille_shield1"
+      "text": "extrabotany.page.achille_shield2"
     }
   ]
 }
