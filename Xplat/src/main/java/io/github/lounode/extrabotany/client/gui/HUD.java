@@ -22,9 +22,6 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import io.github.lounode.eventwrapper.EventsWrapper;
-import io.github.lounode.eventwrapper.event.entity.player.PlayerEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.variants.Camera;
@@ -45,7 +42,6 @@ public final class HUD {
 		INSTANCE = this;
 		this.minecraft = minecraft;
 		this.bossOverlay = new ColorfulBossBarOverlay(minecraft);
-		EventsWrapper.register(HUD.class);
 	}
 
 	public void onDrawScreenPost(GuiGraphics gui, float partialTicks) {
@@ -164,8 +160,7 @@ public final class HUD {
 	}
 
 	//TODO ClientPlayerNetworkEvent
-	@SubscribeEventWrapper
-	public static void onDisconnected(PlayerEventWrapper.PlayerLoggedOutEvent event) {
+	public static void onDisconnected() {
 		HUD.getInstance().getBossOverlay().reset();
 	}
 

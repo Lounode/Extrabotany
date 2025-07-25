@@ -10,6 +10,7 @@ import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import java.io.*;
 import java.nio.file.*;
+import java.util.List;
 import java.util.UUID;
 
 import static io.github.fablabsmc.fablabs.api.fiber.v1.schema.type.derived.ConfigTypes.*;
@@ -122,6 +123,7 @@ public class FabricExtraBotanyConfig {
 		public final PropertyMirror<Integer> manalinkTransferSpeed = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Integer> enchanterTransformCost = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<Integer> enchanterConsumeSpeed = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<List<String>> gaiaSpawnUnCheckList = PropertyMirror.create(ConfigTypes.makeList(ConfigTypes.STRING));
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder
@@ -164,6 +166,13 @@ public class FabricExtraBotanyConfig {
 							Set true to disable Gaia's disarm
 							""")
 					.finishValue(disableGaiaDisArm::mirror)
+					.beginValue("gaiaSpawnUnCheckList", ConfigTypes.makeList(STRING), List.of("minecraft", "botania", "extrabotany"))
+					.withComment("""
+							盖亚三生成时不检查的ModID或者物品
+							示例：minecraft, sophisticatedbackpacks:backpack
+							Items or ModIDs that gaia ignore to check when spawn
+							e.g. minecraft, sophisticatedbackpacks:backpack""")
+					.finishValue(gaiaSpawnUnCheckList::mirror)
 					.finishBranch()//End gaia
 
 					.fork("fakePlayer")
@@ -765,6 +774,11 @@ public class FabricExtraBotanyConfig {
 		@Override
 		public int enchanterConsumeSpeed() {
 			return enchanterConsumeSpeed.getValue();
+		}
+
+		@Override
+		public List<String> gaiaSpawnUnCheckList() {
+			return gaiaSpawnUnCheckList.getValue();
 		}
 	}
 

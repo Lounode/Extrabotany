@@ -305,7 +305,7 @@ public final class ExtraBotanyItems {
 		r.accept(WandOfTheForestExtendRecipe.SERIALIZER, prefix("wand_of_the_forest_extension"));
 		r.accept(CopyBrewFormFlaskRecipe.SERIALIZER, prefix("copy_brew_from_flask"));
 		r.accept(CopyBrewFromManaCocktailRecipe.SERIALIZER, prefix("copy_brew_from_mana_cocktail"));
-		r.accept(DasRheingoldSoulbindRecipe.SERIALIZER, prefix("das_rheingold_change_bind"));
+		r.accept(DasRheingoldChangeSoulBoundRecipe.SERIALIZER, prefix("das_rheingold_change_bind"));
 		r.accept(PotionLensChangePotionRecipe.SERIALIZER, prefix("potion_lens_change_potion"));
 	}
 

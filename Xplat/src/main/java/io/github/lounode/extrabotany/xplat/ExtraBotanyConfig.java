@@ -2,6 +2,8 @@ package io.github.lounode.extrabotany.xplat;
 
 import vazkii.botania.api.BotaniaAPI;
 
+import java.util.List;
+
 public class ExtraBotanyConfig {
 	private static ConfigAccess config = null;
 	private static ClientConfigAccess clientConfig = null;
@@ -40,6 +42,7 @@ public class ExtraBotanyConfig {
 
 	public interface ConfigAccess {
 		boolean disableGaiaDisArm();
+		List<String> gaiaSpawnUnCheckList();
 		boolean enableTelemetry();
 		String telemetryUUID();
 		String fakePlayerId();

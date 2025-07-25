@@ -24,10 +24,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.data.recipes.WrapperResult;
 
 import io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks;
-import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFormFlaskRecipe;
-import io.github.lounode.extrabotany.common.crafting.recipe.CopyBrewFromManaCocktailRecipe;
-import io.github.lounode.extrabotany.common.crafting.recipe.PotionLensChangePotionRecipe;
-import io.github.lounode.extrabotany.common.crafting.recipe.WandOfTheForestExtendRecipe;
+import io.github.lounode.extrabotany.common.crafting.recipe.*;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.LibItemNames;
@@ -47,6 +44,8 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
 	public void buildRecipes(Consumer<FinishedRecipe> consumer) {
 
 		specialRecipe(consumer, PotionLensChangePotionRecipe.SERIALIZER);
+		specialRecipe(consumer, DasRheingoldChangeSoulBoundRecipe.SERIALIZER);
+		specialRecipe(consumer, WandOfTheForestExtendRecipe.SERIALIZER);
 
 		registerMain(consumer);
 		registerMisc(consumer);
@@ -268,6 +267,7 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
 				.pattern("S  ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.twigWand))
 				.save(consumer);
+		/*
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.twigWand)
 				.requires(BotaniaItems.twigWand)
 				.requires(ExtraBotanyItems.manaReader)
@@ -278,6 +278,8 @@ public class CraftingRecipeProvider extends vazkii.botania.data.recipes.Crafting
 				.requires(ExtraBotanyItems.manaReader)
 				.unlockedBy("has_item", conditionsFromItem(ExtraBotanyItems.manaReader))
 				.save(WrapperResult.ofType(WandOfTheForestExtendRecipe.SERIALIZER, consumer), prefix("dreamwood_wand_extension"));
+		*/
+
 		//Hammer
 		hammer(BotaniaTags.Items.INGOTS_MANASTEEL, BotaniaItems.livingwoodTwig, ExtraBotanyItems.manasteelHammer).save(consumer);
 		hammer(BotaniaTags.Items.INGOTS_ELEMENTIUM, BotaniaItems.dreamwoodTwig, ExtraBotanyItems.elementiumHammer).save(consumer);

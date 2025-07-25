@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
+import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -54,6 +55,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 		//Events
 		ClientLifecycleEvents.CLIENT_STARTED.register(this::loadComplete);
 		HudRenderCallback.EVENT.register((gui, partialTick) -> this.hud.onDrawScreenPost(gui, partialTick));
+		ClientLoginConnectionEvents.DISCONNECT.register((handler, client) -> HUD.onDisconnected());
 
 		registerArmors();
 		registerCapabilities();

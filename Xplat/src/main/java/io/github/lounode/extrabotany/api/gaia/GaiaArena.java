@@ -7,7 +7,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
@@ -126,6 +128,11 @@ public class GaiaArena {
 			.where('_', BlockInWorld.hasState(BlockStatePredicate.ANY))
 			.where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(BotaniaBlocks.gaiaPylon)))
 			.createPattern();
+
+	private static List<String> CACHED_BYPASS_CONFIG = new ArrayList<>();
+	private static final List<String> CACHED_BYPASS_MODIDS = new ArrayList<>();
+	private static final List<String> CACHED_BYPASS_ITEMS = new ArrayList<>();
+
 	private final GlobalPos center;
 	private final float radius;
 	private final int height;
@@ -488,12 +495,38 @@ public class GaiaArena {
 		if (stack.isEmpty()) {
 			return true;
 		}
+		if (CACHED_BYPASS_CONFIG != ExtraBotanyConfig.common().gaiaSpawnUnCheckList()) {
+			updateCache(ExtraBotanyConfig.common().gaiaSpawnUnCheckList());
+		}
 
-		String modid = RegistryHelper.getRegistryName(stack.getItem()).getNamespace();
-		if (modid.contains("extrabotany") || modid.contains("botania") || modid.contains("minecraft")) {
+		ResourceLocation itemLocation = RegistryHelper.getRegistryName(stack.getItem());
+		String modid = itemLocation.getNamespace();
+		if (CACHED_BYPASS_MODIDS.contains(modid)) {
 			return true;
 		}
+		if (CACHED_BYPASS_ITEMS.contains(itemLocation.toString())) {
+			return true;
+		}
+
 		return false;
+	}
+
+	public static void updateCache(List<String> newBypassList) {
+		CACHED_BYPASS_CONFIG = newBypassList;
+		CACHED_BYPASS_MODIDS.clear();
+		CACHED_BYPASS_ITEMS.clear();
+
+		for (var s : CACHED_BYPASS_CONFIG) {
+			if (!s.contains(":")) {
+				CACHED_BYPASS_MODIDS.add(s);
+			} else {
+				ResourceLocation itemLocation = ResourceLocation.tryParse(s);
+				if (itemLocation == null || !BuiltInRegistries.ITEM.containsKey(itemLocation)) {
+					continue;
+				}
+				CACHED_BYPASS_ITEMS.add(itemLocation.toString());
+			}
+		}
 	}
 
 	public int countGaiaAround(Level world, Class<? extends Entity> gaiaClass) {

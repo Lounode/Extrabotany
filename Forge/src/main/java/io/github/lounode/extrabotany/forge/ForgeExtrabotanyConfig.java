@@ -105,6 +105,7 @@ public class ForgeExtrabotanyConfig {
 		public final ForgeConfigSpec.IntValue manalinkTransferSpeed;
 		public final ForgeConfigSpec.IntValue enchanterTransformCost;
 		public final ForgeConfigSpec.IntValue enchanterConsumeSpeed;
+		public final ForgeConfigSpec.ConfigValue<List<? extends String>> gaiaSpawnUnCheckList;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 
@@ -143,6 +144,13 @@ public class ForgeExtrabotanyConfig {
 							设为 true 来禁用盖亚的缴械技能
 							Set true to disable Gaia's disarm""")
 					.define("disableGaiaDisarm", false);
+			gaiaSpawnUnCheckList = builder
+					.comment("""
+							盖亚三生成时不检查的ModID或者物品
+							示例：minecraft, sophisticatedbackpacks:backpack
+							Items or ModIDs that gaia ignore to check when spawn
+							e.g. minecraft, sophisticatedbackpacks:backpack""")
+					.defineList("gaiaSpawnUnCheckList", List.of("minecraft", "botania", "extrabotany"), o -> o instanceof String);
 			builder.pop();//End gaia
 
 			builder.push("fakePlayer");
@@ -750,6 +758,12 @@ public class ForgeExtrabotanyConfig {
 		@Override
 		public int enchanterConsumeSpeed() {
 			return enchanterConsumeSpeed.get();
+		}
+
+		@Override
+		@SuppressWarnings("unchecked")
+		public List<String> gaiaSpawnUnCheckList() {
+			return (List<String>) gaiaSpawnUnCheckList.get();
 		}
 	}
 
