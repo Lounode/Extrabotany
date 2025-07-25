@@ -76,10 +76,11 @@ dependencies {
     compileOnly "org.spongepowered:mixin:0.8.5"
     compileOnly "vazkii.patchouli:Patchouli-xplat:${patchouli_version}"
     compileOnly "vazkii.botania:Botania:${botania_version}-FORGE"
-    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "io.github.lounode.eventwrapper:eventwrapper-common:${minecraft_version}-${eventwrapper_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "dev.emi:emi-xplat-mojmap:1.0.12+${minecraft_version}:api"
 
-    compileOnly "dev.latvian.mods:kubejs-fabric:${kubejs_version}"
+    compileOnly "dev.latvian.mods:kubejs-forge:${kubejs_version}"
     compileOnly "dev.latvian.mods:rhino-fabric:${rhino_version}"
     compileOnly "dev.architectury:architectury-fabric:${architectury_version}"
 

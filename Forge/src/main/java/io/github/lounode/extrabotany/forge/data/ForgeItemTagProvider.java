@@ -31,6 +31,12 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
+		this.generateMaterialTags();
+		this.generateToolTags();
+		this.generateAccessoryTags();
+	}
+
+	private void generateMaterialTags() {
 		//Material
 		this.tag(forge("ingots/orichalcos")).addTag(ExtraBotanyTags.Items.INGOTS_ORICHALCOS);
 		this.tag(forge("ingots/photonium")).addTag(ExtraBotanyTags.Items.INGOTS_PHOTONIUM);
@@ -58,12 +64,6 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
 		this.copyToSameName(ForgeBlockTagProvider.AERIALITE);
 
 		this.tag(Items.GEMS_QUARTZ).add(gaiaQuartz, elementiumQuartz);
-
-		//Tools
-		this.tag(Items.TOOLS_BOWS).add(BOWS);
-
-		this.generateToolTags();
-		this.generateAccessoryTags();
 	}
 
 	private void generateAccessoryTags() {
@@ -79,6 +79,7 @@ public class ForgeItemTagProvider extends net.minecraft.data.tags.ItemTagsProvid
 		this.tag(Tags.Items.ARMORS_LEGGINGS).add(starryIdolSkirt, pleiadesCombatMaidSkirt, shadowWarriorLeggings, goblinSlayerLeggings);
 		this.tag(Tags.Items.ARMORS_BOOTS).add(starryIdolBoots, pleiadesCombatMaidBoots, shadowWarriorBoots, goblinSlayerBoots);
 		this.tag(Items.TOOLS_SHIELDS).add(SHIELDS);
+		this.tag(Items.TOOLS_BOWS).add(BOWS);
 	}
 
 	private static TagKey<Item> accessory(String name) {

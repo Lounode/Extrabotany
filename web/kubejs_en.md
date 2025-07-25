@@ -13,5 +13,18 @@ ServerEvents.recipes(event => {
     extrabotany.pedestal_smash('minecraft:glowstone', 'minecraft:diamond');
     extrabotany.pedestal_smash('minecraft:redstone', 'minecraft:diamond', 'minecraft:stick');
     extrabotany.pedestal_smash('minecraft:emerald', 'minecraft:diamond', '#minecraft:pickaxes',/*exp*/ 100, /*strike*/3);
+
+    //Stonesia
+    // .stonesia(outputMana, inputBlockOrBlockTag)
+    extrabotany.stonesia(100, 'minecraft:obsidian');
+    extrabotany.stonesia(10, '#minecraft:dirt')
+
+    //Edelweiss
+    // .edelweiss(outputMana, inputEntityTypeKey)
+    extrabotany.edelweiss(100, 'minecraft:cow');
+
+    //OmniViolet
+    // .omniviolet(inputItem, burnTime)
+    extrabotany.omniviolet('minecraft:apple', 100);
 })
 ```

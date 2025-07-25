@@ -172,8 +172,10 @@ dependencies {
     modImplementation "io.github.lounode.eventwrapper:eventwrapper-fabric:${minecraft_version}-${eventwrapper_version}"
 
     modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-    modRuntimeOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+    //modRuntimeOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
     modImplementation("dev.emi:trinkets:3.7.0") { transitive = false }
+    modCompileOnly "dev.emi:emi-fabric:1.0.12+${minecraft_version}:api"
+    modLocalRuntime "dev.emi:emi-fabric:1.1.4+${minecraft_version}"
 
     modCompileOnly "dev.latvian.mods:kubejs-fabric:${kubejs_version}"
     modCompileOnly "dev.latvian.mods:rhino-fabric:${rhino_version}"

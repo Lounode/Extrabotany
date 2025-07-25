@@ -10,6 +10,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
+import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.data.tags.ItemTagProvider;
 
 import java.util.concurrent.CompletableFuture;
@@ -27,17 +28,40 @@ public class FabricItemTagProvider extends ItemTagProvider {
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-
+		generateMaterialTags();
 		generateToolTags();
 		generateAccessoryTags();
 		generateCompatTags();
+	}
 
+	private void generateMaterialTags() {
+		//Material
+		this.tag(c("ingots/orichalcos")).add(orichalcos);
+		this.tag(c("ingots/photonium")).add(ExtraBotanyItems.photonium);
+		this.tag(c("ingots/shadowium")).add(ExtraBotanyItems.shadowium);
+		this.tag(c("ingots/aerialite")).add(ExtraBotanyItems.aerialite);
+		this.tag(ConventionalItemTags.INGOTS)
+				.addTag(c("ingots/orichalcos"))
+				.addTag(c("ingots/photonium"))
+				.addTag(c("ingots/shadowium"))
+				.addTag(c("ingots/aerialite"));
+
+		this.tag(c("nuggets/orichalcos")).add(ExtraBotanyItems.orichalcosNugget);
+		this.tag(c("nuggets/photonium")).add(ExtraBotanyItems.photoniumNugget);
+		this.tag(c("nuggets/shadowium")).add(ExtraBotanyItems.shadowiumNugget);
+		this.tag(c("nuggets/aerialite")).add(ExtraBotanyItems.aerialiteNugget);
+		this.tag(ConventionalItemTags.NUGGETS)
+				.addTag(c("nuggets/orichalcos"))
+				.addTag(c("nuggets/photonium"))
+				.addTag(c("nuggets/shadowium"))
+				.addTag(c("nuggets/aerialite"));
+
+		this.tag(ConventionalItemTags.QUARTZ).add(gaiaQuartz, elementiumQuartz);
 	}
 
 	private void generateToolTags() {
 		this.tag(ConventionalItemTags.BOWS).add(BOWS);
 		this.tag(ConventionalItemTags.SHIELDS).add(SHIELDS);
-		this.tag(ConventionalItemTags.QUARTZ).add(gaiaQuartz, elementiumQuartz);
 	}
 
 	private void generateAccessoryTags() {
@@ -55,5 +79,9 @@ public class FabricItemTagProvider extends ItemTagProvider {
 
 	private static TagKey<Item> accessory(String name) {
 		return itemTag(new ResourceLocation("trinkets", name));
+	}
+
+	private static TagKey<Item> c(String name) {
+		return itemTag(ResourceLocation.tryBuild("c", name));
 	}
 }

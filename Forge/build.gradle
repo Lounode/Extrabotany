@@ -146,6 +146,7 @@ legacyForge {
 }
 
 dependencies {
+    boolean onlineCompileEnv = System.getenv("GITHUB_ACTIONS") != null
     compileOnly project(":Xplat")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
@@ -157,10 +158,30 @@ dependencies {
     modImplementation("io.github.lounode.eventwrapper:eventwrapper-forge:${minecraft_version}-${eventwrapper_version}")
 
     modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    modCompileOnly "dev.emi:emi-forge:1.0.12+${minecraft_version}:api"
+    modCompileOnlyApi("dev.emi:emi-forge:1.0.12+${minecraft_version}")
+    if (!onlineCompileEnv) {
+        switch(item_manager) {
+            case "jei":
+                modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+                modRuntimeOnly("maven.modrinth:just-enough-resources-jer:1.4.0.247")
+                break
+            case "emi":
+                modRuntimeOnly "dev.emi:emi-forge:1.1.4+${minecraft_version}"
+                break
+        }
+    }
+
+
     modCompileOnly ("dev.latvian.mods:kubejs-forge:${kubejs_version}")
     modCompileOnly ("dev.latvian.mods:rhino-forge:${rhino_version}")
     modCompileOnly ("dev.architectury:architectury-forge:${architectury_version}")
+    if (kubejs.toBoolean() && !onlineCompileEnv) {
+        modRuntimeOnly ("dev.architectury:architectury-forge:${architectury_version}")
+        modRuntimeOnly ("dev.latvian.mods:kubejs-forge:${kubejs_version}")
+        modRuntimeOnly ("dev.latvian.mods:rhino-forge:${rhino_version}")
+    }
+
     //modCompileOnly("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
     //modRuntimeOnly("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
     //modCompileOnly("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tinkers_version}")
@@ -170,10 +191,11 @@ dependencies {
     //modRuntimeOnly("dev.shadowsoffire:Placebo:1.20.1-8.6.2")
     //modRuntimeOnly("teamtwilight:twilightforest:4.3.1893:universal")
 
+
+
     modRuntimeOnly("maven.modrinth:3dskinlayers:93jYE7eX")
     modRuntimeOnly("maven.modrinth:spark:4FXHDE9F")
     modRuntimeOnly("maven.modrinth:nbtedit-reborn:x45wpz18")
-    modRuntimeOnly("maven.modrinth:just-enough-resources-jer:1.4.0.247")
 }
 
 compileJava {
