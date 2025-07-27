@@ -66,7 +66,7 @@ public class PetalApothecaryProvider extends vazkii.botania.data.recipes.PetalAp
 		consumer.accept(make(ExtrabotanyFlowerBlocks.stonesia, gray, gray, black, gaiaSpirit, runeAutumn, runeGluttony));
 		consumer.accept(make(ExtrabotanyFlowerBlocks.edelweiss, white, white, white, lightBlue, lightBlue, manaDust, runeMana, runeWinter));
 		consumer.accept(make(ExtrabotanyFlowerBlocks.resoncund, magenta, magenta, orange, orange, runeLust, runeGluttony));
-		consumer.accept(make(ExtrabotanyFlowerBlocks.sunshineLily, yellow, yellow, orange, lightBlue));
+		consumer.accept(make(ExtrabotanyFlowerBlocks.sunshineLily, yellow, yellow, yellow, orange));
 		consumer.accept(make(ExtrabotanyFlowerBlocks.moonlightLily, black, black, purple, gray));
 		consumer.accept(make(ExtrabotanyFlowerBlocks.serenitian, purple, purple, blue, blue, runeMana, runeSloth, runeGreed, gaiaSpirit, Ingredient.of(Items.WITHER_ROSE)));
 		consumer.accept(make(ExtrabotanyFlowerBlocks.twinstar, yellow, yellow, yellow, orange, orange, orange, manaDust, manaDust));
