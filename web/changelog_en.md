@@ -1,9 +1,22 @@
 # Important
-The upcoming version `1.9.0` in next week will be the `Final` update before the `Herrscher of the Void` is released.
+Current version `1.9.0` is the `Final` update before the `Herrscher of the Void` is released.
 
-After this version, updates will no longer follow the current pace and will be `paused` until all related content is completed and released together.
+After this version released, updates will no longer follow the current pace and will be `paused` until all related content is completed and released together.
 
-# Current Version: 1.20.1-1.8.0 Release (2025.7.20)
+# 当前版本：1.20.1-1.9.0 Release（2025.7.27）
+### New
+- Try support EMI
+- Stonesia, Edelweiss, Omniviolet now can use kubejs to add new recipes
+- See more on [Here](kubejs_en.md)
+### Change&Optimize
+- Updated Gaia III record texture
+- Gaia III now can configurable banning item list
+### Bugfix
+- Fixed bug that some item do not have tag on fabric
+- Fixed bug that gaia boss bar continue alive after disconnect to server and re-login
+- Removed Herobrine
+
+## 1.20.1-1.8.0 Release (2025.7.20)
 ### New
 #### New Item `Manasteel Shield`
 Manasteel can be inlaid on Shield to improve its properties, and can also consume mana to self repair when damaged.

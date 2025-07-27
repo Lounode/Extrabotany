@@ -22,6 +22,7 @@ ServerEvents.recipes(event => {
     //Edelweiss
     // .edelweiss(outputMana, inputEntityTypeKey)
     extrabotany.edelweiss(100, 'minecraft:cow');
+    extrabotany.edelweiss(200, '#minecraft:skeletons');
 
     //OmniViolet
     // .omniviolet(inputItem, burnTime)
