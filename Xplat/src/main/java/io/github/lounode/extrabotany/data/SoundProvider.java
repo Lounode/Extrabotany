@@ -87,7 +87,7 @@ public class SoundProvider extends SoundDefinitionsProvider {
 				.with(
 						SoundDefinitionsProvider.sound(relocateOggPath(MUSIC_GAIA3.getLocation()))
 								.stream()
-								.volume(0.3F)
+								.volume(1.3F)
 				)
 		);
 

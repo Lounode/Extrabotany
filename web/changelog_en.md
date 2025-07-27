@@ -3,7 +3,8 @@ Current version `1.9.0` is the `Final` update before the `Herrscher of the Void`
 
 After this version released, updates will no longer follow the current pace and will be `paused` until all related content is completed and released together.
 
-# 当前版本：1.20.1-1.9.0 Release（2025.7.27）
+# Current Version: 1.20.1-1.9.0 Release（2025.7.27）
+## Hotfix1: fixed gaia 3 music that can be heard faraway
 ### New
 - Try support EMI
 - Stonesia, Edelweiss, Omniviolet now can use kubejs to add new recipes
