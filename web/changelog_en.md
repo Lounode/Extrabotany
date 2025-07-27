@@ -13,6 +13,7 @@ After this version released, updates will no longer follow the current pace and 
 - Gaia III now can configurable banning item list
 ### Bugfix
 - Fixed bug that some item do not have tag on fabric
+- Fixed bug that Sunshine Lily has the recipe conflict with sunflower
 - Fixed bug that gaia boss bar continue alive after disconnect to server and re-login
 - Removed Herobrine
 
