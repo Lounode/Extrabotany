@@ -6,6 +6,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import vazkii.botania.common.loot.EnableRelics;
@@ -43,7 +44,8 @@ public class EntityLootProvider extends EntityLootSubProviderFix {
 				)
 				.withPool(LootPool.lootPool()
 						.when(() -> RealPlayerCondition.INSTANCE)
-						.setRolls(ConstantValue.exactly(0.33F))
+						.when(LootItemRandomChanceCondition.randomChance(0.2F))
+						.setRolls(ConstantValue.exactly(1))
 						.add(LootItem.lootTableItem(ExtraBotanyItems.recordGaia3))
 				)
 		);

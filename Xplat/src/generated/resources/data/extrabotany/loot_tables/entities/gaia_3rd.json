@@ -29,6 +29,10 @@
       "conditions": [
         {
           "condition": "botania:killed_by_player"
+        },
+        {
+          "chance": 0.2,
+          "condition": "minecraft:random_chance"
         }
       ],
       "entries": [
@@ -37,7 +41,7 @@
           "name": "extrabotany:music_disc_gaia3"
         }
       ],
-      "rolls": 0.33
+      "rolls": 1.0
     }
   ],
   "random_sequence": "extrabotany:entities/gaia_3rd"
