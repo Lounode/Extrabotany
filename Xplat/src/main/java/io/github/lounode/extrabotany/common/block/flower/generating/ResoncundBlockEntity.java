@@ -150,6 +150,9 @@ public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
 
 	@SubscribeEventWrapper
 	public void onPlayLevelSound(PlayLevelSoundEventWrapper.AtPosition event) {
+		if (getLevel() == null) {
+			return;
+		}
 		if (getLevel().isClientSide()) {
 			EventsWrapper.unregister(this);
 			return;
@@ -170,6 +173,9 @@ public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
 
 	@SubscribeEventWrapper
 	public void onPlayLevelSound(PlayLevelSoundEventWrapper.AtEntity event) {
+		if (getLevel() == null) {
+			return;
+		}
 		if (getLevel().isClientSide()) {
 			EventsWrapper.unregister(this);
 			return;
