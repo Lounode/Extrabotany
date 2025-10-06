@@ -1,5 +1,7 @@
 package io.github.lounode.extrabotany.common.impl;
 
+import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
+
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -8,19 +10,15 @@ import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
 import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
 import io.github.lounode.extrabotany.api.level.Wind;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class WindImpl implements Wind {
 
-	private static final Map<Level, LevelWind> WIND_MAP = new LinkedHashMap<>();
+	private static final Map<Level, LevelWind> WIND_MAP = new Reference2ReferenceOpenHashMap<>();
 
 	@Override
 	public double getWindLevel(Level level, Vec3 position) {
-		if (!WIND_MAP.containsKey(level)) {
-			WIND_MAP.put(level, new LevelWind(level));
-		}
-		return WIND_MAP.get(level).getWindLevel(position);
+		return WIND_MAP.computeIfAbsent(level, LevelWind::new).getWindLevel(position);
 	}
 
 	public static class LevelWind {
@@ -93,21 +91,19 @@ public class WindImpl implements Wind {
 		@SubscribeEventWrapper
 		public static void onLevelLoad(LevelEventWrapper.Load event) {
 			Level level = (Level) event.getLevel();
-			if (!WIND_MAP.containsKey(level)) {
-				WIND_MAP.put(level, new LevelWind(level));
-			}
+			WIND_MAP.computeIfAbsent(level, LevelWind::new);
 		}
 
+		@SubscribeEventWrapper
 		public static void onLevelUnLoad(LevelEventWrapper.Unload event) {
 			Level level = (Level) event.getLevel();
 			WIND_MAP.remove(level);
 		}
 
 		public static void onLevelTick(Level level) {
-			if (WIND_MAP.containsKey(level)) {
-				LevelWind wind = WIND_MAP.get(level);
+			LevelWind wind = WIND_MAP.get(level);
+			if (wind != null)
 				wind.tick();
-			}
 		}
 	}
 }
