@@ -102,8 +102,9 @@ public class WindImpl implements Wind {
 
 		public static void onLevelTick(Level level) {
 			LevelWind wind = WIND_MAP.get(level);
-			if (wind != null)
+			if (wind != null) {
 				wind.tick();
+			}
 		}
 	}
 }
