@@ -14,7 +14,7 @@ import io.github.lounode.extrabotany.common.item.equipment.tool.hammer.Elementiu
 
 import java.util.function.Consumer;
 
-@Mixin(LootTable.class)
+@Mixin(value = LootTable.class, priority = 999)
 public class ElementiumHammerFilter {
 
 	@ModifyVariable(method = "getRandomItemsRaw(Lnet/minecraft/world/level/storage/loot/LootContext;Ljava/util/function/Consumer;)V", at = @At("HEAD"), argsOnly = true)

@@ -109,6 +109,7 @@ legacyForge {
             client()
             systemProperty('forge.logging.console.level', 'debug')
             systemProperty('metrics_debug', 'true')
+            systemProperty('mixin.debug.export','true')
             jvmArgument("-XX:+AllowEnhancedClassRedefinition")
 
             programArguments.addAll("--username", "Dev")
