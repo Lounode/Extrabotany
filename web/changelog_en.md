@@ -1,10 +1,20 @@
 # Important
-Current version `1.9.0` is the `Final` update before the `Herrscher of the Void` is released.
+`1.10.0` version is under developing, `Herrscher of The Void` and `Zenith` coming soon.
 
-After this version released, updates will no longer follow the current pace and will be `paused` until all related content is completed and released together.
 
-# Current Version: 1.20.1-1.9.0 Release（2025.7.27）
-## Hotfix1.9.1: fixed gaia 3 music that can be heard faraway
+## Current Version: 1.20.1-1.9.2 Release（2025.11.3）
+### Bugfix
+- Fixed bug that gaia 3 don't drop music disc.
+- Fixed bug that Resoncund could cause game crash sometimes.
+- Fixed bug that WindImpl cause memory leaks when join and leave level.
+- Fixed bug when installed CraftTweaker on Fabric, block will drop noting.
+- Removed Herobrine
+
+## 1.20.1-1.9.1 Release（2025.7.27）
+### Bugfix
+- Fixed bug that gaia 3 music can be heard faraway
+- Removed Herobrine
+## 1.20.1-1.9.0 Release (2025.7.27)
 ### New
 - Try support EMI
 - Stonesia, Edelweiss, Omniviolet now can use kubejs to add new recipes
