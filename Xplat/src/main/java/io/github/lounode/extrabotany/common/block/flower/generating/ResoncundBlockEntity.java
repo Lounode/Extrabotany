@@ -157,6 +157,9 @@ public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
 			EventsWrapper.unregister(this);
 			return;
 		}
+		if (event.getLevel().isClientSide()) {
+			return;
+		}
 		if (this.isRemoved()) {
 			EventsWrapper.unregister(this);
 			return;
@@ -178,6 +181,9 @@ public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 		if (getLevel().isClientSide()) {
 			EventsWrapper.unregister(this);
+			return;
+		}
+		if (event.getLevel().isClientSide()) {
 			return;
 		}
 		if (this.isRemoved()) {
