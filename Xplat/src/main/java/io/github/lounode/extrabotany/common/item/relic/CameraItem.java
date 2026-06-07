@@ -1,4 +1,5 @@
 package io.github.lounode.extrabotany.common.item.relic;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.TooltipFlag;
@@ -34,11 +36,8 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.common.item.relic.RelicItem;
-import vazkii.botania.xplat.XplatAbstractions;
 
-import io.github.lounode.eventwrapper.event.entity.player.ItemCooldownFinishEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.player.ItemCooldownFinishEventWrapper;
 import io.github.lounode.extrabotany.api.item.IShadowium;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
@@ -49,7 +48,6 @@ import java.util.List;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
-@EventBusSubscriberWrapper
 public class CameraItem extends RelicItem implements IShadowium {
 	private static final int MANA_PER_USE = 1500;
 	private static final int RANGE = 20;
@@ -66,7 +64,7 @@ public class CameraItem extends RelicItem implements IShadowium {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+		var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 		if (relic == null ||
 				!relic.isRightPlayer(player) ||
 				!ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_PER_USE, false)) {
@@ -89,7 +87,7 @@ public class CameraItem extends RelicItem implements IShadowium {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 1200;
 	}
 
@@ -100,7 +98,7 @@ public class CameraItem extends RelicItem implements IShadowium {
 
 	public static InteractionResultHolder<ItemStack> executeCapture(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+		var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 		if (relic != null && (player.isCreative() || (relic.isRightPlayer(player) &&
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_PER_USE, true)))) {
 
@@ -196,7 +194,6 @@ public class CameraItem extends RelicItem implements IShadowium {
 		}
 	}
 
-	@SubscribeEventWrapper
 	public static void onItemCooldownFinish(ItemCooldownFinishEventWrapper event) {
 		if (!(event.getItem() instanceof CameraItem)) {
 			return;
@@ -232,10 +229,10 @@ public class CameraItem extends RelicItem implements IShadowium {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
 		tooltip.add(Component.translatable("tooltip.extrabotany.camera").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
 		tooltip.add(Component.literal(""));
-		super.appendHoverText(stack, world, tooltip, flags);
+		super.appendHoverText(stack, context, tooltip, flags);
 	}
 
 	public static class Hud {

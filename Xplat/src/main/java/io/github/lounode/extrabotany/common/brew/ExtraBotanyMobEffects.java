@@ -1,33 +1,42 @@
 package io.github.lounode.extrabotany.common.brew;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
+import vazkii.botania.common.helper.RegistryHelper;
+
 import io.github.lounode.extrabotany.common.brew.effect.*;
 import io.github.lounode.extrabotany.common.lib.LibPotionNames;
 
-import java.util.function.BiConsumer;
+import java.util.ArrayList;
+import java.util.List;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class ExtraBotanyMobEffects {
-	public static final MobEffect IMMOBILIZE = new ImmobilizeMobEffect(MobEffectCategory.HARMFUL, 9154528)
-			.addAttributeModifier(Attributes.MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", (double) -1.5F, AttributeModifier.Operation.MULTIPLY_TOTAL);;
-	public static final MobEffect LINK = new LinkMobEffect(MobEffectCategory.HARMFUL, 9154528);
-	public static final MobEffect HEAL_REVERSE = new HealReverseMobEffect(MobEffectCategory.HARMFUL, 0X4B0082);
-	public static final MobEffect DISCOUNT = new DiscountMobEffect(MobEffectCategory.NEUTRAL, 0x54eb89);
-	public static final MobEffect WARM = new WarmMobEffect(MobEffectCategory.BENEFICIAL, 16750848);
-	public static final MobEffect THIRROR = new ThirrorMobEffect(MobEffectCategory.BENEFICIAL, 0X4169E1);
+	private static final List<RegistryHelper.HolderProxy<MobEffect>> TO_REGISTER = new ArrayList<>();
 
-	public static void registerPotions(BiConsumer<MobEffect, ResourceLocation> r) {
-		r.accept(IMMOBILIZE, prefix(LibPotionNames.IMMOBILIZE));
-		r.accept(LINK, prefix(LibPotionNames.LINK));
-		r.accept(HEAL_REVERSE, prefix(LibPotionNames.HEAL_REVERSE));
-		r.accept(DISCOUNT, prefix(LibPotionNames.DISCOUNT));
-		r.accept(WARM, prefix(LibPotionNames.WARM));
-		r.accept(THIRROR, prefix(LibPotionNames.THIRROR));
+	public static final Holder<MobEffect> IMMOBILIZE = create(LibPotionNames.IMMOBILIZE,
+			new ImmobilizeMobEffect(MobEffectCategory.HARMFUL, 9154528)
+					.addAttributeModifier(Attributes.MOVEMENT_SPEED, prefix("immobilize_movement_speed"), -1.5D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+	public static final Holder<MobEffect> LINK = create(LibPotionNames.LINK, new LinkMobEffect(MobEffectCategory.HARMFUL, 9154528));
+	public static final Holder<MobEffect> HEAL_REVERSE = create(LibPotionNames.HEAL_REVERSE, new HealReverseMobEffect(MobEffectCategory.HARMFUL, 0X4B0082));
+	public static final Holder<MobEffect> DISCOUNT = create(LibPotionNames.DISCOUNT, new DiscountMobEffect(MobEffectCategory.NEUTRAL, 0x54eb89));
+	public static final Holder<MobEffect> WARM = create(LibPotionNames.WARM, new WarmMobEffect(MobEffectCategory.BENEFICIAL, 16750848));
+	public static final Holder<MobEffect> THIRROR = create(LibPotionNames.THIRROR, new ThirrorMobEffect(MobEffectCategory.BENEFICIAL, 0X4169E1));
+
+	private static Holder<MobEffect> create(String name, MobEffect effect) {
+		RegistryHelper.HolderProxy<MobEffect> proxy = RegistryHelper.holderProxy(Registries.MOB_EFFECT, prefix(name), effect);
+		TO_REGISTER.add(proxy);
+		return proxy;
+	}
+
+	public static void registerPotions(Registry<MobEffect> registry) {
+		TO_REGISTER.forEach(proxy -> proxy.register(registry));
 	}
 }

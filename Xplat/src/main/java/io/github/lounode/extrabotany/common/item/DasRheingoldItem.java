@@ -7,6 +7,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -14,7 +15,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.helper.ItemNBTHelper;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 
 import java.util.List;
 import java.util.UUID;
@@ -40,7 +41,7 @@ public class DasRheingoldItem extends Item {
 		ItemStack out = stack.copyWithCount(1);
 		bindToUUID(out, bindPlayer.getUUID());
 		getSoulbindUUID(out);
-		out.setHoverName(Component.translatable("item.extrabotany.das_rheingold.bind"));
+		out.set(DataComponents.CUSTOM_NAME, Component.translatable("item.extrabotany.das_rheingold.bind"));
 
 		if (!player.addItem(out)) {
 			return InteractionResult.PASS;
@@ -58,32 +59,32 @@ public class DasRheingoldItem extends Item {
 			return InteractionResultHolder.pass(stack);
 		}
 		if (player.isSecondaryUseActive()) {
-			stack.resetHoverName();
-			ItemNBTHelper.removeEntry(stack, TAG_SOULBIND_UUID);
+			stack.remove(DataComponents.CUSTOM_NAME);
+			ItemStackDataHelper.removeEntry(stack, TAG_SOULBIND_UUID);
 			return InteractionResultHolder.success(stack);
 		}
 		return InteractionResultHolder.pass(stack);
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
-		super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+		super.appendHoverText(stack, context, tooltipComponents, isAdvanced);
 		if (getSoulbindUUID(stack) != null) {
 			tooltipComponents.add(Component.translatable("tooltip.extrabotany.bind", getSoulbindUUID(stack)).withStyle(ChatFormatting.GRAY));
 		}
 	}
 
 	public void bindToUUID(ItemStack stack, UUID uuid) {
-		ItemNBTHelper.setString(stack, TAG_SOULBIND_UUID, uuid.toString());
+		ItemStackDataHelper.setString(stack, TAG_SOULBIND_UUID, uuid.toString());
 	}
 
 	@Nullable
 	public UUID getSoulbindUUID(ItemStack stack) {
-		if (ItemNBTHelper.verifyExistance(stack, TAG_SOULBIND_UUID)) {
+		if (ItemStackDataHelper.verifyExistance(stack, TAG_SOULBIND_UUID)) {
 			try {
-				return UUID.fromString(ItemNBTHelper.getString(stack, TAG_SOULBIND_UUID, ""));
+				return UUID.fromString(ItemStackDataHelper.getString(stack, TAG_SOULBIND_UUID, ""));
 			} catch (IllegalArgumentException ex) { // Bad UUID in tag
-				ItemNBTHelper.removeEntry(stack, TAG_SOULBIND_UUID);
+				ItemStackDataHelper.removeEntry(stack, TAG_SOULBIND_UUID);
 			}
 		}
 

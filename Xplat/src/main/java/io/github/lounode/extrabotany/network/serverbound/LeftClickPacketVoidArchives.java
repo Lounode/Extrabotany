@@ -1,6 +1,8 @@
 package io.github.lounode.extrabotany.network.serverbound;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,6 +15,8 @@ public class LeftClickPacketVoidArchives extends LeftClickPack {
 
 	public static final LeftClickPacketVoidArchives INSTANCE = new LeftClickPacketVoidArchives();
 	public static final ResourceLocation ID = prefix("lca");
+	public static final CustomPacketPayload.Type<LeftClickPacketVoidArchives> TYPE = new CustomPacketPayload.Type<>(ID);
+	public static final StreamCodec<FriendlyByteBuf, LeftClickPacketVoidArchives> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	public static LeftClickPacketVoidArchives decode(FriendlyByteBuf buf) {
 		return INSTANCE;
@@ -21,6 +25,11 @@ public class LeftClickPacketVoidArchives extends LeftClickPack {
 	@Override
 	public ResourceLocation getFabricId() {
 		return ID;
+	}
+
+	@Override
+	public CustomPacketPayload.Type<LeftClickPacketVoidArchives> type() {
+		return TYPE;
 	}
 
 	@Override

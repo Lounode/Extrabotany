@@ -17,12 +17,13 @@ import io.github.lounode.extrabotany.common.entity.gaia.GaiaIII;
 public abstract class GaiaGuardianAdditionalSpawnCheck {
 
 	@Inject(
-		method = "countGaiaGuardiansAround",
+		method = "anyActiveArenasAround",
 		at = @At("RETURN"),
 		cancellable = true
 	)
-	private static void onCountGaia(Level world, BlockPos source, CallbackInfoReturnable<Integer> cir) {
-		int origin = cir.getReturnValue();
-		cir.setReturnValue(origin + GaiaArena.countGaiaAround(world, source, 15.0F, GaiaIII.class));
+	private static void hasGaiaIIIAround(Level world, BlockPos source, CallbackInfoReturnable<Boolean> cir) {
+		if (!cir.getReturnValue()) {
+			cir.setReturnValue(GaiaArena.countGaiaAround(world, source, 15.0F, GaiaIII.class) > 0);
+		}
 	}
 }

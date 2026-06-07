@@ -2,19 +2,18 @@ package io.github.lounode.extrabotany.common.crafting;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-
-import vazkii.botania.mixin.RecipeManagerAccessor;
 
 import io.github.lounode.extrabotany.api.recipe.EdelweissRecipe;
 import io.github.lounode.extrabotany.api.recipe.OmnivioletRecipe;
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
 import io.github.lounode.extrabotany.api.recipe.StonesiaRecipe;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
@@ -49,7 +48,11 @@ public class ExtraBotanyRecipeTypes {
 		}
 	}
 
-	public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, T> getRecipes(Level world, RecipeType<T> type) {
-		return ((RecipeManagerAccessor) world.getRecipeManager()).botania_getAll(type);
+	public static <I extends RecipeInput, T extends Recipe<I>> Map<ResourceLocation, T> getRecipes(Level world, RecipeType<T> type) {
+		Map<ResourceLocation, T> recipes = new LinkedHashMap<>();
+		for (var holder : world.getRecipeManager().getAllRecipesFor(type)) {
+			recipes.put(holder.id(), holder.value());
+		}
+		return recipes;
 	}
 }

@@ -14,7 +14,7 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
@@ -54,8 +54,8 @@ public class ManaReaderItem extends Item {
 		EXplatAbstractions.INSTANCE.sendToPlayer((ServerPlayer) player, new ManaReaderPacket(manaValue));
 
 		ItemStack stack = ctx.getItemInHand();
-		int currentCount = ItemNBTHelper.getInt(stack, "count", 0) + 1;
-		ItemNBTHelper.setInt(stack, "count", currentCount);
+		int currentCount = ItemStackDataHelper.getInt(stack, "count", 0) + 1;
+		ItemStackDataHelper.setInt(stack, "count", currentCount);
 
 		if (currentCount >= ADVANCE_REQUIRE) {
 			PlayerHelper.grantCriterion((ServerPlayer) player, prefix("main/" + LibAdvancementNames.SENBON_ZAKURA), "code_triggered");

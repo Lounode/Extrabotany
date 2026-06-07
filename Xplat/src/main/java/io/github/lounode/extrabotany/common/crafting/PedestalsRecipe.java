@@ -1,22 +1,22 @@
 package io.github.lounode.extrabotany.common.crafting;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import io.github.lounode.extrabotany.api.recipe.EmptyRecipeInput;
 import io.github.lounode.extrabotany.api.recipe.PedestalRecipe;
 
 public class PedestalsRecipe implements PedestalRecipe {
@@ -38,13 +38,12 @@ public class PedestalsRecipe implements PedestalRecipe {
 	}
 
 	@Override
-	public boolean matches(Container container, Level world) {
-		ItemStack inputStack = container.getItem(0);
-		return input.test(inputStack);
+	public boolean matches(EmptyRecipeInput container, Level world) {
+		return false;
 	}
 
 	@Override
-	public ItemStack assemble(Container container, RegistryAccess registryAccess) {
+	public ItemStack assemble(EmptyRecipeInput container, HolderLookup.Provider registryAccess) {
 		return getResultItem(registryAccess).copy();
 	}
 
@@ -54,11 +53,10 @@ public class PedestalsRecipe implements PedestalRecipe {
 	}
 
 	@Override
-	public ItemStack getResultItem(RegistryAccess registryAccess) {
+	public ItemStack getResultItem(HolderLookup.Provider registryAccess) {
 		return output;
 	}
 
-	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
@@ -100,35 +98,29 @@ public class PedestalsRecipe implements PedestalRecipe {
 	}
 
 	public static class Serializer implements RecipeSerializer<PedestalsRecipe> {
-		@NotNull
-		@Override
-		public PedestalsRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
-			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-			Ingredient input = Ingredient.fromJson(json.get("input"));
-			Ingredient smashTools = Ingredient.fromJson(json.get("smash_tools"));
-			int strike = json.get("strike").getAsInt();
-			int exp = json.get("exp").getAsInt();
+		private static final MapCodec<PedestalsRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+				ItemStack.STRICT_CODEC.fieldOf("output").forGetter(PedestalsRecipe::getOutput),
+				Ingredient.CODEC_NONEMPTY.fieldOf("smash_tools").forGetter(PedestalsRecipe::getSmashTools),
+				Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(PedestalsRecipe::getInput),
+				com.mojang.serialization.Codec.INT.fieldOf("strike").forGetter(PedestalsRecipe::getStrike),
+				com.mojang.serialization.Codec.INT.fieldOf("exp").forGetter(PedestalsRecipe::getExp)
+		).apply(instance, (output, smashTools, input, strike, exp) -> new PedestalsRecipe(PedestalRecipe.TYPE_ID, output, smashTools, input, strike, exp)));
+		private static final StreamCodec<RegistryFriendlyByteBuf, PedestalsRecipe> STREAM_CODEC = StreamCodec.composite(
+				ItemStack.STREAM_CODEC, PedestalsRecipe::getOutput,
+				Ingredient.CONTENTS_STREAM_CODEC, PedestalsRecipe::getSmashTools,
+				Ingredient.CONTENTS_STREAM_CODEC, PedestalsRecipe::getInput,
+				ByteBufCodecs.VAR_INT, PedestalsRecipe::getStrike,
+				ByteBufCodecs.VAR_INT, PedestalsRecipe::getExp,
+				(output, smashTools, input, strike, exp) -> new PedestalsRecipe(PedestalRecipe.TYPE_ID, output, smashTools, input, strike, exp));
 
-			return new PedestalsRecipe(id, output, smashTools, input, strike, exp);
+		@Override
+		public MapCodec<PedestalsRecipe> codec() {
+			return CODEC;
 		}
 
 		@Override
-		public @Nullable PedestalsRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
-			Ingredient smashTools = Ingredient.fromNetwork(buf);
-			Ingredient input = Ingredient.fromNetwork(buf);
-			ItemStack output = buf.readItem();
-			int strike = buf.readInt();
-			int exp = buf.readInt();
-			return new PedestalsRecipe(id, output, smashTools, input, strike, exp);
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull PedestalsRecipe recipe) {
-			recipe.smashTools.toNetwork(buf);
-			recipe.input.toNetwork(buf);
-			buf.writeItem(recipe.output);
-			buf.writeInt(recipe.strike);
-			buf.writeInt(recipe.exp);
+		public StreamCodec<RegistryFriendlyByteBuf, PedestalsRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

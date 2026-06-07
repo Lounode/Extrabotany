@@ -25,13 +25,13 @@ public class TradeOrchidEditSpecialPrice {
 
 		MobEffectInstance discountEffect = null;
 		for (var effect : effects) {
-			if (effect.getEffect() instanceof DiscountMobEffect) {
+			if (effect.getEffect().value() instanceof DiscountMobEffect) {
 				discountEffect = effect;
 			}
 		}
 
 		if (discountEffect != null) {
-			DiscountMobEffect effect = (DiscountMobEffect) discountEffect.getEffect();
+			DiscountMobEffect effect = (DiscountMobEffect) discountEffect.getEffect().value();
 
 			for (MerchantOffer offer : self.getOffers()) {
 				int costA = offer.getBaseCostA().getCount();

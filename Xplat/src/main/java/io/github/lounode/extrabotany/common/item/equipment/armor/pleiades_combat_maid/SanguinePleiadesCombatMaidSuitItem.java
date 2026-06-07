@@ -1,32 +1,27 @@
 package io.github.lounode.extrabotany.common.item.equipment.armor.pleiades_combat_maid;
 
 import com.google.common.base.Suppliers;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.brew.effect.BloodthirstMobEffect;
 
-import io.github.lounode.eventwrapper.event.entity.living.LivingDamageEventWrapper;
-import io.github.lounode.eventwrapper.event.entity.living.LivingDeathEventWrapper;
-import io.github.lounode.eventwrapper.event.entity.living.MobEffectEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.living.LivingDamageEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.living.LivingDeathEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.living.MobEffectEventWrapper;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 
 import java.util.Locale;
@@ -34,6 +29,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class SanguinePleiadesCombatMaidSuitItem extends PleiadesCombatMaidSuitItem {
 
@@ -51,17 +48,11 @@ public class SanguinePleiadesCombatMaidSuitItem extends PleiadesCombatMaidSuitIt
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
-		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
-
-		if (slot == getType().getSlot()) {
-			UUID uuid = new UUID(BuiltInRegistries.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
-			ret = HashMultimap.create(ret);
-			ret.removeAll(Attributes.MAX_HEALTH);
-			ret.put(Attributes.MAX_HEALTH,
-					new AttributeModifier(uuid, "Combatmaid modifier" + type, 15, AttributeModifier.Operation.ADDITION));
-		}
-		return ret;
+	public ItemAttributeModifiers getDefaultAttributeModifiers() {
+		return super.getDefaultAttributeModifiers()
+				.withModifierAdded(Attributes.MAX_HEALTH,
+						new AttributeModifier(prefix("combat_maid_health." + type.getName()), 15, AttributeModifier.Operation.ADD_VALUE),
+						EquipmentSlotGroup.bySlot(type.getSlot()));
 	}
 
 	@Override
@@ -74,10 +65,8 @@ public class SanguinePleiadesCombatMaidSuitItem extends PleiadesCombatMaidSuitIt
 		return "senketsu".equals(name);
 	}
 
-	@EventBusSubscriberWrapper
 	public static class EventHandler {
-		@SubscribeEventWrapper
-		public static void onAttackLiving(LivingDamageEventWrapper event) {
+			public static void onAttackLiving(LivingDamageEventWrapper event) {
 			Entity attacker = event.getSource().getEntity();
 			if (!(attacker instanceof LivingEntity living)) {
 				return;
@@ -93,9 +82,8 @@ public class SanguinePleiadesCombatMaidSuitItem extends PleiadesCombatMaidSuitIt
 		//Get Blood Suit
 		private static final Map<UUID, Integer> bloodthirstKilled = new ConcurrentHashMap<>();
 
-		@SubscribeEventWrapper
-		public static void onEffectAdded(MobEffectEventWrapper.Added event) {
-			if (!(event.getEffectInstance().getEffect() instanceof BloodthirstMobEffect)) {
+			public static void onEffectAdded(MobEffectEventWrapper.Added event) {
+			if (!(event.getEffectInstance().getEffect().value() instanceof BloodthirstMobEffect)) {
 				return;
 			}
 			if (!(event.getEntity() instanceof ServerPlayer serverPlayer)) {
@@ -104,27 +92,24 @@ public class SanguinePleiadesCombatMaidSuitItem extends PleiadesCombatMaidSuitIt
 			bloodthirstKilled.put(serverPlayer.getUUID(), 0);
 		}
 
-		@SubscribeEventWrapper
-		public static void onKilled(LivingDeathEventWrapper event) {
+			public static void onKilled(LivingDeathEventWrapper event) {
 			if (!(event.getSource().getEntity() instanceof ServerPlayer serverPlayer)) {
 				return;
 			}
-			if (!serverPlayer.hasEffect(BotaniaMobEffects.bloodthrst)) {
+			if (!serverPlayer.hasEffect(BotaniaMobEffects.BLOODTHIRST)) {
 				return;
 			}
 
 			bloodthirstKilled.computeIfPresent(serverPlayer.getUUID(), (uuid, count) -> count + 1);
 		}
 
-		@SubscribeEventWrapper
-		public static void onEffectRemove(MobEffectEventWrapper.Remove event) {
+			public static void onEffectRemove(MobEffectEventWrapper.Remove event) {
 			if (event.getEntity() instanceof ServerPlayer serverPlayer) {
 				onEffectRemovedOrExpired(serverPlayer, event.getEffectInstance());
 			}
 		}
 
-		@SubscribeEventWrapper
-		public static void onEffectExpired(MobEffectEventWrapper.Expired event) {
+			public static void onEffectExpired(MobEffectEventWrapper.Expired event) {
 			if (event.getEntity() instanceof ServerPlayer serverPlayer) {
 				onEffectRemovedOrExpired(serverPlayer, event.getEffectInstance());
 			}
@@ -134,7 +119,7 @@ public class SanguinePleiadesCombatMaidSuitItem extends PleiadesCombatMaidSuitIt
 			if (instance == null) {
 				return;
 			}
-			if (!(instance.getEffect() instanceof BloodthirstMobEffect)) {
+			if (!(instance.getEffect().value() instanceof BloodthirstMobEffect)) {
 				return;
 			}
 			if (!bloodthirstKilled.containsKey(serverPlayer.getUUID())) {
@@ -151,13 +136,7 @@ public class SanguinePleiadesCombatMaidSuitItem extends PleiadesCombatMaidSuitIt
 			ItemStack origin = serverPlayer.getItemBySlot(EquipmentSlot.CHEST);
 
 			if (killed >= SANGUINE_KILL_REQUIRE && origin.is(ExtraBotanyItems.pleiadesCombatMaidSuit)) {
-				ItemStack darkened = new ItemStack(ExtraBotanyItems.sanguinePleiadesCombatMaidSuit);
-
-				CompoundTag originTag = origin.getTag();
-				if (originTag != null) {
-					CompoundTag newTag = originTag.copy();
-					darkened.setTag(newTag);
-				}
+				ItemStack darkened = origin.transmuteCopy(ExtraBotanyItems.sanguinePleiadesCombatMaidSuit, origin.getCount());
 
 				serverPlayer.setItemSlot(EquipmentSlot.CHEST, darkened);
 			}

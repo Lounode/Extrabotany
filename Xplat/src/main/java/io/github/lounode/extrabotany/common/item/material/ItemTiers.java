@@ -1,5 +1,8 @@
 package io.github.lounode.extrabotany.common.item.material;
 
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -43,9 +46,19 @@ public enum ItemTiers implements Tier {
 		return attackDamage;
 	}
 
-	@Override
 	public int getLevel() {
 		return harvestLevel;
+	}
+
+	@Override
+	public TagKey<Block> getIncorrectBlocksForDrops() {
+		return switch (harvestLevel) {
+			case 0 -> BlockTags.INCORRECT_FOR_WOODEN_TOOL;
+			case 1 -> BlockTags.INCORRECT_FOR_STONE_TOOL;
+			case 2 -> BlockTags.INCORRECT_FOR_IRON_TOOL;
+			case 3 -> BlockTags.INCORRECT_FOR_DIAMOND_TOOL;
+			default -> BlockTags.INCORRECT_FOR_NETHERITE_TOOL;
+		};
 	}
 
 	@Override

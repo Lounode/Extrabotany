@@ -1,10 +1,13 @@
 package io.github.lounode.extrabotany.network.clientbound;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.BossEvent;
 
@@ -16,7 +19,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public record ColorfulBossEventPacket(UUID id, Operation operation) implements ExtrabotanyPacket {
 
@@ -31,6 +34,9 @@ public record ColorfulBossEventPacket(UUID id, Operation operation) implements E
 	);
 
 	public static final ResourceLocation ID = prefix("cbp");
+	public static final CustomPacketPayload.Type<ColorfulBossEventPacket> TYPE = new CustomPacketPayload.Type<>(ID);
+	public static final StreamCodec<FriendlyByteBuf, ColorfulBossEventPacket> STREAM_CODEC =
+			StreamCodec.ofMember(ColorfulBossEventPacket::encode, ColorfulBossEventPacket::decode);
 
 	@Override
 	public ResourceLocation getFabricId() {
@@ -38,14 +44,22 @@ public record ColorfulBossEventPacket(UUID id, Operation operation) implements E
 	}
 
 	@Override
+	public CustomPacketPayload.Type<ColorfulBossEventPacket> type() {
+		return TYPE;
+	}
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public void encode(FriendlyByteBuf buf) {
 		buf.writeUUID(this.id);
+		buf.writeUtf(operation().getType());
 		buf.writeJsonWithCodec((Codec<Operation>) operation().getCodec(), operation());
 	}
 
 	public static ColorfulBossEventPacket decode(FriendlyByteBuf buf) {
-		return new ColorfulBossEventPacket(buf.readUUID(), buf.readJsonWithCodec(Operation.CODEC));
+		UUID id = buf.readUUID();
+		String type = buf.readUtf();
+		return new ColorfulBossEventPacket(id, buf.readJsonWithCodec(Operation.codecFor(type)));
 	}
 
 	public static ColorfulBossEventPacket createAddPacket(BossEvent event) {
@@ -258,13 +272,6 @@ public record ColorfulBossEventPacket(UUID id, Operation operation) implements E
 	public interface Operation {
 		Map<String, Supplier<Codec<? extends Operation>>> REGISTRY = new HashMap<>();
 
-		Codec<Operation> CODEC = Codec.STRING.dispatch(
-				Operation::getType,
-				type -> REGISTRY.getOrDefault(type, () -> {
-					throw new IllegalArgumentException("Unknown operation type: " + type);
-				}).get()
-		);
-
 		Codec<? extends Operation> getCodec();
 
 		void dispatch(UUID uuid, Handler handler);
@@ -272,6 +279,17 @@ public record ColorfulBossEventPacket(UUID id, Operation operation) implements E
 
 		static void register(String type, Supplier<Codec<? extends Operation>> codecSupplier) {
 			REGISTRY.put(type, codecSupplier);
+		}
+
+		@SuppressWarnings("unchecked")
+		static Codec<Operation> codecFor(String type) {
+			Supplier<Codec<? extends Operation>> codec = REGISTRY.get(type);
+			if (codec == null) {
+				return Codec.STRING.comapFlatMap(
+						ignored -> DataResult.error(() -> "Unknown boss event operation type: " + type),
+						Operation::getType);
+			}
+			return (Codec<Operation>) codec.get();
 		}
 	}
 }

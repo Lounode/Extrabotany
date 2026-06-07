@@ -154,8 +154,8 @@ public class MagicLandMineEntity extends Entity {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		this.entityData.define(COUNTDOWN, EXPLODE_COUNTDOWN);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(COUNTDOWN, EXPLODE_COUNTDOWN);
 	}
 
 	@Override

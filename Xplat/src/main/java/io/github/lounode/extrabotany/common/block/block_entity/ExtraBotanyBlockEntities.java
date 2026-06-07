@@ -7,14 +7,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.xplat.XplatAbstractions;
-
 import io.github.lounode.extrabotany.common.lib.LibBlockNames;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
 import static io.github.lounode.extrabotany.common.block.ExtraBotanyBlocks.*;
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
@@ -30,8 +27,8 @@ public class ExtraBotanyBlockEntities {
 	public static final BlockEntityType<PowerFrameBlockEntity> POWER_FRAME =
 			type(prefix(LibBlockNames.POWER_FRAME), PowerFrameBlockEntity::new, powerFrame);
 
-	private static <T extends BlockEntity> BlockEntityType<T> type(ResourceLocation id, BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
-		var ret = XplatAbstractions.INSTANCE.createBlockEntityType(func, blocks);
+	private static <T extends BlockEntity> BlockEntityType<T> type(ResourceLocation id, BlockEntityType.BlockEntitySupplier<T> func, Block... blocks) {
+		var ret = BlockEntityType.Builder.of(func, blocks).build(null);
 		var old = ALL.put(id, ret);
 		if (old != null) {
 			throw new IllegalArgumentException("Duplicate id " + id);

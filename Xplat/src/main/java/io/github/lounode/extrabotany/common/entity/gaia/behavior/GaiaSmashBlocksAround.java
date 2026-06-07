@@ -21,7 +21,7 @@ import java.util.List;
 
 public class GaiaSmashBlocksAround<E extends Gaia> extends Behavior<E> {
 
-	protected static final TagKey<Block> BLACKLIST = BotaniaTags.Blocks.GAIA_BREAK_BLACKLIST;
+	protected static final TagKey<Block> BLACKLIST = BotaniaTags.Blocks.GAIA_GUARDIAN_IMMUNE;
 	protected static final List<ResourceLocation> CHEATY_BLOCKS = Arrays.asList(
 			ResourceLocation.tryBuild("openblocks", "beartrap"),
 			ResourceLocation.tryBuild("thaumictinkerer", "magnet")

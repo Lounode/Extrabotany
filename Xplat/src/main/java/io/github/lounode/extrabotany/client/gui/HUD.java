@@ -1,4 +1,5 @@
 package io.github.lounode.extrabotany.client.gui;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import com.google.common.collect.Iterables;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -20,7 +21,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.common.item.relic.CameraItem;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
@@ -52,8 +52,7 @@ public final class HUD {
 		ProfilerFiller profiler = minecraft.getProfiler();
 		profiler.push("extrabotany-hud");
 
-		float f = minecraft.getDeltaFrameTime();
-		scopeScale = Mth.lerp(0.5F * f, scopeScale, 1.125F);
+		scopeScale = Mth.lerp(0.5F * partialTicks, scopeScale, 1.125F);
 		if (minecraft.options.getCameraType().isFirstPerson()) {
 			if (shouldRenderCameraGUI()) {
 				profiler.push("camera-hud");
@@ -101,7 +100,7 @@ public final class HUD {
 		List<ItemStack> acc = ManaItemHandler.instance().getManaAccesories(player);
 
 		for (ItemStack stack : Iterables.concat(items, acc)) {
-			ManaItem manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
+			ManaItem manaItem = EXplatAbstractions.INSTANCE.findManaItem(stack);
 			if (!manaItem.isNoExport()) {
 				totalMana = totalMana.add(BigDecimal.valueOf(manaItem.getMana()));
 				totalMaxMana = totalMaxMana.add(BigDecimal.valueOf(manaItem.getMaxMana()));

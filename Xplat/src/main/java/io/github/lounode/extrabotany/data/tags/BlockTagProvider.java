@@ -12,8 +12,9 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaGrassBlock;
-import vazkii.botania.common.block.FloatingSpecialFlowerBlock;
-import vazkii.botania.common.block.decor.FloatingFlowerBlock;
+import vazkii.botania.common.block.flower.FloatingSpecialFlowerBlock;
+import vazkii.botania.common.block.flower.SpecialFlowerBlock;
+import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -117,7 +118,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.add(functionalSpecialFlowers);
 
 		tag(BotaniaTags.Blocks.MINI_FLOWERS).add(
-				getModBlocks(b -> XplatAbstractions.INSTANCE.isSpecialFlowerBlock(b)
+				getModBlocks(b -> b instanceof SpecialFlowerBlock
 						&& BuiltInRegistries.BLOCK.getKey(b).getPath().endsWith("_chibi"))
 		);
 
@@ -140,7 +141,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 	private void registerMiningTags() {
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
-				getModBlocks(b -> b instanceof FloatingFlowerBlock || b instanceof BotaniaGrassBlock)
+				getModBlocks(b -> b instanceof FloatingFlowerBaseBlock || b instanceof BotaniaGrassBlock)
 		);
 		//Pickaxe
 		Set<Block> pickaxe = new HashSet<>(Set.of(

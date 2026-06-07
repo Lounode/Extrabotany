@@ -6,13 +6,10 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-import io.github.lounode.eventwrapper.event.entity.living.LivingHurtEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.living.LivingHurtEventWrapper;
 import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 
-@EventBusSubscriberWrapper
 public class LinkMobEffect extends MobEffect {
 	private static final double LINK_RADIUS = 8.0D;
 	private static final float BASE_RATIO = 0.2F;
@@ -23,7 +20,6 @@ public class LinkMobEffect extends MobEffect {
 		super(category, color);
 	}
 
-	@SubscribeEventWrapper
 	public static void onEntityDamaged(LivingHurtEventWrapper event) {
 		LivingEntity victim = event.getEntity();
 		DamageSource source = event.getSource();

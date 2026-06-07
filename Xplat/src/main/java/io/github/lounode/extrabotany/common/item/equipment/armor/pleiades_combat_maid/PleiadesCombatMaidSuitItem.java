@@ -12,9 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.mana.ManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 
-import io.github.lounode.eventwrapper.event.entity.living.LivingHurtEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.living.LivingHurtEventWrapper;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 
@@ -59,11 +57,9 @@ public class PleiadesCombatMaidSuitItem extends PleiadesCombatMaidArmorItem impl
 		return EMPTY_HAND_BONUS;
 	}
 
-	@EventBusSubscriberWrapper
 	public static class EventHandler {
 
-		@SubscribeEventWrapper
-		public static void onEntityAttacked(LivingHurtEventWrapper event) {
+			public static void onEntityAttacked(LivingHurtEventWrapper event) {
 			Entity attacker = event.getSource().getEntity();
 			LivingEntity target = event.getEntity();
 
@@ -93,8 +89,7 @@ public class PleiadesCombatMaidSuitItem extends PleiadesCombatMaidArmorItem impl
 			}
 		}
 
-		@SubscribeEventWrapper
-		public static void onPlayerAttacked(LivingHurtEventWrapper event) {
+			public static void onPlayerAttacked(LivingHurtEventWrapper event) {
 			Entity target = event.getEntity();
 			if (!(target instanceof Player player)) {
 				return;

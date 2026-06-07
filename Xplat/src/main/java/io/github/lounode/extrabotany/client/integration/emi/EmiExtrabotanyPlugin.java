@@ -44,10 +44,8 @@ public class EmiExtrabotanyPlugin implements EmiPlugin {
 					.orElse(""));
 
 	private static final Comparator<EmiRecipe> BY_SMASH_TOOLS = (l, r) -> {
-		if (l instanceof PedestalRecipe lp && r instanceof PedestalRecipe rp) {
-			Ingredient left = lp.getSmashTools();
-			Ingredient right = rp.getSmashTools();
-			return left.toString().compareTo(right.toString());
+		if (l instanceof PedestalEmiRecipe lp && r instanceof PedestalEmiRecipe rp) {
+			return lp.getSmashToolsKey().compareTo(rp.getSmashToolsKey());
 		}
 
 		return 0;
@@ -74,12 +72,12 @@ public class EmiExtrabotanyPlugin implements EmiPlugin {
 		registry.addWorkstation(STONESIA, EmiStack.of(ExtrabotanyFlowerBlocks.stonesia));
 		registry.addWorkstation(STONESIA, EmiStack.of(ExtrabotanyFlowerBlocks.stonesiaFloating));
 
-		registry.setDefaultComparison(ExtraBotanyItems.manaCocktail, Comparison.compareNbt());
-		registry.setDefaultComparison(ExtraBotanyItems.infiniteWine, Comparison.compareNbt());
-		registry.setDefaultComparison(ExtraBotanyItems.holyWaterGrenade, Comparison.compareNbt());
+		registry.setDefaultComparison(ExtraBotanyItems.manaCocktail, Comparison.compareComponents());
+		registry.setDefaultComparison(ExtraBotanyItems.infiniteWine, Comparison.compareComponents());
+		registry.setDefaultComparison(ExtraBotanyItems.holyWaterGrenade, Comparison.compareComponents());
 
 		//Add Recipe
-		for (PedestalRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE)) {
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE)) {
 			registry.addRecipe(new PedestalEmiRecipe(recipe));
 		}
 	}

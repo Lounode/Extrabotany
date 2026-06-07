@@ -35,8 +35,7 @@ public class EntityLootProvider extends EntityLootSubProviderFix {
 		this.add(ExtraBotanyEntityType.GAIA_LEGACY, LootTable.lootTable());
 		this.add(ExtraBotanyEntityType.GAIA_III, LootTable.lootTable()
 				.withPool(LootPool.lootPool()
-						//F**K there's no static method in these conditions
-						.when(EnableRelics::new)
+						.when(EnableRelics.builder())
 						.when(() -> RealPlayerCondition.INSTANCE)
 						.setRolls(ConstantValue.exactly(1))
 						.add(LootItem.lootTableItem(ExtraBotanyItems.pandorasBox)

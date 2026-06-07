@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.common.item.lens;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -17,8 +18,8 @@ public class PotionLensItem extends LensItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
-		super.appendHoverText(stack, world, stacks, flags);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> stacks, TooltipFlag flags) {
+		super.appendHoverText(stack, context, stacks, flags);
 		if (BrewUtil.getBrew(stack) != BrewUtil.EMPTY) {
 			BrewUtil.addPotionTooltip(BrewUtil.getBrew(stack), stacks, 1.0F, 0);
 		}

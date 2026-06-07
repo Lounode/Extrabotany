@@ -1,5 +1,7 @@
 package io.github.lounode.extrabotany.common.block.flower.generating;
 
+import net.minecraft.core.HolderLookup;
+
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -14,12 +16,11 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraGeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 
-import io.github.lounode.eventwrapper.EventsWrapper;
-import io.github.lounode.eventwrapper.event.PlayLevelSoundEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.EventSubscriptions;
+import io.github.lounode.extrabotany.common.event.PlayLevelSoundEventWrapper;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
@@ -27,7 +28,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
+public class ResoncundBlockEntity extends ExtraGeneratingFlowerBlockEntity {
 
 	public static final String TAG_SOUND_HEARD = "soundHeard";
 
@@ -46,7 +47,7 @@ public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
 
 	public ResoncundBlockEntity(BlockPos pos, BlockState blockState) {
 		super(ExtrabotanyFlowerBlocks.RESONCUND, pos, blockState);
-		EventsWrapper.register(this);
+		EventSubscriptions.register(this);
 	}
 
 	@Override
@@ -108,8 +109,8 @@ public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		CompoundTag sounds = new CompoundTag();
 
@@ -124,8 +125,8 @@ public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 
 		CompoundTag sounds = cmp.getCompound(TAG_SOUND_HEARD);
 
@@ -148,17 +149,16 @@ public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
 		SOUND_HEARD.putAll(soundHeard);
 	}
 
-	@SubscribeEventWrapper
 	public void onPlayLevelSound(PlayLevelSoundEventWrapper.AtPosition event) {
 		if (getLevel() == null) {
 			return;
 		}
 		if (getLevel().isClientSide()) {
-			EventsWrapper.unregister(this);
+			EventSubscriptions.unregister(this);
 			return;
 		}
 		if (this.isRemoved()) {
-			EventsWrapper.unregister(this);
+			EventSubscriptions.unregister(this);
 			return;
 		}
 		if (event.getSound() == null) {
@@ -171,17 +171,16 @@ public class ResoncundBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 	}
 
-	@SubscribeEventWrapper
 	public void onPlayLevelSound(PlayLevelSoundEventWrapper.AtEntity event) {
 		if (getLevel() == null) {
 			return;
 		}
 		if (getLevel().isClientSide()) {
-			EventsWrapper.unregister(this);
+			EventSubscriptions.unregister(this);
 			return;
 		}
 		if (this.isRemoved()) {
-			EventsWrapper.unregister(this);
+			EventSubscriptions.unregister(this);
 			return;
 		}
 		if (event.getSound() == null) {

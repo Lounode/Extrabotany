@@ -2,6 +2,7 @@ package io.github.lounode.extrabotany.client.core;
 
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 
@@ -38,17 +39,21 @@ public class ExtraBotanyModels {
 		}
 	}
 
-	public void onModelBake(ModelBakery loader, Map<ResourceLocation, BakedModel> map) {
+	public void onModelBake(ModelBakery loader, Map<ModelResourceLocation, BakedModel> map) {
 		if (!registeredModels) {
 			ExtraBotanyAPI.LOGGER.error("Additional models failed to register! Aborting baking models to avoid early crashing.");
 			return;
 		}
-		afterBakeModifiers.forEach((resourceLocation, afterBakeModifier) -> map.computeIfPresent(resourceLocation, (resourceLoc, bakedModel) -> afterBakeModifier.apply(bakedModel)));
-		modelConsumers.forEach((resourceLocation, bakedModelConsumer) -> bakedModelConsumer.accept(map.get(resourceLocation)));
+		afterBakeModifiers.forEach((resourceLocation, afterBakeModifier) -> map.computeIfPresent(standaloneModel(resourceLocation), (resourceLoc, bakedModel) -> afterBakeModifier.apply(bakedModel)));
+		modelConsumers.forEach((resourceLocation, bakedModelConsumer) -> bakedModelConsumer.accept(map.get(standaloneModel(resourceLocation))));
 	}
 
 	public BakedModel modifyModelAfterbake(BakedModel bakedModel, ResourceLocation id) {
 		modelConsumers.getOrDefault(id, model -> {}).accept(bakedModel);
 		return afterBakeModifiers.getOrDefault(id, Function.identity()).apply(bakedModel);
+	}
+
+	private static ModelResourceLocation standaloneModel(ResourceLocation id) {
+		return new ModelResourceLocation(id, "standalone");
 	}
 }

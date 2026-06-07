@@ -1,18 +1,17 @@
 package io.github.lounode.extrabotany.common.crafting;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.crafting.StateIngredientHelper;
+import vazkii.botania.common.crafting.StateIngredients;
 
 import io.github.lounode.extrabotany.api.recipe.StonesiaRecipe;
 
@@ -38,7 +37,6 @@ public class StonesiasRecipe implements StonesiaRecipe {
 		return outputMana;
 	}
 
-	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
@@ -54,28 +52,23 @@ public class StonesiasRecipe implements StonesiaRecipe {
 	}
 
 	public static class Serializer implements RecipeSerializer<StonesiasRecipe> {
-		@Override
-		public StonesiasRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			var input = StateIngredientHelper.tryDeserialize(GsonHelper.getAsJsonObject(json, "input"));
-			if (input == null) {
-				throw new JsonSyntaxException("Unknown input: " + GsonHelper.getAsJsonObject(json, "input"));
-			}
-			var outputMana = GsonHelper.getAsInt(json, "outputMana");
+		private static final MapCodec<StonesiasRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+				StateIngredients.TYPED_CODEC.fieldOf("input").forGetter(StonesiasRecipe::getInput),
+				com.mojang.serialization.Codec.INT.fieldOf("outputMana").forGetter(StonesiasRecipe::getManaOutput)
+		).apply(instance, (input, outputMana) -> new StonesiasRecipe(StonesiaRecipe.TYPE_ID, input, outputMana)));
+		private static final StreamCodec<RegistryFriendlyByteBuf, StonesiasRecipe> STREAM_CODEC = StreamCodec.composite(
+				StateIngredients.TYPED_STREAM_CODEC, StonesiasRecipe::getInput,
+				ByteBufCodecs.VAR_INT, StonesiasRecipe::getManaOutput,
+				(input, outputMana) -> new StonesiasRecipe(StonesiaRecipe.TYPE_ID, input, outputMana));
 
-			return new StonesiasRecipe(recipeId, input, outputMana);
+		@Override
+		public MapCodec<StonesiasRecipe> codec() {
+			return CODEC;
 		}
 
 		@Override
-		public StonesiasRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			var input = StateIngredientHelper.read(buffer);
-			var outputMana = buffer.readInt();
-			return new StonesiasRecipe(recipeId, input, outputMana);
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull StonesiasRecipe recipe) {
-			recipe.getInput().write(buffer);
-			buffer.writeInt(recipe.getManaOutput());
+		public StreamCodec<RegistryFriendlyByteBuf, StonesiasRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

@@ -1,7 +1,12 @@
 package io.github.lounode.extrabotany.common.block.flower.generating;
 
+import com.mojang.blaze3d.platform.Window;
+
+import net.minecraft.core.HolderLookup;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -16,10 +21,10 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraGeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.block.flower.functional.DaffomillBlockEntity;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.block_entity.flower.functional.DaffomillBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
 
 import io.github.lounode.extrabotany.api.block.PassiveFlower;
@@ -34,7 +39,7 @@ import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
-public class BellflowerBlockEntity extends GeneratingFlowerBlockEntity implements PassiveFlower {
+public class BellflowerBlockEntity extends ExtraGeneratingFlowerBlockEntity implements PassiveFlower {
 
 	public static final String TAG_DYING = "dying";
 
@@ -148,7 +153,7 @@ public class BellflowerBlockEntity extends GeneratingFlowerBlockEntity implement
 				negative++;
 			}
 
-			if (state.is(BotaniaFlowerBlocks.daffomill) || state.is(BotaniaFlowerBlocks.daffomillFloating)) {
+			if (state.is(BotaniaBlocks.daffomill) || state.is(BotaniaBlocks.daffomillFloating)) {
 				checkBeBlew(pos_);
 			}
 		}
@@ -161,7 +166,7 @@ public class BellflowerBlockEntity extends GeneratingFlowerBlockEntity implement
 		if (!(tile instanceof DaffomillBlockEntity daffomill)) {
 			return;
 		}
-		if (daffomill.redstoneSignal > 0) {
+		if (daffomill.isPowered()) {
 			return;
 		}
 		if (((DaffomillBlockEntityAccessor) daffomill).getWindTicks() <= 0) {
@@ -205,15 +210,15 @@ public class BellflowerBlockEntity extends GeneratingFlowerBlockEntity implement
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		setPassiveDecayTicks(cmp.getInt(TAG_PASSIVE_DECAY_TICKS));
 		dying = cmp.getBoolean(TAG_DYING);
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, getPassiveDecayTicks());
 		cmp.putBoolean(TAG_DYING, dying);
 	}
@@ -238,7 +243,8 @@ public class BellflowerBlockEntity extends GeneratingFlowerBlockEntity implement
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
+			Minecraft mc = Minecraft.getInstance();
 			double windLevel = Wind.instance().getWindLevel(flower.getLevel(), new Vec3(flower.getEffectivePos().getX(), flower.getEffectivePos().getY(), flower.getEffectivePos().getZ()));
 
 			if (flower.isDying()) {

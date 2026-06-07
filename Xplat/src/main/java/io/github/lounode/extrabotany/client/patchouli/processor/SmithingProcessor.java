@@ -19,7 +19,7 @@ public class SmithingProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
-		ResourceLocation id = ResourceLocation.tryParse(variables.get("recipe").asString());
+		ResourceLocation id = ResourceLocation.tryParse(variables.get("recipe", level.registryAccess()).asString());
 		this.recipe = PatchouliUtils.getRecipe(level, RecipeType.SMITHING, id);
 	}
 
@@ -29,12 +29,12 @@ public class SmithingProcessor implements IComponentProcessor {
 			return null;
 		}
 		return switch (key) {
-			case "base" -> PatchouliUtils.interweaveIngredients(List.of(getBase(recipe)));
-			case "template" -> PatchouliUtils.interweaveIngredients(List.of(getTemplate(recipe)));
-			case "addition" -> PatchouliUtils.interweaveIngredients(List.of(getAddition(recipe)));
-			case "output" -> IVariable.from(getRecipeOutput(level, recipe));
-			case "symbol" -> IVariable.from(recipe.getToastSymbol());
-			case "heading" -> IVariable.from(getRecipeOutput(level, recipe).getHoverName());
+			case "base" -> PatchouliUtils.interweaveIngredients(List.of(getBase(recipe)), level);
+			case "template" -> PatchouliUtils.interweaveIngredients(List.of(getTemplate(recipe)), level);
+			case "addition" -> PatchouliUtils.interweaveIngredients(List.of(getAddition(recipe)), level);
+			case "output" -> IVariable.from(getRecipeOutput(level, recipe), level.registryAccess());
+			case "symbol" -> IVariable.from(recipe.getToastSymbol(), level.registryAccess());
+			case "heading" -> IVariable.from(getRecipeOutput(level, recipe).getHoverName(), level.registryAccess());
 			default -> null;
 		};
 	}

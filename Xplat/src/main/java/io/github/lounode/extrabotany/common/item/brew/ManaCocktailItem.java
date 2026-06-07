@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.brew.BotaniaBrews;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyBrews;
@@ -21,7 +21,8 @@ import java.util.function.Supplier;
 public class ManaCocktailItem extends BaseBrewItem {
 
 	public ManaCocktailItem(Properties properties, int swigs, int drinkSpeed, Supplier<Item> baseItem) {
-		super(properties, swigs, drinkSpeed, baseItem);
+		super(properties.component(BotaniaDataComponents.MAX_USES, swigs)
+				.component(BotaniaDataComponents.REMAINING_USES, swigs), drinkSpeed, baseItem);
 	}
 
 	@Override
@@ -52,7 +53,8 @@ public class ManaCocktailItem extends BaseBrewItem {
 	public static ItemStack getDefaultCocktail() {
 		ItemStack manaCocktail = new ItemStack(ExtraBotanyItems.manaCocktail);
 		ManaCocktailItem.setBrew(manaCocktail, ExtraBotanyBrews.manaCocktail);
-		ItemNBTHelper.setInt(manaCocktail, "swigsLeft", 1);
+		manaCocktail.set(BotaniaDataComponents.MAX_USES, 1);
+		manaCocktail.set(BotaniaDataComponents.REMAINING_USES, 1);
 
 		return manaCocktail;
 	}

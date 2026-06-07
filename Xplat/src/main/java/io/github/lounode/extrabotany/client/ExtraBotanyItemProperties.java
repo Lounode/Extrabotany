@@ -32,7 +32,7 @@ public class ExtraBotanyItemProperties {
 				FailnaughtItem item = ((FailnaughtItem) stack.getItem());
 				return entity.getUseItem() != stack
 						? 0.0F
-						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier(stack, entity) / 20.0F;
+						: (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier(stack, entity) / 20.0F;
 			}
 		};
 		consumer.accept(ExtraBotanyItems.failnaught, ResourceLocation.tryParse("pulling"), pulling);
@@ -51,7 +51,7 @@ public class ExtraBotanyItemProperties {
 
 				return entity.getUseItem() != stack
 						? 0.0F
-						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * failnaught.chargeVelocityMultiplier(stack, entity) / 20.0F;
+						: (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) * failnaught.chargeVelocityMultiplier(stack, entity) / 20.0F;
 			}
 		};
 
@@ -64,14 +64,14 @@ public class ExtraBotanyItemProperties {
 				return 0;
 			}
 
-			return (float) (0.01D * (item.getSwigs() - item.getSwigsLeft(stack)));
+			return (float) (0.01D * (item.getSwigs(stack) - item.getSwigsLeft(stack)));
 		};
 
 		ClampedItemPropertyFunction brewGetter2 = (stack, world, entity, seed) -> {
 			BaseBrewItem item = ((BaseBrewItem) stack.getItem());
 
-			return (float) (0.01D * (item.getSwigs() - item.getSwigsLeft(stack)));
-		};
+			return (float) (0.01D * (item.getSwigs(stack) - item.getSwigsLeft(stack)));
+	};
 
 		consumer.accept(ExtraBotanyItems.manaCocktail, prefix("swigs_taken"), brewGetter);
 		consumer.accept(ExtraBotanyItems.infiniteWine, prefix("swigs_taken"), brewGetter2);

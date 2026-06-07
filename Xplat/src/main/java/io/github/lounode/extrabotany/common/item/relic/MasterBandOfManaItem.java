@@ -1,4 +1,5 @@
 package io.github.lounode.extrabotany.common.item.relic;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -17,11 +18,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.relic.RelicBaubleItem;
 import vazkii.botania.common.item.relic.RelicImpl;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.common.advancements.ManaChargeTrigger;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
@@ -57,8 +57,8 @@ public class MasterBandOfManaItem extends RelicBaubleItem implements CustomCreat
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
-		super.appendHoverText(stack, world, tooltip, flags);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, context, tooltip, flags);
 		tooltip.add(Component.literal(""));
 		String manaString = getManaItem(stack).getRealMana() + "/" + getManaItem(stack).getRealMaxMana();
 		tooltip.add(Component.translatable("message.extrabotany.actionbar.mana_left", manaString).withStyle(ChatFormatting.GRAY));
@@ -68,7 +68,7 @@ public class MasterBandOfManaItem extends RelicBaubleItem implements CustomCreat
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean held) {
 		super.inventoryTick(stack, world, entity, slot, held);
 		if (!world.isClientSide && entity instanceof Player player) {
-			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+			var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null && relic.isRightPlayer(player) && player.tickCount % 10 == 0) {
 				ExtendManaItemImpl manaItem = getManaItem(stack);
 				ManaChargeTrigger.INSTANCE.trigger((ServerPlayer) player, stack, manaItem.getRealMana());
@@ -78,9 +78,9 @@ public class MasterBandOfManaItem extends RelicBaubleItem implements CustomCreat
 
 	protected static void setMana(ItemStack stack, long mana) {
 		if (mana > 0) {
-			ItemNBTHelper.setLong(stack, TAG_MANA, mana);
+			ItemStackDataHelper.setLong(stack, TAG_MANA, mana);
 		} else {
-			ItemNBTHelper.removeEntry(stack, TAG_MANA);
+			ItemStackDataHelper.removeEntry(stack, TAG_MANA);
 		}
 	}
 
@@ -110,7 +110,7 @@ public class MasterBandOfManaItem extends RelicBaubleItem implements CustomCreat
 		}
 
 		public long getRealMana() {
-			return ItemNBTHelper.getLong(stack, TAG_MANA, 0);
+			return ItemStackDataHelper.getLong(stack, TAG_MANA, 0);
 		}
 
 		@Override
@@ -145,17 +145,22 @@ public class MasterBandOfManaItem extends RelicBaubleItem implements CustomCreat
 		}
 
 		@Override
-		public boolean canReceiveManaFromItem(ItemStack otherStack) {
+		public boolean acceptDispatchedManaFromItem(ItemStack otherStack) {
 			return true;
 		}
 
 		@Override
-		public boolean canExportManaToPool(BlockEntity pool) {
+		public boolean refuseRequestedManaFromItem(ItemStack otherStack) {
+			return false;
+		}
+
+		@Override
+		public boolean canDrainManaToPool(BlockEntity pool) {
 			return true;
 		}
 
 		@Override
-		public boolean canExportManaToItem(ItemStack otherStack) {
+		public boolean canSendRequestedManaToItem(ItemStack otherStack) {
 			return true;
 		}
 
@@ -181,7 +186,7 @@ public class MasterBandOfManaItem extends RelicBaubleItem implements CustomCreat
 	}
 
 	private ExtendManaItemImpl getManaItem(ItemStack stack) {
-		return (ExtendManaItemImpl) XplatAbstractions.INSTANCE.findManaItem(stack);
+		return (ExtendManaItemImpl) EXplatAbstractions.INSTANCE.findManaItem(stack);
 	}
 
 	private float getFractionForDisplay(ItemStack stack) {

@@ -4,9 +4,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
-import io.github.lounode.eventwrapper.event.entity.living.LivingAttackEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.living.LivingAttackEventWrapper;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 
 public class WarmMobEffect extends MobEffect {
@@ -14,11 +12,9 @@ public class WarmMobEffect extends MobEffect {
 		super(category, color);
 	}
 
-	@EventBusSubscriberWrapper
 	public static class EventHandler {
 
-		@SubscribeEventWrapper
-		public static void onEntityHurt(LivingAttackEventWrapper event) {
+			public static void onEntityHurt(LivingAttackEventWrapper event) {
 			if (!event.getSource().is(DamageTypes.FREEZE)) {
 				return;
 			}

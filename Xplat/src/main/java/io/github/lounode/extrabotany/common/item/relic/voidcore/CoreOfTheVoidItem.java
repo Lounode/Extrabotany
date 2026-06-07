@@ -1,4 +1,5 @@
 package io.github.lounode.extrabotany.common.item.relic.voidcore;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -6,8 +7,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -30,18 +33,14 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.common.item.relic.RelicImpl;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.xplat.XplatAbstractions;
 
-import io.github.lounode.eventwrapper.event.entity.living.*;
-import io.github.lounode.eventwrapper.event.entity.player.PlayerEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.living.*;
+import io.github.lounode.extrabotany.common.event.entity.player.PlayerEventWrapper;
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.api.item.CoreOfTheVoidVariant;
 import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
@@ -57,7 +56,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@EventBusSubscriberWrapper
 public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabContents {
 
 	private static final String TAG_VARIANT = "variant";
@@ -83,23 +81,19 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 		var variants = ExtraBotanyAPI.instance().getCOVVariants();
 		for (var variant : variants.values()) {
 			ItemStack stack = new ItemStack(this);
-			ItemNBTHelper.setString(stack, TAG_VARIANT, variant.getId());
+			ItemStackDataHelper.setString(stack, TAG_VARIANT, variant.getId());
 			output.accept(stack);
 		}
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
-		super.appendHoverText(stack, world, tooltip, flags);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, context, tooltip, flags);
 		RelicImpl.addDefaultTooltip(stack, tooltip);
 		tooltip.add(Component.translatable("extrabotany.wings." + getVariant(stack)));
 	}
 
-	@SubscribeEventWrapper
-	public static void updatePlayerFlyStatus(LivingEventWrapper.LivingTickEvent event) {
-		if (!(event.getEntity() instanceof Player player)) {
-			return;
-		}
+	public static void updatePlayerFlyStatus(Player player) {
 		ItemStack tiara = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, player);
 
 		if (playersWithFlight.contains(playerStr(player))) {
@@ -144,7 +138,6 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 		tryRemoveHarmfulPotion(stack, entity);
 	}
 
-	@SubscribeEventWrapper
 	public static void playerLoggedOut(PlayerEventWrapper.PlayerLoggedOutEvent event) {
 		String username = event.getEntity().getGameProfile().getName();
 		playersWithFlight.remove(username + ":false");
@@ -154,7 +147,7 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 	private static boolean shouldPlayerHaveFlight(Player player) {
 		ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, player);
 		if (!armor.isEmpty()) {
-			var relic = XplatAbstractions.INSTANCE.findRelic(armor);
+			var relic = EXplatAbstractions.INSTANCE.findRelic(armor);
 			if (relic == null ||
 					!relic.isRightPlayer(player) ||
 					!ManaItemHandler.instance().requestManaExact(armor, player, getFlyCost(), false)
@@ -197,7 +190,7 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 	}
 
 	public static String getVariant(ItemStack stack) {
-		return ItemNBTHelper.getString(stack, TAG_VARIANT, "herrscher");
+		return ItemStackDataHelper.getString(stack, TAG_VARIANT, "herrscher");
 	}
 
 	public DamageSource damageSource(RegistryAccess access) {
@@ -247,7 +240,7 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		if (!world.isClientSide && entity instanceof Player player) {
-			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+			var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null) {
 				relic.tickBinding(player);
 			}
@@ -256,19 +249,18 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
-		Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
+	public Multimap<Holder<Attribute>, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack, ResourceLocation slotId) {
+		Multimap<Holder<Attribute>, AttributeModifier> attributes = HashMultimap.create();
 		//TODO 反噬以及无魔力时去除Attribute
 		attributes.put(Attributes.MOVEMENT_SPEED,
-				new AttributeModifier(getBaubleUUID(stack), "Core of The Void", 0.1F, AttributeModifier.Operation.ADDITION));
+				new AttributeModifier(slotId.withSuffix("_movement_speed"), 0.1F, AttributeModifier.Operation.ADD_VALUE));
 		attributes.put(Attributes.FLYING_SPEED,
-				new AttributeModifier(getBaubleUUID(stack), "Core of The Void", 0.6F, AttributeModifier.Operation.ADDITION));
+				new AttributeModifier(slotId.withSuffix("_flying_speed"), 0.6F, AttributeModifier.Operation.ADD_VALUE));
 
 		return attributes;
 	}
 
 	//Projectile immunity
-	@SubscribeEventWrapper
 	public static void onLivingAttack(LivingAttackEventWrapper event) {
 		LivingEntity owner = event.getEntity();
 		ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, owner);
@@ -277,7 +269,7 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 			return;
 		}
 
-		var relic = XplatAbstractions.INSTANCE.findRelic(armor);
+		var relic = EXplatAbstractions.INSTANCE.findRelic(armor);
 		if (relic == null ||
 				!(owner instanceof Player player) ||
 				!relic.isRightPlayer(player) ||
@@ -290,7 +282,6 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 		}
 	}
 
-	@SubscribeEventWrapper
 	public static void onLivingHurt(LivingHurtEventWrapper event) {
 		LivingEntity owner = event.getEntity();
 		ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, owner);
@@ -299,7 +290,7 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 			return;
 		}
 
-		var relic = XplatAbstractions.INSTANCE.findRelic(armor);
+		var relic = EXplatAbstractions.INSTANCE.findRelic(armor);
 		if (relic == null ||
 				!(owner instanceof Player player) ||
 				!relic.isRightPlayer(player) ||
@@ -312,7 +303,6 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 		}
 	}
 
-	@SubscribeEventWrapper
 	public static void onLivingDamage(LivingDamageEventWrapper event) {
 		LivingEntity owner = event.getEntity();
 		ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, owner);
@@ -321,7 +311,7 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 			return;
 		}
 
-		var relic = XplatAbstractions.INSTANCE.findRelic(armor);
+		var relic = EXplatAbstractions.INSTANCE.findRelic(armor);
 		if (relic == null ||
 				!(owner instanceof Player player) ||
 				!relic.isRightPlayer(player) ||
@@ -337,7 +327,7 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 	//Harmful potion remove
 	protected void tryRemoveHarmfulPotion(ItemStack stack, LivingEntity entity) {
 		List<MobEffectInstance> effects = entity.getActiveEffects().stream()
-				.filter(effect -> effect.getEffect().getCategory() == MobEffectCategory.HARMFUL)
+				.filter(effect -> effect.getEffect().value().getCategory() == MobEffectCategory.HARMFUL)
 				.toList();
 
 		if (!effects.isEmpty() &&
@@ -348,21 +338,20 @@ public class CoreOfTheVoidItem extends BaubleItem implements CustomCreativeTabCo
 	}
 
 	//TODO 立即生效药水效果截断
-	@SubscribeEventWrapper
 	public static void onEffectAdd(MobEffectEventWrapper.Applicable event) {
 		LivingEntity owner = event.getEntity();
 		ItemStack armor = EquipmentHandler.findOrEmpty(ExtraBotanyItems.coreOfTheVoid, owner);
 
 		if (!armor.isEmpty() &&
-				event.getEffectInstance().getEffect().getCategory() == MobEffectCategory.HARMFUL) {
+				event.getEffectInstance().getEffect().value().getCategory() == MobEffectCategory.HARMFUL) {
 
-			var relic = XplatAbstractions.INSTANCE.findRelic(armor);
+			var relic = EXplatAbstractions.INSTANCE.findRelic(armor);
 			if (relic != null &&
 					owner instanceof Player player &&
 					relic.isRightPlayer(player) &&
 					ManaItemHandler.instance().requestManaExact(armor, player, getCureCost(), true)) {
 
-				event.setResult(EventWrapper.Result.DENY);
+				event.setResult(MobEffectEventWrapper.Applicable.Result.DO_NOT_APPLY);
 			}
 		}
 	}

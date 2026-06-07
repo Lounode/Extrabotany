@@ -274,6 +274,8 @@
   "item.extrabotany.walking_cane": "步行手杖",
   "item.extrabotany.core_of_the_void": "空之律者核心",
   "item.extrabotany.void_archives": "虚空万藏",
+  "item.extrabotany.void_archives.variant": "虚空万藏：%s",
+  "item.extrabotany.void_archives.fruit_of_grisaia": "虚空万藏：禁忌之果",
   "item.extrabotany.eins_reward_bag": "Eins奖励袋",
   "item.extrabotany.zwei_reward_bag": "Zwei奖励袋",
   "item.extrabotany.drei_reward_bag": "Drei奖励袋",

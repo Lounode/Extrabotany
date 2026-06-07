@@ -1,19 +1,21 @@
 package io.github.lounode.extrabotany.common.block.flower.generating;
 
+import net.minecraft.core.HolderLookup;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraGeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 
 import io.github.lounode.extrabotany.api.block.PassiveFlower;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
-public class SunshineLilyBlockEntity extends GeneratingFlowerBlockEntity implements PassiveFlower {
+public class SunshineLilyBlockEntity extends ExtraGeneratingFlowerBlockEntity implements PassiveFlower {
 
 	public static final int MAX_MANA = 200;
 	public static final int COOLDOWN = 4;
@@ -65,14 +67,14 @@ public class SunshineLilyBlockEntity extends GeneratingFlowerBlockEntity impleme
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		setPassiveDecayTicks(cmp.getInt(TAG_PASSIVE_DECAY_TICKS));
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, getPassiveDecayTicks());
 	}
 

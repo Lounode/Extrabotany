@@ -61,7 +61,7 @@ public class SkullLandMineRenderer extends EntityRenderer<SkullLandMineEntity> {
 				buffer.getBuffer(this.model.renderType(this.getTextureLocation(entity))),
 				packedLight,
 				overlay,
-				1.0F, 1.0F, 1.0F, 1.0F);
+				-1);
 		poseStack.popPose();
 		super.render(entity, entityYaw, partialTick, poseStack, buffer, packedLight);
 	}

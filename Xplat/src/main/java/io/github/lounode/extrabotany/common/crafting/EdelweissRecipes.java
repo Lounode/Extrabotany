@@ -1,16 +1,15 @@
 package io.github.lounode.extrabotany.common.crafting;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.advancements.critereon.EntityTypePredicate;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-
-import org.jetbrains.annotations.NotNull;
 
 import io.github.lounode.extrabotany.api.recipe.EdelweissRecipe;
 
@@ -31,7 +30,6 @@ public class EdelweissRecipes implements EdelweissRecipe {
 		return input;
 	}
 
-	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
@@ -52,24 +50,23 @@ public class EdelweissRecipes implements EdelweissRecipe {
 	}
 
 	public static class Serializer implements RecipeSerializer<EdelweissRecipes> {
+		private static final MapCodec<EdelweissRecipes> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+				EntityTypePredicate.CODEC.fieldOf("input").forGetter(EdelweissRecipes::getInput),
+				com.mojang.serialization.Codec.INT.fieldOf("outputMana").forGetter(EdelweissRecipes::getManaOutput)
+		).apply(instance, (input, outputMana) -> new EdelweissRecipes(EdelweissRecipe.TYPE_ID, input, outputMana)));
+		private static final StreamCodec<RegistryFriendlyByteBuf, EdelweissRecipes> STREAM_CODEC = StreamCodec.composite(
+				ByteBufCodecs.fromCodecWithRegistries(EntityTypePredicate.CODEC), EdelweissRecipes::getInput,
+				ByteBufCodecs.VAR_INT, EdelweissRecipes::getManaOutput,
+				(input, outputMana) -> new EdelweissRecipes(EdelweissRecipe.TYPE_ID, input, outputMana));
+
 		@Override
-		public EdelweissRecipes fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			var input = EntityTypePredicate.fromJson(json.getAsJsonPrimitive("input"));
-			var outputMana = GsonHelper.getAsInt(json, "outputMana");
-			return new EdelweissRecipes(recipeId, input, outputMana);
+		public MapCodec<EdelweissRecipes> codec() {
+			return CODEC;
 		}
 
 		@Override
-		public EdelweissRecipes fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			var input = EntityTypePredicate.fromJson(new JsonPrimitive(buffer.readUtf()));
-			var outputMana = buffer.readInt();
-			return new EdelweissRecipes(recipeId, input, outputMana);
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull EdelweissRecipes recipe) {
-			buffer.writeUtf(recipe.getInput().serializeToJson().getAsString());
-			buffer.writeInt(recipe.getManaOutput());
+		public StreamCodec<RegistryFriendlyByteBuf, EdelweissRecipes> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

@@ -4,6 +4,7 @@ import com.google.common.base.Suppliers;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,6 +14,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
@@ -157,7 +159,7 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 	}
 
 	public PedestalBlockEntity(BlockEntityType<? extends PedestalBlockEntity> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
+		super(type, pos, state, true);
 		this.setStrikes(0);
 	}
 
@@ -247,10 +249,11 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 				* 效率：击打次数加成
 				* 经验修补：自动化自我修复
 				* */
-				int expBoost = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, smashTools);
-				int efficiency = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, smashTools);
+				var enchantments = level.holderLookup(Registries.ENCHANTMENT);
+				int expBoost = EnchantmentHelper.getItemEnchantmentLevel(enchantments.getOrThrow(Enchantments.FORTUNE), smashTools);
+				int efficiency = EnchantmentHelper.getItemEnchantmentLevel(enchantments.getOrThrow(Enchantments.EFFICIENCY), smashTools);
 
-				smashTools.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(finalSwingOffHand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND));
+				smashTools.hurtAndBreak(1, player, finalSwingOffHand ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND);
 
 				this.strikes += 1 /*+ efficiency*/;
 				if (!level.isClientSide()) {
@@ -520,17 +523,18 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 				continue;
 			}
 			if (!recipe.getInput().test(this.getItem())) {
-				if (ItemStack.isSameItemSameTags(recipe.getOutput(), this.getItem())) {
+				if (ItemStack.isSameItemSameComponents(recipe.getOutput(), this.getItem())) {
 					return false;
 				}
 				continue;
 			}
 
-			int expBoost = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, hammer);
-			int efficiency = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, hammer);
+			var enchantments = level.holderLookup(Registries.ENCHANTMENT);
+			int expBoost = EnchantmentHelper.getItemEnchantmentLevel(enchantments.getOrThrow(Enchantments.FORTUNE), hammer);
+			int efficiency = EnchantmentHelper.getItemEnchantmentLevel(enchantments.getOrThrow(Enchantments.EFFICIENCY), hammer);
 
-			if (hammer.isDamageableItem() && hammer.hurt(1, level.random, null)) {
-				automaticHammers.get(hammer).setItem(ItemStack.EMPTY);
+			if (level instanceof ServerLevel serverLevel) {
+				hammer.hurtAndBreak(1, serverLevel, null, item -> automaticHammers.get(hammer).setItem(ItemStack.EMPTY));
 			}
 
 			this.strikes += 1 /*+ efficiency*/;
@@ -592,14 +596,14 @@ public class PedestalBlockEntity extends ExposedSimpleInventoryBlockEntity imple
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag tag) {
-		super.readPacketNBT(tag);
+	protected void loadAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
 		this.setStrikes(tag.getInt("strikes"));
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag tag) {
-		super.writePacketNBT(tag);
+	protected void saveAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
 		tag.putInt("strikes", strikes);
 	}
 

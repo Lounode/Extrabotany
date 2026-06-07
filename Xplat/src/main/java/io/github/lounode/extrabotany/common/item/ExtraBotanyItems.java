@@ -13,7 +13,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.lens.Lens;
 import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.item.record.BotaniaRecordItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.common.crafting.recipe.*;
@@ -40,6 +39,7 @@ import io.github.lounode.extrabotany.common.item.lens.*;
 import io.github.lounode.extrabotany.common.item.material.ChallangeTicketItem;
 import io.github.lounode.extrabotany.common.item.material.GildedPotatoItem;
 import io.github.lounode.extrabotany.common.item.material.HammerTiers;
+import io.github.lounode.extrabotany.common.item.record.ExtraBotanyJukeboxSongs;
 import io.github.lounode.extrabotany.common.item.relic.*;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 import io.github.lounode.extrabotany.common.item.relic.voidcore.CoreOfTheVoidItem;
@@ -104,42 +104,42 @@ public final class ExtraBotanyItems {
 
 	//Armor
 	public static final Item starryIdolHeadgear = make(prefix(LibItemNames.STARRY_IDOL_HEADGEAR),
-			new StarryIdolHeadgearItem(unstackableCustomDamage()));
+			new StarryIdolHeadgearItem(armorProps(ArmorItem.Type.HELMET, 16)));
 	public static final Item starryIdolSuit = make(prefix(LibItemNames.STARRY_IDOL_SUIT),
-			new StarryIdolArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage()));
+			new StarryIdolArmorItem(ArmorItem.Type.CHESTPLATE, armorProps(ArmorItem.Type.CHESTPLATE, 16)));
 	public static final Item starryIdolSkirt = make(prefix(LibItemNames.STARRY_IDOL_SKIRT),
-			new StarryIdolArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()));
+			new StarryIdolArmorItem(ArmorItem.Type.LEGGINGS, armorProps(ArmorItem.Type.LEGGINGS, 16)));
 	public static final Item starryIdolBoots = make(prefix(LibItemNames.STARRY_IDOL_BOOTS),
-			new StarryIdolArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()));
+			new StarryIdolArmorItem(ArmorItem.Type.BOOTS, armorProps(ArmorItem.Type.BOOTS, 16)));
 
 	public static final Item pleiadesCombatMaidHeadgear = make(prefix(LibItemNames.PLEIADES_COMBAT_MAID_HEADGEAR),
-			new PleiadesCombatMaidArmorItem(ArmorItem.Type.HELMET, unstackableCustomDamage()));
+			new PleiadesCombatMaidArmorItem(ArmorItem.Type.HELMET, armorProps(ArmorItem.Type.HELMET, 50)));
 	public static final Item pleiadesCombatMaidSuit = make(prefix(LibItemNames.PLEIADES_COMBAT_MAID_SUIT),
-			new PleiadesCombatMaidSuitItem(unstackableCustomDamage()));
+			new PleiadesCombatMaidSuitItem(armorProps(ArmorItem.Type.CHESTPLATE, 50)));
 	public static final Item pleiadesCombatMaidSkirt = make(prefix(LibItemNames.PLEIADES_COMBAT_MAID_SKIRT),
-			new PleiadesCombatMaidArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()));
+			new PleiadesCombatMaidArmorItem(ArmorItem.Type.LEGGINGS, armorProps(ArmorItem.Type.LEGGINGS, 50)));
 	public static final Item pleiadesCombatMaidBoots = make(prefix(LibItemNames.PLEIADES_COMBAT_MAID_BOOTS),
-			new PleiadesCombatMaidArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()));
+			new PleiadesCombatMaidArmorItem(ArmorItem.Type.BOOTS, armorProps(ArmorItem.Type.BOOTS, 50)));
 	public static final Item sanguinePleiadesCombatMaidSuit = make(prefix(LibItemNames.SANGUINE_PLEIADES_COMBAT_MAID_SUIT),
-			new SanguinePleiadesCombatMaidSuitItem(unstackableCustomDamage()));
+			new SanguinePleiadesCombatMaidSuitItem(armorProps(ArmorItem.Type.CHESTPLATE, 50)));
 
 	public static final Item goblinSlayerHelmet = make(prefix(LibItemNames.GOBLIN_SLAYER_HELMET),
-			new GoblinSlayerHelmetItem(unstackableCustomDamage()));
+			new GoblinSlayerHelmetItem(armorProps(ArmorItem.Type.HELMET, 21)));
 	public static final Item goblinSlayerChestplate = make(prefix(LibItemNames.GOBLIN_SLAYER_CHESTPLATE),
-			new GoblinSlayerArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage()));
+			new GoblinSlayerArmorItem(ArmorItem.Type.CHESTPLATE, armorProps(ArmorItem.Type.CHESTPLATE, 21)));
 	public static final Item goblinSlayerLeggings = make(prefix(LibItemNames.GOBLIN_SLAYER_LEGGINGS),
-			new GoblinSlayerArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()));
+			new GoblinSlayerArmorItem(ArmorItem.Type.LEGGINGS, armorProps(ArmorItem.Type.LEGGINGS, 21)));
 	public static final Item goblinSlayerBoots = make(prefix(LibItemNames.GOBLIN_SLAYER_BOOTS),
-			new GoblinSlayerArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()));
+			new GoblinSlayerArmorItem(ArmorItem.Type.BOOTS, armorProps(ArmorItem.Type.BOOTS, 21)));
 
 	public static final Item shadowWarriorHelmet = make(prefix(LibItemNames.SHADOW_WARRIOR_HELMET),
-			new ShadowWarriorHelmetItem(unstackableCustomDamage()));
+			new ShadowWarriorHelmetItem(armorProps(ArmorItem.Type.HELMET, 23)));
 	public static final Item shadowWarriorChestplate = make(prefix(LibItemNames.SHADOW_WARRIOR_CHESTPLATE),
-			new ShadowWarriorArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage()));
+			new ShadowWarriorArmorItem(ArmorItem.Type.CHESTPLATE, armorProps(ArmorItem.Type.CHESTPLATE, 23)));
 	public static final Item shadowWarriorLeggings = make(prefix(LibItemNames.SHADOW_WARRIOR_LEGGINGS),
-			new ShadowWarriorArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()));
+			new ShadowWarriorArmorItem(ArmorItem.Type.LEGGINGS, armorProps(ArmorItem.Type.LEGGINGS, 23)));
 	public static final Item shadowWarriorBoots = make(prefix(LibItemNames.SHADOW_WARRIOR_BOOTS),
-			new ShadowWarriorArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()));
+			new ShadowWarriorArmorItem(ArmorItem.Type.BOOTS, armorProps(ArmorItem.Type.BOOTS, 23)));
 
 	//Relic
 	public static final Item camera = make(prefix(LibItemNames.CAMERA), new CameraItem(unstackable().rarity(Rarity.UNCOMMON).fireResistant()));
@@ -168,17 +168,17 @@ public final class ExtraBotanyItems {
 	public static final Item gildedPotato = make(prefix(LibItemNames.GILDED_POTATO), new GildedPotatoItem(defaultBuilder()));
 	public static final Item gildedPotatoMashed = make(prefix(LibItemNames.GILDED_POTATO_MASHED), new Item(defaultBuilder()));
 	public static final Item friedChicken = make(prefix(LibItemNames.FRIED_CHICKEN), new Item(defaultBuilder()
-			.food(new FoodProperties.Builder()
-					.nutrition(8)
-					.saturationMod(0.5F)
-					.alwaysEat()
-					.build()
-			)
+					.food(new FoodProperties.Builder()
+							.nutrition(8)
+							.saturationModifier(0.5F)
+							.alwaysEdible()
+							.build()
+					)
 	));
 	public static final Item heroMedal = make(prefix(LibItemNames.HERO_MEDAL), new Item(defaultBuilder().rarity(Rarity.UNCOMMON)));//OT
 	public static final Item challengeTicket = make(prefix(LibItemNames.CHALLENGE_TICKET), new ChallangeTicketItem(defaultBuilder()));
 	public static final Item nightmareFuel = make(prefix(LibItemNames.NIGHTMARE_FUEL), new NightmareFuelItem(defaultBuilder()
-			.food(new FoodProperties.Builder().nutrition(0).saturationMod(0.3F).alwaysEat()
+			.food(new FoodProperties.Builder().nutrition(0).saturationModifier(0.3F).alwaysEdible()
 					.effect(new MobEffectInstance(MobEffects.HARM, 1, 1), 1.0F)
 					.effect(new MobEffectInstance(MobEffects.BLINDNESS, 500, 1), 1.0F)
 					.effect(new MobEffectInstance(MobEffects.WEAKNESS, 500, 1), 1.0F)
@@ -188,7 +188,7 @@ public final class ExtraBotanyItems {
 			)
 	));
 	public static final Item spiritFuel = make(prefix(LibItemNames.SPIRIT_FUEL), new SpiritFuelItem(defaultBuilder()
-			.food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3F).alwaysEat()
+			.food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).alwaysEdible()
 					.effect(new MobEffectInstance(MobEffects.HEAL, 1, 1), 1.0F)
 					.effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500, 1), 1.0F)
 					.effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 500, 1), 1.0F)
@@ -212,7 +212,7 @@ public final class ExtraBotanyItems {
 	public static final Item nineAndThreeQuartersRewardBag = make(prefix(LibItemNames.NINE_AND_THREE_QUARTERS_REWARD_BAG), new RewardBagItem(defaultBuilder(), prefix("nine_and_three_quarters")));
 	public static final Item pandorasBox = make(prefix(LibItemNames.PANDORAS_BOX), new PandorasBoxItem(unstackable().rarity(Rarity.UNCOMMON), prefix("pandoras_box")));
 
-	public static final Item recordGaia3 = make(prefix(LibItemNames.RECORD_GAIA3), new BotaniaRecordItem(1, ExtraBotanySounds.MUSIC_GAIA3, unstackable().rarity(Rarity.EPIC), 201));
+	public static final Item recordGaia3 = make(prefix(LibItemNames.RECORD_GAIA3), new Item(unstackable().rarity(Rarity.EPIC).jukeboxPlayable(ExtraBotanyJukeboxSongs.GAIA_3)));
 	//public static final Item recordHerrscherOfTheVoid = make(prefix(LibItemNames.RECORD_HERRSCHER_OF_THE_VOID), new BotaniaRecordItem(1, ExtraBotanySounds.MUSIC_GAIA3, unstackable().rarity(Rarity.EPIC), 201));
 
 	//Brews
@@ -283,6 +283,10 @@ public final class ExtraBotanyItems {
 
 	public static Item.Properties unstackableCustomDamage() {
 		return defaultBuilderCustomDamage().stacksTo(1);
+	}
+
+	public static Item.Properties armorProps(ArmorItem.Type type, int durabilityMultiplier) {
+		return unstackableCustomDamage().durability(type.getDurability(durabilityMultiplier));
 	}
 
 	public static Item.Properties defaultBuilder() {

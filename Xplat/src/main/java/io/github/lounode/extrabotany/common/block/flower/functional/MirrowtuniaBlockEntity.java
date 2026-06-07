@@ -8,7 +8,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraFunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
@@ -16,7 +16,7 @@ import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.item.equipment.bauble.NatureOrbItem;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
-public class MirrowtuniaBlockEntity extends FunctionalFlowerBlockEntity {
+public class MirrowtuniaBlockEntity extends ExtraFunctionalFlowerBlockEntity {
 
 	public static final int RANGE = 13;
 	public static final int MAX_MANA = 2000;

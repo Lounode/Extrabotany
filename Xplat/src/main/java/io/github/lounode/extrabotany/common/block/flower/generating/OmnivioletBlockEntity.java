@@ -1,5 +1,7 @@
 package io.github.lounode.extrabotany.common.block.flower.generating;
 
+import net.minecraft.core.HolderLookup;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -16,10 +18,10 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraGeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.common.internal_caps.ItemLifetime;
 
 import io.github.lounode.extrabotany.api.recipe.OmnivioletRecipe;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
@@ -27,7 +29,7 @@ import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
 import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
-public class OmnivioletBlockEntity extends GeneratingFlowerBlockEntity {
+public class OmnivioletBlockEntity extends ExtraGeneratingFlowerBlockEntity {
 
 	private static final String TAG_BURN_TIME = "burnTime";
 
@@ -58,8 +60,8 @@ public class OmnivioletBlockEntity extends GeneratingFlowerBlockEntity {
 			return;
 		}
 
-		for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)))) {
-			if (DelayHelper.canInteractWith(this, item)) {
+		for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE))) {
+			if (ItemLifetime.canInteractWith(this, item)) {
 				ItemStack stack = item.getItem();
 
 				int addTime = getFeedBurnTime(stack);
@@ -127,15 +129,15 @@ public class OmnivioletBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		cmp.putInt(TAG_BURN_TIME, getBurnTime());
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 
 		setBurnTime(cmp.getInt(TAG_BURN_TIME));
 	}

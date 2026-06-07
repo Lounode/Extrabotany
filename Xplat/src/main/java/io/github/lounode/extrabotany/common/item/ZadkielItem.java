@@ -10,13 +10,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.FrostWalkerEnchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
+
+import io.github.lounode.extrabotany.common.util.FrostWalkerEffectHelper;
 
 // TODO完善功能 冰刺
 public class ZadkielItem extends Item {
@@ -78,6 +79,6 @@ public class ZadkielItem extends Item {
 		if (!(entity instanceof LivingEntity living)) {
 			return;
 		}
-		FrostWalkerEnchantment.onEntityMoved(living, entity.level(), entity.blockPosition(), 6);
+		FrostWalkerEffectHelper.apply(living, stack, 6);
 	}
 }

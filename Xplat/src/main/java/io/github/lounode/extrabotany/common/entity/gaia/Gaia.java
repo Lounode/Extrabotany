@@ -21,6 +21,7 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -48,7 +49,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
@@ -92,7 +93,7 @@ public class Gaia extends Monster {
 		super(type, world);
 		this.xpReward = 825;
 		this.setHealth(getMaxHealth());
-		this.setHome(GlobalPos.of(world.dimension(), ManaBurst.NO_SOURCE));
+		this.setHome(GlobalPos.of(world.dimension(), Bound.UNBOUND_POS));
 		//TODO 持久化玩家数量
 		this.bossEvent = (ServerGaiaBossEvent) new ServerGaiaBossEvent(type.getDescription(), BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS).setCreateWorldFog(true);
 		if (world.isClientSide) {
@@ -161,7 +162,7 @@ public class Gaia extends Monster {
 			gaia.getAttribute(Attributes.ARMOR).setBaseValue(15);
 
 			gaia.playSound(BotaniaSounds.gaiaSummon, .1F, 1F);
-			gaia.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(gaia.blockPosition()), MobSpawnType.EVENT, null, null);
+			gaia.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(gaia.blockPosition()), MobSpawnType.EVENT, null);
 			world.addFreshEntity(gaia);
 
 			for (Player nearbyPlayer : playersAround) {
@@ -175,13 +176,13 @@ public class Gaia extends Monster {
 	}
 
 	@Override
-	public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-		if (this.getHome().pos() == ManaBurst.NO_SOURCE) {
+	public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
+		if (this.getHome().pos() == Bound.UNBOUND_POS) {
 			this.setHome(GlobalPos.of(level.getLevel().dimension(), this.findSafeHomePos()));
 		}
-		initMemories(level, difficulty, reason, spawnData, dataTag);
+		initMemories(level, difficulty, reason, spawnData);
 
-		return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+		return super.finalizeSpawn(level, difficulty, reason, spawnData);
 	}
 
 	private BlockPos findSafeHomePos() {
@@ -199,7 +200,7 @@ public class Gaia extends Monster {
 		return spawnPos;
 	}
 
-	protected void initMemories(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+	protected void initMemories(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
 		GaiaAI.initMemories(this, level.getLevel(), getHome().pos());
 	}
 
@@ -402,7 +403,7 @@ public class Gaia extends Monster {
 	}
 
 	@Override
-	public boolean canChangeDimensions() {
+	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
 		return false;
 	}
 
@@ -412,7 +413,7 @@ public class Gaia extends Monster {
 	}
 
 	@Override
-	public boolean canBeLeashed(Player player) {
+	public boolean canBeLeashed() {
 		return false;
 	}
 
@@ -509,28 +510,28 @@ public class Gaia extends Monster {
 		this.playerCount = data.getPlayerCount();
 		//this.bossInfoUUID = data.getBossInfoUUID();
 		this.setHome(data.getHome());
-		if (!ManaBurst.NO_SOURCE.equals(data.getArena().center().pos())) {
+		if (!Bound.UNBOUND_POS.equals(data.getArena().center().pos())) {
 			this.setArena(data.getArena());
 			Proxy.INSTANCE.runOnClient(() -> () -> DopplegangerMusic.play(this));
 		}
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
 		var spawnData = new GaiaSpawnData();
 		spawnData.setHome(getHome());
 		//spawnData.setBossInfoUUID(getBossInfoUuid());
 		spawnData.setPlayerCount(getPlayerCount());
-		spawnData.setArena(getArena().orElse(GaiaArena.of(GlobalPos.of(level().dimension(), ManaBurst.NO_SOURCE))));
+		spawnData.setArena(getArena().orElse(GaiaArena.of(GlobalPos.of(level().dimension(), Bound.UNBOUND_POS))));
 
 		return EXplatAbstractions.INSTANCE.toVanillaClientboundPacket(
-				new SpawnGaiaPacket(new ClientboundAddEntityPacket(this), spawnData));
+				new SpawnGaiaPacket(new ClientboundAddEntityPacket(this, entity, 0), spawnData));
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(INVUL_TIME, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(INVUL_TIME, 0);
 	}
 
 	@Override
@@ -563,9 +564,9 @@ public class Gaia extends Monster {
 
 		if (cmp.contains(TAG_HOME)) {
 			this.setHome(GlobalPos.CODEC.parse(NbtOps.INSTANCE, cmp.get(TAG_HOME)).resultOrPartial(LOGGER::error)
-					.orElse(GlobalPos.of(this.level().dimension(), ManaBurst.NO_SOURCE)));
+					.orElse(GlobalPos.of(this.level().dimension(), Bound.UNBOUND_POS)));
 		} else {
-			this.setHome(GlobalPos.of(this.level().dimension(), ManaBurst.NO_SOURCE));
+			this.setHome(GlobalPos.of(this.level().dimension(), Bound.UNBOUND_POS));
 		}
 
 		if (cmp.contains(TAG_ARENA)) {
@@ -635,7 +636,7 @@ public class Gaia extends Monster {
 
 	/// Music
 	public SoundEvent getBGM() {
-		return BotaniaSounds.gaiaMusic2;
+		return BotaniaSounds.musicGaiaBoss2.value();
 	}
 
 	private static class DopplegangerMusic extends AbstractTickableSoundInstance {

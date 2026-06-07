@@ -93,11 +93,11 @@ public class GaiaSpawnMob<E extends Gaia> extends Behavior<E> {
 					case 2 -> {
 						if (!players.isEmpty()) {
 							for (int j = 0; j < 1 + gaia.level().random.nextInt(8); j++) {
-								PixieEntity pixie = new PixieEntity(gaia.level());
-								pixie.setProps(players.get(gaia.getRandom().nextInt(players.size())), gaia, 1, 8);
+								PixieEntity pixie = new PixieEntity(gaia.level(), true);
+								pixie.setProps(players.get(gaia.getRandom().nextInt(players.size())), gaia, 8);
 								pixie.setPos(gaia.getX() + gaia.getBbWidth() / 2, gaia.getY() + 2, gaia.getZ() + gaia.getBbWidth() / 2);
 								pixie.finalizeSpawn((ServerLevelAccessor) gaia.level(), gaia.level().getCurrentDifficultyAt(pixie.blockPosition()),
-										MobSpawnType.MOB_SUMMONED, null, null);
+										MobSpawnType.MOB_SUMMONED, null);
 								gaia.level().addFreshEntity(pixie);
 							}
 						}
@@ -114,7 +114,7 @@ public class GaiaSpawnMob<E extends Gaia> extends Behavior<E> {
 					entity.setPos(gaia.getX() + 0.5 + Math.random() * range - range / 2, gaia.getY() - 1,
 							gaia.getZ() + 0.5 + Math.random() * range - range / 2);
 					entity.finalizeSpawn((ServerLevelAccessor) gaia.level(), gaia.level().getCurrentDifficultyAt(entity.blockPosition()),
-							MobSpawnType.MOB_SUMMONED, null, null);
+							MobSpawnType.MOB_SUMMONED, null);
 					if (entity instanceof WitherSkeleton) {
 						entity.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.elementiumSword));
 					}

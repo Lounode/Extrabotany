@@ -1,34 +1,28 @@
 package io.github.lounode.extrabotany.data.loot;
 
-import net.minecraft.advancements.critereon.EnchantmentPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.properties.SlabType;
-import net.minecraft.world.level.storage.loot.Deserializers;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
-import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
+import net.minecraft.world.level.storage.loot.functions.CopyCustomDataFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
@@ -46,10 +40,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 public class BlockLootProvider implements DataProvider {
-	private static final LootItemCondition.Builder SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item()
-			.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
+	private static final HolderLookup.Provider EMPTY_REGISTRIES = HolderLookup.Provider.create(Stream.empty());
 	private static final Function<Block, LootTable.Builder> SKIP = b -> {
 		throw new RuntimeException("shouldn't be executed");
 	};
@@ -58,7 +52,7 @@ public class BlockLootProvider implements DataProvider {
 	private final Map<Block, Function<Block, LootTable.Builder>> functionTable = new HashMap<>();
 
 	public BlockLootProvider(PackOutput packOutput) {
-		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_tables/blocks");
+		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_table/blocks");
 
 		for (Block b : BuiltInRegistries.BLOCK) {
 			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(b);
@@ -72,7 +66,7 @@ public class BlockLootProvider implements DataProvider {
 				//} else if (b instanceof BotaniaGrassBlock) {
 				//    functionTable.put(b, BlockLootProvider::genAltGrass);
 			} else if (b instanceof FlowerPotBlock flowerPot) {
-				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getContent()));
+				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getPotted()));
 				//} else if (id.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
 				//    functionTable.put(b, BlockLootProvider::genMetamorphicStone);
 			}
@@ -111,14 +105,15 @@ public class BlockLootProvider implements DataProvider {
 		List<CompletableFuture<?>> output = new ArrayList<>();
 		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
 			Path path = pathProvider.json(e.getKey());
-			output.add(DataProvider.saveStable(cache, Deserializers.createLootTableSerializer().create().toJsonTree(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path));
+			LootTable table = e.getValue().setParamSet(LootContextParamSets.BLOCK).build();
+			output.add(DataProvider.saveStable(cache, EMPTY_REGISTRIES, LootTable.DIRECT_CODEC, table, path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
 	}
 
 	protected static LootTable.Builder genCopyNbt(Block b, String... tags) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b);
-		CopyNbtFunction.Builder func = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
+		CopyCustomDataFunction.Builder func = CopyCustomDataFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
 		for (String tag : tags) {
 			func = func.copy(tag, "BlockEntityTag." + tag);
 		}

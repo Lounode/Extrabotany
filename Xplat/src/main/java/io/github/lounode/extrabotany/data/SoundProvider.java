@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.data;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -39,14 +40,14 @@ public class SoundProvider extends SoundDefinitionsProvider {
 		this.add(PANDORAS_BOX_OPEN, SoundDefinitionsProvider.definition()
 				.subtitle(title(PANDORAS_BOX_OPEN))
 				.with(
-						SoundDefinitionsProvider.sound(SoundEvents.ARMOR_EQUIP_CHAIN.getLocation(), SoundDefinition.SoundType.EVENT)
+						SoundDefinitionsProvider.sound(location(SoundEvents.ARMOR_EQUIP_CHAIN), SoundDefinition.SoundType.EVENT)
 				)
 		);
 
 		this.add(REWARD_BAG_OPEN, SoundDefinitionsProvider.definition()
 				.subtitle(title(REWARD_BAG_OPEN))
 				.with(
-						SoundDefinitionsProvider.sound(SoundEvents.ARMOR_EQUIP_LEATHER.getLocation(), SoundDefinition.SoundType.EVENT)
+						SoundDefinitionsProvider.sound(location(SoundEvents.ARMOR_EQUIP_LEATHER), SoundDefinition.SoundType.EVENT)
 				)
 		);
 
@@ -103,7 +104,7 @@ public class SoundProvider extends SoundDefinitionsProvider {
 		this.add(ARMOR_EQUIP_MAID, SoundDefinition.definition()
 				.subtitle(title(ARMOR_EQUIP_MAID))
 				.with(
-						SoundDefinitionsProvider.sound(BotaniaSounds.equipManaweave.getLocation(), SoundDefinition.SoundType.EVENT)
+						SoundDefinitionsProvider.sound(location(BotaniaSounds.equipManaweave), SoundDefinition.SoundType.EVENT)
 				)
 		);
 
@@ -111,7 +112,7 @@ public class SoundProvider extends SoundDefinitionsProvider {
 		this.add(ARMOR_EQUIP_IDOL, SoundDefinition.definition()
 				.subtitle(title(ARMOR_EQUIP_IDOL))
 				.with(
-						SoundDefinitionsProvider.sound(BotaniaSounds.equipManaweave.getLocation(), SoundDefinition.SoundType.EVENT)
+						SoundDefinitionsProvider.sound(location(BotaniaSounds.equipManaweave), SoundDefinition.SoundType.EVENT)
 				)
 		);
 
@@ -126,14 +127,14 @@ public class SoundProvider extends SoundDefinitionsProvider {
 		this.add(ARMOR_EQUIP_GOBLIN, SoundDefinition.definition()
 				.subtitle(title(ARMOR_EQUIP_GOBLIN))
 				.with(
-						SoundDefinitionsProvider.sound(SoundEvents.ARMOR_EQUIP_IRON.getLocation(), SoundDefinition.SoundType.EVENT)
+						SoundDefinitionsProvider.sound(location(SoundEvents.ARMOR_EQUIP_IRON), SoundDefinition.SoundType.EVENT)
 				)
 		);
 		take(soundEvents, ARMOR_EQUIP_WARRIOR);
 		this.add(ARMOR_EQUIP_WARRIOR, SoundDefinition.definition()
 				.subtitle(title(ARMOR_EQUIP_WARRIOR))
 				.with(
-						SoundDefinitionsProvider.sound(SoundEvents.ARMOR_EQUIP_CHAIN.getLocation(), SoundDefinition.SoundType.EVENT)
+						SoundDefinitionsProvider.sound(location(SoundEvents.ARMOR_EQUIP_CHAIN), SoundDefinition.SoundType.EVENT)
 				)
 		);
 
@@ -149,6 +150,10 @@ public class SoundProvider extends SoundDefinitionsProvider {
 	protected void take(Set<SoundEvent> form, SoundEvent soundEvent) {
 		//this.add(soundEvent, definition);
 		form.remove(soundEvent);
+	}
+
+	private static ResourceLocation location(Holder<SoundEvent> soundEvent) {
+		return soundEvent.unwrapKey().orElseThrow().location();
 	}
 
 	protected SoundDefinition copyDefinition(SoundEvent soundEvent, SoundEvent... copyFrom) {

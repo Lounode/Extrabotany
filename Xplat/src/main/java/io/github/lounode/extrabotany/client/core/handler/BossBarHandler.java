@@ -85,7 +85,7 @@ public final class BossBarHandler {
 	}
 
 	private static void drawHealthBar(GuiGraphics gui, LivingEntity boss, ColorfulBossBar bossBar, int x, int y, int u, int v, int w, int h, boolean bg) {
-		var shader = CoreShaders.dopplegangerBar();
+		var shader = CoreShaders.gaiaBossBar();
 		if (shader != null) {
 			shader.safeGetUniform("BotaniaGrainIntensity").set(bossBar.getGrainIntensity());
 			shader.safeGetUniform("BotaniaHpFract").set(boss.getHealth() / boss.getMaxHealth());
@@ -97,14 +97,14 @@ public final class BossBarHandler {
 		float maxV = (v + h) / 256.0F;
 
 		var matrix = gui.pose().last().pose();
-		RenderSystem.setShader(CoreShaders::dopplegangerBar);
-		BufferBuilder builder = Tesselator.getInstance().getBuilder();
-		builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		builder.vertex(matrix, x, y + h, 0).uv(minU, maxV).endVertex();
-		builder.vertex(matrix, x + w, y + h, 0).uv(maxU, maxV).endVertex();
-		builder.vertex(matrix, x + w, y, 0).uv(maxU, minV).endVertex();
-		builder.vertex(matrix, x, y, 0).uv(minU, minV).endVertex();
-		Tesselator.getInstance().end();
+		RenderSystem.setShader(CoreShaders::gaiaBossBar);
+		RenderSystem.setShaderTexture(0, BAR_TEXTURE);
+		BufferBuilder builder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		builder.addVertex(matrix, x, y + h, 0).setUv(minU, maxV);
+		builder.addVertex(matrix, x + w, y + h, 0).setUv(maxU, maxV);
+		builder.addVertex(matrix, x + w, y, 0).setUv(maxU, minV);
+		builder.addVertex(matrix, x, y, 0).setUv(minU, minV);
+		BufferUploader.drawWithShader(builder.buildOrThrow());
 	}
 
 }

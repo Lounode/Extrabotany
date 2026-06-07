@@ -33,7 +33,7 @@ public class SkullMissileRenderer extends EntityRenderer<SkullMissileEntity> {
 		float f1 = entity.getXRot();
 
 		this.model.setupAnim(0.0F, f, f1);
-		this.model.renderToBuffer(poseStack, buffer.getBuffer(this.model.renderType(this.getTextureLocation(entity))), light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		this.model.renderToBuffer(poseStack, buffer.getBuffer(this.model.renderType(this.getTextureLocation(entity))), light, OverlayTexture.NO_OVERLAY, -1);
 
 		poseStack.popPose();
 		super.render(entity, yaw, partialTicks, poseStack, buffer, light);

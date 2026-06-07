@@ -7,7 +7,9 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -24,6 +26,8 @@ import java.util.concurrent.CompletableFuture;
 import static io.github.lounode.extrabotany.common.item.ExtraBotanyItems.*;
 
 public class ItemTagProvider extends ItemTagsProvider {
+	private static final TagKey<Item> MUSIC_DISCS = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "music_discs"));
+
 	public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {
 		super(packOutput, lookupProvider, blockTagProvider);
 	}
@@ -76,8 +80,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(ItemTags.TALL_FLOWERS).addTag(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.tag(ItemTags.SMALL_FLOWERS).addTag(BotaniaTags.Items.MYSTICAL_FLOWERS).addTag(BotaniaTags.Items.SPECIAL_FLOWERS);
 
-		this.tag(BotaniaTags.Items.TERRA_PICK_BLACKLIST).add(natureOrb, pleiadesCombatMaidSuit, sanguinePleiadesCombatMaidSuit);
-
 		TagsProvider.TagAppender<Item> builder = this.tag(BotaniaTags.Items.LENS);
 		BuiltInRegistries.ITEM.stream().filter(i -> i instanceof LensItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
 				.map(BuiltInRegistries.ITEM::getKey)
@@ -85,7 +87,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.forEach(item -> builder.add(ResourceKey.create(Registries.ITEM, item)));
 
 		this.tag(ItemTags.PIGLIN_LOVED).add(gildedPotato, gildedPotatoMashed, dasRheingold);
-		this.tag(ItemTags.MUSIC_DISCS).add(recordGaia3);
+		this.tag(MUSIC_DISCS).add(recordGaia3);
 		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(HAMMERS);
 
 		this.tag(BotaniaTags.Items.RUNES);

@@ -5,9 +5,7 @@ import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import io.github.lounode.eventwrapper.event.level.LevelEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.level.LevelEventWrapper;
 import io.github.lounode.extrabotany.api.level.Wind;
 
 import java.util.Map;
@@ -85,17 +83,14 @@ public class WindImpl implements Wind {
 		}
 	}
 
-	@EventBusSubscriberWrapper
 	public static class EventHandler {
 
-		@SubscribeEventWrapper
-		public static void onLevelLoad(LevelEventWrapper.Load event) {
+			public static void onLevelLoad(LevelEventWrapper.Load event) {
 			Level level = (Level) event.getLevel();
 			WIND_MAP.computeIfAbsent(level, LevelWind::new);
 		}
 
-		@SubscribeEventWrapper
-		public static void onLevelUnLoad(LevelEventWrapper.Unload event) {
+			public static void onLevelUnLoad(LevelEventWrapper.Unload event) {
 			Level level = (Level) event.getLevel();
 			WIND_MAP.remove(level);
 		}

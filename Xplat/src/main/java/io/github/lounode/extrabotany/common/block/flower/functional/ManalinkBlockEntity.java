@@ -1,5 +1,7 @@
 package io.github.lounode.extrabotany.common.block.flower.functional;
 
+import net.minecraft.core.HolderLookup;
+
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.ChatFormatting;
@@ -27,10 +29,10 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraFunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.mana.ManaPool;
-import vazkii.botania.xplat.XplatAbstractions;
+import vazkii.botania.api.mana.ManaReceiver;
 
 import io.github.lounode.extrabotany.api.gaia.BlockPatternExtend;
 import io.github.lounode.extrabotany.api.gaia.BlockPatternExtendBuilder;
@@ -40,7 +42,7 @@ import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import java.util.Optional;
 
-public class ManalinkBlockEntity extends FunctionalFlowerBlockEntity implements Wandable {
+public class ManalinkBlockEntity extends ExtraFunctionalFlowerBlockEntity implements Wandable {
 
 	public static final String[][] PATTERN = {
 			{
@@ -144,7 +146,7 @@ public class ManalinkBlockEntity extends FunctionalFlowerBlockEntity implements 
 		ResourceKey<Level> type = pos.dimension();
 		Level world = server.getLevel(type);
 		if (world != null) {
-			var receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, pos.pos(), null);
+			var receiver = ManaReceiver.LOOKUP.find(world, pos.pos(), null);
 			if (receiver instanceof ManaPool pool) {
 				return pool;
 			}
@@ -181,8 +183,8 @@ public class ManalinkBlockEntity extends FunctionalFlowerBlockEntity implements 
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		if (linkPos != null) {
 			GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, linkPos)
@@ -192,8 +194,8 @@ public class ManalinkBlockEntity extends FunctionalFlowerBlockEntity implements 
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 
 		GlobalPos.CODEC.parse(NbtOps.INSTANCE, cmp.get(TAG_LINK_POS))
 				.resultOrPartial(LOGGER::error)

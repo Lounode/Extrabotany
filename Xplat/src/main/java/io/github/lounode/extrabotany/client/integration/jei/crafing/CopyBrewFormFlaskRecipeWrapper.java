@@ -29,7 +29,7 @@ public class CopyBrewFormFlaskRecipeWrapper implements ICraftingCategoryExtensio
 	private final ResourceLocation name;
 
 	public CopyBrewFormFlaskRecipeWrapper(CopyBrewRecipe recipe) {
-		this.name = recipe.getId();
+		this.name = null;
 	}
 
 	@Nullable

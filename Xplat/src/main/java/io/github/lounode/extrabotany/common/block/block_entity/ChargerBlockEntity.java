@@ -19,7 +19,6 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.BellowsBlockEntity;
@@ -37,7 +36,7 @@ public abstract class ChargerBlockEntity extends ExposedSimpleInventoryBlockEnti
 	public int tickCount;
 
 	public ChargerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
+		super(type, pos, state, true);
 	}
 
 	@Override
@@ -75,7 +74,7 @@ public abstract class ChargerBlockEntity extends ExposedSimpleInventoryBlockEnti
 
 		if (self.tickCount % 10 == 0) {
 			self.setChanged();
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
+			level.sendBlockUpdated(pos, state, state, 3);
 		}
 
 		var pool = self.getPool();
@@ -86,7 +85,7 @@ public abstract class ChargerBlockEntity extends ExposedSimpleInventoryBlockEnti
 		BlockPos poolPos = pool.getBlockPos();
 
 		ManaItem mana = EXplatAbstractions.INSTANCE.findManaItem(self.getItem());
-		if (mana == null || (!mana.canReceiveManaFromPool(pool) && !mana.canExportManaToPool(pool))) {
+		if (mana == null || (!mana.canReceiveManaFromPool(pool) && !mana.canDrainManaToPool(pool))) {
 			return;
 		}
 		boolean didSomething = false;
@@ -108,7 +107,7 @@ public abstract class ChargerBlockEntity extends ExposedSimpleInventoryBlockEnti
 				pool.receiveMana(-output);
 			}
 
-		} else if (mana.canExportManaToPool(pool)) {
+		} else if (mana.canDrainManaToPool(pool)) {
 
 			int input = mana.getMana();
 			input = Math.min(input, pool.getMaxMana() - pool.getCurrentMana());

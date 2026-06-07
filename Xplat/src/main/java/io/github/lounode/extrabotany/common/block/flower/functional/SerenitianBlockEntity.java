@@ -1,12 +1,14 @@
 package io.github.lounode.extrabotany.common.block.flower.functional;
 
+import net.minecraft.core.HolderLookup;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraFunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 
@@ -15,7 +17,7 @@ import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import java.util.List;
 
-public class SerenitianBlockEntity extends FunctionalFlowerBlockEntity {
+public class SerenitianBlockEntity extends ExtraFunctionalFlowerBlockEntity {
 	private static final int COOLDOWN = 20;
 
 	public static final int RANGE = 3;
@@ -39,13 +41,13 @@ public class SerenitianBlockEntity extends FunctionalFlowerBlockEntity {
 		var flowers = getSpecialFlowerNearby();
 
 		for (var flower : flowers) {
-			var cmp = new CompoundTag();
-			flower.saveAdditional(cmp);
+			var cmp = flower.saveWithoutMetadata(getLevel().registryAccess());
 			if (!cmp.contains(INHIBITION_TAG)) {
 				continue;
 			}
 			cmp.putInt(INHIBITION_TAG, 0);
-			flower.readFromPacketNBT(cmp);
+			flower.loadWithComponents(cmp, getLevel().registryAccess());
+			flower.setChanged();
 		}
 	}
 

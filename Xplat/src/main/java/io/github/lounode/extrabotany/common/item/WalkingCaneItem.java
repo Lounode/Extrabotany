@@ -1,52 +1,41 @@
 package io.github.lounode.extrabotany.common.item;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 import io.github.lounode.extrabotany.common.util.SoundEventUtil;
 
-import java.util.UUID;
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
-public class WalkingCaneItem extends Item implements Vanishable {
+public class WalkingCaneItem extends Item {
 	private static final int MANA_PER_USE = 40;
 	private static final double ADDITION_SPEED = 0.3D;
 	private static final int COOLDOWN_TICKS = 20;
 	private static final float EXHAUSTION = 0.2F;
 
 	public WalkingCaneItem(Properties properties) {
-		super(properties);
-	}
-
-	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
-		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
-		if (slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND) {
-			ret = HashMultimap.create(ret);
-			ret.put(Attributes.MOVEMENT_SPEED,
-					new AttributeModifier(UUID.fromString("995829fa-94c0-41bd-b046-0468c509a488"),
-							"Cane modifier",
-							getAdditionSpeed(),
-							AttributeModifier.Operation.MULTIPLY_TOTAL
-					)
-			);
-		}
-
-		return ret;
+		super(properties.component(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.builder()
+				.add(Attributes.MOVEMENT_SPEED,
+						new AttributeModifier(prefix("walking_cane_mainhand_speed"), ADDITION_SPEED, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+						EquipmentSlotGroup.bySlot(EquipmentSlot.MAINHAND))
+				.add(Attributes.MOVEMENT_SPEED,
+						new AttributeModifier(prefix("walking_cane_offhand_speed"), ADDITION_SPEED, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+						EquipmentSlotGroup.bySlot(EquipmentSlot.OFFHAND))
+				.build()));
 	}
 
 	@Override
@@ -55,7 +44,7 @@ public class WalkingCaneItem extends Item implements Vanishable {
 			return;
 		}
 
-		int time = getUseDuration(stack) - timeLeft;
+		int time = getUseDuration(stack, entityLiving) - timeLeft;
 		//if (ManaItemHandler.instance().requestManaExactForTool(stack, player, getManaPerUse(), true)) {
 		player.getFoodData().addExhaustion(getExhaustion());
 		player.setSprinting(true);
@@ -95,7 +84,7 @@ public class WalkingCaneItem extends Item implements Vanishable {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 72000;
 	}
 

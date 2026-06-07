@@ -50,7 +50,7 @@ public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 		for (var entry : map.entrySet()) {
 			ResourceKey<DamageType> damageType = entry.getKey();
 			for (TagKey<DamageType> tag : entry.getValue()) {
-				this.tag(tag).add(damageType);
+				this.tag(tag).addOptional(damageType.location());
 			}
 		}
 		this.tag(IS_FALL);

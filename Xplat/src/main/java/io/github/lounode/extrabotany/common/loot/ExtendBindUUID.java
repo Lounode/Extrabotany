@@ -5,8 +5,10 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import vazkii.botania.common.loot.BindUuid;
 
+import java.util.List;
+
 public class ExtendBindUUID extends BindUuid {
-	public ExtendBindUUID(LootItemCondition[] conditionsIn) {
+	public ExtendBindUUID(List<LootItemCondition> conditionsIn) {
 		super(conditionsIn);
 	}
 

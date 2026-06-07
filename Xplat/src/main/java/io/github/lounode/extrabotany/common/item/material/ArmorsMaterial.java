@@ -1,121 +1,104 @@
 package io.github.lounode.extrabotany.common.item.material;
 
-import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.LazyLoadedValue;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
+import vazkii.botania.common.helper.RegistryHelper;
 import vazkii.botania.common.item.BotaniaItems;
 
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
-public enum ArmorsMaterial implements ArmorMaterial, StringRepresentable {
-	STARRY_IDOL("starry_idol", 16, Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
-		map.put(ArmorItem.Type.BOOTS, 2);
-		map.put(ArmorItem.Type.LEGGINGS, 5);
-		map.put(ArmorItem.Type.CHESTPLATE, 6);
-		map.put(ArmorItem.Type.HELMET, 2);
-	}), 18, ExtraBotanySounds.ARMOR_EQUIP_IDOL, 0, 0.0F,
-			() -> Ingredient.of(BotaniaItems.manaweaveCloth)),
-	PLEIADS_MAID_COMBAT("pleiads_maid_combat", 50, Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
-		map.put(ArmorItem.Type.BOOTS, 4);
-		map.put(ArmorItem.Type.LEGGINGS, 7);
-		map.put(ArmorItem.Type.CHESTPLATE, 8);
-		map.put(ArmorItem.Type.HELMET, 3);
-	}), 50, ExtraBotanySounds.ARMOR_EQUIP_MAID, 4F, 0.0F,
-			() -> Ingredient.of(ExtraBotanyItems.dasRheingold)),
-	GOBLIN_SLAYER("goblin_slayer", 21, Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
-		map.put(ArmorItem.Type.BOOTS, 3);
-		map.put(ArmorItem.Type.LEGGINGS, 6);
-		map.put(ArmorItem.Type.CHESTPLATE, 6);
-		map.put(ArmorItem.Type.HELMET, 3);
-	}), 40, ExtraBotanySounds.ARMOR_EQUIP_GOBLIN, 2.5F, 0.0F,
-			() -> Ingredient.of(ExtraBotanyItems.photonium)),
-	SHADOW_WARRIOR("shadow_warrior", 23, Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
-		map.put(ArmorItem.Type.BOOTS, 3);
-		map.put(ArmorItem.Type.LEGGINGS, 7);
-		map.put(ArmorItem.Type.CHESTPLATE, 6);
-		map.put(ArmorItem.Type.HELMET, 3);
-	}), 28, ExtraBotanySounds.ARMOR_EQUIP_WARRIOR, 1.5F, 0.0F,
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
+
+public final class ArmorsMaterial {
+	private static final List<RegistryHelper.HolderProxy<ArmorMaterial>> ALL = new ArrayList<>();
+	public static final Holder<ArmorMaterial> STARRY_IDOL = create("starry_idol", 16,
+			Map.of(
+					ArmorItem.Type.BOOTS, 2,
+					ArmorItem.Type.LEGGINGS, 5,
+					ArmorItem.Type.CHESTPLATE, 6,
+					ArmorItem.Type.HELMET, 2
+			),
+			18, Holder.direct(ExtraBotanySounds.ARMOR_EQUIP_IDOL), 0, 0,
+			() -> Ingredient.of(BotaniaItems.manaweaveCloth));
+
+	public static final Holder<ArmorMaterial> PLEIADS_MAID_COMBAT = create("pleiads_maid_combat", 50,
+			Map.of(
+					ArmorItem.Type.BOOTS, 4,
+					ArmorItem.Type.LEGGINGS, 7,
+					ArmorItem.Type.CHESTPLATE, 8,
+					ArmorItem.Type.HELMET, 3
+			),
+			50, Holder.direct(ExtraBotanySounds.ARMOR_EQUIP_MAID), 4, 0,
+			() -> Ingredient.of(ExtraBotanyItems.dasRheingold));
+
+	public static final Holder<ArmorMaterial> GOBLIN_SLAYER = create("goblin_slayer", 21,
+			Map.of(
+					ArmorItem.Type.BOOTS, 3,
+					ArmorItem.Type.LEGGINGS, 6,
+					ArmorItem.Type.CHESTPLATE, 6,
+					ArmorItem.Type.HELMET, 3
+			),
+			40, Holder.direct(ExtraBotanySounds.ARMOR_EQUIP_GOBLIN), 2.5F, 0,
+			() -> Ingredient.of(ExtraBotanyItems.photonium));
+
+	public static final Holder<ArmorMaterial> SHADOW_WARRIOR = create("shadow_warrior", 23,
+			Map.of(
+					ArmorItem.Type.BOOTS, 3,
+					ArmorItem.Type.LEGGINGS, 7,
+					ArmorItem.Type.CHESTPLATE, 6,
+					ArmorItem.Type.HELMET, 3
+			),
+			28, Holder.direct(ExtraBotanySounds.ARMOR_EQUIP_WARRIOR), 1.5F, 0,
 			() -> Ingredient.of(ExtraBotanyItems.shadowium));
 
-	public static final StringRepresentable.EnumCodec<ArmorsMaterial> CODEC = StringRepresentable.fromEnum(ArmorsMaterial::values);
-	private static final EnumMap<ArmorItem.Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
-		map.put(ArmorItem.Type.BOOTS, 13);
-		map.put(ArmorItem.Type.LEGGINGS, 15);
-		map.put(ArmorItem.Type.CHESTPLATE, 16);
-		map.put(ArmorItem.Type.HELMET, 11);
-	});
+	private ArmorsMaterial() {}
 
-	private final String name;
-	private final int durabilityMultiplier;
-	private final EnumMap<ArmorItem.Type, Integer> protectionFunctionForType;
-	private final int enchantmentValue;
-	private final SoundEvent sound;
-	private final float toughness;
-	private final float knockbackResistance;
-	private final LazyLoadedValue<Ingredient> repairIngredient;
+	private static Holder<ArmorMaterial> create(
+			String name,
+			int durabilityMultiplier,
+			Map<ArmorItem.Type, Integer> defense,
+			int enchantmentValue,
+			Holder<SoundEvent> equipSound,
+			float toughness,
+			float knockbackResistance,
+			Supplier<Ingredient> repairIngredient) {
+		EnumMap<ArmorItem.Type, Integer> defenseByType = new EnumMap<>(ArmorItem.Type.class);
+		for (ArmorItem.Type type : ArmorItem.Type.values()) {
+			Integer typeDefense = defense.get(type);
+			if (typeDefense != null) {
+				defenseByType.put(type, typeDefense);
+			}
+		}
 
-	ArmorsMaterial(String name, int durabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, int enchantmentValue, SoundEvent sound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
-		this.name = name;
-		this.durabilityMultiplier = durabilityMultiplier;
-		this.protectionFunctionForType = protectionFunctionForType;
-		this.enchantmentValue = enchantmentValue;
-		this.sound = sound;
-		this.toughness = toughness;
-		this.knockbackResistance = knockbackResistance;
-		this.repairIngredient = new LazyLoadedValue<>(repairIngredient);
+		ResourceLocation id = prefix(name);
+		RegistryHelper.HolderProxy<ArmorMaterial> proxy = RegistryHelper.lazyHolderProxy(Registries.ARMOR_MATERIAL, id,
+				() -> new ArmorMaterial(
+						defenseByType,
+						enchantmentValue,
+						equipSound,
+						repairIngredient,
+						List.of(new ArmorMaterial.Layer(id)),
+						toughness,
+						knockbackResistance));
+		ALL.add(proxy);
+		return proxy;
 	}
 
-	@Override
-	public int getDurabilityForType(ArmorItem.Type type) {
-		return HEALTH_FUNCTION_FOR_TYPE.get(type) * this.durabilityMultiplier;
-	}
-
-	@Override
-	public int getDefenseForType(ArmorItem.Type type) {
-		return this.protectionFunctionForType.get(type);
-	}
-
-	@Override
-	public int getEnchantmentValue() {
-		return this.enchantmentValue;
-	}
-
-	@Override
-	public SoundEvent getEquipSound() {
-		return this.sound;
-	}
-
-	@Override
-	public Ingredient getRepairIngredient() {
-		return this.repairIngredient.get();
-	}
-
-	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
-	public float getToughness() {
-		return this.toughness;
-	}
-
-	@Override
-	public float getKnockbackResistance() {
-		return this.knockbackResistance;
-	}
-
-	@Override
-	public String getSerializedName() {
-		return this.name;
+	public static void registerArmorMaterials(Registry<ArmorMaterial> registry) {
+		ALL.forEach(proxy -> proxy.register(registry));
 	}
 }

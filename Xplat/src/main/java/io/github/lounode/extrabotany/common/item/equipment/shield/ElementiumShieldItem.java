@@ -1,19 +1,18 @@
 package io.github.lounode.extrabotany.common.item.equipment.shield;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.handler.PixieHandler;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class ElementiumShieldItem extends ManasteelShieldItem {
 
@@ -28,13 +27,11 @@ public class ElementiumShieldItem extends ManasteelShieldItem {
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
-		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
-		if (slot == EquipmentSlot.OFFHAND) {
-			ret = HashMultimap.create(ret);
-			ret.put(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(slot, "Shield modifier", 0.2F));
-		}
-		return ret;
+	public ItemAttributeModifiers getDefaultAttributeModifiers() {
+		return super.getDefaultAttributeModifiers()
+				.withModifierAdded(PixieHandler.PIXIE_SPAWN_CHANCE,
+						PixieHandler.makeModifier(prefix("elementium_shield_pixie"), 0.2F),
+						EquipmentSlotGroup.bySlot(EquipmentSlot.OFFHAND));
 	}
 
 	@Override
@@ -42,7 +39,7 @@ public class ElementiumShieldItem extends ManasteelShieldItem {
 		super.onShieldBlock(stack, blocker, source, damage);
 		Entity entity = source.getEntity();
 		if (entity != null && !entity.fireImmune()) {
-			entity.setSecondsOnFire(5);
+			entity.igniteForSeconds(5);
 		}
 	}
 

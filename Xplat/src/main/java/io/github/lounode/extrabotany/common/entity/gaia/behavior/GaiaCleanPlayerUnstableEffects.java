@@ -40,7 +40,7 @@ public class GaiaCleanPlayerUnstableEffects<E extends Gaia> extends Behavior<E> 
 		List<MobEffectInstance> effects = player.getActiveEffects().stream()
 				.filter(effectInstance -> effectInstance.getDuration() < 160)
 				.filter(MobEffectInstance::isAmbient)
-				.filter(effect -> effect.getEffect().getCategory() != MobEffectCategory.HARMFUL)
+				.filter(effect -> effect.getEffect().value().getCategory() != MobEffectCategory.HARMFUL)
 				.toList();
 
 		effects.forEach(e -> player.removeEffect(e.getEffect()));
