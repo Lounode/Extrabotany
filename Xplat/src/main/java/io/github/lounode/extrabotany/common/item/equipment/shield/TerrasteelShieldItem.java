@@ -27,7 +27,7 @@ public class TerrasteelShieldItem extends ManasteelShieldItem {
 	public void onShieldBlock(ItemStack stack, LivingEntity blocker, DamageSource source, float damage) {
 		super.onShieldBlock(stack, blocker, source, damage);
 		Entity entity = source.getEntity();
-		if (entity != null) {
+		if (entity != null) if (entity != blocker) {
 			entity.hurt(damageSource(blocker), damage * THORNS_RETURN_RATE);
 		}
 

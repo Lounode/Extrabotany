@@ -41,9 +41,9 @@ public class ElementiumShieldItem extends ManasteelShieldItem {
 	public void onShieldBlock(ItemStack stack, LivingEntity blocker, DamageSource source, float damage) {
 		super.onShieldBlock(stack, blocker, source, damage);
 		Entity entity = source.getEntity();
-		if (entity != null && !entity.fireImmune()) {
-			entity.setSecondsOnFire(5);
-		}
+		if (entity != null) if (!entity.fireImmune() && entity != blocker) {
+            entity.setSecondsOnFire(5);
+        }
 	}
 
 	@Override
