@@ -7,8 +7,8 @@ import dev.latvian.mods.kubejs.recipe.schema.RecipeSchema;
 
 public interface EdelweissSchema {
 
-	RecipeKey<String> INPUT = StringComponent.NON_EMPTY.key("input");
-	RecipeKey<Integer> OUTPUT_MANA = NumberComponent.INT.key("outputMana");
+	RecipeKey<String> INPUT = StringComponent.ID.inputKey("input");
+	RecipeKey<Integer> OUTPUT_MANA = NumberComponent.INT.otherKey("outputMana");
 
 	RecipeSchema SCHEMA = new RecipeSchema(OUTPUT_MANA, INPUT);
 }

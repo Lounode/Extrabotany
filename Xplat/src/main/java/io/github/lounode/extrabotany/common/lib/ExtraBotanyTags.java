@@ -50,10 +50,10 @@ public class ExtraBotanyTags {
 		public static final TagKey<Block> BLOCKS_SHADOWIUM = tag("shadowium_blocks");
 		public static final TagKey<Block> BLOCKS_AERIALITE = tag("aerialite_blocks");
 		public static final TagKey<Block> PEDESTALS = tag("pedestals");
-		public static final TagKey<Block> MANA_POOLS = tag("botania", "mana_pools");
+		public static final TagKey<Block> MANA_POOLS = tag("mana_pools");
 		public static final TagKey<Block> CHARGERS = tag("chargers");
 		public static final TagKey<Block> BELLFLOWER_IGNORE = tag("bellflower_ignore");
-		public static final TagKey<Block> MANA_SPREADERS = tag("botania", "mana_spreaders");
+		public static final TagKey<Block> MANA_SPREADERS = tag("mana_spreaders");
 
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, prefix(name));

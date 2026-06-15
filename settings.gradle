@@ -1,5 +1,7 @@
 pluginManagement {
     repositories {
+        gradlePluginPortal()
+        mavenCentral()
         maven {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
@@ -7,15 +9,27 @@ pluginManagement {
         maven {
             name = "NeoForged"
             url = "https://maven.neoforged.net/releases"
+            content {
+                includeGroup "net.neoforged"
+            }
         }
         maven { url = 'https://maven.parchmentmc.org' }
-        gradlePluginPortal()
     }
 }
 
 plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.9.0'
 }
 
 rootProject.name = 'Extrabotany'
-include("Xplat", "Forge", "Fabric")
+include("Xplat", "NeoForge")
+
+def botaniaProjectPath = providers.gradleProperty("botania_project_path").orNull
+if (botaniaProjectPath != null && file(botaniaProjectPath).exists()) {
+    includeBuild(botaniaProjectPath) {
+        dependencySubstitution {
+            substitute(module("vazkii.botania:botania-xplat-1.21.1")).using(project(":Xplat"))
+            substitute(module("vazkii.botania:botania-neoforge-1.21.1")).using(project(":NeoForge"))
+        }
+    }
+}

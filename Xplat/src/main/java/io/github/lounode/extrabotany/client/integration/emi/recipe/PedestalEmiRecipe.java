@@ -7,6 +7,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import vazkii.botania.client.integration.emi.BlendTextureWidget;
 
@@ -25,13 +26,20 @@ public class PedestalEmiRecipe extends ExtrabotanyEmiRecipe {
 	private static final EmiIngredient PEDESTAL = EmiIngredient.of(ExtraBotanyTags.Blocks.PEDESTALS);
 
 	protected EmiIngredient hammers;
+	private final String smashToolsKey;
 
-	public PedestalEmiRecipe(PedestalRecipe recipe) {
-		super(EmiExtrabotanyPlugin.PEDESTAL_SMASH, recipe);
+	public PedestalEmiRecipe(RecipeHolder<PedestalRecipe> holder) {
+		super(EmiExtrabotanyPlugin.PEDESTAL_SMASH, holder);
 
+		PedestalRecipe recipe = holder.value();
 		this.input = List.of(EmiIngredient.of(recipe.getInput()));
 		this.output = List.of(EmiStack.of(recipe.getResultItem(RegistryAccess.EMPTY)));
 		this.hammers = EmiIngredient.of(recipe.getSmashTools());
+		this.smashToolsKey = recipe.getSmashTools().toString();
+	}
+
+	public String getSmashToolsKey() {
+		return smashToolsKey;
 	}
 
 	@Override

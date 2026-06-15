@@ -1,4 +1,5 @@
 package io.github.lounode.extrabotany.common.item.relic.void_archives.variants;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -9,6 +10,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.TooltipFlag;
@@ -17,12 +19,11 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.xplat.XplatAbstractions;
+import io.github.lounode.extrabotany.common.brew.BrewUtil;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
 import io.github.lounode.extrabotany.common.lib.LibBrewNames;
@@ -44,7 +45,7 @@ public class InfiniteWine implements VoidArchivesVariant, BrewItem {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+		var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 		if (relic == null || !relic.isRightPlayer(player)) {
 			return InteractionResultHolder.pass(stack);
 		}
@@ -61,8 +62,8 @@ public class InfiniteWine implements VoidArchivesVariant, BrewItem {
 
 			for (MobEffectInstance effect : getBrew(stack).getPotionEffects(stack)) {
 				MobEffectInstance newEffect = new MobEffectInstance(effect.getEffect(), (int) ((float) effect.getDuration() * (1.0 + getDurationMultiplier())), effect.getAmplifier() + getAmplifierAddition(), true, true);
-				if (effect.getEffect().isInstantenous()) {
-					effect.getEffect().applyInstantenousEffect(living, living, living, newEffect.getAmplifier() + getAmplifierAddition(), 1F);
+				if (effect.getEffect().value().isInstantenous()) {
+					effect.getEffect().value().applyInstantenousEffect(living, living, living, newEffect.getAmplifier() + getAmplifierAddition(), 1F);
 				} else {
 					living.addEffect(newEffect);
 				}
@@ -77,15 +78,15 @@ public class InfiniteWine implements VoidArchivesVariant, BrewItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
 		tooltipComponents.add(Component.empty());
 		addPotionTooltip(getBrew(stack).getPotionEffects(stack), tooltipComponents, (float) (1.0D + getDurationMultiplier()), getAmplifierAddition());
 	}
 
 	@Override
 	public void onActive(ItemStack stack) {
-		if (ItemNBTHelper.getString(stack, TAG_BREW_KEY, "").isEmpty()) {
-			ItemNBTHelper.setString(stack, TAG_BREW_KEY, getDefaultBrew().toString());
+		if (ItemStackDataHelper.getString(stack, TAG_BREW_KEY, "").isEmpty()) {
+			BrewUtil.setBrew(stack, getDefaultBrew());
 		}
 	}
 
@@ -95,13 +96,18 @@ public class InfiniteWine implements VoidArchivesVariant, BrewItem {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 16;
 	}
 
 	@Override
 	public String getId() {
 		return ID;
+	}
+
+	@Override
+	public Component getName(ItemStack stack) {
+		return Component.translatable("item.extrabotany.void_archives.variant", Component.translatable("extrabotany.entry.infinite_wine"));
 	}
 
 	public static int getManaPerUse() {
@@ -114,8 +120,7 @@ public class InfiniteWine implements VoidArchivesVariant, BrewItem {
 
 	@Override
 	public Brew getBrew(ItemStack itemStack) {
-		String key = ItemNBTHelper.getString(itemStack, TAG_BREW_KEY, "");
-		return BotaniaAPI.instance().getBrewRegistry().get(ResourceLocation.tryParse(key));
+		return BrewUtil.getBrew(itemStack);
 	}
 
 	public int getAmplifierAddition() {

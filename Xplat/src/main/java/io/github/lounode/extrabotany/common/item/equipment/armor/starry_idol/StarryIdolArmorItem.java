@@ -3,8 +3,10 @@ package io.github.lounode.extrabotany.common.item.equipment.armor.starry_idol;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
@@ -49,12 +51,12 @@ public class StarryIdolArmorItem extends ArmorItem implements CustomCreativeTabC
 		this(ExtraBotanyAPI.instance().getStarryIdolArmorMaterial(), type, properties);
 	}
 
-	public StarryIdolArmorItem(ArmorMaterial material, Type type, Properties properties) {
+	public StarryIdolArmorItem(Holder<ArmorMaterial> material, Type type, Properties properties) {
 		super(material, type, properties);
 	}
 
 	@SoftImplement("IForgeItem")
-	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<Item> onBroken) {
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, getManaPerDamage());
 	}
 
@@ -65,8 +67,8 @@ public class StarryIdolArmorItem extends ArmorItem implements CustomCreativeTabC
 	}
 
 	@Override
-	public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-		return hasPhantomInk(stack) ? ResourcesLib.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);
+	public final ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
+		return ResourceLocation.parse(hasPhantomInk(stack) ? ResourcesLib.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot));
 	}
 
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
@@ -74,8 +76,8 @@ public class StarryIdolArmorItem extends ArmorItem implements CustomCreativeTabC
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flags) {
-		TooltipHandler.addOnShift(list, () -> addInformation(stack, world, list, flags));
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag flags) {
+		TooltipHandler.addOnShift(list, () -> addInformation(stack, null, list, flags));
 	}
 
 	@Override
@@ -129,12 +131,12 @@ public class StarryIdolArmorItem extends ArmorItem implements CustomCreativeTabC
 
 	@Override
 	public boolean hasPhantomInk(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_PHANTOM_INK, false);
+		return ItemStackDataHelper.getBoolean(stack, TAG_PHANTOM_INK, false);
 	}
 
 	@Override
 	public void setPhantomInk(ItemStack stack, boolean ink) {
-		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink);
+		ItemStackDataHelper.setBoolean(stack, TAG_PHANTOM_INK, ink);
 	}
 
 	@Override

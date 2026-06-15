@@ -3,6 +3,7 @@ package io.github.lounode.extrabotany.common.item.equipment.tool.hammer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Tier;
@@ -20,11 +21,11 @@ public class ManasteelHammerItem extends PickaxeItem implements CustomDamageItem
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ManasteelHammerItem(Tier tier, int attackDamageModifier, float attackSpeedModifier, Properties properties) {
-		super(tier, attackDamageModifier, attackSpeedModifier, properties);
+		super(tier, properties.attributes(PickaxeItem.createAttributes(tier, attackDamageModifier, attackSpeedModifier)));
 	}
 
 	@Override
-	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<Item> onBroken) {
 		int manaPerDamage = ((ManasteelHammerItem) stack.getItem()).getManaPerDamage();
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, manaPerDamage);
 	}

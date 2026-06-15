@@ -1,4 +1,5 @@
 package io.github.lounode.extrabotany.api.item;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
@@ -21,7 +23,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
 
@@ -41,7 +42,7 @@ public interface VoidArchivesVariant {
 	}
 
 	default boolean isMaster(ItemStack stack, Player player) {
-		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+		var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 		return relic != null && relic.isRightPlayer(player);
 	}
 
@@ -52,7 +53,7 @@ public interface VoidArchivesVariant {
 
 	default void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {}
 
-	default void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {}
+	default void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag isAdvanced) {}
 
 	default void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {}
 
@@ -98,7 +99,7 @@ public interface VoidArchivesVariant {
 		return UseAnim.NONE;
 	}
 
-	default int getUseDuration(ItemStack stack) {
+	default int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 0;
 	}
 

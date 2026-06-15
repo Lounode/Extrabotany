@@ -10,7 +10,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraGeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.helper.PlayerHelper;
 
@@ -21,7 +21,7 @@ import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
-public class TinkleBlockEntity extends GeneratingFlowerBlockEntity {
+public class TinkleBlockEntity extends ExtraGeneratingFlowerBlockEntity {
 
 	private static final String TAG_TIME = "time";
 

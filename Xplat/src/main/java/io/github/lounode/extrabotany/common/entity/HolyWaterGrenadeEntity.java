@@ -1,7 +1,6 @@
 package io.github.lounode.extrabotany.common.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -103,7 +102,8 @@ public class HolyWaterGrenadeEntity extends ThrownPotion {
 			boolean isSource = victim == source;
 
 			for (MobEffectInstance tmpInstance : effectInstances) {
-				MobEffect mobeffect = tmpInstance.getEffect();
+				var effectHolder = tmpInstance.getEffect();
+				var mobeffect = effectHolder.value();
 				boolean isBeneficial = mobeffect.isBeneficial();
 
 				//Only give beneficial to owner. harmful to others
@@ -119,7 +119,7 @@ public class HolyWaterGrenadeEntity extends ThrownPotion {
 				int durationAdjustByDistance = tmpInstance.mapDuration(
 						(originalDuration) -> (int) (d1 * (double) originalDuration + 0.5D));
 
-				MobEffectInstance apply = new MobEffectInstance(mobeffect, durationAdjustByDistance, tmpInstance.getAmplifier(), tmpInstance.isAmbient(), tmpInstance.isVisible());
+				MobEffectInstance apply = new MobEffectInstance(effectHolder, durationAdjustByDistance, tmpInstance.getAmplifier(), tmpInstance.isAmbient(), tmpInstance.isVisible());
 				if (!apply.endsWithin(20)) {
 					victim.addEffect(apply, source);
 				}

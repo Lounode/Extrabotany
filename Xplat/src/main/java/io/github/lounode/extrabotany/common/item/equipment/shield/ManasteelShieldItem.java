@@ -14,9 +14,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
-import io.github.lounode.eventwrapper.event.entity.living.ShieldBlockEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.living.ShieldBlockEventWrapper;
 
 import java.util.function.Consumer;
 
@@ -27,7 +25,7 @@ public class ManasteelShieldItem extends ShieldItem implements CustomDamageItem,
 	private final Tier tier;
 
 	public ManasteelShieldItem(Properties properties, Tier tier) {
-		super(properties.defaultDurability((int) (tier.getUses() * 1.5F)));
+		super(properties.durability((int) (tier.getUses() * 1.5F)));
 		this.tier = tier;
 	}
 
@@ -44,7 +42,7 @@ public class ManasteelShieldItem extends ShieldItem implements CustomDamageItem,
 	}
 
 	@Override
-	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<Item> onBroken) {
 		int manaPerDamage = ((ManasteelShieldItem) stack.getItem()).getManaPerDamage();
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, manaPerDamage);
 	}
@@ -76,11 +74,9 @@ public class ManasteelShieldItem extends ShieldItem implements CustomDamageItem,
 		return ToolCommons.getToolPriority(stack);
 	}
 
-	@EventBusSubscriberWrapper
 	public static class EventHandler {
 
-		@SubscribeEventWrapper
-		public static void onShieldBlockDamage(ShieldBlockEventWrapper event) {
+			public static void onShieldBlockDamage(ShieldBlockEventWrapper event) {
 			if (!(event.getEntity() instanceof Player player)) {
 				return;
 			}

@@ -63,16 +63,16 @@ public class AuraFireEntity extends ThrowableProjectile {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(GRAVITY, 0F);
-		entityData.define(MAX_LIVING_TIME, 80);
-		entityData.define(DAMAGE, BASE_DAMAGE);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(GRAVITY, 0F);
+		builder.define(MAX_LIVING_TIME, 80);
+		builder.define(DAMAGE, BASE_DAMAGE);
 	}
 
 	@Override
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
-		tag.putFloat(TAG_GRAVITY, getGravity());
+		tag.putDouble(TAG_GRAVITY, getDefaultGravity());
 		tag.putInt(TAG_TICKS_EXISTED, getTicksExisted());
 		tag.putInt(TAG_MAX_LIVING_TIME, getMaxLivingTime());
 		tag.putFloat(TAG_DAMAGE, getDamage());
@@ -182,7 +182,7 @@ public class AuraFireEntity extends ThrowableProjectile {
 	}
 
 	@Override
-	protected float getGravity() {
+	protected double getDefaultGravity() {
 		return entityData.get(GRAVITY);
 	}
 

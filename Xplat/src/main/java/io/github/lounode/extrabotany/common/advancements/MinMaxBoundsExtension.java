@@ -1,84 +1,68 @@
 package io.github.lounode.extrabotany.common.advancements;
 
-import com.google.gson.JsonElement;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.serialization.Codec;
 
 import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.util.GsonHelper;
-
-import org.jetbrains.annotations.Nullable;
 
 import java.math.BigInteger;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class MinMaxBoundsExtension {
-	public static class Longs extends MinMaxBounds<Long> {
-		public static final MinMaxBoundsExtension.Longs ANY = new MinMaxBoundsExtension.Longs(null, null);
-		@Nullable
-		private final BigInteger minSq;
-		@Nullable
-		private final BigInteger maxSq;
+	public record Longs(Optional<Long> min, Optional<Long> max, Optional<BigInteger> minSq, Optional<BigInteger> maxSq) implements MinMaxBounds<Long> {
+		public static final Longs ANY = new Longs(Optional.empty(), Optional.empty());
+		public static final Codec<Longs> CODEC = MinMaxBounds.<Long, Longs>createCodec(Codec.LONG, Longs::new);
 
-		private static MinMaxBoundsExtension.Longs create(StringReader reader, @Nullable Long min, @Nullable Long max) throws CommandSyntaxException {
-			if (min != null && max != null && min > max) {
+		public Longs(Optional<Long> min, Optional<Long> max) {
+			this(min, max, min.map(Longs::square), max.map(Longs::square));
+		}
+
+		private static Longs create(StringReader reader, Optional<Long> min, Optional<Long> max) throws CommandSyntaxException {
+			if (min.isPresent() && max.isPresent() && min.get() > max.get()) {
 				throw ERROR_SWAPPED.createWithContext(reader);
 			}
-			return new MinMaxBoundsExtension.Longs(min, max);
+			return new Longs(min, max);
 		}
 
-		@Nullable
-		private static BigInteger squareOpt(@Nullable Long value) {
-			return value == null ? null : BigInteger.valueOf(value).pow(2);
+		private static BigInteger square(long value) {
+			return BigInteger.valueOf(value).pow(2);
 		}
 
-		private Longs(@Nullable Long min, @Nullable Long max) {
-			super(min, max);
-			this.minSq = squareOpt(min);
-			this.maxSq = squareOpt(max);
+		public static Longs exactly(long value) {
+			return new Longs(Optional.of(value), Optional.of(value));
 		}
 
-		public static MinMaxBoundsExtension.Longs exactly(long value) {
-			return new MinMaxBoundsExtension.Longs(value, value);
+		public static Longs between(long min, long max) {
+			return new Longs(Optional.of(min), Optional.of(max));
 		}
 
-		public static MinMaxBoundsExtension.Longs between(long min, long max) {
-			return new MinMaxBoundsExtension.Longs(min, max);
+		public static Longs atLeast(long min) {
+			return new Longs(Optional.of(min), Optional.empty());
 		}
 
-		public static MinMaxBoundsExtension.Longs atLeast(long min) {
-			return new MinMaxBoundsExtension.Longs(min, null);
-		}
-
-		public static MinMaxBoundsExtension.Longs atMost(long max) {
-			return new MinMaxBoundsExtension.Longs(null, max);
+		public static Longs atMost(long max) {
+			return new Longs(Optional.empty(), Optional.of(max));
 		}
 
 		public boolean matches(long value) {
-			if (this.min != null && this.min > value) {
-				return false;
-			}
-			return this.max == null || this.max >= value;
+			return this.min.map(minValue -> minValue <= value).orElse(true)
+					&& this.max.map(maxValue -> maxValue >= value).orElse(true);
 		}
 
 		public boolean matchesSqr(long value) {
 			BigInteger bigVal = BigInteger.valueOf(value);
-			if (this.minSq != null && this.minSq.compareTo(bigVal) > 0) {
-				return false;
-			}
-			return this.maxSq == null || this.maxSq.compareTo(bigVal) >= 0;
+			return this.minSq.map(minValue -> minValue.compareTo(bigVal) <= 0).orElse(true)
+					&& this.maxSq.map(maxValue -> maxValue.compareTo(bigVal) >= 0).orElse(true);
 		}
 
-		public static MinMaxBoundsExtension.Longs fromJson(@Nullable JsonElement element) {
-			return fromJson(element, ANY, GsonHelper::convertToLong, MinMaxBoundsExtension.Longs::new);
-		}
-
-		public static MinMaxBoundsExtension.Longs fromReader(StringReader reader) throws CommandSyntaxException {
+		public static Longs fromReader(StringReader reader) throws CommandSyntaxException {
 			return fromReader(reader, val -> val);
 		}
 
-		public static MinMaxBoundsExtension.Longs fromReader(StringReader reader, Function<Long, Long> formatter) throws CommandSyntaxException {
-			return fromReader(reader,
+		public static Longs fromReader(StringReader reader, Function<Long, Long> formatter) throws CommandSyntaxException {
+			return MinMaxBounds.fromReader(reader,
 					Longs::create,
 					Long::parseLong,
 					CommandSyntaxException.BUILT_IN_EXCEPTIONS::readerInvalidLong,

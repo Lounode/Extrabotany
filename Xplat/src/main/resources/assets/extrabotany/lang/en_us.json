@@ -245,6 +245,8 @@
   "item.extrabotany.walking_cane": "Walking Cane",
   "item.extrabotany.core_of_the_void": "Core of The Void",
   "item.extrabotany.void_archives": "Void Archives",
+  "item.extrabotany.void_archives.variant": "Void Archives: %s",
+  "item.extrabotany.void_archives.fruit_of_grisaia": "Void Archives: Fruit of Grisaia",
   "item.extrabotany.eins_reward_bag": "Eins Reward Bag",
   "item.extrabotany.zwei_reward_bag": "Zwei Reward Bag",
   "item.extrabotany.drei_reward_bag": "Drei Reward Bag",

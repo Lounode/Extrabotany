@@ -6,7 +6,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.FrostWalkerEnchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,6 +14,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
+
+import io.github.lounode.extrabotany.common.util.FrostWalkerEffectHelper;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class FrostRingItem extends BaubleItem {
 		if (entity.level().isClientSide()) {
 			return;
 		}
-		FrostWalkerEnchantment.onEntityMoved(entity, entity.level(), entity.blockPosition(), getRange());
+		FrostWalkerEffectHelper.apply(entity, stack, getRange());
 		FrostRingItem.freezeLava(entity, entity.level(), entity.blockPosition(), getRange());
 		slowDownMobsNearby(entity);
 	}

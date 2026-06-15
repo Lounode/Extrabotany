@@ -1,7 +1,12 @@
 {
-  "replace": false,
   "values": [
-    "extrabotany:excalibur",
-    "extrabotany:jingwei"
+    {
+      "id": "extrabotany:excalibur",
+      "required": false
+    },
+    {
+      "id": "extrabotany:jingwei",
+      "required": false
+    }
   ]
 }

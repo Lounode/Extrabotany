@@ -59,8 +59,8 @@ public class PotionLens extends Lens {
 			MobEffectInstance newInstance = new MobEffectInstance(effect.getEffect(), effect.getDuration() / 3,
 					effect.getAmplifier(), true, true);
 
-			if (effect.getEffect().isInstantenous()) {
-				effect.getEffect().applyInstantenousEffect(null, null, entity, effect.getAmplifier(), 1F);
+			if (effect.getEffect().value().isInstantenous()) {
+				effect.getEffect().value().applyInstantenousEffect(null, null, entity, effect.getAmplifier(), 1F);
 			} else {
 				entity.addEffect(newInstance);
 			}

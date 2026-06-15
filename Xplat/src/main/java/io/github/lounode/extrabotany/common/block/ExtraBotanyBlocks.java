@@ -12,7 +12,6 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.decor.stairs.BotaniaStairBlock;
 
 import io.github.lounode.extrabotany.common.block.mana.DimensionCatalystBlock;
 import io.github.lounode.extrabotany.common.block.mana.ManaChargerBlock;
@@ -37,11 +36,11 @@ public final class ExtraBotanyBlocks {
 			.mapColor(MapColor.COLOR_BLACK)
 			.requiresCorrectToolForDrops()
 	);
-	public static final Block photoniumBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(shadowiumBlock)
+	public static final Block photoniumBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.ofFullCopy(shadowiumBlock)
 			.mapColor(MapColor.TERRACOTTA_WHITE)
 			.lightLevel((state) -> 15)
 	);
-	public static final Block aerialiteBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(shadowiumBlock)
+	public static final Block aerialiteBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.ofFullCopy(shadowiumBlock)
 			.mapColor(MapColor.LAPIS)
 	);
 	public static final Block orichalcosBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.of()
@@ -49,41 +48,41 @@ public final class ExtraBotanyBlocks {
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.mapColor(MapColor.TERRACOTTA_PURPLE)
 	);
-	public static final Block dimensionCatalyst = new DimensionCatalystBlock(BlockBehaviour.Properties.copy(BotaniaBlocks.livingrock));
+	public static final Block dimensionCatalyst = new DimensionCatalystBlock(BlockBehaviour.Properties.ofFullCopy(BotaniaBlocks.livingrock));
 	public static final Block livingrockPedestal = new PedestalBlock(PedestalBlock.Variant.LIVINGROCK, BlockBehaviour.Properties.of()
 			.strength(3.5F)
 			.sound(SoundType.STONE)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
 			.mapColor(MapColor.TERRACOTTA_WHITE));
-	public static final Block calcitePedestal = new PedestalBlock(PedestalBlock.Variant.CALCITE, BlockBehaviour.Properties.copy(livingrockPedestal)
+	public static final Block calcitePedestal = new PedestalBlock(PedestalBlock.Variant.CALCITE, BlockBehaviour.Properties.ofFullCopy(livingrockPedestal)
 			.sound(SoundType.CALCITE));
 	public static final Block[] ALL_PEDESTALS = new Block[] { livingrockPedestal, calcitePedestal };
-	public static final Block powerFrame = new PowerFrameBlock(BlockBehaviour.Properties.copy(Blocks.SPAWNER));
-	public static final Block manaCharger = new ManaChargerBlock(BlockBehaviour.Properties.copy(BotaniaBlocks.livingwood)
+	public static final Block powerFrame = new PowerFrameBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPAWNER));
+	public static final Block manaCharger = new ManaChargerBlock(BlockBehaviour.Properties.ofFullCopy(BotaniaBlocks.livingwood)
 			.explosionResistance(1.0F)
 			.mapColor(MapColor.TERRACOTTA_WHITE));
 
 	//Quartz
-	public static final Block gaiaQuartzBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.COLOR_LIGHT_GREEN));
-	public static final Block gaiaQuartzStairs = new BotaniaStairBlock(gaiaQuartzBlock.defaultBlockState(), BlockBehaviour.Properties.copy(gaiaQuartzBlock));
-	public static final Block gaiaQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(gaiaQuartzBlock));
-	public static final Block chiseledGaiaQuartzBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(gaiaQuartzBlock));
-	public static final Block gaiaQuartzBricks = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(gaiaQuartzBlock));
-	public static final Block gaiaQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(gaiaQuartzBlock));
-	public static final Block smoothGaiaQuartz = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(gaiaQuartzBlock));
-	public static final Block smoothGaiaQuartzStairs = new BotaniaStairBlock(smoothGaiaQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(smoothGaiaQuartz));
-	public static final Block smoothGaiaQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(smoothGaiaQuartz));
+	public static final Block gaiaQuartzBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.COLOR_LIGHT_GREEN));
+	public static final Block gaiaQuartzStairs = new StairBlock(gaiaQuartzBlock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(gaiaQuartzBlock));
+	public static final Block gaiaQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(gaiaQuartzBlock));
+	public static final Block chiseledGaiaQuartzBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.ofFullCopy(gaiaQuartzBlock));
+	public static final Block gaiaQuartzBricks = new ExtraBotanyBlock(BlockBehaviour.Properties.ofFullCopy(gaiaQuartzBlock));
+	public static final Block gaiaQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(gaiaQuartzBlock));
+	public static final Block smoothGaiaQuartz = new ExtraBotanyBlock(BlockBehaviour.Properties.ofFullCopy(gaiaQuartzBlock));
+	public static final Block smoothGaiaQuartzStairs = new StairBlock(smoothGaiaQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(smoothGaiaQuartz));
+	public static final Block smoothGaiaQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(smoothGaiaQuartz));
 
-	public static final Block elementiumQuartzBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.COLOR_PINK));
-	public static final Block elementiumQuartzStairs = new BotaniaStairBlock(elementiumQuartzBlock.defaultBlockState(), BlockBehaviour.Properties.copy(elementiumQuartzBlock));
-	public static final Block elementiumQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(elementiumQuartzBlock));
-	public static final Block chiseledElementiumQuartzBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(elementiumQuartzBlock));
-	public static final Block elementiumQuartzBricks = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(elementiumQuartzBlock));
-	public static final Block elementiumQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(elementiumQuartzBlock));
-	public static final Block smoothElementiumQuartz = new ExtraBotanyBlock(BlockBehaviour.Properties.copy(elementiumQuartzBlock));
-	public static final Block smoothElementiumQuartzStairs = new BotaniaStairBlock(smoothElementiumQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(smoothElementiumQuartz));
-	public static final Block smoothElementiumQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(smoothElementiumQuartz));
+	public static final Block elementiumQuartzBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.COLOR_PINK));
+	public static final Block elementiumQuartzStairs = new StairBlock(elementiumQuartzBlock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(elementiumQuartzBlock));
+	public static final Block elementiumQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(elementiumQuartzBlock));
+	public static final Block chiseledElementiumQuartzBlock = new ExtraBotanyBlock(BlockBehaviour.Properties.ofFullCopy(elementiumQuartzBlock));
+	public static final Block elementiumQuartzBricks = new ExtraBotanyBlock(BlockBehaviour.Properties.ofFullCopy(elementiumQuartzBlock));
+	public static final Block elementiumQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(elementiumQuartzBlock));
+	public static final Block smoothElementiumQuartz = new ExtraBotanyBlock(BlockBehaviour.Properties.ofFullCopy(elementiumQuartzBlock));
+	public static final Block smoothElementiumQuartzStairs = new StairBlock(smoothElementiumQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(smoothElementiumQuartz));
+	public static final Block smoothElementiumQuartzSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(smoothElementiumQuartz));
 
 	public static final Block[] ALL_QUARTZ = new Block[] {
 			gaiaQuartzBlock, gaiaQuartzStairs, gaiaQuartzSlab,

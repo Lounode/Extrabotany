@@ -1,39 +1,36 @@
 package io.github.lounode.extrabotany.common.item.relic;
-
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
-
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.handler.PixieHandler;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.relic.RelicImpl;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.common.item.equipment.shield.ManasteelShieldItem;
 import io.github.lounode.extrabotany.common.item.material.ItemTiers;
 
 import java.util.List;
-import java.util.UUID;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class AchillesShieldItem extends ManasteelShieldItem {
 
@@ -43,7 +40,7 @@ public class AchillesShieldItem extends ManasteelShieldItem {
 	private static final float MAX_ABSORPTION = 20.0F;
 
 	public AchillesShieldItem(Properties properties) {
-		super(properties.defaultDurability(ItemTiers.ACHILLES_SHIELD.getUses()), ItemTiers.ACHILLES_SHIELD);
+		super(properties.durability(ItemTiers.ACHILLES_SHIELD.getUses()), ItemTiers.ACHILLES_SHIELD);
 	}
 
 	@Override
@@ -71,7 +68,7 @@ public class AchillesShieldItem extends ManasteelShieldItem {
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
 		if (!world.isClientSide && entity instanceof Player player) {
-			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+			var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null) {
 				relic.tickBinding(player);
 			}
@@ -138,42 +135,25 @@ public class AchillesShieldItem extends ManasteelShieldItem {
 	}
 
 	public static boolean isReleased(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_RELEASED, false);
+		return ItemStackDataHelper.getBoolean(stack, TAG_RELEASED, false);
 	}
 
 	public static void setReleased(ItemStack stack, boolean mode) {
-		ItemNBTHelper.setBoolean(stack, TAG_RELEASED, mode);
+		ItemStackDataHelper.setBoolean(stack, TAG_RELEASED, mode);
 	}
 
-	@SoftImplement("IForgeItem")
-	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-		var ret = super.getDefaultAttributeModifiers(slot);
-
-		ret = HashMultimap.create(ret);
-
-		if (slot == EquipmentSlot.MAINHAND) {
-			UUID uuid = new UUID((getDescriptionId() + slot).hashCode(), 0);
-
-			if (isReleased(stack)) {
-				ret.put(Attributes.MOVEMENT_SPEED,
-						new AttributeModifier(uuid, "Tool modifier", 0.4F, AttributeModifier.Operation.MULTIPLY_BASE));
-			}
-			ret.put(Attributes.ATTACK_SPEED,
-					new AttributeModifier(uuid, "Tool modifier", -2.6, AttributeModifier.Operation.ADDITION));
-			ret.put(Attributes.ATTACK_DAMAGE,
-					new AttributeModifier(uuid, "Weapon modifier", isReleased(stack) ? 15 : 6, AttributeModifier.Operation.ADDITION));
-
-		}
-		if (slot == EquipmentSlot.OFFHAND) {
-			ret.put(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(slot, "Shield modifier", 0.5F));
-		}
-
-		return ret;
-	}
-
-	@SoftImplement("FabricItem")
-	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot slot) {
-		return getAttributeModifiers(slot, stack);
+	@Override
+	public ItemAttributeModifiers getDefaultAttributeModifiers() {
+		return super.getDefaultAttributeModifiers()
+				.withModifierAdded(Attributes.ATTACK_SPEED,
+						new AttributeModifier(prefix("achilles_shield_attack_speed"), -2.6, AttributeModifier.Operation.ADD_VALUE),
+						EquipmentSlotGroup.bySlot(EquipmentSlot.MAINHAND))
+				.withModifierAdded(Attributes.ATTACK_DAMAGE,
+						new AttributeModifier(prefix("achilles_shield_attack_damage"), 6, AttributeModifier.Operation.ADD_VALUE),
+						EquipmentSlotGroup.bySlot(EquipmentSlot.MAINHAND))
+				.withModifierAdded(PixieHandler.PIXIE_SPAWN_CHANCE,
+						PixieHandler.makeModifier(prefix("achilles_shield_pixie"), 0.5F),
+						EquipmentSlotGroup.bySlot(EquipmentSlot.OFFHAND));
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
@@ -181,8 +161,8 @@ public class AchillesShieldItem extends ManasteelShieldItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
-		super.appendHoverText(stack, world, tooltip, flags);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, context, tooltip, flags);
 		RelicImpl.addDefaultTooltip(stack, tooltip);
 	}
 }

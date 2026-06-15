@@ -2,7 +2,6 @@ package io.github.lounode.extrabotany.common.item.equipment.tool.hammer;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -25,11 +24,6 @@ public class OrichalcosHammer extends TerrasteelHammerItem implements IOrichalco
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
 		orichalcosTick(stack, world, entity, slot, selected);
-	}
-
-	@Override
-	public boolean canBeHurtBy(DamageSource damageSource) {
-		return IOrichalcos.canBeHurtBy(damageSource);
 	}
 
 	@Override

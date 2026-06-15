@@ -2,6 +2,7 @@ package io.github.lounode.extrabotany.mixin.botania;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -22,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 import vazkii.botania.common.item.WandOfTheForestItem;
 
 import io.github.lounode.extrabotany.common.block.flower.functional.ManalinkBlockEntity;
@@ -43,9 +44,9 @@ public abstract class WandOfTheForestExtension {
 		method = "setBindingAttempt",
 		at = @At("RETURN")
 	)
-	private static void onSetBind(ItemStack stack, BlockPos pos, CallbackInfo ci) {
-		if (Bound.UNBOUND_POS.equals(pos)) {
-			ItemNBTHelper.removeEntry(stack, WandOfTheForestItemExtension.TAG_EXTEND_BOUND);
+	private static void onSetBind(ItemStack stack, GlobalPos pos, Direction side, CallbackInfo ci) {
+		if (pos == null || Bound.UNBOUND_POS.equals(pos.pos())) {
+			ItemStackDataHelper.removeEntry(stack, WandOfTheForestItemExtension.TAG_EXTEND_BOUND);
 		}
 	}
 

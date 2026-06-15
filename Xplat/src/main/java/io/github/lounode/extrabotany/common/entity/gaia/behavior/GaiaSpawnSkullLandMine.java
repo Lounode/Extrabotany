@@ -44,7 +44,7 @@ public class GaiaSpawnSkullLandMine<E extends Gaia> extends GaiaSpawnLandMine<E>
 	protected SkullLandMineEntity getNewLandMine(Gaia gaia) {
 		EntityType<? extends SkullLandMineEntity> landmineType = WeightedRandom.getRandomItem(gaia.getRandom(), TYPES_POOL)
 				.orElse(WeightedEntry.wrap(ExtraBotanyEntityType.SKULL_LANDMINE_BLUE, 70))
-				.getData();
+				.data();
 
 		if (landmineType == ExtraBotanyEntityType.SKULL_LANDMINE_RED) {
 			return new SkullLandMineEntity.Danger(gaia.level(), gaia);

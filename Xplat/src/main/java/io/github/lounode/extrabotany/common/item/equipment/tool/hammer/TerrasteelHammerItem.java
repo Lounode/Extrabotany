@@ -20,7 +20,7 @@ import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import io.github.lounode.extrabotany.common.sounds.ExtraBotanySounds;
@@ -128,11 +128,11 @@ public class TerrasteelHammerItem extends ManasteelHammerItem implements Sequent
 	}
 
 	public static boolean isEnabled(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_ENABLED, false);
+		return ItemStackDataHelper.getBoolean(stack, TAG_ENABLED, false);
 	}
 
 	public void setEnabled(ItemStack stack, boolean enabled) {
-		ItemNBTHelper.setBoolean(stack, TAG_ENABLED, enabled);
+		ItemStackDataHelper.setBoolean(stack, TAG_ENABLED, enabled);
 	}
 
 	@Override

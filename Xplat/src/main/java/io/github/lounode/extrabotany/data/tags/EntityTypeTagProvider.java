@@ -24,7 +24,6 @@ public class EntityTypeTagProvider extends IntrinsicHolderTagsProvider<EntityTyp
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
 		tag(common("bosses")).add(ExtraBotanyEntityType.GAIA_LEGACY, ExtraBotanyEntityType.GAIA_III);
-		tag(forge("bosses")).add(ExtraBotanyEntityType.GAIA_LEGACY, ExtraBotanyEntityType.GAIA_III);
 
 		tag(ExtraBotanyTags.Entities.GOBLINS)
 				.addOptional(location("goblins_tyranny", "goblin_huntsman"))
@@ -65,10 +64,6 @@ public class EntityTypeTagProvider extends IntrinsicHolderTagsProvider<EntityTyp
 	}
 
 	private static TagKey<EntityType<?>> common(String name) {
-		return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("c", name));
-	}
-
-	private static TagKey<EntityType<?>> forge(String name) {
-		return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("forge", name));
+		return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("c", name));
 	}
 }

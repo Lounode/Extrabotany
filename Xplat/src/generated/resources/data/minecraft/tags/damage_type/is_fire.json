@@ -1,6 +1,8 @@
 {
-  "replace": false,
   "values": [
-    "extrabotany:jingwei"
+    {
+      "id": "extrabotany:jingwei",
+      "required": false
+    }
   ]
 }

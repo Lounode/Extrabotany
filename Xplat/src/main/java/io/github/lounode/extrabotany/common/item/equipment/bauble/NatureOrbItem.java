@@ -20,13 +20,11 @@ import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 
-import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.player.PlayerInteractEventWrapper;
 import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
 import io.github.lounode.extrabotany.common.entity.gaia.GaiaIII;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
@@ -34,7 +32,6 @@ import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import java.util.List;
 
-@EventBusSubscriberWrapper
 public class NatureOrbItem extends BaubleItem implements CustomCreativeTabContents {
 
 	public static final long MAX_ENERGY = 500_000;
@@ -76,7 +73,6 @@ public class NatureOrbItem extends BaubleItem implements CustomCreativeTabConten
 		return super.useOn(context);
 	}
 
-	@SubscribeEventWrapper
 	public static void onPlayerInteract(PlayerInteractEventWrapper.RightClickBlock event) {
 		Player player = event.getEntity();
 		BlockPos pos = event.getPos();
@@ -147,8 +143,8 @@ public class NatureOrbItem extends BaubleItem implements CustomCreativeTabConten
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
-		super.appendHoverText(stack, world, tooltip, flags);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, context, tooltip, flags);
 		var natureItem = EXplatAbstractions.INSTANCE.findNatureEnergyItem(stack);
 
 		tooltip.add(Component.translatable("tooltip.extrabotany.nature_orb.tier1")
@@ -183,7 +179,7 @@ public class NatureOrbItem extends BaubleItem implements CustomCreativeTabConten
 
 	public static int clearHarmfulPotion(LivingEntity entity) {
 		List<MobEffectInstance> effects = entity.getActiveEffects().stream()
-				.filter(effect -> effect.getEffect().getCategory() == MobEffectCategory.HARMFUL)
+				.filter(effect -> effect.getEffect().value().getCategory() == MobEffectCategory.HARMFUL)
 				.toList();
 
 		effects.forEach(e -> entity.removeEffect(e.getEffect()));
@@ -197,9 +193,9 @@ public class NatureOrbItem extends BaubleItem implements CustomCreativeTabConten
 
 	protected static void setEnergy(ItemStack stack, long energy) {
 		if (energy > 0) {
-			ItemNBTHelper.setLong(stack, TAG_ENERGY, energy);
+			ItemStackDataHelper.setLong(stack, TAG_ENERGY, energy);
 		} else {
-			ItemNBTHelper.removeEntry(stack, TAG_ENERGY);
+			ItemStackDataHelper.removeEntry(stack, TAG_ENERGY);
 		}
 	}
 
@@ -231,7 +227,7 @@ public class NatureOrbItem extends BaubleItem implements CustomCreativeTabConten
 
 		@Override
 		public long getEnergy() {
-			return ItemNBTHelper.getLong(stack, TAG_ENERGY, 0) * stack.getCount();
+			return ItemStackDataHelper.getLong(stack, TAG_ENERGY, 0) * stack.getCount();
 		}
 
 		@Override

@@ -1,6 +1,10 @@
 package io.github.lounode.extrabotany.common.item.relic.void_archives.variants;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -9,14 +13,14 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.entity.ManaBurstEntity;
-import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.xplat.XplatAbstractions;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
 import io.github.lounode.extrabotany.common.entity.MagicArrowEntity;
@@ -41,14 +45,19 @@ public class Failnaught implements VoidArchivesVariant {
 	}
 
 	@Override
+	public Component getName(ItemStack stack) {
+		return Component.translatable("item.extrabotany.void_archives.variant", Component.translatable("item.extrabotany.failnaught"));
+	}
+
+	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack itemstack = player.getItemInHand(hand);
-		int multiShoutLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MULTISHOT, itemstack);
+		int multiShoutLevel = enchantmentLevel(level, Enchantments.MULTISHOT, itemstack);
 		float chargeProgress = getChargeProcess(itemstack, player);
 
 		boolean flag = false;
 
-		var relic = XplatAbstractions.INSTANCE.findRelic(itemstack);
+		var relic = EXplatAbstractions.INSTANCE.findRelic(itemstack);
 		if (relic != null &&
 				relic.isRightPlayer(player) &&
 				ManaItemHandler.instance().requestManaExactForTool(itemstack, player,
@@ -74,7 +83,7 @@ public class Failnaught implements VoidArchivesVariant {
 		if (livingEntity instanceof Player player) {
 			float chargeProgress = getChargeProcess(stack, player);
 
-			int quickChargeLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, stack);
+			int quickChargeLevel = enchantmentLevel(level, Enchantments.QUICK_CHARGE, stack);
 			if (quickChargeLevel > 0) {
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, 100 * quickChargeLevel, true);
 			}
@@ -83,8 +92,8 @@ public class Failnaught implements VoidArchivesVariant {
 				return;
 			}
 
-			int multiShoutLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MULTISHOT, stack);
-			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+			int multiShoutLevel = enchantmentLevel(level, Enchantments.MULTISHOT, stack);
+			var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null &&
 					relic.isRightPlayer(player) &&
 					(player.getAbilities().instabuild
@@ -124,9 +133,9 @@ public class Failnaught implements VoidArchivesVariant {
 		burst.setDeltaMovement(burst.getDeltaMovement().scale(motionModifier));
 
 		ItemStack lens = new ItemStack(ExtraBotanyItems.failnaught);
-		ListTag enchants = ItemNBTHelper.getList(stack, "Enchantments", ListTag.TAG_COMPOUND, true);
+		ListTag enchants = ItemStackDataHelper.getList(stack, "Enchantments", ListTag.TAG_COMPOUND, true);
 		if (enchants != null) {
-			ItemNBTHelper.setList(lens, "Enchantments", enchants.copy());
+			ItemStackDataHelper.setList(lens, "Enchantments", enchants.copy());
 		}
 
 		burst.setSourceLens(lens);
@@ -135,7 +144,7 @@ public class Failnaught implements VoidArchivesVariant {
 		float tierProcess = getProcessInTier(chargeProcess);
 
 		float baseDamage = 10;
-		int powerLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, stack);
+		int powerLevel = enchantmentLevel(player.level(), Enchantments.POWER, stack);
 		if (powerLevel > 0 &&
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, 50 * powerLevel, true)) {
 			baseDamage = baseDamage + 0.5f + 0.5f * powerLevel;
@@ -147,7 +156,7 @@ public class Failnaught implements VoidArchivesVariant {
 	}
 
 	public float getChargeProcess(ItemStack stack, LivingEntity entity) {
-		return Mth.clamp((getUseDuration(stack) - entity.getUseItemRemainingTicks()) * chargeVelocityMultiplier(stack, entity) / 20.0F, 0.0F, 1.0F);
+		return Mth.clamp((getUseDuration(stack, entity) - entity.getUseItemRemainingTicks()) * chargeVelocityMultiplier(stack, entity) / 20.0F, 0.0F, 1.0F);
 	}
 
 	public int getTier(float chargeProcess) {
@@ -190,7 +199,7 @@ public class Failnaught implements VoidArchivesVariant {
 
 	public float chargeVelocityMultiplier(ItemStack itemStack, LivingEntity livingEntity) {
 		if (livingEntity instanceof Player player) {
-			int quickChargeLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, itemStack);
+			int quickChargeLevel = enchantmentLevel(livingEntity.level(), Enchantments.QUICK_CHARGE, itemStack);
 			if (ManaItemHandler.instance().requestManaExactForTool(itemStack, player, 100 * quickChargeLevel, false)) {
 				return DEFAULT_CHARGE_SPEED + QUICK_CHARGE_BONUS_PER_LEVEL * quickChargeLevel;
 			}
@@ -199,8 +208,12 @@ public class Failnaught implements VoidArchivesVariant {
 		return DEFAULT_CHARGE_SPEED;
 	}
 
+	private static int enchantmentLevel(Level level, ResourceKey<Enchantment> enchantment, ItemStack stack) {
+		return EnchantmentHelper.getItemEnchantmentLevel(level.holderLookup(Registries.ENCHANTMENT).getOrThrow(enchantment), stack);
+	}
+
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 72000;
 	}
 

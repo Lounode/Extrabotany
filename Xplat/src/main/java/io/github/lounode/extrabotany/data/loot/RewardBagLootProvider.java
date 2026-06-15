@@ -134,7 +134,6 @@ public class RewardBagLootProvider extends RewardBagLootSubProvider {
 				.add(LootItem.lootTableItem(Items.ENDER_PEARL).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4))).setWeight(20))
 				.add(LootItem.lootTableItem(Items.DIAMOND).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))).setWeight(18))
 				.add(LootItem.lootTableItem(BotaniaItems.blackerLotus).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2))).setWeight(16))
-				.add(LootItem.lootTableItem(BotaniaItems.overgrowthSeed).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))).setWeight(12))
 				.add(LootItem.lootTableItem(ExtraBotanyItems.voidArchives).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))).setWeight(1))
 				.setRolls(ConstantValue.exactly(1));
 

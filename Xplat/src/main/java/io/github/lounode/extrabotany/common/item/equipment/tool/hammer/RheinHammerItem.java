@@ -1,13 +1,14 @@
 package io.github.lounode.extrabotany.common.item.equipment.tool.hammer;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
@@ -18,11 +19,8 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.relic.RelicImpl;
-import vazkii.botania.xplat.XplatAbstractions;
 
-import io.github.lounode.eventwrapper.event.entity.player.PlayerEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.player.PlayerEventWrapper;
 import io.github.lounode.extrabotany.api.item.IAerialite;
 import io.github.lounode.extrabotany.api.item.IOrichalcos;
 import io.github.lounode.extrabotany.api.item.IPhotonium;
@@ -36,7 +34,6 @@ import java.util.Locale;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
-@EventBusSubscriberWrapper
 public class RheinHammerItem extends TerrasteelHammerItem implements IShadowium, IPhotonium, IAerialite, IOrichalcos {
 
 	private static final int MANA_PER_DAMAGE = 300;
@@ -55,8 +52,8 @@ public class RheinHammerItem extends TerrasteelHammerItem implements IShadowium,
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
-		super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+		super.appendHoverText(stack, context, tooltipComponents, isAdvanced);
 		RelicImpl.addDefaultTooltip(stack, tooltipComponents);
 	}
 
@@ -64,7 +61,7 @@ public class RheinHammerItem extends TerrasteelHammerItem implements IShadowium,
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
 		if (!world.isClientSide && entity instanceof Player player) {
-			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+			var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null) {
 				relic.tickBinding(player);
 			}
@@ -94,12 +91,6 @@ public class RheinHammerItem extends TerrasteelHammerItem implements IShadowium,
 		return true;
 	}
 
-	@Override
-	public boolean canBeHurtBy(DamageSource damageSource) {
-		return IOrichalcos.canBeHurtBy(damageSource);
-	}
-
-	@SubscribeEventWrapper
 	public static void onDig(PlayerEventWrapper.BreakSpeed wrapper) {
 		ItemStack _left = wrapper.getEntity().getItemInHand(InteractionHand.OFF_HAND);
 		ItemStack _right = wrapper.getEntity().getItemInHand(InteractionHand.MAIN_HAND);

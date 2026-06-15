@@ -1,22 +1,21 @@
 package io.github.lounode.extrabotany.common.item.equipment.armor.pleiades_combat_maid;
 
 import com.google.common.base.Suppliers;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 
+import net.minecraft.core.Holder;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -29,8 +28,9 @@ import io.github.lounode.extrabotany.common.item.equipment.armor.starry_idol.Sta
 import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Supplier;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class PleiadesCombatMaidArmorItem extends StarryIdolArmorItem {
 
@@ -45,28 +45,25 @@ public class PleiadesCombatMaidArmorItem extends StarryIdolArmorItem {
 		this(ExtraBotanyAPI.instance().getPleiadsMaidCombatArmorMaterial(), type, properties);
 	}
 
-	public PleiadesCombatMaidArmorItem(ArmorMaterial material, Type type, Properties properties) {
+	public PleiadesCombatMaidArmorItem(Holder<ArmorMaterial> material, Type type, Properties properties) {
 		super(material, type, properties);
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
-		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
-
-		if (slot == getType().getSlot()) {
-			UUID uuid = new UUID(BuiltInRegistries.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
-			ret = HashMultimap.create(ret);
-			int reduction = getMaterial().getDefenseForType(getType());
-			ret.put(Attributes.KNOCKBACK_RESISTANCE,
-					new AttributeModifier(uuid, "Combatmaid modifier" + type, (double) reduction / 20, AttributeModifier.Operation.ADDITION));
-			ret.put(Attributes.MAX_HEALTH,
-					new AttributeModifier(uuid, "Combatmaid modifier" + type, 5, AttributeModifier.Operation.ADDITION));
-		}
-		return ret;
+	public ItemAttributeModifiers getDefaultAttributeModifiers() {
+		EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(type.getSlot());
+		int reduction = getDefense();
+		return super.getDefaultAttributeModifiers()
+				.withModifierAdded(Attributes.KNOCKBACK_RESISTANCE,
+						new AttributeModifier(prefix("combat_maid_knockback." + type.getName()), (double) reduction / 20, AttributeModifier.Operation.ADD_VALUE),
+						slotGroup)
+				.withModifierAdded(Attributes.MAX_HEALTH,
+						new AttributeModifier(prefix("combat_maid_health." + type.getName()), 5, AttributeModifier.Operation.ADD_VALUE),
+						slotGroup);
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag flags) {
 		if (ExtraBotanyConfig.client().otakuMode()) {
 			switch (getType()) {
 				case HELMET -> list.add(Component.translatable("tooltip.extrabotany.pleiades_combat_maid_headgear").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
@@ -76,7 +73,7 @@ public class PleiadesCombatMaidArmorItem extends StarryIdolArmorItem {
 			}
 			list.add(Component.empty());
 		}
-		TooltipHandler.addOnShift(list, () -> addInformation(stack, world, list, flags));
+		TooltipHandler.addOnShift(list, () -> addInformation(stack, null, list, flags));
 	}
 
 	@Override

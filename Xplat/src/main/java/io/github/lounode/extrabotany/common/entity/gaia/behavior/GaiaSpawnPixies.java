@@ -56,11 +56,11 @@ public class GaiaSpawnPixies<E extends Gaia> extends Behavior<E> {
 			}
 
 			for (int i = 1; i <= spawnCount; i++) {
-				PixieEntity pixie = new PixieEntity(gaia.level());
-				pixie.setProps(players.get(gaia.getRandom().nextInt(players.size())), gaia, 1, 8);
+				PixieEntity pixie = new PixieEntity(gaia.level(), true);
+				pixie.setProps(players.get(gaia.getRandom().nextInt(players.size())), gaia, 8);
 				pixie.setPos(gaia.getX() + gaia.getBbWidth() / 2, gaia.getY() + 2, gaia.getZ() + gaia.getBbWidth() / 2);
 				pixie.finalizeSpawn((ServerLevelAccessor) gaia.level(), gaia.level().getCurrentDifficultyAt(pixie.blockPosition()),
-						MobSpawnType.MOB_SUMMONED, null, null);
+						MobSpawnType.MOB_SUMMONED, null);
 				gaia.level().addFreshEntity(pixie);
 			}
 		}

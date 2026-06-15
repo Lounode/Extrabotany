@@ -2,7 +2,7 @@ package io.github.lounode.extrabotany.mixin;
 
 import com.google.common.collect.Lists;
 
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -18,11 +18,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import io.github.lounode.extrabotany.common.item.enchantment.ICustomEnchantable;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Mixin(EnchantmentHelper.class)
 public class ItemCustomEnchantableEnchantTableSupporter {
-	@Inject(method = "getAvailableEnchantmentResults", at = @At("RETURN"), cancellable = true)
-	private static void getFixedAvailableEnchantmentResults(int level, ItemStack stack, boolean allowTreasure, CallbackInfoReturnable<List<EnchantmentInstance>> cir) {
+	@Inject(method = "getAvailableEnchantmentResults", at = @At("HEAD"), cancellable = true)
+	private static void getFixedAvailableEnchantmentResults(int level, ItemStack stack, Stream<Holder<Enchantment>> possibleEnchantments, CallbackInfoReturnable<List<EnchantmentInstance>> cir) {
 		if (!(stack.getItem() instanceof ICustomEnchantable supporter)) {
 			return;
 		}
@@ -30,16 +31,17 @@ public class ItemCustomEnchantableEnchantTableSupporter {
 		Item item = stack.getItem();
 		boolean flag = stack.is(Items.BOOK);
 
-		for (Enchantment enchantment : BuiltInRegistries.ENCHANTMENT) {
-			if ((!enchantment.isTreasureOnly() || allowTreasure) && enchantment.isDiscoverable() && (supporter.canEnchantOnTable(stack, enchantment) || flag)) {
+		possibleEnchantments.forEach(enchantmentHolder -> {
+			Enchantment enchantment = enchantmentHolder.value();
+			if (supporter.canEnchantOnTable(stack, enchantmentHolder) || flag) {
 				for (int i = enchantment.getMaxLevel(); i > enchantment.getMinLevel() - 1; --i) {
 					if (level >= enchantment.getMinCost(i) && level <= enchantment.getMaxCost(i)) {
-						list.add(new EnchantmentInstance(enchantment, i));
+						list.add(new EnchantmentInstance(enchantmentHolder, i));
 						break;
 					}
 				}
 			}
-		}
+		});
 
 		cir.setReturnValue(list);
 	}

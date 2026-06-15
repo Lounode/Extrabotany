@@ -16,6 +16,8 @@ import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.ServiceUtil;
+import vazkii.botania.api.item.Relic;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.api.item.NatureEnergyItem;
@@ -30,6 +32,16 @@ public interface EXplatAbstractions extends XplatAbstractions {
 	@Nullable
 	NatureEnergyItem findNatureEnergyItem(ItemStack stack);
 	String getExtraBotanyVersion();
+
+	@Nullable
+	default ManaItem findManaItem(ItemStack stack) {
+		return findItemApi(ManaItem.LOOKUP, stack);
+	}
+
+	@Nullable
+	default Relic findRelic(ItemStack stack) {
+		return findItemApi(Relic.LOOKUP, stack);
+	}
 
 	default ModLoaderType getModLoader() {
 		try {

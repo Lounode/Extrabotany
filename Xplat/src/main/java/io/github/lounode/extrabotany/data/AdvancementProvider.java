@@ -1,9 +1,6 @@
 package io.github.lounode.extrabotany.data;
 
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.DisplayInfo;
-import net.minecraft.advancements.FrameType;
+import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -16,7 +13,7 @@ import net.minecraft.world.level.ItemLike;
 
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.BotaniaItems;
 
 import io.github.lounode.extrabotany.common.advancements.HasArmorSetTrigger;
@@ -35,6 +32,7 @@ import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 import io.github.lounode.extrabotany.common.lib.LibAdvancementNames;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -51,204 +49,197 @@ public class AdvancementProvider extends vazkii.botania.data.AdvancementProvider
 
 	public static class ExtrabotanyAdvancements implements AdvancementSubProvider {
 		@Override
-		public void generate(HolderLookup.Provider lookup, Consumer<Advancement> consumer) {
-			Advancement root = Advancement.Builder.advancement()
+		public void generate(HolderLookup.Provider lookup, Consumer<AdvancementHolder> consumer) {
+			AdvancementHolder root = Advancement.Builder.advancement()
 					.display(rootDisplay(ExtraBotanyItems.zadkiel, "itemGroup.extrabotany", "extrabotany.desc", prefix("textures/block/photonium_block.png")))
-					.addCriterion("use_lexicon", new UseItemSuccessTrigger.Instance(ContextAwarePredicate.ANY,
-							ItemPredicate.Builder.item().of(BotaniaItems.lexicon).build(), LocationPredicate.ANY))
+					.addCriterion("use_lexicon", UseItemSuccessTrigger.Instance.used(BotaniaItems.lexicon))
 					.save(consumer, mainId(LibAdvancementNames.ROOT));
-			Advancement senbonZakura = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.manaReader, LibAdvancementNames.SENBON_ZAKURA, FrameType.CHALLENGE))
+			AdvancementHolder senbonZakura = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.manaReader, LibAdvancementNames.SENBON_ZAKURA, AdvancementType.CHALLENGE))
 					.parent(root)
-					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.addCriterion("code_triggered", impossible())
 					.save(consumer, mainId(LibAdvancementNames.SENBON_ZAKURA));
 			//Pedestal
-			Advancement pedestal = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyBlocks.livingrockPedestal, LibAdvancementNames.CRAFT_PEDESTAL, FrameType.TASK))
+			AdvancementHolder pedestal = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyBlocks.livingrockPedestal, LibAdvancementNames.CRAFT_PEDESTAL, AdvancementType.TASK))
 					.parent(root)
 					.addCriterion("craft_pedestal", onPickup(ExtraBotanyTags.Items.PEDESTALS))
 					.save(consumer, mainId(LibAdvancementNames.CRAFT_PEDESTAL));
-			Advancement kurukuru = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyBlocks.livingrockPedestal, LibAdvancementNames.KURUKURU, FrameType.GOAL))
+			AdvancementHolder kurukuru = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyBlocks.livingrockPedestal, LibAdvancementNames.KURUKURU, AdvancementType.GOAL))
 					.parent(pedestal)
-					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.addCriterion("code_triggered", impossible())
 					.save(consumer, mainId(LibAdvancementNames.KURUKURU));
-			Advancement goodtek = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.manasteelHammer, LibAdvancementNames.GOODTEK, FrameType.TASK))
+			AdvancementHolder goodtek = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.manasteelHammer, LibAdvancementNames.GOODTEK, AdvancementType.TASK))
 					.parent(pedestal)
-					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.addCriterion("code_triggered", impossible())
 					.save(consumer, mainId(LibAdvancementNames.GOODTEK));
 
-			Advancement deepDarkFantasy = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.nightmareFuel, LibAdvancementNames.DEEP_DARK_FANTASY, FrameType.TASK))
+			AdvancementHolder deepDarkFantasy = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.nightmareFuel, LibAdvancementNames.DEEP_DARK_FANTASY, AdvancementType.TASK))
 					.parent(root)
-					.addCriterion("eat_nightmare_fuel", new UseItemSuccessTrigger.Instance(
-							ContextAwarePredicate.ANY,
-							ItemPredicate.Builder.item().of(ExtraBotanyItems.nightmareFuel).build(),
-							LocationPredicate.ANY
-					)
-					)
+					.addCriterion("eat_nightmare_fuel", UseItemSuccessTrigger.Instance.used(ExtraBotanyItems.nightmareFuel))
 					.save(consumer, mainId(LibAdvancementNames.DEEP_DARK_FANTASY));
-			Advancement stygianTwins = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.shadowium, LibAdvancementNames.STYGIAN_TWINS, FrameType.TASK))
+			AdvancementHolder stygianTwins = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.shadowium, LibAdvancementNames.STYGIAN_TWINS, AdvancementType.TASK))
 					.parent(goodtek)
 					.addCriterion("craft_shadowium", onPickup(ExtraBotanyTags.Items.INGOTS_SHADOWIUM))
 					.addCriterion("craft_photonium", onPickup(ExtraBotanyTags.Items.INGOTS_SHADOWIUM))
 					.save(consumer, mainId(LibAdvancementNames.STYGIAN_TWINS));
-			Advancement gaiaTrial = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.challengeTicket, LibAdvancementNames.GAIA_TRIAL, FrameType.CHALLENGE))
+			AdvancementHolder gaiaTrial = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.challengeTicket, LibAdvancementNames.GAIA_TRIAL, AdvancementType.CHALLENGE))
 					.parent(stygianTwins)
 					.addCriterion("kill_gaia_3rd",
 							KilledTrigger.TriggerInstance.playerKilledEntity(
 									EntityPredicate.Builder.entity()
 											.of(ExtraBotanyEntityType.GAIA_III)
-											.build()
 							)
 					)
 					.save(consumer, mainId(LibAdvancementNames.GAIA_TRIAL));
-			Advancement theSourceOfHonkai = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.pandorasBox, LibAdvancementNames.THE_SOURCE_OF_HONKAI, FrameType.TASK))
+			AdvancementHolder theSourceOfHonkai = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.pandorasBox, LibAdvancementNames.THE_SOURCE_OF_HONKAI, AdvancementType.TASK))
 					.parent(gaiaTrial)
-					.addCriterion("open_pandoras_box", new UseItemSuccessTrigger.Instance(
-							ContextAwarePredicate.ANY,
-							ItemPredicate.Builder.item().of(ExtraBotanyItems.pandorasBox).build(),
-							LocationPredicate.ANY
-					))
+					.addCriterion("open_pandoras_box", UseItemSuccessTrigger.Instance.used(ExtraBotanyItems.pandorasBox))
 					.save(consumer, mainId(LibAdvancementNames.THE_SOURCE_OF_HONKAI));
-			Advancement theOriginalDivineKey = relicBindAdvancement(
+			AdvancementHolder theOriginalDivineKey = relicBindAdvancement(
 					ExtraBotanyItems.voidArchives, LibAdvancementNames.THE_ORIGINAL_DIVINE_KEY)
 							.parent(theSourceOfHonkai)
 							.save(consumer, mainId(LibAdvancementNames.THE_ORIGINAL_DIVINE_KEY));
-			Advancement iSeeEveryThing = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.camera, LibAdvancementNames.I_SEE_EVERYTHING, FrameType.GOAL))
+			AdvancementHolder iSeeEveryThing = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.camera, LibAdvancementNames.I_SEE_EVERYTHING, AdvancementType.GOAL))
 					.parent(stygianTwins)
-					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.addCriterion("code_triggered", impossible())
 					.save(consumer, mainId(LibAdvancementNames.I_SEE_EVERYTHING));
-			Advancement onePunch = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.featherOfJingwei, LibAdvancementNames.ONE_PUNCH, FrameType.CHALLENGE))
+			AdvancementHolder onePunch = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.featherOfJingwei, LibAdvancementNames.ONE_PUNCH, AdvancementType.CHALLENGE))
 					.parent(theSourceOfHonkai)
-					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.addCriterion("code_triggered", impossible())
 					.save(consumer, mainId(LibAdvancementNames.ONE_PUNCH));
-			Advancement soulSteel = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.orichalcos, LibAdvancementNames.SOULSTEEL, FrameType.CHALLENGE))
+			AdvancementHolder soulSteel = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.orichalcos, LibAdvancementNames.SOULSTEEL, AdvancementType.CHALLENGE))
 					.parent(theSourceOfHonkai)
 					.addCriterion("craft_orichalcos", onPickup(ExtraBotanyTags.Items.INGOTS_ORICHALCOS))
 					.save(consumer, mainId(LibAdvancementNames.SOULSTEEL));
 			//ManaRing
-			Advancement craftRing = relicBindAdvancement(
+			AdvancementHolder craftRing = relicBindAdvancement(
 					ExtraBotanyItems.manaRingMaster, LibAdvancementNames.PANDA_DO_NOT_WEAR_RINGS)
 							.parent(soulSteel)
 							.save(consumer, mainId(LibAdvancementNames.PANDA_DO_NOT_WEAR_RINGS));
 
-			Advancement overlord = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.OVERLOAD, FrameType.CHALLENGE))
+			AdvancementHolder overlord = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.OVERLOAD, AdvancementType.CHALLENGE))
 					.parent(craftRing)
-					.addCriterion("mana_charge", ManaChargeTrigger.TriggerInstance.manaCharged(
+					.addCriterion("mana_charge", ManaChargeTrigger.Instance.manaCharged(
 							ItemPredicate.Builder.item().of(ExtraBotanyItems.manaRingMaster).build(),
 							MinMaxBoundsExtension.Longs.atLeast(MasterBandOfManaItem.ADVANCEMENT_PHASE1_REQUIRE)
 					))
 					.save(consumer, mainId(LibAdvancementNames.OVERLOAD));
-			Advancement lordOfKing = Advancement.Builder.advancement()
-					.display(hidden(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.LOAD_OF_RING, FrameType.CHALLENGE))
+			AdvancementHolder lordOfKing = Advancement.Builder.advancement()
+					.display(hidden(ExtraBotanyItems.manaRingMaster, LibAdvancementNames.LOAD_OF_RING, AdvancementType.CHALLENGE))
 					.parent(overlord)
-					.addCriterion("mana_charge", ManaChargeTrigger.TriggerInstance.manaCharged(
+					.addCriterion("mana_charge", ManaChargeTrigger.Instance.manaCharged(
 							ItemPredicate.Builder.item().of(ExtraBotanyItems.manaRingMaster).build(),
 							MinMaxBoundsExtension.Longs.atLeast(MasterBandOfManaItem.ADVANCEMENT_PHASE2_REQUIRE)
 					))
 					.save(consumer, mainId(LibAdvancementNames.LOAD_OF_RING));
-			Advancement hundredBlockPierce = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.failnaught, LibAdvancementNames.HUNDRED_BLOCK_PIERCE, FrameType.CHALLENGE))
+			AdvancementHolder hundredBlockPierce = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.failnaught, LibAdvancementNames.HUNDRED_BLOCK_PIERCE, AdvancementType.CHALLENGE))
 					.parent(soulSteel)
-					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.addCriterion("code_triggered", impossible())
 					.save(consumer, mainId(LibAdvancementNames.HUNDRED_BLOCK_PIERCE));
-			Advancement skyIsNotTheLimit = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.aerialite, LibAdvancementNames.SKY_IS_NOT_THE_LIMIT, FrameType.TASK))
+			AdvancementHolder skyIsNotTheLimit = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.aerialite, LibAdvancementNames.SKY_IS_NOT_THE_LIMIT, AdvancementType.TASK))
 					.parent(stygianTwins)
 					.addCriterion("craft_aerialite", onPickup(ExtraBotanyTags.Items.INGOTS_AERIALITE))
 					.save(consumer, mainId(LibAdvancementNames.SKY_IS_NOT_THE_LIMIT));
 
-			Advancement potatoServer = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.gildedPotatoMashed, LibAdvancementNames.POTATO_SERVER, FrameType.TASK))
+			AdvancementHolder potatoServer = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.gildedPotatoMashed, LibAdvancementNames.POTATO_SERVER, AdvancementType.TASK))
 					.parent(root)
-					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.addCriterion("code_triggered", impossible())
 					.save(consumer, mainId(LibAdvancementNames.POTATO_SERVER));
 
-			Advancement rheinKraft = relicBindAdvancement(ExtraBotanyItems.rheinHammer, LibAdvancementNames.RHEIN_KRAFT)
+			AdvancementHolder rheinKraft = relicBindAdvancement(ExtraBotanyItems.rheinHammer, LibAdvancementNames.RHEIN_KRAFT)
 					.parent(theSourceOfHonkai)
 					.save(consumer, mainId(LibAdvancementNames.RHEIN_KRAFT));
-			Advancement spongeHammer = Advancement.Builder.advancement()
-					.display(simple(Items.SPONGE, LibAdvancementNames.SPONGE_HAMMER, FrameType.TASK))
+			AdvancementHolder spongeHammer = Advancement.Builder.advancement()
+					.display(simple(Items.SPONGE, LibAdvancementNames.SPONGE_HAMMER, AdvancementType.TASK))
 					.parent(rheinKraft)
-					.addCriterion(CODE_TRIGGE, new ImpossibleTrigger.TriggerInstance())
+					.addCriterion(CODE_TRIGGE, impossible())
 					.save(consumer, mainId(LibAdvancementNames.SPONGE_HAMMER));
-			Advancement omgItsMiku = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.starryIdolHeadgear, LibAdvancementNames.OMG_ITS_MIKU, FrameType.TASK))
+			AdvancementHolder omgItsMiku = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.starryIdolHeadgear, LibAdvancementNames.OMG_ITS_MIKU, AdvancementType.TASK))
 					.parent(root)
 					.addCriterion("has_armor_set", armorSet(StarryIdolArmorItem.ARMOR_SET))
 					.save(consumer, mainId(LibAdvancementNames.OMG_ITS_MIKU));
-			Advancement sevenSamurai = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.shadowWarriorHelmet, LibAdvancementNames.SEVEN_SAMURAI, FrameType.CHALLENGE))
+			AdvancementHolder sevenSamurai = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.shadowWarriorHelmet, LibAdvancementNames.SEVEN_SAMURAI, AdvancementType.CHALLENGE))
 					.parent(stygianTwins)
 					.addCriterion("has_armor_set", armorSet(ShadowWarriorArmorItem.ARMOR_SET))
 					.save(consumer, mainId(LibAdvancementNames.SEVEN_SAMURAI));
-			Advancement goblinKiller = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.goblinSlayerHelmet, LibAdvancementNames.GOBLIN_KILLER, FrameType.CHALLENGE))
+			AdvancementHolder goblinKiller = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.goblinSlayerHelmet, LibAdvancementNames.GOBLIN_KILLER, AdvancementType.CHALLENGE))
 					.parent(stygianTwins)
 					.addCriterion("has_armor_set", armorSet(GoblinSlayerArmorItem.ARMOR_SET))
 					.save(consumer, mainId(LibAdvancementNames.GOBLIN_KILLER));
-			Advancement cuteDress = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.pleiadesCombatMaidSuit, LibAdvancementNames.CUTE_DRESS, FrameType.CHALLENGE))
+			AdvancementHolder cuteDress = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.pleiadesCombatMaidSuit, LibAdvancementNames.CUTE_DRESS, AdvancementType.CHALLENGE))
 					.parent(stygianTwins)
 					.addCriterion("has_armor_set", armorSet(PleiadesCombatMaidArmorItem.ARMOR_SET))
 					.save(consumer, mainId(LibAdvancementNames.CUTE_DRESS));
-			Advancement corruption = Advancement.Builder.advancement()
-					.display(simple(ExtraBotanyItems.sanguinePleiadesCombatMaidSuit, LibAdvancementNames.CORRUPTION, FrameType.CHALLENGE))
+			AdvancementHolder corruption = Advancement.Builder.advancement()
+					.display(simple(ExtraBotanyItems.sanguinePleiadesCombatMaidSuit, LibAdvancementNames.CORRUPTION, AdvancementType.CHALLENGE))
 					.parent(cuteDress)
 					.addCriterion("has_item", onPickup(ExtraBotanyItems.sanguinePleiadesCombatMaidSuit))
 					.save(consumer, mainId(LibAdvancementNames.CORRUPTION));
-			Advancement aBaldrupt = Advancement.Builder.advancement()
-					.display(hidden(BotaniaFlowerBlocks.daffomill, LibAdvancementNames.A_BALDRUPT, FrameType.TASK))
+			AdvancementHolder aBaldrupt = Advancement.Builder.advancement()
+					.display(hidden(BotaniaBlocks.daffomill, LibAdvancementNames.A_BALDRUPT, AdvancementType.TASK))
 					.parent(goodtek)
-					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.addCriterion("code_triggered", impossible())
 					.save(consumer, mainId(LibAdvancementNames.A_BALDRUPT));
-			Advancement muromiSan = Advancement.Builder.advancement()
-					.display(simple(ExtrabotanyFlowerBlocks.annoyingflower, LibAdvancementNames.MUROMI_SAN, FrameType.GOAL))
+			AdvancementHolder muromiSan = Advancement.Builder.advancement()
+					.display(simple(ExtrabotanyFlowerBlocks.annoyingflower, LibAdvancementNames.MUROMI_SAN, AdvancementType.GOAL))
 					.parent(goodtek)
-					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+					.addCriterion("code_triggered", impossible())
 					.save(consumer, mainId(LibAdvancementNames.MUROMI_SAN));
-			Advancement itsOnlyTheFairyTale = Advancement.Builder.advancement()
-					.display(simple(ExtrabotanyFlowerBlocks.edelweiss, LibAdvancementNames.ITS_ONLY_THE_FAIRY_TALE, FrameType.TASK))
+			AdvancementHolder itsOnlyTheFairyTale = Advancement.Builder.advancement()
+					.display(simple(ExtrabotanyFlowerBlocks.edelweiss, LibAdvancementNames.ITS_ONLY_THE_FAIRY_TALE, AdvancementType.TASK))
 					.parent(goodtek)
-					.addCriterion(CODE_TRIGGE, new ImpossibleTrigger.TriggerInstance())
+					.addCriterion(CODE_TRIGGE, impossible())
 					.save(consumer, mainId(LibAdvancementNames.ITS_ONLY_THE_FAIRY_TALE));
 		}
 	}
 
-	protected static HasArmorSetTrigger.TriggerInstance armorSet(Supplier<ItemStack[]> armorSet) {
-		return HasArmorSetTrigger.TriggerInstance.forArmorSet(armorSet.get());
+	protected static Criterion<HasArmorSetTrigger.Instance> armorSet(Supplier<ItemStack[]> armorSet) {
+		return HasArmorSetTrigger.Instance.forArmorSet(armorSet.get());
 	}
 
 	private static Advancement.Builder relicBindAdvancement(Item relicItem, String titleKey) {
 		return Advancement.Builder.advancement()
-				.display(simple(relicItem, titleKey, FrameType.CHALLENGE))
+				.display(simple(relicItem, titleKey, AdvancementType.CHALLENGE))
 				.rewards(AdvancementRewards.Builder.experience(50))
-				.addCriterion("has_relic", new RelicBindTrigger.Instance(ContextAwarePredicate.ANY, ItemPredicate.Builder.item().of(relicItem).build()));
+				.addCriterion("has_relic", RelicBindTrigger.Instance.bound(relicItem));
 	}
 
-	protected static DisplayInfo simple(ItemLike icon, String name, FrameType frameType) {
+	private static Criterion<ImpossibleTrigger.TriggerInstance> impossible() {
+		return CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance());
+	}
+
+	protected static DisplayInfo simple(ItemLike icon, String name, AdvancementType advancementType) {
 		String expandedName = "advancement.extrabotany:" + name;
 		return new DisplayInfo(new ItemStack(icon.asItem()),
 				Component.translatable(expandedName),
 				Component.translatable(expandedName + ".desc"),
-				null, frameType, true, true, false);
+				Optional.empty(), advancementType, true, true, false);
 	}
 
-	protected static DisplayInfo hidden(ItemLike icon, String name, FrameType frameType) {
+	protected static DisplayInfo hidden(ItemLike icon, String name, AdvancementType advancementType) {
 		String expandedName = "advancement.extrabotany:" + name;
 		return new DisplayInfo(new ItemStack(icon.asItem()),
 				Component.translatable(expandedName),
 				Component.translatable(expandedName + ".desc"),
-				null, frameType, true, true, true);
+				Optional.empty(), advancementType, true, true, true);
 	}
 
 	private static String mainId(String name) {

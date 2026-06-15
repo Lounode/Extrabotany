@@ -1,5 +1,7 @@
 package io.github.lounode.extrabotany.common.block.flower.generating;
 
+import net.minecraft.core.HolderLookup;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
@@ -12,7 +14,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraGeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
@@ -21,7 +23,7 @@ import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import java.util.List;
 
-public class ReikarlilyBlockEntity extends GeneratingFlowerBlockEntity {
+public class ReikarlilyBlockEntity extends ExtraGeneratingFlowerBlockEntity {
 
 	public static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_RESIDUAL_HEAT = "residualHeat";
@@ -155,8 +157,8 @@ public class ReikarlilyBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		cmp.putInt(TAG_COOLDOWN, getCooldown());
 		cmp.putInt(TAG_RESIDUAL_HEAT, getResidualHeat());
@@ -164,8 +166,8 @@ public class ReikarlilyBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 
 		setCooldown(cmp.getInt(TAG_COOLDOWN));
 		setResidualHeat(cmp.getInt(TAG_RESIDUAL_HEAT));

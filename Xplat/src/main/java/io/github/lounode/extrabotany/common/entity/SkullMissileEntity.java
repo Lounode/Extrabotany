@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -221,8 +222,8 @@ public class SkullMissileEntity extends ThrowableProjectile {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		//this.entityData.define(SKIN, Optional.of(DEFAULT_SKIN));
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		//builder.define(SKIN, Optional.of(DEFAULT_SKIN));
 	}
 
 	@Override

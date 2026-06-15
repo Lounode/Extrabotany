@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.common.impl;
 
+import net.minecraft.core.Holder;
 import net.minecraft.world.item.ArmorMaterial;
 
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
@@ -15,22 +16,22 @@ public class ExtraBotanyAPIImpl implements ExtraBotanyAPI {
 	private final Map<String, VoidArchivesVariant> voidArchivesVariants = new LinkedHashMap<>();
 
 	@Override
-	public ArmorMaterial getPleiadsMaidCombatArmorMaterial() {
+	public Holder<ArmorMaterial> getPleiadsMaidCombatArmorMaterial() {
 		return ArmorsMaterial.PLEIADS_MAID_COMBAT;
 	}
 
 	@Override
-	public ArmorMaterial getStarryIdolArmorMaterial() {
+	public Holder<ArmorMaterial> getStarryIdolArmorMaterial() {
 		return ArmorsMaterial.STARRY_IDOL;
 	}
 
 	@Override
-	public ArmorMaterial getGoblinSlayerArmorMaterial() {
+	public Holder<ArmorMaterial> getGoblinSlayerArmorMaterial() {
 		return ArmorsMaterial.GOBLIN_SLAYER;
 	}
 
 	@Override
-	public ArmorMaterial getShadowWarriorArmorMaterial() {
+	public Holder<ArmorMaterial> getShadowWarriorArmorMaterial() {
 		return ArmorsMaterial.SHADOW_WARRIOR;
 	}
 

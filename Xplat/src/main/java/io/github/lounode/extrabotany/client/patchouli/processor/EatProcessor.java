@@ -16,7 +16,7 @@ public class EatProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
-		String itemId = variables.get("output").asString();
+		String itemId = variables.get("output", level.registryAccess()).asString();
 		output = BuiltInRegistries.ITEM.get(ResourceLocation.tryParse(itemId));
 	}
 
@@ -25,14 +25,14 @@ public class EatProcessor implements IComponentProcessor {
 		return switch (key) {
 			case "operate" -> {
 				Component q = Component.literal("(?)").withStyle(ChatFormatting.BOLD);
-				yield IVariable.from(Component.translatable("extrabotany.patchouli.template.eat.operate").append(" ").append(q));
+				yield IVariable.from(Component.translatable("extrabotany.patchouli.template.eat.operate").append(" ").append(q), level.registryAccess());
 			}
-			case "tip" -> IVariable.from(Component.translatable("extrabotany.patchouli.template.eat.tip"));
+			case "tip" -> IVariable.from(Component.translatable("extrabotany.patchouli.template.eat.tip"), level.registryAccess());
 			case "heading" -> {
 				if (output == null) {
 					yield null;
 				}
-				yield IVariable.from(output.asItem().getDefaultInstance().getHoverName());
+				yield IVariable.from(output.asItem().getDefaultInstance().getHoverName(), level.registryAccess());
 			}
 
 			default -> null;

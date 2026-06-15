@@ -1,13 +1,11 @@
 package io.github.lounode.extrabotany.common.item.equipment.armor.goblin_slayer;
 
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.MobType;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import io.github.lounode.eventwrapper.event.entity.living.LivingHurtEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.living.LivingHurtEventWrapper;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 
@@ -19,11 +17,9 @@ public class GoblinSlayerHelmetItem extends GoblinSlayerArmorItem {
 		super(Type.HELMET, properties);
 	}
 
-	@EventBusSubscriberWrapper
 	public static class EventHandler {
 
-		@SubscribeEventWrapper
-		public static void onPlayerAttack(LivingHurtEventWrapper event) {
+			public static void onPlayerAttack(LivingHurtEventWrapper event) {
 			if (!(event.getSource().getEntity() instanceof Player player)) {
 				return;
 			}
@@ -38,7 +34,7 @@ public class GoblinSlayerHelmetItem extends GoblinSlayerArmorItem {
 				return;
 			}
 
-			if (event.getEntity().getMobType() == MobType.UNDEAD) {
+			if (event.getEntity().getType().is(EntityTypeTags.UNDEAD)) {
 				float origin = event.getAmount();
 				event.setAmount(origin * (1 + UNDEAD_DAMAGE_BONUS));
 			}

@@ -1,11 +1,11 @@
 package io.github.lounode.extrabotany.mixin.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.platform.Window;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -16,11 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.client.gui.HUDHandler;
 
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
+
 @Mixin(HUDHandler.class)
 public class HUDHandlerMixin {
 	//ManaReader
 	@Inject(method = "drawSimpleManaHUD", at = @At("TAIL"), remap = false)
-	private static void drawManaNumber(GuiGraphics gui, int color, int mana, int maxMana, String name, CallbackInfo ci) {
+	private static void drawManaNumber(GuiGraphics gui, Window window, Font font, int color, int mana, int maxMana, String name, CallbackInfo ci) {
 		Minecraft mc = Minecraft.getInstance();
 		Player player = mc.player;
 
@@ -30,16 +32,9 @@ public class HUDHandlerMixin {
 				continue;
 			}
 
-			CompoundTag tag = stack.getTag();
-			if (tag != null && tag.contains("extrabotany", Tag.TAG_COMPOUND)) {
-				CompoundTag extraBotany = tag.getCompound("extrabotany");
-				if (extraBotany.contains("mana_reader", Tag.TAG_COMPOUND)) {
-					CompoundTag manaReader = extraBotany.getCompound("mana_reader");
-					if (manaReader.getBoolean("enable")) {
-						display = true;
-						break;
-					}
-				}
+			if (ItemStackDataHelper.getBoolean(stack, "mana_reader_enable", false)) {
+				display = true;
+				break;
 			}
 		}
 
@@ -50,15 +45,15 @@ public class HUDHandlerMixin {
 		RenderSystem.enableBlend();
 		String manaString = mana + "/" + maxMana;
 
-		int screenWidth = mc.getWindow().getGuiScaledWidth();
-		int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(name) / 2;
-		int y = mc.getWindow().getGuiScaledHeight() / 2 + 10;
-		x = (int) (((float) screenWidth / 2 - mc.font.width(manaString) * 0.75f / 2));
+		int screenWidth = window.getGuiScaledWidth();
+		int x = window.getGuiScaledWidth() / 2 - font.width(name) / 2;
+		int y = window.getGuiScaledHeight() / 2 + 10;
+		x = (int) (((float) screenWidth / 2 - font.width(manaString) * 0.75f / 2));
 		y += 15;
 
 		gui.pose().pushPose();
 		gui.pose().scale(0.75f, 0.75f, 1f);
-		gui.drawString(mc.font, manaString, (int) (x / 0.75f), (int) (y / 0.75f), color);
+		gui.drawString(font, manaString, (int) (x / 0.75f), (int) (y / 0.75f), color);
 		gui.pose().popPose();
 
 		RenderSystem.disableBlend();
@@ -71,7 +66,7 @@ public class HUDHandlerMixin {
 		cancellable = true,
 		remap = false
 	)
-	private static void onRenderManaBar(GuiGraphics gui, int totalMana, int totalMaxMana, CallbackInfo ci) {
+	private static void onRenderManaBar(GuiGraphics gui, Window window, int totalMana, int totalMaxMana, CallbackInfo ci) {
 		ci.cancel();
 	}
 }

@@ -7,8 +7,8 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 
-import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
-import vazkii.botania.common.block.decor.FloatingFlowerBlock;
+import vazkii.botania.common.block.BotaniaMushroomBlock;
+import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
 
 import io.github.lounode.extrabotany.common.lib.LibMisc;
 
@@ -23,7 +23,7 @@ public final class BlockRenderLayers {
 
 		BuiltInRegistries.BLOCK.stream().filter(b -> BuiltInRegistries.BLOCK.getKey(b).getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
-					if (b instanceof FloatingFlowerBlock || b instanceof FlowerBlock
+					if (b instanceof FloatingFlowerBaseBlock || b instanceof FlowerBlock
 							|| b instanceof TallFlowerBlock || b instanceof BotaniaMushroomBlock
 							|| b instanceof FlowerPotBlock) {
 						consumer.accept(b, RenderType.cutout());

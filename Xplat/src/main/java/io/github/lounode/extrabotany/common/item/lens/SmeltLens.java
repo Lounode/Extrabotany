@@ -1,12 +1,13 @@
 package io.github.lounode.extrabotany.common.item.lens;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -19,6 +20,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
@@ -29,6 +31,7 @@ import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
+import java.util.Optional;
 
 import static vazkii.botania.common.item.lens.BoreLens.canHarvest;
 
@@ -61,7 +64,7 @@ public class SmeltLens extends Lens {
 		float hardness = state.getDestroySpeed(world, collidePos);
 		int mana = burst.getMana();
 
-		BlockPos source = burst.getBurstSourceBlockPos();
+		Optional<GlobalPos> source = burst.getBurstSourcePosition();
 		if (!isManaBlock
 				&& canHarvest(harvestLevel, state)
 				&& hardness != -1
@@ -76,11 +79,11 @@ public class SmeltLens extends Lens {
 						world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, collidePos, Block.getId(state));
 					}
 
-					boolean sourceless = source.equals(ManaBurst.NO_SOURCE);
+					boolean sourceless = source.isEmpty() || !burst.isBurstSourceDimension(world);
 					boolean doWarp = warpItems && !sourceless;
 					Vec3 dropPosition;
-					if (doWarp && world.getBlockEntity(source) instanceof ManaSpreaderBlockEntity spreader) {
-						Vec3 sourceVec = Vec3.atCenterOf(source);
+					if (doWarp && world.getBlockEntity(source.get().pos()) instanceof ManaSpreaderBlockEntity spreader) {
+						Vec3 sourceVec = Vec3.atCenterOf(source.get().pos());
 						/* NB: this looks backwards but it's right. spreaders take rotX/rotY to respectively mean
 						* "rotation *parallel* to the X and Y axes", while vanilla's methods take XRot/YRot
 						* to respectively mean "rotation *around* the X and Y axes".
@@ -97,9 +100,9 @@ public class SmeltLens extends Lens {
 
 					if (world.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
 						for (ItemStack stack_ : items) {
-							var recipe = world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(stack_), world).orElse(null);
-							if (recipe != null && !recipe.getResultItem(world.registryAccess()).isEmpty()) {
-								stack_ = recipe.getResultItem(world.registryAccess()).copy();
+							var recipe = world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(stack_), world).orElse(null);
+							if (recipe != null && !recipe.value().getResultItem(world.registryAccess()).isEmpty()) {
+								stack_ = recipe.value().getResultItem(world.registryAccess()).copy();
 							}
 
 							ItemEntity itemEntity = new ItemEntity(world, dropPosition.x, dropPosition.y, dropPosition.z, stack_);

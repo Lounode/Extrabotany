@@ -3,7 +3,7 @@ package io.github.lounode.extrabotany.common.item.equipment.bauble;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
@@ -18,9 +18,7 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 
-import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.player.PlayerInteractEventWrapper;
 import io.github.lounode.extrabotany.common.util.PlayerUtil;
 
 public class PureDaisyPendantItem extends BaubleItem {
@@ -31,11 +29,9 @@ public class PureDaisyPendantItem extends BaubleItem {
 		super(props);
 	}
 
-	@EventBusSubscriberWrapper
 	public static class EventHandler {
 
-		@SubscribeEventWrapper
-		public static void onPlayerInteract(PlayerInteractEventWrapper.RightClickBlock event) {
+			public static void onPlayerInteract(PlayerInteractEventWrapper.RightClickBlock event) {
 			if (!(event.getEntity() instanceof ServerPlayer serverPlayer)) {
 				return;
 			}
@@ -69,12 +65,12 @@ public class PureDaisyPendantItem extends BaubleItem {
 
 		@Nullable
 		private static BlockState getDaisyRecipe(Level level, BlockState input) {
-			for (Recipe<?> r : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.PURE_DAISY_TYPE).values()) {
-				if (!(r instanceof PureDaisyRecipe recipe)) {
+			for (RecipeHolder<PureDaisyRecipe> holder : level.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PURE_DAISY_TYPE)) {
+				if (!(holder.value() instanceof PureDaisyRecipe recipe)) {
 					continue;
 				}
 				if (recipe.getInput().test(input)) {
-					return recipe.getOutputState();
+					return recipe.getOutput().pick(level.getRandom());
 				}
 			}
 			return null;

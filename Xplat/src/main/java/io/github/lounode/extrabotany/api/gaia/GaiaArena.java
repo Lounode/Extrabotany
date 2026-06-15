@@ -66,7 +66,7 @@ public class GaiaArena {
 
 	public static final float ARENA_RANGE = 12F;
 	public static final int ARENA_HEIGHT = 5;
-	private static final TagKey<Block> BLACKLIST = BotaniaTags.Blocks.GAIA_BREAK_BLACKLIST;
+	private static final TagKey<Block> BLACKLIST = BotaniaTags.Blocks.GAIA_GUARDIAN_IMMUNE;
 	public static final List<BlockPos> PYLON_LOCATIONS = ImmutableList.of(
 			new BlockPos(4, 1, 4),
 			new BlockPos(4, 1, -4),
@@ -228,7 +228,7 @@ public class GaiaArena {
 		}
 
 		// Stop all the pixies leftover from the fight
-		for (PixieEntity pixie : level.getEntitiesOfClass(PixieEntity.class, getArenaBB(), p -> p.isAlive() && p.getPixieType() == 1)) {
+		for (PixieEntity pixie : level.getEntitiesOfClass(PixieEntity.class, getArenaBB(), p -> p.isAlive() && p.isGaia())) {
 			pixie.spawnAnim();
 			pixie.discard();
 		}

@@ -1,5 +1,6 @@
 package io.github.lounode.extrabotany.common.item.relic.void_archives.variants;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -31,6 +32,11 @@ public class Camera implements VoidArchivesVariant {
 	@Override
 	public String getId() {
 		return ID;
+	}
+
+	@Override
+	public Component getName(ItemStack stack) {
+		return Component.translatable("item.extrabotany.void_archives.variant", Component.translatable("item.extrabotany.camera"));
 	}
 
 	@Override
@@ -78,7 +84,7 @@ public class Camera implements VoidArchivesVariant {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 1200;
 	}
 

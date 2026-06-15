@@ -1,6 +1,6 @@
 {
   "category": "botania:extrabotanies",
-  "icon": "extrabotany:holy_water_grenade{brewKey:\"extrabotany:mana_cocktail\"}",
+  "icon": "extrabotany:holy_water_grenade[botania:brew=\"extrabotany:mana_cocktail\",minecraft:custom_data={brewKey:\"extrabotany:mana_cocktail\"}]",
   "name": "extrabotany.entry.holy_water_grenade",
   "pages": [
     {
@@ -9,9 +9,9 @@
     },
     {
       "type": "extrabotany:craft_manual",
-      "input1": "extrabotany:mana_cocktail{brewKey:\"extrabotany:overload\"}",
+      "input1": "extrabotany:mana_cocktail[botania:brew=\"extrabotany:overload\",minecraft:custom_data={brewKey:\"extrabotany:overload\"}]",
       "input2": "minecraft:popped_chorus_fruit",
-      "output": "extrabotany:holy_water_grenade{brewKey:\"botania:overload\"}",
+      "output": "extrabotany:holy_water_grenade[botania:brew=\"botania:overload\",minecraft:custom_data={brewKey:\"botania:overload\"}]",
       "shapeless": true,
       "text": "extrabotany.page.holy_water_grenade1"
     }

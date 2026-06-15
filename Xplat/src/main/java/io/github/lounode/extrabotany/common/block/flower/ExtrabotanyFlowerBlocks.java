@@ -1,6 +1,7 @@
 package io.github.lounode.extrabotany.common.block.flower;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
@@ -20,7 +21,10 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.FloatingSpecialFlowerBlock;
+import vazkii.botania.common.block.flower.FloatingSpecialFlowerBlock;
+import vazkii.botania.common.block.flower.PoweredFloatingSpecialFlowerBlock;
+import vazkii.botania.common.block.flower.PoweredSpecialFlowerBlock;
+import vazkii.botania.common.block.flower.SpecialFlowerBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.item.CustomCreativeTabContents;
@@ -32,22 +36,20 @@ import io.github.lounode.extrabotany.common.block.flower.generating.*;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.lib.LibBlockNames;
-import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
-
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public class ExtrabotanyFlowerBlocks {
 
-	private static final BlockBehaviour.Properties FLOWER_PROPS = BlockBehaviour.Properties.copy(Blocks.POPPY);
+	private static final BlockBehaviour.Properties FLOWER_PROPS = BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY);
 	private static final BlockBehaviour.Properties FLOATING_PROPS = BotaniaBlocks.FLOATING_PROPS;
 
-	public static final Block tradeOrchid = createSpecialFlowerBlock(MobEffects.HERO_OF_THE_VILLAGE, 5 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.TRADE_ORCHID);
-	public static final Block tradeOrchidFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.TRADE_ORCHID);
+	public static final Block tradeOrchid = createSpecialFlowerBlock(MobEffects.HERO_OF_THE_VILLAGE, 5 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.TRADE_ORCHID, true);
+	public static final Block tradeOrchidFloating = createFloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.TRADE_ORCHID, true);
 	public static final Block tradeOrchidPotted = ExtraBotanyBlocks.flowerPot(tradeOrchid, 0);
 
-	public static final Block woodienia = createSpecialFlowerBlock(MobEffects.HUNGER, 10 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.WOODIENIA);
-	public static final Block woodieniaFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.WOODIENIA);
+	public static final Block woodienia = createSpecialFlowerBlock(MobEffects.HUNGER, 10 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.WOODIENIA, true);
+	public static final Block woodieniaFloating = createFloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.WOODIENIA, true);
 	public static final Block woodieniaPotted = ExtraBotanyBlocks.flowerPot(woodienia, 0);
 
 	public static final Block reikarlily = createSpecialFlowerBlock(MobEffects.FIRE_RESISTANCE, 30 * 20, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.REIKARLILY);
@@ -98,7 +100,7 @@ public class ExtrabotanyFlowerBlocks {
 	public static final Block tinkleFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.TINKLE);
 	public static final Block tinklePotted = ExtraBotanyBlocks.flowerPot(tinkle, 0);
 
-	public static final Block bloodEnchantress = createSpecialFlowerBlock(BotaniaMobEffects.bloodthrst, 10 * 60, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.BLOOD_ENCHANTRESS);
+	public static final Block bloodEnchantress = createSpecialFlowerBlock(BotaniaMobEffects.BLOODTHIRST, 10 * 60, FLOWER_PROPS, () -> ExtrabotanyFlowerBlocks.BLOOD_ENCHANTRESS);
 	public static final Block bloodEnchantressFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.BLOOD_ENCHANTRESS);
 	public static final Block bloodEnchantressPotted = ExtraBotanyBlocks.flowerPot(bloodEnchantress, 0);
 
@@ -121,37 +123,37 @@ public class ExtrabotanyFlowerBlocks {
 	public static final Block enchanterFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> ExtrabotanyFlowerBlocks.ENCHANTER);
 	public static final Block enchanterPotted = ExtraBotanyBlocks.flowerPot(enchanter, 0);
 
-	public static final BlockEntityType<TradeOrchidBlockEntity> TRADE_ORCHID = EXplatAbstractions.INSTANCE.createBlockEntityType(TradeOrchidBlockEntity::new, tradeOrchid, tradeOrchidFloating);
-	public static final BlockEntityType<WoodieniaBlockEntity> WOODIENIA = EXplatAbstractions.INSTANCE.createBlockEntityType(WoodieniaBlockEntity::new, woodienia, woodieniaFloating);
-	public static final BlockEntityType<ReikarlilyBlockEntity> REIKARLILY = EXplatAbstractions.INSTANCE.createBlockEntityType(ReikarlilyBlockEntity::new, reikarlily, reikarlilyFloating);
-	public static final BlockEntityType<BellflowerBlockEntity> BELLFLOWER = EXplatAbstractions.INSTANCE.createBlockEntityType(BellflowerBlockEntity::new, bellflower, bellflowerFloating);
-	public static final BlockEntityType<AnnoyingFlowerBlockEntity> ANNOYINGFLOWER = EXplatAbstractions.INSTANCE.createBlockEntityType(AnnoyingFlowerBlockEntity::new, annoyingflower, annoyingflowerFloating);
-	public static final BlockEntityType<StonesiaBlockEntity> STONESIA = EXplatAbstractions.INSTANCE.createBlockEntityType(StonesiaBlockEntity::new, stonesia, stonesiaFloating);
-	public static final BlockEntityType<EdelweissBlockEntity> EDELWEISS = EXplatAbstractions.INSTANCE.createBlockEntityType(EdelweissBlockEntity::new, edelweiss, edelweissFloating);
-	public static final BlockEntityType<ResoncundBlockEntity> RESONCUND = EXplatAbstractions.INSTANCE.createBlockEntityType(ResoncundBlockEntity::new, resoncund, resoncundFloating);
-	public static final BlockEntityType<SunshineLilyBlockEntity> SUNSHINE_LILY = EXplatAbstractions.INSTANCE.createBlockEntityType(SunshineLilyBlockEntity::new, sunshineLily, sunshineLilyFloating);
-	public static final BlockEntityType<MoonlightLilyBlockEntity> MOONLIGHT_LILY = EXplatAbstractions.INSTANCE.createBlockEntityType(MoonlightLilyBlockEntity::new, moonlightLily, moonlightLilyFloating);
-	public static final BlockEntityType<SerenitianBlockEntity> SERENITIAN = EXplatAbstractions.INSTANCE.createBlockEntityType(SerenitianBlockEntity::new, serenitian, serenitianFloating);
-	public static final BlockEntityType<TwinstarBlockEntity> TWINSTAR = EXplatAbstractions.INSTANCE.createBlockEntityType(TwinstarBlockEntity::new, twinstar, twinstarFloating);
-	public static final BlockEntityType<OmnivioletBlockEntity> OMNIVIOLET = EXplatAbstractions.INSTANCE.createBlockEntityType(OmnivioletBlockEntity::new, omniviolet, omnivioletFloating);
-	public static final BlockEntityType<TinkleBlockEntity> TINKLE = EXplatAbstractions.INSTANCE.createBlockEntityType(TinkleBlockEntity::new, tinkle, tinkleFloating);
-	public static final BlockEntityType<BloodEnchantressBlockEntity> BLOOD_ENCHANTRESS = EXplatAbstractions.INSTANCE.createBlockEntityType(BloodEnchantressBlockEntity::new, bloodEnchantress, bloodEnchantressFloating);
-	public static final BlockEntityType<MirrowtuniaBlockEntity> MIRROWTUNIA = EXplatAbstractions.INSTANCE.createBlockEntityType(MirrowtuniaBlockEntity::new, mirrowtunia, mirrowtuniaFloating);
-	public static final BlockEntityType<NecrofleurBlockEntity> NECROFLEUR = EXplatAbstractions.INSTANCE.createBlockEntityType(NecrofleurBlockEntity::new, necrofleur, necrofleurFloating);
-	public static final BlockEntityType<NecrofleurBlockEntity.Mini> NECROFLEUR_CHIBI = EXplatAbstractions.INSTANCE.createBlockEntityType(NecrofleurBlockEntity.Mini::new, necrofleurChibi, necrofleurChibiFloating);
-	public static final BlockEntityType<ManalinkBlockEntity> MANALINK = EXplatAbstractions.INSTANCE.createBlockEntityType(ManalinkBlockEntity::new, manalink, manalinkFloating);
-	public static final BlockEntityType<EnchanterBlockEntity> ENCHANTER = EXplatAbstractions.INSTANCE.createBlockEntityType(EnchanterBlockEntity::new, enchanter, enchanterFloating);
+	public static final BlockEntityType<TradeOrchidBlockEntity> TRADE_ORCHID = BlockEntityType.Builder.of(TradeOrchidBlockEntity::new, tradeOrchid, tradeOrchidFloating).build(null);
+	public static final BlockEntityType<WoodieniaBlockEntity> WOODIENIA = BlockEntityType.Builder.of(WoodieniaBlockEntity::new, woodienia, woodieniaFloating).build(null);
+	public static final BlockEntityType<ReikarlilyBlockEntity> REIKARLILY = BlockEntityType.Builder.of(ReikarlilyBlockEntity::new, reikarlily, reikarlilyFloating).build(null);
+	public static final BlockEntityType<BellflowerBlockEntity> BELLFLOWER = BlockEntityType.Builder.of(BellflowerBlockEntity::new, bellflower, bellflowerFloating).build(null);
+	public static final BlockEntityType<AnnoyingFlowerBlockEntity> ANNOYINGFLOWER = BlockEntityType.Builder.of(AnnoyingFlowerBlockEntity::new, annoyingflower, annoyingflowerFloating).build(null);
+	public static final BlockEntityType<StonesiaBlockEntity> STONESIA = BlockEntityType.Builder.of(StonesiaBlockEntity::new, stonesia, stonesiaFloating).build(null);
+	public static final BlockEntityType<EdelweissBlockEntity> EDELWEISS = BlockEntityType.Builder.of(EdelweissBlockEntity::new, edelweiss, edelweissFloating).build(null);
+	public static final BlockEntityType<ResoncundBlockEntity> RESONCUND = BlockEntityType.Builder.of(ResoncundBlockEntity::new, resoncund, resoncundFloating).build(null);
+	public static final BlockEntityType<SunshineLilyBlockEntity> SUNSHINE_LILY = BlockEntityType.Builder.of(SunshineLilyBlockEntity::new, sunshineLily, sunshineLilyFloating).build(null);
+	public static final BlockEntityType<MoonlightLilyBlockEntity> MOONLIGHT_LILY = BlockEntityType.Builder.of(MoonlightLilyBlockEntity::new, moonlightLily, moonlightLilyFloating).build(null);
+	public static final BlockEntityType<SerenitianBlockEntity> SERENITIAN = BlockEntityType.Builder.of(SerenitianBlockEntity::new, serenitian, serenitianFloating).build(null);
+	public static final BlockEntityType<TwinstarBlockEntity> TWINSTAR = BlockEntityType.Builder.of(TwinstarBlockEntity::new, twinstar, twinstarFloating).build(null);
+	public static final BlockEntityType<OmnivioletBlockEntity> OMNIVIOLET = BlockEntityType.Builder.of(OmnivioletBlockEntity::new, omniviolet, omnivioletFloating).build(null);
+	public static final BlockEntityType<TinkleBlockEntity> TINKLE = BlockEntityType.Builder.of(TinkleBlockEntity::new, tinkle, tinkleFloating).build(null);
+	public static final BlockEntityType<BloodEnchantressBlockEntity> BLOOD_ENCHANTRESS = BlockEntityType.Builder.of(BloodEnchantressBlockEntity::new, bloodEnchantress, bloodEnchantressFloating).build(null);
+	public static final BlockEntityType<MirrowtuniaBlockEntity> MIRROWTUNIA = BlockEntityType.Builder.of(MirrowtuniaBlockEntity::new, mirrowtunia, mirrowtuniaFloating).build(null);
+	public static final BlockEntityType<NecrofleurBlockEntity> NECROFLEUR = BlockEntityType.Builder.of(NecrofleurBlockEntity::new, necrofleur, necrofleurFloating).build(null);
+	public static final BlockEntityType<NecrofleurBlockEntity.Mini> NECROFLEUR_CHIBI = BlockEntityType.Builder.of(NecrofleurBlockEntity.Mini::new, necrofleurChibi, necrofleurChibiFloating).build(null);
+	public static final BlockEntityType<ManalinkBlockEntity> MANALINK = BlockEntityType.Builder.of(ManalinkBlockEntity::new, manalink, manalinkFloating).build(null);
+	public static final BlockEntityType<EnchanterBlockEntity> ENCHANTER = BlockEntityType.Builder.of(EnchanterBlockEntity::new, enchanter, enchanterFloating).build(null);
 
 	private static ResourceLocation floating(ResourceLocation orig) {
-		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
+		return ResourceLocation.fromNamespaceAndPath(orig.getNamespace(), "floating_" + orig.getPath());
 	}
 
 	private static ResourceLocation potted(ResourceLocation orig) {
-		return new ResourceLocation(orig.getNamespace(), "potted_" + orig.getPath());
+		return ResourceLocation.fromNamespaceAndPath(orig.getNamespace(), "potted_" + orig.getPath());
 	}
 
 	private static ResourceLocation chibi(ResourceLocation orig) {
-		return new ResourceLocation(orig.getNamespace(), orig.getPath() + "_chibi");
+		return ResourceLocation.fromNamespaceAndPath(orig.getNamespace(), orig.getPath() + "_chibi");
 	}
 
 	private static ResourceLocation getId(Block b) {
@@ -159,21 +161,29 @@ public class ExtrabotanyFlowerBlocks {
 	}
 
 	private static FlowerBlock createSpecialFlowerBlock(
-			MobEffect effect, int effectDuration,
+			Holder<MobEffect> effect, int effectDuration,
 			BlockBehaviour.Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
-		return EXplatAbstractions.INSTANCE.createSpecialFlowerBlock(
-				effect, effectDuration, props, beType);
+		return new SpecialFlowerBlock(effect, effectDuration, props, beType);
 	}
 
 	private static FlowerBlock createSpecialFlowerBlock(
-			MobEffect effect, int effectDuration,
+			Holder<MobEffect> effect, int effectDuration,
 			BlockBehaviour.Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
-			boolean hasComparatorOutput) {
-		return EXplatAbstractions.INSTANCE.createSpecialFlowerBlock(
-				effect, effectDuration, props, beType, hasComparatorOutput
-		);
+			boolean acceptsRedstone) {
+		return acceptsRedstone
+				? new PoweredSpecialFlowerBlock(effect, effectDuration, props, beType)
+				: new SpecialFlowerBlock(effect, effectDuration, props, beType);
+	}
+
+	private static Block createFloatingSpecialFlowerBlock(
+			BlockBehaviour.Properties props,
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
+			boolean acceptsRedstone) {
+		return acceptsRedstone
+				? new PoweredFloatingSpecialFlowerBlock(props, beType)
+				: new FloatingSpecialFlowerBlock(props, beType);
 	}
 
 	public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {
@@ -365,7 +375,7 @@ public class ExtrabotanyFlowerBlocks {
 		registerBlocks((block, resourceLocation) -> {
 			if (block instanceof FlowerPotBlock) {
 				var id = getId(block);
-				consumer.accept(new ResourceLocation(id.getNamespace(), id.getPath().substring(vazkii.botania.common.lib.LibBlockNames.POTTED_PREFIX.length())), () -> block);
+				consumer.accept(ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().substring(vazkii.botania.common.lib.LibBlockNames.POTTED_PREFIX.length())), () -> block);
 			}
 		});
 	}

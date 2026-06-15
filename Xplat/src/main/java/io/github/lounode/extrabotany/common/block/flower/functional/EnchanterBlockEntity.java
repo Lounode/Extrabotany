@@ -1,5 +1,7 @@
 package io.github.lounode.extrabotany.common.block.flower.functional;
 
+import net.minecraft.core.HolderLookup;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
@@ -17,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraFunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.HUDHandler;
@@ -28,7 +30,7 @@ import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import java.util.*;
 
-public class EnchanterBlockEntity extends FunctionalFlowerBlockEntity {
+public class EnchanterBlockEntity extends ExtraFunctionalFlowerBlockEntity {
 
 	private static final String TAG_CONSUMED = "consumedMana";
 
@@ -73,7 +75,7 @@ public class EnchanterBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		getLevel().setBlockAndUpdate(transformPos, BotaniaBlocks.enchantedSoil.defaultBlockState());
+		getLevel().setBlockAndUpdate(transformPos, BotaniaBlocks.infusedGrass.defaultBlockState());
 
 		setConsumedMana(0);
 		sync();
@@ -143,14 +145,14 @@ public class EnchanterBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 		cmp.putInt(TAG_CONSUMED, getConsumedMana());
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		setConsumedMana(cmp.getInt(TAG_CONSUMED));
 	}
 
@@ -176,7 +178,7 @@ public class EnchanterBlockEntity extends FunctionalFlowerBlockEntity {
 
 			RenderHelper.renderHUDBox(gui, centerX - left, centerY + 8, centerX + right, centerY + Math.max(30, minDown + 52));
 
-			BotaniaAPIClient.instance().drawComplexManaHUD(gui, color, flower.getConsumedMana(), flower.getTransformCost(),
+			BotaniaAPIClient.instance().drawComplexManaHUD(gui, mc.getWindow(), mc.font, color, flower.getConsumedMana(), flower.getTransformCost(),
 					name, flower.getHudIcon(), flower.isValidBinding());
 
 			RenderSystem.enableBlend();
@@ -188,7 +190,7 @@ public class EnchanterBlockEntity extends FunctionalFlowerBlockEntity {
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
 			ItemStack grass = new ItemStack(Items.GRASS_BLOCK);
-			ItemStack enchanted = new ItemStack(BotaniaBlocks.enchantedSoil);
+			ItemStack enchanted = new ItemStack(BotaniaBlocks.infusedGrass);
 
 			gui.renderItem(grass, centerX - 31, centerY + 34);
 			gui.renderItem(enchanted, centerX + 15, centerY + 34);

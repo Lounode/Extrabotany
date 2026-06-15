@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'net.neoforged.moddev.legacyforge' version '2.0.78'
+    id 'net.neoforged.moddev'
 }
 
 base.archivesName = mod_id + "-" + "common"
@@ -23,12 +23,6 @@ repositories {
         url = "https://repo.unascribed.com" // for ears
         content {
             includeGroup "com.unascribed"
-        }
-    }
-    repositories {
-        maven {
-            name = "Forge"
-            url = "https://maven.minecraftforge.net"
         }
     }
     maven {
@@ -62,27 +56,29 @@ repositories {
     }
 }
 
-legacyForge {
-    mcpVersion = minecraft_version
-    accessTransformers = [file('src/main/resources/META-INF/accesstransformer.cfg')]
+neoForge {
+    neoFormVersion = neo_form_version
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers.from(at.absolutePath)
+    }
 
     parchment {
-        minecraftVersion = minecraft_version
-        mappingsVersion = mapping_version
+        minecraftVersion = parchment_minecraft
+        mappingsVersion = parchment_version
     }
 }
 
 dependencies {
-    compileOnly "org.spongepowered:mixin:0.8.5"
+    compileOnly "net.fabricmc:sponge-mixin:0.15.2+mixin.0.8.7"
     compileOnly "vazkii.patchouli:Patchouli-xplat:${patchouli_version}"
-    compileOnly "vazkii.botania:Botania:${botania_version}-FORGE"
-    compileOnly "io.github.lounode.eventwrapper:eventwrapper-common:${minecraft_version}-${eventwrapper_version}"
+    compileOnly "vazkii.botania:botania-neoforge-${minecraft_version}:${botania_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-    compileOnly "dev.emi:emi-xplat-mojmap:1.0.12+${minecraft_version}:api"
+    compileOnly "dev.emi:emi-xplat-mojmap:${emi_version}:api"
 
-    compileOnly "dev.latvian.mods:kubejs-forge:${kubejs_version}"
-    compileOnly "dev.latvian.mods:rhino-fabric:${rhino_version}"
-    compileOnly "dev.architectury:architectury-fabric:${architectury_version}"
+    compileOnly "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
+    compileOnly "dev.latvian.mods:rhino:${rhino_version}"
+    compileOnly "dev.architectury:architectury-neoforge:${architectury_version}"
 
     api "com.demonwav.mcdev:annotations:2.1.0"
     api 'org.jetbrains:annotations:24.0.1'
@@ -108,7 +104,7 @@ processResources {
 def generateModMetadataXplat = tasks.register('generateModMetadataXplat', ProcessResources) {
     var replaceProperties = [
             minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
-            forge_version: forge_version, forge_version_range: forge_version_range,
+            neoforge_version: neoforge_version, neoforge_version_range: neoforge_version_range,
             loader_version_range: loader_version_range,
             mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
             mod_authors: mod_authors, mod_description: mod_description,
@@ -119,7 +115,6 @@ def generateModMetadataXplat = tasks.register('generateModMetadataXplat', Proces
             mantle_version: mantle_version, mantle_version_range: mantle_version_range,
             tinkers_version: tinkers_version, tinkers_version_range: tinkers_version_range,
             top_version: top_version, top_version_range: top_version_range,
-            eventwrapper_version: eventwrapper_version, eventwrapper_version_range: eventwrapper_version_range,
             kubejs_version: kubejs_version, kubejs_version_range: kubejs_version_range,
     ]
     inputs.properties replaceProperties
@@ -130,7 +125,6 @@ def generateModMetadataXplat = tasks.register('generateModMetadataXplat', Proces
 }
 
 sourceSets.main.resources.srcDir generateModMetadataXplat
-legacyForge.ideSyncTask generateModMetadataXplat
 
 publishing {
     publications {

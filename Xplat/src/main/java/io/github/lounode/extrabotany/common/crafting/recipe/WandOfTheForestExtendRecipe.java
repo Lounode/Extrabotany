@@ -1,35 +1,34 @@
 package io.github.lounode.extrabotany.common.crafting.recipe;
 
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.recipe.NoOpRecipeSerializer;
 import vazkii.botania.common.item.WandOfTheForestItem;
 
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 
 public class WandOfTheForestExtendRecipe extends CustomRecipe {
-	public static final NoOpRecipeSerializer<WandOfTheForestExtendRecipe> SERIALIZER = new NoOpRecipeSerializer<>(WandOfTheForestExtendRecipe::new);
+	public static final RecipeSerializer<WandOfTheForestExtendRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(WandOfTheForestExtendRecipe::new);
 
-	public WandOfTheForestExtendRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.EQUIPMENT);
+	public WandOfTheForestExtendRecipe(CraftingBookCategory category) {
+		super(category);
 	}
 
 	@Override
-	public boolean matches(CraftingContainer inv, Level level) {
+	public boolean matches(CraftingInput inv, Level level) {
 		boolean findWand = false;
 		boolean findReader = false;
 
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (stack.isEmpty()) {
 				continue;
@@ -53,11 +52,11 @@ public class WandOfTheForestExtendRecipe extends CustomRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(CraftingContainer inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(CraftingInput inv, @NotNull HolderLookup.Provider registries) {
 		ItemStack wand = ItemStack.EMPTY;
 		ItemStack reader = ItemStack.EMPTY;
 
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (stack.isEmpty()) {
 				continue;
@@ -76,12 +75,7 @@ public class WandOfTheForestExtendRecipe extends CustomRecipe {
 
 		ItemStack wandOutput = wand.copy();
 
-		CompoundTag tag = wandOutput.getOrCreateTag();
-		CompoundTag extraBotanyTag = new CompoundTag();
-		CompoundTag manaReaderTag = new CompoundTag();
-		manaReaderTag.putBoolean("enable", true);
-		extraBotanyTag.put("mana_reader", manaReaderTag);
-		tag.put("extrabotany", extraBotanyTag);
+		ItemStackDataHelper.setBoolean(wandOutput, "mana_reader_enable", true);
 
 		return wandOutput;
 	}

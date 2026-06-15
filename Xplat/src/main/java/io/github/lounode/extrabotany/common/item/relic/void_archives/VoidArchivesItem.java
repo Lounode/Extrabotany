@@ -1,4 +1,5 @@
 package io.github.lounode.extrabotany.common.item.relic.void_archives;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -17,14 +18,11 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.relic.RelicImpl;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.api.ExtraBotanyAPI;
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
@@ -64,29 +62,33 @@ public class VoidArchivesItem extends Item implements CustomCreativeTabContents 
 
 		if (player.isShiftKeyDown()) {
 			switchVariant(stack);
-			return super.use(level, player, usedHand);
+			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 		}
 
 		return getVariant(stack).use(level, player, usedHand);
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
-		super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+		super.appendHoverText(stack, context, tooltipComponents, isAdvanced);
 		RelicImpl.addDefaultTooltip(stack, tooltipComponents);
-		getVariant(stack).appendHoverText(stack, level, tooltipComponents, isAdvanced);
+		getVariant(stack).appendHoverText(stack, context, tooltipComponents, isAdvanced);
+	}
+
+	@Override
+	public Component getName(ItemStack stack) {
+		return getVariant(stack).getName(stack);
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
 		if (!level.isClientSide && entity instanceof Player player) {
-			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+			var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null) {
 				relic.tickBinding(player);
 			}
 			if (getVariant(stack) != VoidArchivesVariant.DEFAULT &&
 					!ManaItemHandler.instance().requestManaExactForTool(stack, player, getKeepVariantRequire(), true)) {
-
 				setVariant(stack, VoidArchivesVariant.DEFAULT);
 			}
 		}
@@ -118,18 +120,18 @@ public class VoidArchivesItem extends Item implements CustomCreativeTabContents 
 		VoidArchivesVariant current = getVariant(stack);
 
 		current.onInactive(stack);
-		ItemNBTHelper.setString(stack, TAG_VARIANT, variant.getId());
+		ItemStackDataHelper.setString(stack, TAG_VARIANT, variant.getId());
 		variant.onActive(stack);
 	}
 
 	public static VoidArchivesVariant getVariant(ItemStack stack) {
-		String variantString = ItemNBTHelper.getString(stack, TAG_VARIANT, VoidArchivesVariant.DEFAULT.getId());
+		String variantString = ItemStackDataHelper.getString(stack, TAG_VARIANT, VoidArchivesVariant.DEFAULT.getId());
 		return ExtraBotanyAPI.instance().getVoidArchivesVariants()
 				.getOrDefault(variantString, VoidArchivesVariant.DEFAULT);
 	}
 
 	public static String getTagVariant(ItemStack stack) {
-		return ItemNBTHelper.getString(stack, TAG_VARIANT, VoidArchivesVariant.DEFAULT.getId());
+		return ItemStackDataHelper.getString(stack, TAG_VARIANT, VoidArchivesVariant.DEFAULT.getId());
 	}
 
 	public static int getVariantIndex(ItemStack stack) {
@@ -145,7 +147,7 @@ public class VoidArchivesItem extends Item implements CustomCreativeTabContents 
 
 	public static ItemStack getDefaultItemStack() {
 		var defaultStack = new ItemStack(ExtraBotanyItems.voidArchives);
-		ItemNBTHelper.setString(defaultStack, TAG_VARIANT, VoidArchivesVariant.DEFAULT.getId());
+		ItemStackDataHelper.setString(defaultStack, TAG_VARIANT, VoidArchivesVariant.DEFAULT.getId());
 		return defaultStack;
 	}
 
@@ -210,8 +212,8 @@ public class VoidArchivesItem extends Item implements CustomCreativeTabContents 
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
-		return getVariant(stack).getUseDuration(stack);
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
+		return getVariant(stack).getUseDuration(stack, entity);
 	}
 
 	@Override

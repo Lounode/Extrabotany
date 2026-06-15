@@ -1,24 +1,23 @@
 package io.github.lounode.extrabotany.common.item.equipment.armor.shadow_warrior;
 
 import com.google.common.base.Suppliers;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 
+import net.minecraft.core.Holder;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -31,8 +30,9 @@ import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.equipment.armor.starry_idol.StarryIdolArmorItem;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Supplier;
+
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
 public class ShadowWarriorArmorItem extends StarryIdolArmorItem implements IShadowium {
 
@@ -47,22 +47,20 @@ public class ShadowWarriorArmorItem extends StarryIdolArmorItem implements IShad
 		this(ExtraBotanyAPI.instance().getShadowWarriorArmorMaterial(), type, properties);
 	}
 
-	public ShadowWarriorArmorItem(ArmorMaterial material, Type type, Properties properties) {
+	public ShadowWarriorArmorItem(Holder<ArmorMaterial> material, Type type, Properties properties) {
 		super(material, type, properties);
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
-		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
-
-		if (slot == getType().getSlot()) {
-			UUID uuid = new UUID(BuiltInRegistries.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
-			ret = HashMultimap.create(ret);
-			ret.put(Attributes.MAX_HEALTH,
-					new AttributeModifier(uuid, "Combatmaid modifier" + type, 5, AttributeModifier.Operation.ADDITION));
-			ret.put(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(slot, "Shadow Warrior modifier", 0.05));
-		}
-		return ret;
+	public ItemAttributeModifiers getDefaultAttributeModifiers() {
+		EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(type.getSlot());
+		return super.getDefaultAttributeModifiers()
+				.withModifierAdded(Attributes.MAX_HEALTH,
+						new AttributeModifier(prefix("shadow_warrior_health." + type.getName()), 5, AttributeModifier.Operation.ADD_VALUE),
+						slotGroup)
+				.withModifierAdded(PixieHandler.PIXIE_SPAWN_CHANCE,
+						PixieHandler.makeModifier(prefix("shadow_warrior_pixie." + type.getName()), 0.05),
+						slotGroup);
 	}
 
 	@Override

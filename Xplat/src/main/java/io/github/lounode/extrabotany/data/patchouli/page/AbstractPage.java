@@ -2,7 +2,7 @@ package io.github.lounode.extrabotany.data.patchouli.page;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.resources.ResourceLocation;
 
 public abstract class AbstractPage<T extends AbstractPage<T>> implements IPatchouliPage {
@@ -14,8 +14,8 @@ public abstract class AbstractPage<T extends AbstractPage<T>> implements IPatcho
 		return (T) this;
 	}
 
-	public T withAdvancement(Advancement advancement) {
-		return withAdvancement(advancement.getId());
+	public T withAdvancement(AdvancementHolder advancement) {
+		return withAdvancement(advancement.id());
 	}
 
 	@SuppressWarnings("unchecked")

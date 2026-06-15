@@ -1,0 +1,13 @@
+{
+  "type": "extrabotany:stonesia",
+  "input": {
+    "type": "botania:any_of",
+    "ingredients": [
+      {
+        "type": "botania:tag",
+        "tag": "#c:cobblestones"
+      }
+    ]
+  },
+  "outputMana": 10
+}

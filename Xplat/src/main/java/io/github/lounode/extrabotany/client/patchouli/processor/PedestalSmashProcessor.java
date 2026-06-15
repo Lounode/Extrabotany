@@ -20,7 +20,7 @@ public class PedestalSmashProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
-		ResourceLocation id = ResourceLocation.tryParse(variables.get("recipe").asString());
+		ResourceLocation id = ResourceLocation.tryParse(variables.get("recipe", level.registryAccess()).asString());
 		this.recipe = PatchouliUtils.getRecipe(level, ExtraBotanyRecipeTypes.PEDESTAL_SMASH_TYPE, id);
 	}
 
@@ -30,15 +30,15 @@ public class PedestalSmashProcessor implements IComponentProcessor {
 			return null;
 		}
 		return switch (key) {
-			case "output" -> IVariable.from(recipe.getResultItem(level.registryAccess()));
-			case "input" -> PatchouliUtils.interweaveIngredients(List.of(recipe.getInput()));
-			case "smash_tools" -> PatchouliUtils.interweaveIngredients(List.of(recipe.getSmashTools()));
-			case "heading" -> IVariable.from(recipe.getResultItem(level.registryAccess()).getHoverName());
+			case "output" -> IVariable.from(recipe.getResultItem(level.registryAccess()), level.registryAccess());
+			case "input" -> PatchouliUtils.interweaveIngredients(List.of(recipe.getInput()), level);
+			case "smash_tools" -> PatchouliUtils.interweaveIngredients(List.of(recipe.getSmashTools()), level);
+			case "heading" -> IVariable.from(recipe.getResultItem(level.registryAccess()).getHoverName(), level.registryAccess());
 			case "operate" -> {
 				Component q = Component.literal("(?)").withStyle(ChatFormatting.BOLD);
-				yield IVariable.from(Component.translatable("extrabotany.patchouli.template.pedestal_smash.operate").append(" ").append(q));
+				yield IVariable.from(Component.translatable("extrabotany.patchouli.template.pedestal_smash.operate").append(" ").append(q), level.registryAccess());
 			}
-			case "tip" -> IVariable.from(Component.translatable("extrabotany.patchouli.template.pedestal_smash.tip"));
+			case "tip" -> IVariable.from(Component.translatable("extrabotany.patchouli.template.pedestal_smash.tip"), level.registryAccess());
 
 			default -> null;
 		};

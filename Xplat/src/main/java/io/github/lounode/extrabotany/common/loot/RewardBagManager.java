@@ -30,7 +30,7 @@ public class RewardBagManager implements ResourceManagerReloadListener {
 		/*
 		for (var resource : resourceManager.listResources("reward_bags", p -> p.getPath().endsWith(".json")).entrySet()) {
 			String path = resource.getKey().getPath().replace(".json", "").replace("reward_bags/", "");
-			rewardBagIds.add(new ResourceLocation(resource.getKey().getNamespace(), path));
+			rewardBagIds.add(ResourceLocation.fromNamespaceAndPath(resource.getKey().getNamespace(), path));
 		}
 		
 		*/

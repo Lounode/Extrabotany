@@ -3,7 +3,9 @@ package io.github.lounode.extrabotany.data.loot;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableSubProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
 
@@ -12,7 +14,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 public abstract class RewardBagLootSubProvider implements LootTableSubProvider {
-	private final Map<ResourceLocation, LootTable.Builder> map;
+	private final Map<ResourceKey<LootTable>, LootTable.Builder> map;
 
 	protected RewardBagLootSubProvider() {
 		this.map = Maps.newHashMap();
@@ -22,13 +24,13 @@ public abstract class RewardBagLootSubProvider implements LootTableSubProvider {
 	public abstract String getNameSpace();
 
 	@Override
-	public void generate(BiConsumer<ResourceLocation, LootTable.Builder> output) {
+	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 		this.generate();
-		Set<ResourceLocation> duplicates = Sets.newHashSet();
-		Set<ResourceLocation> processed = Sets.newHashSet();
+		Set<ResourceKey<LootTable>> duplicates = Sets.newHashSet();
+		Set<ResourceKey<LootTable>> processed = Sets.newHashSet();
 
 		for (var entry : this.map.entrySet()) {
-			ResourceLocation location = entry.getKey();
+			ResourceKey<LootTable> location = entry.getKey();
 			if (!processed.add(location)) {
 				duplicates.add(location);
 			}
@@ -49,7 +51,7 @@ public abstract class RewardBagLootSubProvider implements LootTableSubProvider {
 	}
 
 	protected void add(ResourceLocation lootTableLocation, LootTable.Builder builder) {
-		this.map.put(lootTableLocation, builder);
+		this.map.put(ResourceKey.create(Registries.LOOT_TABLE, lootTableLocation), builder);
 	}
 
 	public void add(String key, LootTable.Builder builder) {

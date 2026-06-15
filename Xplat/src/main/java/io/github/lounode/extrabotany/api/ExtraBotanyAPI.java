@@ -1,13 +1,14 @@
 package io.github.lounode.extrabotany.api;
 
-import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,7 @@ import io.github.lounode.extrabotany.api.item.CoreOfTheVoidVariant;
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public interface ExtraBotanyAPI {
@@ -25,49 +27,14 @@ public interface ExtraBotanyAPI {
 
 	ExtraBotanyAPI INSTANCE = ServiceUtil.findService(ExtraBotanyAPI.class, () -> new ExtraBotanyAPI() {});
 
-	ArmorMaterial DUMMY_ARMOR_MATERIAL = new ArmorMaterial() {
-		@Override
-		public int getDurabilityForType(@NotNull ArmorItem.Type type) {
-			return 0;
-		}
-
-		@Override
-		public int getDefenseForType(@NotNull ArmorItem.Type type) {
-			return 0;
-		}
-
-		@Override
-		public int getEnchantmentValue() {
-			return 0;
-		}
-
-		@NotNull
-		@Override
-		public SoundEvent getEquipSound() {
-			return SoundEvents.ARMOR_EQUIP_LEATHER;
-		}
-
-		@NotNull
-		@Override
-		public Ingredient getRepairIngredient() {
-			return Ingredient.EMPTY;
-		}
-
-		@Override
-		public @NotNull String getName() {
-			return "missingno";
-		}
-
-		@Override
-		public float getToughness() {
-			return 0;
-		}
-
-		@Override
-		public float getKnockbackResistance() {
-			return 0;
-		}
-	};
+	Holder<ArmorMaterial> DUMMY_ARMOR_MATERIAL = Holder.direct(new ArmorMaterial(
+			Map.of(),
+			0,
+			SoundEvents.ARMOR_EQUIP_LEATHER,
+			() -> Ingredient.EMPTY,
+			List.of(),
+			0,
+			0));
 
 	Tier DUMMY_ITEM_TIER = new Tier() {
 		@Override
@@ -85,9 +52,13 @@ public interface ExtraBotanyAPI {
 			return 0;
 		}
 
-		@Override
 		public int getLevel() {
 			return 0;
+		}
+
+		@Override
+		public TagKey<Block> getIncorrectBlocksForDrops() {
+			return BlockTags.INCORRECT_FOR_WOODEN_TOOL;
 		}
 
 		@Override
@@ -95,7 +66,6 @@ public interface ExtraBotanyAPI {
 			return 0;
 		}
 
-		@NotNull
 		@Override
 		public Ingredient getRepairIngredient() {
 			return Ingredient.EMPTY;
@@ -118,19 +88,19 @@ public interface ExtraBotanyAPI {
 		return new HashMap<>();
 	}
 
-	default ArmorMaterial getPleiadsMaidCombatArmorMaterial() {
+	default Holder<ArmorMaterial> getPleiadsMaidCombatArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 
-	default ArmorMaterial getStarryIdolArmorMaterial() {
+	default Holder<ArmorMaterial> getStarryIdolArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 
-	default ArmorMaterial getGoblinSlayerArmorMaterial() {
+	default Holder<ArmorMaterial> getGoblinSlayerArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 
-	default ArmorMaterial getShadowWarriorArmorMaterial() {
+	default Holder<ArmorMaterial> getShadowWarriorArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 }

@@ -1,58 +1,50 @@
 package io.github.lounode.extrabotany.common.advancements;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Optional;
+
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemUsedTrigger extends SimpleCriterionTrigger<ItemUsedTrigger.TriggerInstance> {
+public class ItemUsedTrigger extends SimpleCriterionTrigger<ItemUsedTrigger.Instance> {
 	public static final ResourceLocation ID = prefix("item_used");
 	public static final ItemUsedTrigger INSTANCE = new ItemUsedTrigger();
 
-	@Override
-	public ResourceLocation getId() {
-		return ID;
-	}
+	private ItemUsedTrigger() {}
 
 	public void trigger(ServerPlayer player, ItemStack stack, int count) {
 		this.trigger(player, instance -> instance.matches(stack, count));
 	}
 
 	@Override
-	protected TriggerInstance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext context) {
-		ItemPredicate itemPredicate = ItemPredicate.fromJson(json.get("item"));
-		MinMaxBounds.Ints countPredicate = MinMaxBounds.Ints.fromJson(json.get("count"));
-		return new TriggerInstance(predicate, itemPredicate, countPredicate);
+	public Codec<Instance> codec() {
+		return Instance.CODEC;
 	}
 
-	public static class TriggerInstance extends AbstractCriterionTriggerInstance {
-		private final ItemPredicate item;
-		private final MinMaxBounds.Ints count;
+	public record Instance(Optional<ContextAwarePredicate> player, Optional<ItemPredicate> item, MinMaxBounds.Ints count) implements SimpleInstance {
+		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(Instance::player),
+				ItemPredicate.CODEC.optionalFieldOf("item").forGetter(Instance::item),
+				MinMaxBounds.Ints.CODEC.optionalFieldOf("count", MinMaxBounds.Ints.ANY).forGetter(Instance::count)
+		).apply(instance, Instance::new));
 
-		public TriggerInstance(ContextAwarePredicate predicate, ItemPredicate item, MinMaxBounds.Ints count) {
-			super(ID, predicate);
-			this.item = item;
-			this.count = count;
-		}
-
-		public static TriggerInstance itemUsed(ItemPredicate item, MinMaxBounds.Ints count) {
-			return new TriggerInstance(ContextAwarePredicate.ANY, item, count);
+		public static Criterion<Instance> itemUsed(ItemPredicate item, MinMaxBounds.Ints count) {
+			return INSTANCE.createCriterion(new Instance(Optional.empty(), Optional.of(item), count));
 		}
 
 		public boolean matches(ItemStack stack, int count) {
-			return this.item.matches(stack) && this.count.matches(count);
-		}
-
-		@Override
-		public JsonObject serializeToJson(SerializationContext context) {
-			JsonObject json = super.serializeToJson(context);
-			json.add("item", this.item.serializeToJson());
-			json.add("count", this.count.serializeToJson());
-			return json;
+			return this.item.map(predicate -> predicate.test(stack)).orElse(true) && this.count.matches(count);
 		}
 	}
 }

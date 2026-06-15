@@ -4,9 +4,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-import io.github.lounode.eventwrapper.event.entity.living.LivingAttackEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.living.LivingAttackEventWrapper;
 import io.github.lounode.extrabotany.common.brew.ExtraBotanyMobEffects;
 
 import java.util.Objects;
@@ -16,11 +14,9 @@ public class ThirrorMobEffect extends MobEffect {
 		super(category, color);
 	}
 
-	@EventBusSubscriberWrapper
 	public static class EventHandler {
 
-		@SubscribeEventWrapper
-		public static void onLivingAttack(LivingAttackEventWrapper event) {
+			public static void onLivingAttack(LivingAttackEventWrapper event) {
 			LivingEntity defender = event.getEntity();
 			if (!defender.hasEffect(ExtraBotanyMobEffects.THIRROR)) {
 				return;

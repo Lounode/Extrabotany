@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
+import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.resources.ResourceLocation;
 
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +41,7 @@ public class GaiaRenderer extends HumanoidMobRenderer<Gaia, HumanoidModel<Gaia>>
 	@Override
 	public void render(@NotNull Gaia dopple, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		int invulTime = dopple.getInvulTime();
-		ShaderInstance shader = CoreShaders.doppleganger();
+		ShaderInstance shader = CoreShaders.gaiaNoiseDynamic();
 		if (shader != null) {
 			float grainIntensity, disfiguration;
 			if (invulTime > 0) {
@@ -56,7 +57,7 @@ public class GaiaRenderer extends HumanoidMobRenderer<Gaia, HumanoidModel<Gaia>>
 		}
 
 		var view = Minecraft.getInstance().getCameraEntity();
-		if (view instanceof AbstractClientPlayer && DefaultPlayerSkin.getSkinModelName(view.getUUID()).equals("slim")) {
+		if (view instanceof AbstractClientPlayer player && player.getSkin().model() == PlayerSkin.Model.SLIM) {
 			this.model = slimModel;
 		} else {
 			this.model = normalModel;
@@ -77,10 +78,10 @@ public class GaiaRenderer extends HumanoidMobRenderer<Gaia, HumanoidModel<Gaia>>
 		Minecraft mc = Minecraft.getInstance();
 
 		if (!(mc.getCameraEntity() instanceof AbstractClientPlayer clientPlayer)) {
-			return DefaultPlayerSkin.getDefaultSkin(entity.getUUID());
+			return DefaultPlayerSkin.get(entity.getUUID()).texture();
 		}
 
-		return clientPlayer.getSkinTextureLocation();
+		return clientPlayer.getSkin().texture();
 	}
 
 	@Override
@@ -90,7 +91,7 @@ public class GaiaRenderer extends HumanoidMobRenderer<Gaia, HumanoidModel<Gaia>>
 
 	private static class Model extends HumanoidModel<Gaia> {
 		Model(ModelPart root) {
-			super(root, RenderHelper::getDopplegangerLayer);
+			super(root, RenderHelper::getGaiaNoiseDynamicLayer);
 		}
 	}
 

@@ -16,6 +16,8 @@ import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.item.lens.Lens;
 
+import io.github.lounode.extrabotany.common.crafting.ExtraBotanyRecipeTypes;
+
 import java.util.Objects;
 
 public class ManaLens extends Lens {
@@ -74,9 +76,7 @@ public class ManaLens extends Lens {
 
 	@Nullable
 	public static ManaInfusionRecipe getRecipe(Level level, ItemStack stack, BlockState state) {
-		var recipes = BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE).values().stream()
-				.filter(r -> r instanceof ManaInfusionRecipe)
-				.toList();
+		var recipes = ExtraBotanyRecipeTypes.getRecipes(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE).values();
 		for (var recipe : recipes) {
 			boolean flag1 = recipe.matches(stack);
 			boolean flag2 = true;

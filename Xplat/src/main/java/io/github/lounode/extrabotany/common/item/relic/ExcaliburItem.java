@@ -1,7 +1,5 @@
 package io.github.lounode.extrabotany.common.item.relic;
-
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -10,15 +8,17 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
@@ -32,12 +32,9 @@ import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelSwordItem;
 import vazkii.botania.common.item.relic.RelicImpl;
-import vazkii.botania.xplat.XplatAbstractions;
 
-import io.github.lounode.eventwrapper.event.entity.player.AttackEntityEventWrapper;
-import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.player.AttackEntityEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.player.PlayerInteractEventWrapper;
 import io.github.lounode.extrabotany.common.ExtraBotanyDamageTypes;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.material.ItemTiers;
@@ -48,9 +45,9 @@ import io.github.lounode.extrabotany.xplat.ExClientXplatAbstractions;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
-@EventBusSubscriberWrapper
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
+
 public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem {
 	private static final int MANA_PER_DAMAGE = 200;
 	public static final double SEARCH_TARGET_RADIUS = 5.0D;
@@ -59,7 +56,14 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
 		super(ItemTiers.EXCALIBUR, 8, -2F, props);
 	}
 
-	@SubscribeEventWrapper
+	@Override
+	public ItemAttributeModifiers getDefaultAttributeModifiers() {
+		return super.getDefaultAttributeModifiers()
+				.withModifierAdded(Attributes.MOVEMENT_SPEED,
+						new AttributeModifier(prefix("excalibur_speed"), 0.3D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+						EquipmentSlotGroup.bySlot(EquipmentSlot.MAINHAND));
+	}
+
 	public static void leftClick(PlayerInteractEventWrapper.LeftClickEmpty event) {
 		ItemStack stack = event.getItemStack();
 		if (!stack.isEmpty() && stack.getItem() instanceof ExcaliburItem) {
@@ -67,7 +71,6 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
 		}
 	}
 
-	@SubscribeEventWrapper
 	public static void attackEntity(AttackEntityEventWrapper event) {
 		Player player = event.getEntity();
 		if (!player.level().isClientSide && player.getMainHandItem().getItem() instanceof ExcaliburItem) {
@@ -80,7 +83,7 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
 		if (!stack.is(ExtraBotanyItems.excalibur)) {
 			return;
 		}
-		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+		var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 		if (relic == null || !relic.isRightPlayer(player)
 
 		) {
@@ -98,23 +101,8 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
 		ManaBurstEntity burst = getBurst(player, player.getMainHandItem());
 		player.level().addFreshEntity(burst);
 
-		player.getMainHandItem().hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+		player.getMainHandItem().hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
 		player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ExtraBotanySounds.EXCALIBUR_ATTACK, SoundSource.PLAYERS, 1F, 1F);
-	}
-
-	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
-		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
-		if (slot == EquipmentSlot.MAINHAND) {
-			ret = HashMultimap.create(ret);
-			ret.put(Attributes.MOVEMENT_SPEED,
-					new AttributeModifier(UUID.fromString("995829fa-94c0-41bd-b046-0468c509a488"),
-							"Excaliber modifier",
-							0.3D,
-							AttributeModifier.Operation.MULTIPLY_TOTAL
-					));
-		}
-		return ret;
 	}
 
 	public static ManaBurstEntity getBurst(Player player, ItemStack stack) {
@@ -241,7 +229,7 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		if (!world.isClientSide && entity instanceof Player player) {
-			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+			var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null) {
 				relic.tickBinding(player);
 			}
@@ -255,7 +243,7 @@ public class ExcaliburItem extends ManasteelSwordItem implements LensEffectItem 
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
 		tooltip.add(Component.translatable("tooltip.extrabotany.excalibur").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
 		tooltip.add(Component.literal(""));
 		RelicImpl.addDefaultTooltip(stack, tooltip);

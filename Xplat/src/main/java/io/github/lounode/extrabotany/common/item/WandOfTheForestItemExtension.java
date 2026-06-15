@@ -4,7 +4,7 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.helper.ItemNBTHelper;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 
 import java.util.Optional;
 
@@ -14,11 +14,11 @@ public interface WandOfTheForestItemExtension {
 	static void setBindingAttemptExtend(ItemStack stack, GlobalPos pos) {
 		GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, pos)
 				.result()
-				.ifPresent((tag) -> ItemNBTHelper.set(stack, TAG_EXTEND_BOUND, tag));
+				.ifPresent((tag) -> ItemStackDataHelper.set(stack, TAG_EXTEND_BOUND, tag));
 	}
 
 	static Optional<GlobalPos> getBindingAttempt(ItemStack stack) {
-		GlobalPos pos = GlobalPos.CODEC.parse(NbtOps.INSTANCE, ItemNBTHelper.get(stack, TAG_EXTEND_BOUND))
+		GlobalPos pos = GlobalPos.CODEC.parse(NbtOps.INSTANCE, ItemStackDataHelper.get(stack, TAG_EXTEND_BOUND))
 				.result()
 				.orElse(null);
 		if (pos == null || pos.pos().getY() == Integer.MIN_VALUE) {

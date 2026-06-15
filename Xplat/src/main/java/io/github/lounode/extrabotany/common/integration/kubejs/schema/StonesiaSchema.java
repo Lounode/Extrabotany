@@ -10,8 +10,8 @@ import io.github.lounode.extrabotany.common.integration.kubejs.util.BlockStateCo
 
 public interface StonesiaSchema {
 
-	RecipeKey<StateIngredient> INPUT = BlockStateComponent.INPUT.key("input");
-	RecipeKey<Integer> OUTPUT_MANA = NumberComponent.INT.key("outputMana");
+	RecipeKey<StateIngredient> INPUT = BlockStateComponent.TYPE.inputKey("input");
+	RecipeKey<Integer> OUTPUT_MANA = NumberComponent.INT.otherKey("outputMana");
 
 	RecipeSchema SCHEMA = new RecipeSchema(OUTPUT_MANA, INPUT);
 }

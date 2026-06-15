@@ -1,5 +1,7 @@
 package io.github.lounode.extrabotany.common.block.flower.functional;
 
+import net.minecraft.core.HolderLookup;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
@@ -17,7 +19,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraFunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -28,7 +30,7 @@ import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import java.util.*;
 
-public class WoodieniaBlockEntity extends FunctionalFlowerBlockEntity {
+public class WoodieniaBlockEntity extends ExtraFunctionalFlowerBlockEntity {
 
 	public static final String TAG_COOLDOWN = "cooldown";
 	public static final String TAG_OWNER_UUID = "ownerUUID";
@@ -55,7 +57,7 @@ public class WoodieniaBlockEntity extends FunctionalFlowerBlockEntity {
 		if (ticksExisted % 20 == 0) {
 			sync();
 		}
-		if (redstoneSignal > 0) {
+		if (isPowered()) {
 			return;
 		}
 		if (getCooldown() > 0) {
@@ -171,20 +173,24 @@ public class WoodieniaBlockEntity extends FunctionalFlowerBlockEntity {
 
 	@Override
 	public @Nullable RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Rectangle(getEffectivePos(), new AABB(getEffectivePos().offset(-getRange().getX(), 0, -getRange().getZ()), getEffectivePos().offset(getRange().getX() + 1, 0, getRange().getZ() + 1)));
+		BlockPos pos = getEffectivePos();
+		var range = getRange();
+		return new RadiusDescriptor.Rectangle(getEffectivePos(), new AABB(
+				pos.getX() - range.getX(), pos.getY(), pos.getZ() - range.getZ(),
+				pos.getX() + range.getX() + 1, pos.getY() + 1, pos.getZ() + range.getZ() + 1));
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		cmp.putInt(TAG_COOLDOWN, getCooldown());
 		getOwnerUUID().ifPresent(uuid -> cmp.putUUID(TAG_OWNER_UUID, uuid));
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 
 		cooldown = cmp.getInt(TAG_COOLDOWN);
 		if (cmp.contains(TAG_OWNER_UUID)) {

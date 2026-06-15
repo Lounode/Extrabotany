@@ -14,11 +14,8 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 
-import io.github.lounode.eventwrapper.event.furnace.FurnaceFuelBurnTimeEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.furnace.FurnaceFuelBurnTimeEventWrapper;
 
-@EventBusSubscriberWrapper
 public class NightmareFuelItem extends Item {
 	public NightmareFuelItem(Properties properties) {
 		super(properties);
@@ -48,7 +45,6 @@ public class NightmareFuelItem extends Item {
 		}
 	}
 
-	@SubscribeEventWrapper
 	public static void makeFuel(FurnaceFuelBurnTimeEventWrapper wrapper) {
 		if (wrapper.getItemStack().is(ExtraBotanyItems.nightmareFuel)) {
 			wrapper.setBurnTime(3200);

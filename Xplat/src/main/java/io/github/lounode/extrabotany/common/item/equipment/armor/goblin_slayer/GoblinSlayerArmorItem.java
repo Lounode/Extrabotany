@@ -2,6 +2,7 @@ package io.github.lounode.extrabotany.common.item.equipment.armor.goblin_slayer;
 
 import com.google.common.base.Suppliers;
 
+import net.minecraft.core.Holder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -41,7 +42,7 @@ public class GoblinSlayerArmorItem extends StarryIdolArmorItem implements IPhoto
 		this(ExtraBotanyAPI.instance().getGoblinSlayerArmorMaterial(), type, properties);
 	}
 
-	public GoblinSlayerArmorItem(ArmorMaterial material, Type type, Properties properties) {
+	public GoblinSlayerArmorItem(Holder<ArmorMaterial> material, Type type, Properties properties) {
 		super(material, type, properties);
 	}
 

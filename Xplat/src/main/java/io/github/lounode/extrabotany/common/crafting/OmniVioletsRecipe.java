@@ -1,15 +1,15 @@
 package io.github.lounode.extrabotany.common.crafting;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-
-import org.jetbrains.annotations.NotNull;
 
 import io.github.lounode.extrabotany.api.recipe.OmnivioletRecipe;
 
@@ -35,7 +35,6 @@ public class OmniVioletsRecipe implements OmnivioletRecipe {
 		return burnTime;
 	}
 
-	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
@@ -51,25 +50,23 @@ public class OmniVioletsRecipe implements OmnivioletRecipe {
 	}
 
 	public static class Serializer implements RecipeSerializer<OmniVioletsRecipe> {
-		@Override
-		public OmniVioletsRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			var input = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input"), false);
-			var burnTime = GsonHelper.getAsInt(json, "burnTime");
+		private static final MapCodec<OmniVioletsRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+				Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(OmniVioletsRecipe::getInput),
+				com.mojang.serialization.Codec.INT.fieldOf("burnTime").forGetter(OmniVioletsRecipe::getBurnTime)
+		).apply(instance, (input, burnTime) -> new OmniVioletsRecipe(OmnivioletRecipe.TYPE_ID, input, burnTime)));
+		private static final StreamCodec<RegistryFriendlyByteBuf, OmniVioletsRecipe> STREAM_CODEC = StreamCodec.composite(
+				Ingredient.CONTENTS_STREAM_CODEC, OmniVioletsRecipe::getInput,
+				ByteBufCodecs.VAR_INT, OmniVioletsRecipe::getBurnTime,
+				(input, burnTime) -> new OmniVioletsRecipe(OmnivioletRecipe.TYPE_ID, input, burnTime));
 
-			return new OmniVioletsRecipe(recipeId, input, burnTime);
+		@Override
+		public MapCodec<OmniVioletsRecipe> codec() {
+			return CODEC;
 		}
 
 		@Override
-		public OmniVioletsRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			var input = Ingredient.fromNetwork(buffer);
-			var burnTime = buffer.readInt();
-			return new OmniVioletsRecipe(recipeId, input, burnTime);
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull OmniVioletsRecipe recipe) {
-			recipe.getInput().toNetwork(buffer);
-			buffer.writeInt(recipe.getBurnTime());
+		public StreamCodec<RegistryFriendlyByteBuf, OmniVioletsRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

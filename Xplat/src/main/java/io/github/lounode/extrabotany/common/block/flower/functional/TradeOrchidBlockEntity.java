@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraFunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
@@ -17,7 +17,7 @@ import io.github.lounode.extrabotany.xplat.ExtraBotanyConfig;
 
 import java.util.List;
 
-public class TradeOrchidBlockEntity extends FunctionalFlowerBlockEntity {
+public class TradeOrchidBlockEntity extends ExtraFunctionalFlowerBlockEntity {
 
 	private static final int RANGE = 8;
 	public static final int MAX_MANA = 10000;
@@ -43,7 +43,7 @@ public class TradeOrchidBlockEntity extends FunctionalFlowerBlockEntity {
 		if (ticksExisted % 20 == 0) {
 			sync();
 		}
-		if (redstoneSignal > 0) {
+		if (isPowered()) {
 			return;
 		}
 		if (ticksExisted % getCooldown() != 0) {

@@ -6,9 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import io.github.lounode.eventwrapper.event.entity.living.LivingHurtEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.living.LivingHurtEventWrapper;
 import io.github.lounode.extrabotany.common.lib.ExtraBotanyTags;
 
 public class ShadowWarriorHelmetItem extends ShadowWarriorArmorItem {
@@ -22,10 +20,8 @@ public class ShadowWarriorHelmetItem extends ShadowWarriorArmorItem {
 		super.inventoryTick(stack, world, entity, slot, selected);
 	}
 
-	@EventBusSubscriberWrapper
 	public static class EventHandler {
-		@SubscribeEventWrapper
-		public static void onPlayerAttacked(LivingHurtEventWrapper event) {
+			public static void onPlayerAttacked(LivingHurtEventWrapper event) {
 			Entity target = event.getEntity();
 			if (!(target instanceof Player player)) {
 				return;

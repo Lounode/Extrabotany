@@ -1,5 +1,7 @@
 package io.github.lounode.extrabotany.common.item.relic.void_archives.variants;
+import io.github.lounode.extrabotany.xplat.EXplatAbstractions;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,7 +14,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.mixin.LivingEntityAccessor;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
 
@@ -25,7 +26,7 @@ public class FruitOfGrisaia implements VoidArchivesVariant {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+		var relic = EXplatAbstractions.INSTANCE.findRelic(stack);
 		if (player.canEat(true) && relic != null && relic.isRightPlayer(player)) {
 			return ItemUtils.startUsingInstantly(level, player, hand);
 		}
@@ -45,7 +46,7 @@ public class FruitOfGrisaia implements VoidArchivesVariant {
 
 			if (remainingUseDuration == 5) {
 				if (player.canEat(true)) {
-					((LivingEntityAccessor) player).setUseItemRemaining(20);
+					((LivingEntityAccessor) player).botania_setUseItemRemaining(20);
 				}
 			}
 		}
@@ -57,7 +58,12 @@ public class FruitOfGrisaia implements VoidArchivesVariant {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public Component getName(ItemStack stack) {
+		return Component.translatable("item.extrabotany.void_archives.fruit_of_grisaia");
+	}
+
+	@Override
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 32;
 	}
 

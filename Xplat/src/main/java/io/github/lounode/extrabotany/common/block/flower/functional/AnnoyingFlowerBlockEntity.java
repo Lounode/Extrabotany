@@ -1,11 +1,16 @@
 package io.github.lounode.extrabotany.common.block.flower.functional;
 
+import com.mojang.blaze3d.platform.Window;
+
+import net.minecraft.core.HolderLookup;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -19,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -27,11 +33,11 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import io.github.lounode.extrabotany.common.block.flower.ExtraFunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.common.internal_caps.ItemLifetime;
 
 import io.github.lounode.extrabotany.api.block.Pedestal;
 import io.github.lounode.extrabotany.common.block.flower.ExtrabotanyFlowerBlocks;
@@ -44,7 +50,7 @@ import java.util.List;
 
 import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
 
-public class AnnoyingFlowerBlockEntity extends FunctionalFlowerBlockEntity {
+public class AnnoyingFlowerBlockEntity extends ExtraFunctionalFlowerBlockEntity {
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_FOOD = "food";
@@ -126,8 +132,8 @@ public class AnnoyingFlowerBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public void tryEatChicken() {
-		for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)))) {
-			if (DelayHelper.canInteractWith(this, item)) {
+		for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE))) {
+			if (ItemLifetime.canInteractWith(this, item)) {
 				ItemStack stack = item.getItem();
 
 				if (stack.is(ExtraBotanyTags.Items.ANNOYING_FLOWER_EATABLE)) {
@@ -156,7 +162,7 @@ public class AnnoyingFlowerBlockEntity extends FunctionalFlowerBlockEntity {
 				.create(LootContextParamSets.FISHING);
 		LootContext.Builder builder = new LootContext.Builder(params);
 
-		ResourceLocation lootTable;
+		ResourceKey<LootTable> lootTable;
 
 		if (boosted) {
 			lootTable = BuiltInLootTables.FISHING_TREASURE;
@@ -165,7 +171,7 @@ public class AnnoyingFlowerBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		List<ItemStack> loot = level.getServer()
-				.getLootData()
+				.reloadableRegistries()
 				.getLootTable(lootTable)
 				.getRandomItems(params);
 
@@ -247,15 +253,15 @@ public class AnnoyingFlowerBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 		cmp.putInt(TAG_COOLDOWN, getCooldown());
 		cmp.putInt(TAG_FOOD, getBoostLeft());
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		setCooldown(cmp.getInt(TAG_COOLDOWN));
 		setBoostLeft(cmp.getInt(TAG_FOOD));
 	}
@@ -266,7 +272,8 @@ public class AnnoyingFlowerBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
+			Minecraft mc = Minecraft.getInstance();
 
 			Component component = Component.translatable("message.extrabotany.gui.food_level", flower.getBoostLeft());
 			int halfWidth = (mc.font.width(component) + 24) / 2;

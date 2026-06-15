@@ -1,6 +1,8 @@
 package io.github.lounode.extrabotany.common.item;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -19,7 +21,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.helper.ItemNBTHelper;
+import io.github.lounode.extrabotany.common.util.ItemStackDataHelper;
 
 import io.github.lounode.extrabotany.api.item.RewardBag;
 import io.github.lounode.extrabotany.client.LootDataPoolClient;
@@ -43,7 +45,12 @@ public class RewardBagItem extends Item implements RewardBag {
 		ItemStack stack = player.getItemInHand(usedHand);
 
 		if (!level.isClientSide()) {
-			LootTable table = level.getServer().getLootData().getLootTable(getLoot(stack));
+			ResourceKey<LootTable> lootTable = getLootTable(stack);
+			if (lootTable == null) {
+				return InteractionResultHolder.fail(stack);
+			}
+
+			LootTable table = level.getServer().reloadableRegistries().getLootTable(lootTable);
 			LootParams.Builder parameter = new LootParams.Builder((ServerLevel) level)
 					.withParameter(LootContextParams.THIS_ENTITY, player)
 					.withParameter(LootContextParams.ORIGIN, player.position())
@@ -64,8 +71,8 @@ public class RewardBagItem extends Item implements RewardBag {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
-		super.appendHoverText(stack, world, tooltip, flags);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, context, tooltip, flags);
 		//TODO 显示概率
 		ResourceLocation tableKey = getLoot(stack);
 		if (tableKey == null) {
@@ -84,7 +91,7 @@ public class RewardBagItem extends Item implements RewardBag {
 	@Nullable
 	public static ResourceLocation getLoot(ItemStack stack) {
 		if (stack.getItem() instanceof RewardBagItem bag) {
-			String tableKey = ItemNBTHelper.getString(stack, TAG_LOOT_TABLE, "");
+			String tableKey = ItemStackDataHelper.getString(stack, TAG_LOOT_TABLE, "");
 			if (!tableKey.isEmpty()) {
 				return ResourceLocation.tryParse(tableKey).withPrefix("reward_bags/");
 			} else {
@@ -92,6 +99,12 @@ public class RewardBagItem extends Item implements RewardBag {
 			}
 		}
 		return null;
+	}
+
+	@Nullable
+	public static ResourceKey<LootTable> getLootTable(ItemStack stack) {
+		ResourceLocation loot = getLoot(stack);
+		return loot == null ? null : ResourceKey.create(Registries.LOOT_TABLE, loot);
 	}
 
 	@Override

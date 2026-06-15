@@ -1,6 +1,8 @@
 package io.github.lounode.extrabotany.common.item.relic.void_archives.variants;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -10,10 +12,8 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.entity.ManaBurstEntity;
 
-import io.github.lounode.eventwrapper.event.entity.player.AttackEntityEventWrapper;
-import io.github.lounode.eventwrapper.event.entity.player.PlayerInteractEventWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.EventBusSubscriberWrapper;
-import io.github.lounode.eventwrapper.eventbus.api.SubscribeEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.player.AttackEntityEventWrapper;
+import io.github.lounode.extrabotany.common.event.entity.player.PlayerInteractEventWrapper;
 import io.github.lounode.extrabotany.api.item.VoidArchivesVariant;
 import io.github.lounode.extrabotany.common.item.ExtraBotanyItems;
 import io.github.lounode.extrabotany.common.item.relic.void_archives.VoidArchivesItem;
@@ -22,12 +22,15 @@ import io.github.lounode.extrabotany.common.util.AttributeUtil;
 import io.github.lounode.extrabotany.network.serverbound.LeftClickPacketVoidArchives;
 import io.github.lounode.extrabotany.xplat.ExClientXplatAbstractions;
 
-@EventBusSubscriberWrapper
+import static io.github.lounode.extrabotany.common.lib.ResourceLocationHelper.prefix;
+
 public class Excalibur implements VoidArchivesVariant {
 
 	public static Excalibur INSTANCE = new Excalibur();
 
 	private static final String ID = "excalibur";
+	private static final ResourceLocation SPEED_MODIFIER_ID = prefix("excalibur_speed");
+	private static final ResourceLocation ATTACK_DAMAGE_MODIFIER_ID = prefix("excalibur_attack_damage");
 
 	private static final int MANA_PER_DAMAGE = 200;
 
@@ -36,7 +39,11 @@ public class Excalibur implements VoidArchivesVariant {
 		return ID;
 	}
 
-	@SubscribeEventWrapper
+	@Override
+	public Component getName(ItemStack stack) {
+		return Component.translatable("item.extrabotany.void_archives.variant", Component.translatable("item.extrabotany.excalibur"));
+	}
+
 	public static void leftClick(PlayerInteractEventWrapper.LeftClickEmpty event) {
 		ItemStack stack = event.getItemStack();
 		if (!stack.isEmpty() && stack.getItem() instanceof VoidArchivesItem) {
@@ -44,7 +51,6 @@ public class Excalibur implements VoidArchivesVariant {
 		}
 	}
 
-	@SubscribeEventWrapper
 	public static void attackEntity(AttackEntityEventWrapper event) {
 		Player player = event.getEntity();
 		if (!player.level().isClientSide && player.getMainHandItem().getItem() instanceof VoidArchivesItem) {
@@ -71,7 +77,7 @@ public class Excalibur implements VoidArchivesVariant {
 		ManaBurstEntity burst = getBurst(player, player.getMainHandItem());
 		player.level().addFreshEntity(burst);
 
-		player.getMainHandItem().hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+		player.getMainHandItem().hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
 		player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ExtraBotanySounds.EXCALIBUR_ATTACK, SoundSource.PLAYERS, 1F, 1F);
 	}
 
@@ -101,20 +107,21 @@ public class Excalibur implements VoidArchivesVariant {
 	public void onActive(ItemStack stack) {
 		AttributeUtil.addAttributeModifier(stack, Attributes.MOVEMENT_SPEED,
 				new AttributeModifier(
-						"Excaliber modifier",
+						SPEED_MODIFIER_ID,
 						0.3D,
-						AttributeModifier.Operation.MULTIPLY_TOTAL
+						AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
 				), EquipmentSlot.MAINHAND);
 		AttributeUtil.addAttributeModifier(stack, Attributes.ATTACK_DAMAGE,
 				new AttributeModifier(
-						"Excaliber modifier",
+						ATTACK_DAMAGE_MODIFIER_ID,
 						15D,
-						AttributeModifier.Operation.ADDITION
+						AttributeModifier.Operation.ADD_VALUE
 				), EquipmentSlot.MAINHAND);
 	}
 
 	@Override
 	public void onInactive(ItemStack stack) {
-		AttributeUtil.removeAttributeModifier(stack, "Excaliber modifier");
+		AttributeUtil.removeAttributeModifier(stack, SPEED_MODIFIER_ID);
+		AttributeUtil.removeAttributeModifier(stack, ATTACK_DAMAGE_MODIFIER_ID);
 	}
 }

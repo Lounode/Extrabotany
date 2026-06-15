@@ -2,7 +2,7 @@ package io.github.lounode.extrabotany.data.patchouli;
 
 import com.demonwav.mcdev.annotations.Translatable;
 
-import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -63,8 +63,8 @@ public class PatchouliBuilder {
 		return this;
 	}
 
-	public PatchouliBuilder withAdvancement(Advancement advancement) {
-		this.advancement = advancement.getId();
+	public PatchouliBuilder withAdvancement(AdvancementHolder advancement) {
+		this.advancement = advancement.id();
 		return this;
 	}
 
