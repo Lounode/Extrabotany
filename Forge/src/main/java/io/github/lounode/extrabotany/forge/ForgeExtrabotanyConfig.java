@@ -150,7 +150,7 @@ public class ForgeExtrabotanyConfig {
 							示例：minecraft, sophisticatedbackpacks:backpack
 							Items or ModIDs that gaia ignore to check when spawn
 							e.g. minecraft, sophisticatedbackpacks:backpack""")
-					.defineList("gaiaSpawnUnCheckList", List.of("minecraft", "botania", "extrabotany"), o -> o instanceof String);
+					.defineList("gaiaSpawnUnCheckList", List.of("minecraft", "botania", "extrabotany", "mythicbotany"), o -> o instanceof String);
 			builder.pop();//End gaia
 
 			builder.push("fakePlayer");
