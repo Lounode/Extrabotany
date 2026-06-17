@@ -166,7 +166,7 @@ public class FabricExtraBotanyConfig {
 							Set true to disable Gaia's disarm
 							""")
 					.finishValue(disableGaiaDisArm::mirror)
-					.beginValue("gaiaSpawnUnCheckList", ConfigTypes.makeList(STRING), List.of("minecraft", "botania", "extrabotany"))
+					.beginValue("gaiaSpawnUnCheckList", ConfigTypes.makeList(STRING), List.of("minecraft", "botania", "extrabotany", "mythicbotany")))
 					.withComment("""
 							盖亚三生成时不检查的ModID或者物品
 							示例：minecraft, sophisticatedbackpacks:backpack
